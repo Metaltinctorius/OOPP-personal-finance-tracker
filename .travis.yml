@@ -1,0 +1,15 @@
+language: java
+
+jdk:
+  - openjdk21
+
+install:
+  - mvn install -DskipTests=true -B -V
+
+script:
+  - mvn checkstyle:check
+  - mvn test
+
+notifications:
+  email:
+    - gusandnio@student.gu.se
