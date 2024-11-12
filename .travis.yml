@@ -8,8 +8,6 @@ install:
 
 script:
   - mvn checkstyle:check
+  - mcn javadoc:javadoc
   - mvn test
 
-notifications:
-  email:
-    - gusandnio@student.gu.se
