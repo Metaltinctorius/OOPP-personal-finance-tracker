@@ -8,6 +8,6 @@ install:
 
 script:
   - mvn checkstyle:check
-  - mcn javadoc:javadoc
+  - mvn javadoc:javadoc
   - mvn test
 
