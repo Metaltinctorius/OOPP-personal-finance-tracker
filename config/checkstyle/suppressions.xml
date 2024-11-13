@@ -11,13 +11,13 @@
               lines="50-9999"/>
     <suppress checks="NewlineAtEndOfFile" files="src[/\\]test[/\\]resources[/\\].*"/>
     <suppress checks="MissingJavadocMethod"
-              files="src[/\\]main[/\\]java[/\\]gu[/\\]dit213group28[/\\].*\.java"/>
+              files="src[/\\]main[/\\]java[/\\]gu[/\\]dit213[/\\]group28[/\\].*\.java"/>
     <suppress checks="MissingJavadocMethod"
-              files="src[/\\]test[/\\]java[/\\]gu[/\\]dit213group28[/\\].*\.java"/>
+              files="src[/\\]test[/\\]java[/\\]gu[/\\]dit213[/\\]group28[/\\].*\.java"/>
     <suppress checks="MissingJavadocType"
-              files="src[/\\]main[/\\]java[/\\]gu[/\\]dit213group28[/\\].*\.java"/>
+              files="src[/\\]main[/\\]java[/\\]gu[/\\]dit213[/\\]group28[/\\].*\.java"/>
     <suppress checks="MissingJavadocType"
-              files="src[/\\]test[/\\]java[/\\]gu[/\\]dit213group28[/\\].*\.java"/>
+              files="src[/\\]test[/\\]java[/\\]gu[/\\]dit213[/\\]group28[/\\].*\.java"/>
     <!-- <suppress checks="LineLength" files="src[/\\]test[/\\]resources[/\\].*"/>
     <suppress checks="LineLength" files="src[/\\]main[/\\]resources[/\\].*"/> -->
 </suppressions>
