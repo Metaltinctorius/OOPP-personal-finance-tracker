@@ -1,6 +1,6 @@
 package model;
 
-public class Logic extends Observable implements IControllable {
+public class Logic extends Observable implements Icontrollable {
 
   /**
    * Very temporary model, only intended to show relationship between the different components of
@@ -45,7 +45,7 @@ public class Logic extends Observable implements IControllable {
    * shouldn't matter for now.
    */
   private void notifyObservers() {
-    for (IObserver observer : observers) {
+    for (Iobserver observer : observers) {
       observer.update(bee);
     }
   }

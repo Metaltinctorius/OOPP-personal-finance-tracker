@@ -6,7 +6,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.IObserver;
+import model.Iobserver;
 import model.Observable;
 
 /**
@@ -14,7 +14,7 @@ import model.Observable;
  * controller and view together here, very new to JavaFX so there is probably better ways to handle
  * all of this.
  */
-public class View implements IObserver {
+public class View implements Iobserver {
   private final Stage stage;
 
   View(Stage stage, Observable observable) {

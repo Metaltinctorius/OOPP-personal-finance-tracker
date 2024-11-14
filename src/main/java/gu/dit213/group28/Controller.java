@@ -7,7 +7,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import model.IControllable;
+import model.Icontrollable;
 
 /**
  * A controller class that initializes the JavaFX stage and passes it on to the view. Currently,
@@ -18,10 +18,10 @@ import model.IControllable;
  */
 public class Controller {
   private final Stage stage;
-  private final IControllable logic;
+  private final Icontrollable logic;
   private final View view;
 
-  Controller(Stage stage, IControllable logic, View view) {
+  Controller(Stage stage, Icontrollable logic, View view) {
     this.stage = stage;
     this.logic = logic;
     this.view = view;
