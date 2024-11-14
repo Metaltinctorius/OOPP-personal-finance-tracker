@@ -4,7 +4,7 @@ public class Logic extends Observable implements Icontrollable {
 
   /**
    * Very temporary model, only intended to show relationship between the different components of
-   * MVC
+   * MVC.
    */
   private String bee = "";
 
