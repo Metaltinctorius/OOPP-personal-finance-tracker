@@ -1,4 +1,4 @@
-package model;
+package gu.dit213.group28.model;
 
 public class Logic extends Observable implements Icontrollable {
 

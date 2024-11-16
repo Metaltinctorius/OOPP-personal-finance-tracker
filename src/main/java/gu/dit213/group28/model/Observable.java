@@ -1,4 +1,4 @@
-package model;
+package gu.dit213.group28.model;
 
 import java.util.ArrayList;
 import java.util.List;

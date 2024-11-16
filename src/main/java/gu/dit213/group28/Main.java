@@ -1,8 +1,8 @@
 package gu.dit213.group28;
 
+import gu.dit213.group28.model.Logic;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import model.Logic;
 
 public class Main extends Application {
 

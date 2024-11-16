@@ -1,4 +1,4 @@
-package model;
+package gu.dit213.group28.model;
 
 /**
  * This interface defines which methods the controller can reach. These methods whould be defined in

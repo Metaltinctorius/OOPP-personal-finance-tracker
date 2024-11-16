@@ -1,13 +1,13 @@
 package gu.dit213.group28;
 
+import gu.dit213.group28.model.Iobserver;
+import gu.dit213.group28.model.Observable;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.Iobserver;
-import model.Observable;
 
 /**
  * Very messy and temporary view that was thrown together for testing. Not 100% sure how to bind the
