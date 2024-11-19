@@ -2,41 +2,46 @@ package gu.dit213.group28.model;
 
 import gu.dit213.group28.model.enums.TransactionCategory;
 import gu.dit213.group28.model.enums.TransactionType;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
-import jdk.jfr.Category;
+
 
 
 /**
- * This class handles the transaction data it recieves from the user input, creates a transaction object and stores it in the database.
+ * This class handles the transaction data it receives from the user input, creates a transaction
+ * object and stores it in the database.
  */
 public class TransactionHandler
 {
   /**
-   * purpose of the global variable is to standardize date parsing and formatting across the TransactionHandler class
+   * purpose of the global variable is to standardize date parsing
+   * and formatting across the TransactionHandler class
    */
   private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-  // Kan göra att den tar in en lista av arguments istället (list of strings) och parsar varje data för sig.
+  // Kan göra att den tar in en lista av arguments istället (list of strings)
+  // och parsar varje data för sig.
   public Transaction createTransaction(List<String> args)
   {
     // First 3 arguments of any transaction must always contain an amount, a type and a date.
-    double amount = validateAmount(Double.parseDouble(args.get(0))); //parses the string to a double, validates the double, then stores it.
-    TransactionType type = parseAndValidateType(args.get(1));  // TODO: Implement a string parser for the type.
-    LocalDate date = parseAndValidateDate((args.get(2))); // Parses the string and validates it, creating an object of type LocalDate.
+    double amount = validateAmount(Double.parseDouble(
+        args.get(0))); //parses the string to a double, validates the double, then stores it.
+    TransactionType type =
+        parseAndValidateType(args.get(1));  // TODO: Implement a string parser for the type.
+    LocalDate date = parseAndValidateDate(
+        (args.get(2))); // Parses the string and validates it, creating an object of type LocalDate.
 
     // Creates a basic transaction that has the 3 required fields
-    Transaction.TransactionBuilder builder =  new Transaction.TransactionBuilder(amount, type, date);
+    Transaction.TransactionBuilder builder = new Transaction.TransactionBuilder(amount, type, date);
 
     //  TODO: Implement traversing for other fields in the argument list
-    for (int i = 3; i < args.size(); i++) {
+    for (int i = 3; i < args.size(); i++)
+    {
       String field = args.get(i).toLowerCase(); // Ensure case-insensitivity
 
-      switch (field) {
+      switch (field)
+      {
         case "category":
           TransactionCategory category = TransactionCategory.valueOf(args.get(++i).toUpperCase());
           builder.setCategory(category);
@@ -62,23 +67,22 @@ public class TransactionHandler
   /**
    * Takes in a string with the legal format "yyyy-mm-dd" and parses it to a date of type LocalDate
    *
-   * @param dateString
+   * @param dateString The input string received from the user
    * @return returns the date if the date is of correct format, otherwise throws an error.
    */
   public static LocalDate parseAndValidateDate(String dateString)
   {
-    if (dateString == null) {
+    if (dateString == null)
+    {
       dateString = LocalDate.now().toString(); // Default to today if date is not set
     }
     if (!dateString.matches("\\d{4}-\\d{2}-\\d{2}"))
     {
       throw new IllegalArgumentException("Invalid date format. Expected yyyy-MM-dd.");
     }
-
     try
     {
-      LocalDate date = LocalDate.parse(dateString, DATE_FORMAT);
-      return date; // Return the valid date
+      return LocalDate.parse(dateString, DATE_FORMAT); // Return the valid date
     } catch (Error e)
     {
       throw new IllegalArgumentException("Invalid date format. Expected yyyy-MM-dd.", e);
@@ -100,11 +104,11 @@ public class TransactionHandler
   public static TransactionType parseAndValidateType(String type)
   {
     String field = type.toLowerCase();
-    if (type.equals("expense"))
+    if (field.equals("expense"))
     {
       return TransactionType.EXPENSE;
     }
-    if (type.equals("income"))
+    if (field.equals("income"))
     {
       return TransactionType.INCOME;
     } else
