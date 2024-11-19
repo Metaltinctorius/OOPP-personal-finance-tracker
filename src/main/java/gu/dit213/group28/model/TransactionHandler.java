@@ -20,21 +20,15 @@ public class TransactionHandler {
   private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   private void createTransaction(){
-    double amount = 100;
-    TransactionType expense = TransactionType.EXPENSE;
-    LocalDate date = parseAndValidateDate("2024-11-11");
-    TransactionCategory category = TransactionCategory.RENT;
 
-
-    Transaction transaction = new Transaction.TransactionBuilder(amount, expense, date).setCategory(category).build();
-    Transaction transactionWithoutCategory = new Transaction.TransactionBuilder(amount, expense, date).build();
   }
 
 
-
-
-
-
+  /**
+   * Takes in a string with the legal format "yyyy-mm-dd" and parses it to a date of type LocalDate
+   * @param dateString
+   * @return
+   */
   public static LocalDate parseAndValidateDate(String dateString) {
     // Check if the dateString matches the expected format
     if (dateString == null || !dateString.matches("\\d{4}-\\d{2}-\\d{2}")) {
@@ -42,11 +36,9 @@ public class TransactionHandler {
     }
 
     try {
-      // Try to parse the date using the predefined format
       LocalDate date = LocalDate.parse(dateString, DATE_FORMAT);
       return date; // Return the valid date
     } catch (Error e) {
-      // Catch invalid date syntax errors
       throw new IllegalArgumentException("Invalid date format. Expected yyyy-MM-dd.", e);
     }
   }
