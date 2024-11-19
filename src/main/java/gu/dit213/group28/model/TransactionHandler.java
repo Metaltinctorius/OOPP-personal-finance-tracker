@@ -1,36 +1,53 @@
 package gu.dit213.group28.model;
 
+import com.mongodb.client.MongoCollection;
 import gu.dit213.group28.model.enums.TransactionCategory;
 import gu.dit213.group28.model.enums.TransactionType;
+import gu.dit213.group28.model.managers.MongoConnectionManager;
+import gu.dit213.group28.model.managers.TransactionDocumentManager;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
+import org.bson.Document;
 
 
 /**
  * This class handles the transaction data it receives from the user input, creates a transaction
  * object and stores it in the database.
  */
-public class TransactionHandler
-{
+public class TransactionHandler {
+
+  MongoConnectionManager mongoManager;
+  private final MongoCollection <Document> collection;
+
+  // CHANGE THE DATABASE NAME AND COLLECTION TO ONE THAT YOU WANT
+  String dbName = "tina_database";
+  String collectionName = "tina_transactions";
+  public TransactionHandler(){
+    this.mongoManager = new MongoConnectionManager(dbName);
+    this.collection = mongoManager.getDatabase().getCollection(collectionName);
+  }
   /**
    * purpose of the global variable is to standardize date parsing
    * and formatting across the TransactionHandler class
    */
   private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-  // Kan göra att den tar in en lista av arguments istället (list of strings)
-  // och parsar varje data för sig.
-  public Transaction createTransaction(List<String> args)
+
+
+  public void insertTransaction(List<String> args){
+    Transaction transaction = parseTransaction(args); // Parses the input, returns a Transaction object
+    Document doc = TransactionDocumentManager.toDocument(transaction); // Creates the document that can be stored in the database
+    collection.insertOne(doc); // Data stored.
+
+  }
+
+  public Transaction parseTransaction(List<String> args)
   {
     // First 3 arguments of any transaction must always contain an amount, a type and a date.
-    double amount = validateAmount(Double.parseDouble(
-        args.get(0))); //parses the string to a double, validates the double, then stores it.
-    TransactionType type =
-        parseAndValidateType(args.get(1));  // TODO: Implement a string parser for the type.
-    LocalDate date = parseAndValidateDate(
-        (args.get(2))); // Parses the string and validates it, creating an object of type LocalDate.
+    double amount = validateAmount(Double.parseDouble(args.get(0))); //parses the string to a double, validates the double, then stores it.
+    TransactionType type = parseAndValidateType(args.get(1));  // TODO: Implement a string parser for the type.
+    LocalDate date = parseAndValidateDate((args.get(2))); // Parses the string and validates it, creating an object of type LocalDate.
 
     // Creates a basic transaction that has the 3 required fields
     Transaction.TransactionBuilder builder = new Transaction.TransactionBuilder(amount, type, date);

@@ -189,7 +189,7 @@ public class TransactionsTest
 
 
   @Test
-  public void testCreateTransactionViaHandler(){
+  public void testParseTransactionViaHandler(){
     String amount = "100";
     String type = "expense";
     String date = "2024-01-12";
@@ -202,7 +202,7 @@ public class TransactionsTest
     TransactionHandler handler = new TransactionHandler();
 
     LocalDate expectedDate = LocalDate.of(2024, 01, 12);
-    Transaction transaction = handler.createTransaction(args);
+    Transaction transaction = handler.parseTransaction(args);
 
     Assertions.assertEquals(transaction.getType(), TransactionType.EXPENSE);
     Assertions.assertEquals(transaction.getAmount(), 100);
