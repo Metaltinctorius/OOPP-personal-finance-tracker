@@ -78,6 +78,24 @@
                     <configuration>
                         <mainClass>gu.dit213.group28.Main</mainClass>
                     </configuration>
+                    <executions>
+                            <execution>
+                                <id>run</id>
+                                <phase>validate</phase>
+                                <configuration>
+                                    <!-- You can leave the configuration here empty, as it will inherit from the plugin's main configuration -->
+                                </configuration>
+                            </execution>
+                            <execution>
+                            <id>debug</id>
+                            <phase>validate</phase>
+                            <configuration>
+                                <options>
+                                    <option>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005</option>
+                                </options>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
                 <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
                 <plugin>
