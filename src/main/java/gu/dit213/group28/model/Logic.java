@@ -1,5 +1,7 @@
 package gu.dit213.group28.model;
 
+import java.util.List;
+
 public class Logic extends Observable implements Icontrollable {
 
   /**
@@ -48,5 +50,9 @@ public class Logic extends Observable implements Icontrollable {
     for (Iobserver observer : observers) {
       observer.update(bee);
     }
+  }
+
+  @Override
+  public void insertTransaction(List<String> args) {
   }
 }
