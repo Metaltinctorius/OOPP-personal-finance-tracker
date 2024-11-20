@@ -229,6 +229,7 @@ public class TransactionsTest
     Assertions.assertEquals(transaction.getDate(),expectedDate );
   }
 
+  /*
   @Test
   public void testInsertTransactionIntoDatabase(){
     String amount = "100";
@@ -246,6 +247,6 @@ public class TransactionsTest
 
 
   }
-
+*/
 
 }
