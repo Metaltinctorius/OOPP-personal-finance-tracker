@@ -170,6 +170,26 @@ public class TransactionsTest
   }
 
   @Test
+  public void testTransactionTypeConstructor()
+  {
+    double amount = 100; // VALID
+    String type = "expense";
+    String date = "2024-11-11";
+
+    final boolean[] createdTransaction = {false};
+
+    LocalDate ldate = handler.parseAndValidateDate(date);
+
+    TransactionType parsedType = TransactionType.fromValue(type);
+
+    Transaction transaction = new Transaction.TransactionBuilder(amount, parsedType, ldate).build();
+    createdTransaction[0] = true;
+
+    assertEquals(TransactionType.EXPENSE, transaction.getType());
+    Assertions.assertTrue(createdTransaction[0]);
+  }
+
+  @Test
   public void testTransactionTypeWithFlippedType()
   {
     double amount = 100; // VALID
