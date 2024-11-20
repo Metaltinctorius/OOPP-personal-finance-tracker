@@ -4,7 +4,7 @@ import com.mongodb.client.MongoCollection;
 import gu.dit213.group28.model.enums.TransactionCategory;
 import gu.dit213.group28.model.enums.TransactionType;
 import gu.dit213.group28.model.managers.MongoConnectionManager;
-import gu.dit213.group28.model.managers.TransactionDocumentManager;
+import gu.dit213.group28.model.managers.DocumentTransformer;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -20,13 +20,6 @@ public class TransactionHandler {
   MongoConnectionManager mongoManager;
   private final MongoCollection <Document> collection;
 
-  // CHANGE THE DATABASE NAME AND COLLECTION TO ONE THAT YOU WANT
-  String dbName = "tina_database";
-  String collectionName = "tina_transactions";
-  public TransactionHandler(){
-    this.mongoManager = new MongoConnectionManager(dbName);
-    this.collection = mongoManager.getDatabase().getCollection(collectionName);
-  }
   /**
    * purpose of the global variable is to standardize date parsing
    * and formatting across the TransactionHandler class
@@ -34,10 +27,24 @@ public class TransactionHandler {
   private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 
+  // CHANGE THE DATABASE NAME AND COLLECTION TO ONE THAT YOU WANT
+  String dbName = "tina_database";
+  String collectionName = "tina_transactions";
+  public TransactionHandler(){
+    this.mongoManager = new MongoConnectionManager(dbName);
+    this.collection = mongoManager.getDatabase().getCollection(collectionName);
+  }
 
+  // --------- DATABASE INTERACTION METHODS --------- //
+
+  /**
+   * Takes a list of strings as an argument and creates a transaction type,
+   * this transaction type is then transformed to a Document type and inserted into mongodb
+   * @param args List of strings received from the user input.
+   */
   public void insertTransaction(List<String> args){
-    Transaction transaction = parseTransaction(args); // Parses the input, returns a Transaction object
-    Document doc = TransactionDocumentManager.toDocument(transaction); // Creates the document that can be stored in the database
+    Transaction transaction = parseTransactionArguments(args); // Parses the input, returns a Transaction object
+    Document doc = DocumentTransformer.toDocument(transaction); // Creates the document that can be stored in the database
     collection.insertOne(doc); // Data stored.
 
   }
@@ -46,7 +53,7 @@ public class TransactionHandler {
     collection.find(); // TODO, convert it back to Transaction object or leave it as a json doc?
   }
 
-  public Transaction parseTransaction(List<String> args)
+  public Transaction parseTransactionArguments(List<String> args)
   {
     // First 3 arguments of any transaction must always contain an amount, a type and a date.
     double amount = validateAmount(Double.parseDouble(args.get(0))); //parses the string to a double, validates the double, then stores it.
@@ -112,7 +119,7 @@ public class TransactionHandler {
 
   public static double validateAmount(double amount)
   {
-    if (amount > 0)
+    if (amount >= 0)
     {
       return amount;
     } else

@@ -202,7 +202,7 @@ public class TransactionsTest
     TransactionHandler handler = new TransactionHandler();
 
     LocalDate expectedDate = LocalDate.of(2024, 01, 12);
-    Transaction transaction = handler.parseTransaction(args);
+    Transaction transaction = handler.parseTransactionArguments(args);
 
     Assertions.assertEquals(transaction.getType(), TransactionType.EXPENSE);
     Assertions.assertEquals(transaction.getAmount(), 100);
