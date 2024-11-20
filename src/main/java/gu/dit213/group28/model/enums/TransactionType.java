@@ -8,26 +8,26 @@ public enum TransactionType {
 
   private final String value;
 
-  TransactionType(String value){
+  TransactionType(String value) {
     this.value = value;
   }
 
-  public String getValue(){
+  public String getValue() {
     return value;
   }
 
   @Override
-  public String toString(){
+  public String toString() {
     return value;
   }
 
-  public static TransactionType fromValue(String value){
-    for (TransactionType type : TransactionType.values()){
-      if(type.value.equalsIgnoreCase(value)){
+  public static TransactionType fromValue(String value) {
+    for (TransactionType type : TransactionType.values()) {
+      if (type.value.equalsIgnoreCase(value)) {
         return type;
       }
     }
-    throw new IllegalArgumentException("Wrong transaction type, must be either 'EXPENSE', or 'INCOME'");
+    throw new IllegalArgumentException(
+        "Wrong transaction type, must be either 'EXPENSE', or 'INCOME'");
   }
-
 }

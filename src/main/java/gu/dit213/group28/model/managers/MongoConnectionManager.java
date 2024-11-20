@@ -9,16 +9,16 @@ public class MongoConnectionManager {
   MongoClient mongoClient;
   MongoDatabase database;
 
-  public MongoConnectionManager(String dbName){
+  public MongoConnectionManager(String dbName) {
     mongoClient = MongoConfig.getMongoClient();
     database = mongoClient.getDatabase(dbName);
   }
 
-  public MongoDatabase getDatabase(){
+  public MongoDatabase getDatabase() {
     return database;
   }
-  public void close(){
+
+  public void close() {
     mongoClient.close();
   }
-
 }

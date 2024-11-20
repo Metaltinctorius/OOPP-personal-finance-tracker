@@ -14,31 +14,25 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class TransactionsTest
-{
+public class TransactionsTest {
 
   private TransactionHandler handler;
 
   @BeforeEach
-  public void setup()
-  {
+  public void setup() {
     TransactionHandler handler = new TransactionHandler();
   }
 
-  /**
-   *
-   */
+  /** */
   @Test
-  public void testTransactionCreationWithCategory()
-  {
+  public void testTransactionCreationWithCategory() {
     double amount = 100.0;
     TransactionType type = TransactionType.EXPENSE;
     LocalDate date = LocalDate.of(2024, 11, 11);
     TransactionCategory category = TransactionCategory.RENT;
 
-    Transaction transaction = new Transaction.TransactionBuilder(amount, type, date)
-        .setCategory(category)
-        .build();
+    Transaction transaction =
+        new Transaction.TransactionBuilder(amount, type, date).setCategory(category).build();
 
     assertEquals(amount, transaction.getAmount());
     assertEquals(type, transaction.getType());
@@ -47,8 +41,7 @@ public class TransactionsTest
   }
 
   @Test
-  public void testTransactionCreationWithOutCategory()
-  {
+  public void testTransactionCreationWithOutCategory() {
     double amount = 100.0;
     TransactionType type = TransactionType.EXPENSE;
     LocalDate date = LocalDate.of(2024, 11, 11);
@@ -61,33 +54,32 @@ public class TransactionsTest
   }
 
   /**
-   * Test should be caught by the handler and throw an exception, and not create an object with bad date input.
+   * Test should be caught by the handler and throw an exception, and not create an object with bad
+   * date input.
    */
   @Test
-  public void testTransactionWithInvalidDate()
-  {
+  public void testTransactionWithInvalidDate() {
     double amount = 100;
     TransactionType type = TransactionType.EXPENSE;
     String date = "20241111"; // Invalid date
 
     final boolean[] createdTransaction = {false};
 
-    Assertions.assertThrows(IllegalArgumentException.class, () -> {
-      LocalDate ldate = handler.parseAndValidateDate(date); // Should throw an error
+    Assertions.assertThrows(
+        IllegalArgumentException.class,
+        () -> {
+          LocalDate ldate = handler.parseAndValidateDate(date); // Should throw an error
 
-      new Transaction.TransactionBuilder(amount, type, ldate).build(); // Should not reach here
-      createdTransaction[0] = true;
-    });
+          new Transaction.TransactionBuilder(amount, type, ldate).build(); // Should not reach here
+          createdTransaction[0] = true;
+        });
     // from this we can assert that the transaction object was never created due to invalid date
     Assertions.assertFalse(createdTransaction[0]);
   }
 
-  /**
-   * Test to create a Transaction object with a valid date
-   */
+  /** Test to create a Transaction object with a valid date */
   @Test
-  public void testTransactionWithValidDate()
-  {
+  public void testTransactionWithValidDate() {
     double amount = 100;
     TransactionType type = TransactionType.EXPENSE;
     String date = "2024-11-11"; // VALID
@@ -104,34 +96,29 @@ public class TransactionsTest
     Assertions.assertTrue(createdTransaction[0]);
   }
 
-
-  /**
-   * Test to create a transaction object with an invalid amount
-   */
+  /** Test to create a transaction object with an invalid amount */
   @Test
-  public void testCreateTestWithInvalidAmount()
-  {
+  public void testCreateTestWithInvalidAmount() {
     double amount = -100; // Invalid amount
     TransactionType type = TransactionType.EXPENSE;
     LocalDate date = LocalDate.of(2024, 11, 11);
 
     final boolean[] createdTransaction = {false};
 
-    Assertions.assertThrows(IllegalArgumentException.class, () -> {
-      double result = handler.validateAmount(amount);  // Should throw and error
-      // This should throw an exception due to the negative amount
-      new Transaction.TransactionBuilder(result, type, date).build(); // Should never reach here
-      createdTransaction[0] = true;
-    });
+    Assertions.assertThrows(
+        IllegalArgumentException.class,
+        () -> {
+          double result = handler.validateAmount(amount); // Should throw and error
+          // This should throw an exception due to the negative amount
+          new Transaction.TransactionBuilder(result, type, date).build(); // Should never reach here
+          createdTransaction[0] = true;
+        });
     Assertions.assertFalse(createdTransaction[0]);
   }
 
-  /**
-   * Test to create a transaction object with a valid amount
-   */
+  /** Test to create a transaction object with a valid amount */
   @Test
-  public void testTransactionWithValidAmount()
-  {
+  public void testTransactionWithValidAmount() {
     double amount = 100; // VALID
     TransactionType type = TransactionType.EXPENSE;
     String date = "2024-11-11";
@@ -147,13 +134,9 @@ public class TransactionsTest
     Assertions.assertTrue(createdTransaction[0]);
   }
 
-
-  /**
-   * Test that just checks that the input type is still of type TransactionType and the same
-   */
+  /** Test that just checks that the input type is still of type TransactionType and the same */
   @Test
-  public void testTransactionType()
-  {
+  public void testTransactionType() {
     double amount = 100; // VALID
     TransactionType type = TransactionType.EXPENSE;
     String date = "2024-11-11";
@@ -170,8 +153,7 @@ public class TransactionsTest
   }
 
   @Test
-  public void testTransactionTypeConstructor()
-  {
+  public void testTransactionTypeConstructor() {
     double amount = 100; // VALID
     String type = "expense";
     String date = "2024-11-11";
@@ -190,8 +172,7 @@ public class TransactionsTest
   }
 
   @Test
-  public void testTransactionTypeWithFlippedType()
-  {
+  public void testTransactionTypeWithFlippedType() {
     double amount = 100; // VALID
     TransactionType type = TransactionType.INCOME;
     String date = "2024-11-11";
@@ -207,9 +188,8 @@ public class TransactionsTest
     Assertions.assertTrue(createdTransaction[0]);
   }
 
-
   @Test
-  public void testParseTransactionViaHandler(){
+  public void testParseTransactionViaHandler() {
     String amount = "100";
     String type = "expense";
     String date = "2024-01-12";
@@ -226,27 +206,27 @@ public class TransactionsTest
 
     Assertions.assertEquals(transaction.getType(), TransactionType.EXPENSE);
     Assertions.assertEquals(transaction.getAmount(), 100);
-    Assertions.assertEquals(transaction.getDate(),expectedDate );
+    Assertions.assertEquals(transaction.getDate(), expectedDate);
   }
 
   /*
-  @Test
-  public void testInsertTransactionIntoDatabase(){
-    String amount = "100";
-    String type = "expense";
-    String date = "2024-02-02";
+    @Test
+    public void testInsertTransactionIntoDatabase(){
+      String amount = "100";
+      String type = "expense";
+      String date = "2024-02-02";
 
-    List<String> args = new ArrayList<>();
-    args.add(amount);
-    args.add(type);
-    args.add(date);
+      List<String> args = new ArrayList<>();
+      args.add(amount);
+      args.add(type);
+      args.add(date);
 
-    TransactionHandler handler = new TransactionHandler();
-    handler.insertTransaction(args);
-    handler.getAllTransactions();
+      TransactionHandler handler = new TransactionHandler();
+      handler.insertTransaction(args);
+      handler.getAllTransactions();
 
 
-  }
-*/
+    }
+  */
 
 }

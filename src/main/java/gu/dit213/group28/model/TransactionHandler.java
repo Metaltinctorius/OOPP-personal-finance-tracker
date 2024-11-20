@@ -14,7 +14,7 @@ import org.bson.Document;
  * This class handles the transaction data it receives from the user input, creates a transaction
  * object and stores it in the database.
  */
-public class TransactionHandler {
+public class TransactionHandler implements Icontrollable {
 
   MongoConnectionManager mongoManager;
   private final MongoCollection<Document> collection;
