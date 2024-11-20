@@ -4,49 +4,36 @@ import gu.dit213.group28.model.enums.TransactionCategory;
 import gu.dit213.group28.model.enums.TransactionType;
 import java.time.LocalDate;
 
-public class Transaction
-{
+public class Transaction {
 
-
-  /**
-   * Required parameter
-   */
+  /** Required parameter */
   private double amount;
 
-  /**
-   * Required paramter
-   */
+  /** Required paramter */
   private TransactionType type;
 
-  /**
-   * Required paramter
-   */
+  /** Required paramter */
   private LocalDate date;
 
-
-  /**
-   * Optional Paramter
-   */
+  /** Optional Paramter */
   private TransactionCategory category;
 
-
-  private Transaction(TransactionBuilder builder)
-  {
+  private Transaction(TransactionBuilder builder) {
     this.amount = builder.amount;
     this.type = builder.type;
     this.date = builder.date;
     this.category = builder.category;
   }
 
-  public double getAmount(){
+  public double getAmount() {
     return amount;
   }
 
-  public TransactionType getType(){
+  public TransactionType getType() {
     return type;
   }
 
-  public LocalDate getDate(){
+  public LocalDate getDate() {
     return date;
   }
 
@@ -54,8 +41,9 @@ public class Transaction
     return category;
   }
 
-  // Builder class, based on: https://www.digitalocean.com/community/tutorials/builder-design-pattern-in-java
-  public static class TransactionBuilder{
+  // Builder class, based on:
+  // https://www.digitalocean.com/community/tutorials/builder-design-pattern-in-java
+  public static class TransactionBuilder {
 
     // Required
     private double amount;
@@ -65,17 +53,18 @@ public class Transaction
     // Optional
     private TransactionCategory category;
 
-    public TransactionBuilder(double amount, TransactionType type, LocalDate date){
+    public TransactionBuilder(double amount, TransactionType type, LocalDate date) {
       this.amount = amount;
       this.type = type;
       this.date = date;
     }
-    public TransactionBuilder setCategory(TransactionCategory category){
+
+    public TransactionBuilder setCategory(TransactionCategory category) {
       this.category = category;
       return this;
     }
 
-    public Transaction build(){
+    public Transaction build() {
       return new Transaction(this);
     }
   }
