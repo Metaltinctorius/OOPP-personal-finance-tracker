@@ -209,5 +209,23 @@ public class TransactionsTest
     Assertions.assertEquals(transaction.getDate(),expectedDate );
   }
 
+  @Test
+  public void testInsertTransactionIntoDatabase(){
+    String amount = "100";
+    String type = "expense";
+    String date = "2024-02-02";
+
+    List<String> args = new ArrayList<>();
+    args.add(amount);
+    args.add(type);
+    args.add(date);
+
+    TransactionHandler handler = new TransactionHandler();
+    handler.insertTransaction(args);
+    handler.getAllTransactions();
+
+
+  }
+
 
 }

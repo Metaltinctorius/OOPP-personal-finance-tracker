@@ -42,6 +42,10 @@ public class TransactionHandler {
 
   }
 
+  public void getAllTransactions(){
+    collection.find(); // TODO, convert it back to Transaction object or leave it as a json doc?
+  }
+
   public Transaction parseTransaction(List<String> args)
   {
     // First 3 arguments of any transaction must always contain an amount, a type and a date.
