@@ -1,19 +1,23 @@
 package gu.dit213.group28;
 
 import gu.dit213.group28.model.Icontrollable;
+import java.time.LocalDate;
 import java.util.List;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 /**
@@ -38,8 +42,9 @@ public class Controller {
 
   private void initStage() {
     BorderPane root = new BorderPane();
-    root.setBottom(createButtonPanel());
+    root.setBottom(createLowerButtonPanel());
     root.setCenter(createCenterGrid());
+    root.setTop(createUpperButtonPanel());
 
     Scene scene = new Scene(root, 640, 480);
     stage.setScene(scene);
@@ -47,7 +52,7 @@ public class Controller {
     view.initView();
   }
 
-  private HBox createButtonPanel() {
+  private HBox createLowerButtonPanel() {
     HBox buttonPanel = new HBox();
     buttonPanel.setPadding(new Insets(15, 12, 15, 12));
     buttonPanel.setSpacing(10);
@@ -61,64 +66,100 @@ public class Controller {
     b2.setPrefSize(100, 20);
     b2.setOnAction(event -> logic.beeTwo());
 
-    Button edit = new Button("edit");
-    edit.setPrefSize(100, 20);
-    edit.setOnAction(
-        event -> {
-          // Using list in case we want to add more fields in the future
-          Dialog<List<String>> dialog = new Dialog<>();
-          TextInputDialog inputDialog = new TextInputDialog();
-          inputDialog.setTitle("Edit");
-          inputDialog.setHeaderText("Enter amount transaction type and date");
+    Button b3 = new Button("Make Transaction");
+    b3.setPrefSize(150, 20);
+    b3.setOnAction(event -> createTransactionDialog());
 
-          ButtonType okButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
-          dialog.getDialogPane().getButtonTypes().addAll(okButtonType, ButtonType.CANCEL);
+    Button b4 = new Button("info");
+    b4.setPrefSize(100, 20);
+    // do some setOnAction stuff here
 
-          // Input fields for the dialog box
-          TextField amount = new TextField();
-          amount.setPromptText("Amount");
+    Region spacer = new Region();
+    HBox.setHgrow(spacer, Priority.ALWAYS);
 
-          TextField income = new TextField();
-          income.setPromptText("Income");
+    buttonPanel.getChildren().addAll(b1, b2, b3, spacer, b4);
+    return buttonPanel;
+  }
 
-          TextField date = new TextField();
-          date.setPromptText("Date");
+  private HBox createUpperButtonPanel() {
+    HBox buttonPanel = new HBox();
+    buttonPanel.setPadding(new Insets(15, 12, 15, 12));
+    buttonPanel.setSpacing(10);
+    buttonPanel.setStyle("-fx-background-color: #336699;");
 
-          GridPane grid = new GridPane();
-          grid.setHgap(10);
-          grid.setVgap(10);
-          grid.add(new Label("Amount"), 0, 0);
-          grid.add(amount, 1, 0);
-          grid.add(new Label("Income:"), 0, 1);
-          grid.add(income, 1, 1);
-          grid.add(new Label("Date:"), 0, 2);
-          grid.add(date, 1, 2);
+    Button modeB1 = new Button("Mode Button 1");
+    modeB1.setPrefSize(150, 20);
+    // do some setOnAction stuff here
 
-          dialog.getDialogPane().setContent(grid);
+    Button modeB2 = new Button("Mode Button 2");
+    modeB2.setPrefSize(150, 20);
+    // do some setOnAction stuff here
 
-          dialog.setResultConverter(
-              dialogButton -> {
-                if (dialogButton == okButtonType) {
-                  // Dialog box consists of two fields, income and expense, return them as a list
-                  // Might have to change this depending on how we want to handle the data
-                  return List.of(amount.getText(), income.getText(), date.getText());
-                }
-                return null;
-              });
+    Button modeB3 = new Button("Mode Button 3");
+    modeB3.setPrefSize(150, 20);
+    // do some setOnAction stuff here
 
-          // Depending on how we want to handle the data, this part probably needs to be changed.
-          dialog
-              .showAndWait()
-              .ifPresent(
-                  inputList -> {
-                    System.out.println("Amount: " + inputList.get(0));
-                    System.out.println("TransactionType: " + inputList.get(1));
-                    System.out.println("Date:" + inputList.get(2));
-                  });
+    Region spacer = new Region();
+    HBox.setHgrow(spacer, Priority.ALWAYS);
+
+    buttonPanel.getChildren().addAll(spacer, modeB1, modeB2, modeB3);
+
+    return buttonPanel;
+  }
+
+  // TODO: Decide on how to handle exceptions and where to do it
+  private void createTransactionDialog() {
+    Dialog<List<String>> dialog = new Dialog<>();
+    dialog.setHeaderText("Enter amount, transaction type and date");
+
+    ButtonType okButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+    dialog.getDialogPane().getButtonTypes().addAll(okButtonType, ButtonType.CANCEL);
+
+    // Different box types for the fields in the dialog box
+    TextField amount = new TextField();
+    amount.setPromptText("Amount");
+
+    ComboBox<String> transactionType = new ComboBox<>();
+    transactionType.getItems().addAll("Income", "Expense");
+    transactionType.setPromptText("Transaction Type");
+
+    DatePicker date = new DatePicker();
+    date.setValue(LocalDate.now());
+    date.setPromptText("Select Date");
+
+    GridPane grid = new GridPane();
+    grid.setHgap(10);
+    grid.setVgap(10);
+    grid.add(new Label("Amount"), 0, 0);
+    grid.add(amount, 1, 0);
+    grid.add(new Label("Type"), 0, 1);
+    grid.add(transactionType, 1, 1);
+    grid.add(new Label("Date:"), 0, 2);
+    grid.add(date, 1, 2);
+
+    dialog.getDialogPane().setContent(grid);
+
+    dialog.setResultConverter(
+        dialogButton -> {
+          if (dialogButton == okButtonType) {
+            // Dialog box consists of two fields, income and expense, return them as a list
+            // Might have to change this depending on how we want to handle the data
+            return List.of(
+                amount.getText(), transactionType.getValue(), date.getValue().toString());
+          }
+          return null;
         });
 
-    buttonPanel.getChildren().addAll(b1, b2, edit);
-    return buttonPanel;
+    // Send to the model with something like model.someMethod(inputList); when
+    // we know what the model looks like.
+    dialog
+        .showAndWait()
+        .ifPresent(
+            inputList -> {
+              System.out.println("Amount: " + inputList.get(0));
+              System.out.println("TransactionType: " + inputList.get(1));
+              System.out.println("Date:" + inputList.get(2));
+            });
   }
 
   private GridPane createCenterGrid() {
