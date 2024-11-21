@@ -3,8 +3,8 @@ package gu.dit213.group28.model;
 import com.mongodb.client.MongoCollection;
 import gu.dit213.group28.model.enums.TransactionCategory;
 import gu.dit213.group28.model.enums.TransactionType;
-import gu.dit213.group28.model.managers.MongoConnectionManager;
 import gu.dit213.group28.model.managers.DocumentTransformer;
+import gu.dit213.group28.model.managers.MongoConnectionManager;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -14,14 +14,14 @@ import org.bson.Document;
  * This class handles the transaction data it receives from the user input, creates a transaction
  * object and stores it in the database.
  */
-public class TransactionHandler implements Icontrollable {
+public class TransactionHandler extends Observable implements Icontrollable {
 
   MongoConnectionManager mongoManager;
   private final MongoCollection<Document> collection;
 
   /**
    * purpose of the global variable is to standardize date parsing and formatting across the
-   * TransactionHandler class
+   * TransactionHandler class.
    */
   private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -38,7 +38,7 @@ public class TransactionHandler implements Icontrollable {
 
   /**
    * Takes a list of strings as an argument and creates a transaction type, this transaction type is
-   * then transformed to a Document type and inserted into mongodb
+   * then transformed to a Document type and inserted into mongodb.
    *
    * @param args List of strings received from the user input.
    */
@@ -99,12 +99,12 @@ public class TransactionHandler implements Icontrollable {
   }
 
   /**
-   * Takes in a string with the legal format "yyyy-mm-dd" and parses it to a date of type LocalDate
+   * Takes in a string with the legal format "yyyy-mm-dd" and parses it to a date of type LocalDate.
    *
    * @param dateString The input string received from the user
    * @return returns the date if the date is of correct format, otherwise throws an error.
    */
-  public static LocalDate parseAndValidateDate(String dateString) {
+  public LocalDate parseAndValidateDate(String dateString) {
     if (dateString == null) {
       dateString = LocalDate.now().toString(); // Default to today if date is not set
     }
@@ -118,7 +118,7 @@ public class TransactionHandler implements Icontrollable {
     }
   }
 
-  public static double validateAmount(double amount) {
+  public double validateAmount(double amount) {
     if (amount >= 0) {
       return amount;
     } else {
@@ -127,7 +127,7 @@ public class TransactionHandler implements Icontrollable {
   }
 
   // KOMMER ANTAGLIGEN ATT ÄNDRAS TILL ATT BLI EN PARSER FÖR STRING INPUTS ISTÄLLET //
-  public static TransactionType parseAndValidateType(String type) {
+  public TransactionType parseAndValidateType(String type) {
     String field = type.toLowerCase();
     if (field.equals("expense")) {
       return TransactionType.EXPENSE;

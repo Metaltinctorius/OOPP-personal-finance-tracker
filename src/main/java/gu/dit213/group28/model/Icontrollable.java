@@ -7,5 +7,6 @@ import java.util.List;
  * the model and called in the controller.
  */
 public interface Icontrollable {
-   void insertTransaction(List<String> args);
+
+  void insertTransaction(List<String> args);
 }

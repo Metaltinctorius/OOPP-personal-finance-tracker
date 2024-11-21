@@ -1,7 +1,6 @@
-package gu.dit213.group28.TransactionTest;
+package gu.dit213.group28.transactiontest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import gu.dit213.group28.model.Transaction;
 import gu.dit213.group28.model.TransactionHandler;
@@ -20,10 +19,10 @@ public class TransactionsTest {
 
   @BeforeEach
   public void setup() {
-    TransactionHandler handler = new TransactionHandler();
+    handler = new TransactionHandler();
   }
 
-  /** */
+  /** Test create transaction with optional parameter category. */
   @Test
   public void testTransactionCreationWithCategory() {
     double amount = 100.0;
@@ -77,26 +76,21 @@ public class TransactionsTest {
     Assertions.assertFalse(createdTransaction[0]);
   }
 
-  /** Test to create a Transaction object with a valid date */
+  /** Test to create a Transaction object with a valid date. */
   @Test
   public void testTransactionWithValidDate() {
     double amount = 100;
     TransactionType type = TransactionType.EXPENSE;
     String date = "2024-11-11"; // VALID
 
-    final boolean[] createdTransaction = {false};
-
     LocalDate ldate = handler.parseAndValidateDate(date); // Should throw an error
-
     Transaction transaction =
         new Transaction.TransactionBuilder(amount, type, ldate).build(); // Should not reach here
-    createdTransaction[0] = true;
 
     assertEquals(ldate, transaction.getDate());
-    Assertions.assertTrue(createdTransaction[0]);
   }
 
-  /** Test to create a transaction object with an invalid amount */
+  /** Test to create a transaction object with an invalid amount. */
   @Test
   public void testCreateTestWithInvalidAmount() {
     double amount = -100; // Invalid amount
@@ -116,40 +110,28 @@ public class TransactionsTest {
     Assertions.assertFalse(createdTransaction[0]);
   }
 
-  /** Test to create a transaction object with a valid amount */
+  /** Test to create a transaction object with a valid amount. */
   @Test
   public void testTransactionWithValidAmount() {
     double amount = 100; // VALID
     TransactionType type = TransactionType.EXPENSE;
     String date = "2024-11-11";
 
-    final boolean[] createdTransaction = {false};
-
     LocalDate ldate = handler.parseAndValidateDate(date);
-
     Transaction transaction = new Transaction.TransactionBuilder(amount, type, ldate).build();
-    createdTransaction[0] = true;
-
-    assertEquals(100, transaction.getAmount());
-    Assertions.assertTrue(createdTransaction[0]);
+    assertEquals(amount, transaction.getAmount());
   }
 
-  /** Test that just checks that the input type is still of type TransactionType and the same */
+  /** Test that just checks that the input type is still of type TransactionType and the same. */
   @Test
   public void testTransactionType() {
     double amount = 100; // VALID
     TransactionType type = TransactionType.EXPENSE;
     String date = "2024-11-11";
 
-    final boolean[] createdTransaction = {false};
-
     LocalDate ldate = handler.parseAndValidateDate(date);
-
     Transaction transaction = new Transaction.TransactionBuilder(amount, type, ldate).build();
-    createdTransaction[0] = true;
-
     assertEquals(TransactionType.EXPENSE, transaction.getType());
-    Assertions.assertTrue(createdTransaction[0]);
   }
 
   @Test
@@ -158,17 +140,10 @@ public class TransactionsTest {
     String type = "expense";
     String date = "2024-11-11";
 
-    final boolean[] createdTransaction = {false};
-
     LocalDate ldate = handler.parseAndValidateDate(date);
-
     TransactionType parsedType = TransactionType.fromValue(type);
-
     Transaction transaction = new Transaction.TransactionBuilder(amount, parsedType, ldate).build();
-    createdTransaction[0] = true;
-
     assertEquals(TransactionType.EXPENSE, transaction.getType());
-    Assertions.assertTrue(createdTransaction[0]);
   }
 
   @Test
@@ -177,15 +152,9 @@ public class TransactionsTest {
     TransactionType type = TransactionType.INCOME;
     String date = "2024-11-11";
 
-    final boolean[] createdTransaction = {false};
-
     LocalDate ldate = handler.parseAndValidateDate(date);
-
     Transaction transaction = new Transaction.TransactionBuilder(amount, type, ldate).build();
-    createdTransaction[0] = true;
-
     assertEquals(TransactionType.INCOME, transaction.getType()); // Should not pass
-    Assertions.assertTrue(createdTransaction[0]);
   }
 
   @Test
@@ -201,7 +170,7 @@ public class TransactionsTest {
 
     TransactionHandler handler = new TransactionHandler();
 
-    LocalDate expectedDate = LocalDate.of(2024, 01, 12);
+    LocalDate expectedDate = LocalDate.of(2024, 1, 12);
     Transaction transaction = handler.parseTransactionArguments(args);
 
     Assertions.assertEquals(transaction.getType(), TransactionType.EXPENSE);

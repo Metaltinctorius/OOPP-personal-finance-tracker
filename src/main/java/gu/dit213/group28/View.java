@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 /**
  * Very messy and temporary view that was thrown together for testing. Not 100% sure how to bind the
  * controller and view together here, very new to JavaFX so there is probably better ways to handle
- * all of this.
+ * all of this. Figure this out when we are ready to show graphs.
  */
 public class View implements Iobserver {
   private final Stage stage;

@@ -23,18 +23,17 @@ import javafx.stage.Stage;
 /**
  * A controller class that initializes the JavaFX stage and passes it on to the view. Currently,
  * this class both initializes the stage and the buttons, which creates a dependency between the
- * model and the view. This is fine and made it easier for me to set up a quick test but different
- * from what we agreed on. Alternatively, we might be able to separate the initialization of the
- * stage to happen somewhere else in a clean way.
+ * model and the view. Alternatively, we might be able to separate the initialization of the stage
+ * to happen somewhere else in a clean way.
  */
 public class Controller {
   private final Stage stage;
-  private final Icontrollable logic;
+  private final Icontrollable transactionHandler;
   private final View view;
 
-  Controller(Stage stage, Icontrollable logic, View view) {
+  Controller(Stage stage, Icontrollable transactionHandler, View view) {
     this.stage = stage;
-    this.logic = logic;
+    this.transactionHandler = transactionHandler;
     this.view = view;
 
     initStage();
@@ -58,26 +57,31 @@ public class Controller {
     buttonPanel.setSpacing(10);
     buttonPanel.setStyle("-fx-background-color: #336699;");
 
-    Button b1 = new Button("b1");
-    b1.setPrefSize(100, 20);
-    b1.setOnAction(event -> logic.beeOne());
+    /*
+        Button b1 = new Button("b1");
+        b1.setPrefSize(100, 20);
+        b1.setOnAction(event -> logic.beeOne());
 
-    Button b2 = new Button("b2");
-    b2.setPrefSize(100, 20);
-    b2.setOnAction(event -> logic.beeTwo());
-
+        Button b2 = new Button("b2");
+        b2.setPrefSize(100, 20);
+        b2.setOnAction(event -> logic.beeTwo());
+    */
     Button b3 = new Button("Make Transaction");
     b3.setPrefSize(150, 20);
     b3.setOnAction(event -> createTransactionDialog());
 
-    Button b4 = new Button("info");
+    Button b4 = new Button("Edit Transaction");
+    b4.setPrefSize(150, 20);
+    // do some setOnAction stuff here, remove/change transaction logic
+
+    Button b5 = new Button("info");
     b4.setPrefSize(100, 20);
     // do some setOnAction stuff here
 
     Region spacer = new Region();
     HBox.setHgrow(spacer, Priority.ALWAYS);
 
-    buttonPanel.getChildren().addAll(b1, b2, b3, spacer, b4);
+    buttonPanel.getChildren().addAll(b3, b4, spacer, b5);
     return buttonPanel;
   }
 
@@ -107,6 +111,7 @@ public class Controller {
     return buttonPanel;
   }
 
+  // Creates the whole popup dialog box for creating a transaction
   // TODO: Decide on how to handle exceptions and where to do it
   private void createTransactionDialog() {
     Dialog<List<String>> dialog = new Dialog<>();
@@ -142,20 +147,19 @@ public class Controller {
     dialog.setResultConverter(
         dialogButton -> {
           if (dialogButton == okButtonType) {
-            // Dialog box consists of two fields, income and expense, return them as a list
-            // Might have to change this depending on how we want to handle the data
+            // Dialog box consists of three fields, return input from user as a list of strings
             return List.of(
                 amount.getText(), transactionType.getValue(), date.getValue().toString());
           }
           return null;
         });
 
-    // Send to the model with something like model.someMethod(inputList); when
-    // we know what the model looks like.
+    // Send to the model (TransactionHandler) to insert the transaction
     dialog
         .showAndWait()
         .ifPresent(
             inputList -> {
+              transactionHandler.insertTransaction(inputList);
               System.out.println("Amount: " + inputList.get(0));
               System.out.println("TransactionType: " + inputList.get(1));
               System.out.println("Date:" + inputList.get(2));

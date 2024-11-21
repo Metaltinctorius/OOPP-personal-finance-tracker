@@ -6,17 +6,17 @@ import java.time.LocalDate;
 
 public class Transaction {
 
-  /** Required parameter */
-  private double amount;
+  /** Required parameter. */
+  private final double amount;
 
-  /** Required paramter */
-  private TransactionType type;
+  /** Required paramter. */
+  private final TransactionType type;
 
-  /** Required paramter */
-  private LocalDate date;
+  /** Required paramter. */
+  private final LocalDate date;
 
-  /** Optional Paramter */
-  private TransactionCategory category;
+  /** Optional Paramter. */
+  private final TransactionCategory category;
 
   private Transaction(TransactionBuilder builder) {
     this.amount = builder.amount;
@@ -46,9 +46,9 @@ public class Transaction {
   public static class TransactionBuilder {
 
     // Required
-    private double amount;
-    private TransactionType type;
-    private LocalDate date;
+    private final double amount;
+    private final TransactionType type;
+    private final LocalDate date;
 
     // Optional
     private TransactionCategory category;
