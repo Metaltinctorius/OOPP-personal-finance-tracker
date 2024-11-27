@@ -3,6 +3,7 @@ package gu.dit213.group28.model;
 import com.mongodb.client.MongoCollection;
 import gu.dit213.group28.model.enums.TransactionCategory;
 import gu.dit213.group28.model.enums.TransactionType;
+import gu.dit213.group28.model.interfaces.Icontrollable;
 import gu.dit213.group28.model.managers.DocumentTransformer;
 import gu.dit213.group28.model.managers.MongoConnectionManager;
 import java.time.LocalDate;

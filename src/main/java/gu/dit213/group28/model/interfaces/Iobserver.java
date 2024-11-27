@@ -1,4 +1,4 @@
-package gu.dit213.group28.model;
+package gu.dit213.group28.model.interfaces;
 
 /**
  * This interface defines the methods that the model can use to update the view. Note that the
