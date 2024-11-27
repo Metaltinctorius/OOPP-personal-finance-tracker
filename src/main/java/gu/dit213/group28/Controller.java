@@ -70,21 +70,23 @@ public class Controller {
     Button pauseResumeButton = new Button("Pause");
     pauseResumeButton.setPrefSize(100, 20);
     pauseResumeButton.setOnAction(event -> togglePauseResume(pauseResumeButton));
+
     Button info = new Button("info");
     info.setPrefSize(100, 20);
     // do some setOnAction stuff here
 
-    Label gameSpeedLabel = new Label("Game Speed:");
-    gameSpeedLabel.setTextFill(javafx.scene.paint.Color.WHITE);
-
     // Game speed multiplier
     Slider gameSpeedSlider = new Slider(1, 5, 1);
-    // gameSpeedSlider.setShowTickLabels(true);
     gameSpeedSlider.setShowTickMarks(true);
     gameSpeedSlider.setMajorTickUnit(1);
     gameSpeedSlider.setBlockIncrement(1);
     gameSpeedSlider.setMinorTickCount(0);
     gameSpeedSlider.setSnapToTicks(true);
+
+    // Showing game speed interactively in a label next to the slider
+    Label gameSpeedLabel = new Label("Game Speed:" + (int) gameSpeedSlider.getValue() + "X");
+    gameSpeedLabel.setTextFill(javafx.scene.paint.Color.WHITE);
+
     gameSpeedSlider
         .valueProperty()
         .addListener(
