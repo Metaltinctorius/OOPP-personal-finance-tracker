@@ -74,6 +74,9 @@ public class Controller {
     info.setPrefSize(100, 20);
     // do some setOnAction stuff here
 
+    Label gameSpeedLabel = new Label("Game Speed:");
+    gameSpeedLabel.setTextFill(javafx.scene.paint.Color.WHITE);
+
     // Game speed multiplier
     Slider gameSpeedSlider = new Slider(1, 5, 1);
     // gameSpeedSlider.setShowTickLabels(true);
@@ -89,6 +92,7 @@ public class Controller {
               int snappedValue = newVal.intValue();
               gameSpeedSlider.setValue(snappedValue);
               updateTime(snappedValue);
+              gameSpeedLabel.setText("Game Speed: " + snappedValue + "X");
             });
 
     Region spacer = new Region();
@@ -101,6 +105,7 @@ public class Controller {
             editTransactionButton,
             pauseResumeButton,
             gameSpeedSlider,
+            gameSpeedLabel,
             spacer,
             info);
     return buttonPanel;
