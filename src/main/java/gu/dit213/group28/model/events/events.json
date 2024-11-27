@@ -1,0 +1,7 @@
+[
+  {
+    "description": "Event 1",
+    "type": "ONCE",
+    "categories": ["MILITARY", "LIFESCIENCE"]
+  }
+]
