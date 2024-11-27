@@ -12,6 +12,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -30,6 +31,7 @@ public class Controller {
   private final Stage stage;
   private final Icontrollable transactionHandler;
   private final View view;
+  private boolean isPaused = false;
 
   Controller(Stage stage, Icontrollable transactionHandler, View view) {
     this.stage = stage;
@@ -57,32 +59,68 @@ public class Controller {
     buttonPanel.setSpacing(10);
     buttonPanel.setStyle("-fx-background-color: #336699;");
 
-    /*
-        Button b1 = new Button("b1");
-        b1.setPrefSize(100, 20);
-        b1.setOnAction(event -> logic.beeOne());
+    Button makeTransactionButton = new Button("Make Transaction");
+    makeTransactionButton.setPrefSize(150, 20);
+    makeTransactionButton.setOnAction(event -> createTransactionDialog());
 
-        Button b2 = new Button("b2");
-        b2.setPrefSize(100, 20);
-        b2.setOnAction(event -> logic.beeTwo());
-    */
-    Button b3 = new Button("Make Transaction");
-    b3.setPrefSize(150, 20);
-    b3.setOnAction(event -> createTransactionDialog());
-
-    Button b4 = new Button("Edit Transaction");
-    b4.setPrefSize(150, 20);
+    Button editTransactionButton = new Button("Edit Transaction");
+    editTransactionButton.setPrefSize(150, 20);
     // do some setOnAction stuff here, remove/change transaction logic
 
-    Button b5 = new Button("info");
-    b4.setPrefSize(100, 20);
+    Button pauseResumeButton = new Button("Pause");
+    pauseResumeButton.setPrefSize(100, 20);
+    pauseResumeButton.setOnAction(event -> togglePauseResume(pauseResumeButton));
+    Button info = new Button("info");
+    info.setPrefSize(100, 20);
     // do some setOnAction stuff here
+
+    // Game speed multiplier
+    Slider gameSpeedSlider = new Slider(1, 5, 1);
+    // gameSpeedSlider.setShowTickLabels(true);
+    gameSpeedSlider.setShowTickMarks(true);
+    gameSpeedSlider.setMajorTickUnit(1);
+    gameSpeedSlider.setBlockIncrement(1);
+    gameSpeedSlider.setMinorTickCount(0);
+    gameSpeedSlider.setSnapToTicks(true);
+    gameSpeedSlider
+        .valueProperty()
+        .addListener(
+            (obs, oldVal, newVal) -> {
+              int snappedValue = newVal.intValue();
+              gameSpeedSlider.setValue(snappedValue);
+              updateTime(snappedValue);
+            });
 
     Region spacer = new Region();
     HBox.setHgrow(spacer, Priority.ALWAYS);
 
-    buttonPanel.getChildren().addAll(b3, b4, spacer, b5);
+    buttonPanel
+        .getChildren()
+        .addAll(
+            makeTransactionButton,
+            editTransactionButton,
+            pauseResumeButton,
+            gameSpeedSlider,
+            spacer,
+            info);
     return buttonPanel;
+  }
+
+  private void updateTime(int snappedValue) {
+    // Add some action here that signals to model to update time,
+    // model.setGameSpeed(snappedValue);
+  }
+
+  // Button state depending on model state
+  private void togglePauseResume(Button pauseResumeButton) {
+    isPaused = !isPaused;
+    if (isPaused) {
+      pauseResumeButton.setText("Resume");
+      // Add some action here that signals to model to pause
+    } else {
+      pauseResumeButton.setText("Pause");
+      // Add some action here that signals to model to resume
+    }
   }
 
   private HBox createUpperButtonPanel() {
