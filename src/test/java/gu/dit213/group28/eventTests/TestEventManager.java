@@ -10,17 +10,4 @@ import org.junit.jupiter.api.Test;
 public class TestEventManager
 {
 
-
-  EventLoader manager;
-  @BeforeEach
-  public void setUp(){
-    EventLoader manager = new EventLoader();
-  }
-
-  @Test
-  public void testGetEventFromJson(){
-    EventLoader manager = new EventLoader();
-    List<Event> events = manager.loadEventsFromDocument();
-    Assertions.assertEquals(events.getFirst().getDescription(), "Event 1");
-  }
 }

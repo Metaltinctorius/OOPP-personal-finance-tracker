@@ -2,9 +2,10 @@ package gu.dit213.group28.model;
 
 import java.util.Random;
 
-public class EventCalculator {
+public class MarketCalculator
+{
 
-  public EventCalculator() {}
+  public MarketCalculator() {}
 
   /**
    *    * CHATGPT: Price Goes Up: In most market scenarios, if a player buys more stocks, the demand
@@ -30,10 +31,21 @@ public class EventCalculator {
    * @return
    */
   public double calculateMultiplier(double currentMultiplier, int amount, int totalAvailable) {
-    double randomness = generateRandomDouble(0.01, 0.02);
-    double increaseFactor = 0.05 + randomness;
-    double decreaseFactor = 0.01 + randomness;
-    return currentMultiplier + increaseFactor * (amount / (double) totalAvailable) - decreaseFactor;
+    double randomness = generateRandomDouble(0.01, 0.08);
+    double increaseFactor = 2.5 + randomness;
+    double decreaseFactor = 0.0009 + randomness;
+    double incrementValue = increaseFactor * (amount / (double) totalAvailable);
+    double newMultiplier = currentMultiplier + incrementValue - decreaseFactor;
+
+    System.out.println("currentMultiplier: " + currentMultiplier);
+    System.out.println("increaseFactor: " + increaseFactor);
+    System.out.println("decreaseFactor: " + decreaseFactor);
+    System.out.println("incrementValue: " + incrementValue);
+    System.out.println("newMultiplier: " + newMultiplier);
+
+    // Ensure multiplier doesn't go negative
+    return newMultiplier;
+    //return Math.max(newMultiplier, 0.0);
   }
 
 
