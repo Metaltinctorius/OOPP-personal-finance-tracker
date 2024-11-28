@@ -93,7 +93,7 @@ public class Controller {
             (obs, oldVal, newVal) -> {
               int snappedValue = newVal.intValue();
               gameSpeedSlider.setValue(snappedValue);
-              updateTime(snappedValue);
+              alterGameSpeed(snappedValue);
               gameSpeedLabel.setText("Game Speed: " + snappedValue + "X");
             });
 
@@ -113,9 +113,22 @@ public class Controller {
     return buttonPanel;
   }
 
-  private void updateTime(int snappedValue) {
-    // Add some action here that signals to model to update time,
-    // model.setGameSpeed(snappedValue);
+  private void alterGameSpeed(int snappedValue) {
+    // Add some action here that signals to model to update game speed.
+    switch (snappedValue) {
+      case 1:
+        // gameSpeedHandler.setThreshold(Speed.SLOW);
+        break;
+      case 2:
+        // gameSpeedHandler.setThreshold(Speed.NORMAL);
+        break;
+      case 3:
+        // gameSpeedHandler.setThreshold(Speed.FAST);
+        break;
+      default:
+        //  gameSpeedHandler.setThreshold(Speed.NORMAL);
+        break;
+    }
   }
 
   // Button state depending on model state
