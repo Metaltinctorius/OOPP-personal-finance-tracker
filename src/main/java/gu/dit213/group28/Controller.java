@@ -1,6 +1,7 @@
 package gu.dit213.group28;
 
 import gu.dit213.group28.model.Icontrollable;
+import gu.dit213.group28.model.Logic;
 import java.time.LocalDate;
 import java.util.List;
 import javafx.geometry.Insets;
@@ -19,6 +20,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -31,11 +33,13 @@ public class Controller {
   private final Stage stage;
   private final Icontrollable transactionHandler;
   private final View view;
+  private final Icontrollable logic;
   private boolean isPaused = false;
 
-  Controller(Stage stage, Icontrollable transactionHandler, View view) {
+  Controller(Stage stage, Icontrollable transactionHandler, Icontrollable logic, View view) {
     this.stage = stage;
     this.transactionHandler = transactionHandler;
+    this.logic = logic;
     this.view = view;
 
     initStage();
@@ -76,16 +80,15 @@ public class Controller {
     // do some setOnAction stuff here
 
     // Game speed multiplier
-    Slider gameSpeedSlider = new Slider(1, 5, 1);
+    Slider gameSpeedSlider = new Slider(1, 3, 2);
     gameSpeedSlider.setShowTickMarks(true);
     gameSpeedSlider.setMajorTickUnit(1);
     gameSpeedSlider.setBlockIncrement(1);
     gameSpeedSlider.setMinorTickCount(0);
-    gameSpeedSlider.setSnapToTicks(true);
 
     // Showing game speed interactively in a label next to the slider
-    Label gameSpeedLabel = new Label("Game Speed:" + (int) gameSpeedSlider.getValue() + "X");
-    gameSpeedLabel.setTextFill(javafx.scene.paint.Color.WHITE);
+    Label gameSpeedLabel = new Label("Game Speed: Normal");
+    gameSpeedLabel.setTextFill(Color.WHITE);
 
     gameSpeedSlider
         .valueProperty()
@@ -94,7 +97,13 @@ public class Controller {
               int snappedValue = newVal.intValue();
               gameSpeedSlider.setValue(snappedValue);
               alterGameSpeed(snappedValue);
-              gameSpeedLabel.setText("Game Speed: " + snappedValue + "X");
+              if (snappedValue == 1) {
+                gameSpeedLabel.setText("Game Speed: Slow");
+              } else if (snappedValue == 2) {
+                gameSpeedLabel.setText("Game Speed: Normal");
+              } else {
+                gameSpeedLabel.setText("Game Speed: Fast");
+              }
             });
 
     Region spacer = new Region();
@@ -117,16 +126,16 @@ public class Controller {
     // Add some action here that signals to model to update game speed.
     switch (snappedValue) {
       case 1:
-        // gameSpeedHandler.setThreshold(Speed.SLOW);
+        logic.setSpeedSlow();
         break;
       case 2:
-        // gameSpeedHandler.setThreshold(Speed.NORMAL);
+        logic.setSpeedNormal();
         break;
       case 3:
-        // gameSpeedHandler.setThreshold(Speed.FAST);
+        logic.setSpeedFast();
         break;
       default:
-        //  gameSpeedHandler.setThreshold(Speed.NORMAL);
+        logic.setSpeedNormal();
         break;
     }
   }
