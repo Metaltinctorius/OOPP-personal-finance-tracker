@@ -18,8 +18,12 @@ public class EventLoader {
   /** This is where the events from the json file are read and stored. */
   private final List<Event> predefinedEvents;
 
+
+  private final List <Integer> reservedIds;
+
   public EventLoader() {
     predefinedEvents = new ArrayList<>();
+    reservedIds = new ArrayList<>();
     loadEventsFromDocument();
   }
 
@@ -30,6 +34,8 @@ public class EventLoader {
   public List <Event> getPredefinedEvents(){
     return predefinedEvents;
   }
+
+  public List <Integer> getReservedIds() { return reservedIds; }
 
   /**
    * Call this function to load the events from the predefined events from the JSON file
@@ -83,10 +89,12 @@ public class EventLoader {
             throw new IllegalArgumentException("Unknown EventType: " + type);
         }
 
-        Event event = builder.build();
+        Event event = builder.build().copy();
 
         /* Add the event to current (active) game events */
         predefinedEvents.add(event);
+
+        reservedIds.add(event.getId());
       }
     } catch (Exception e) {
       e.printStackTrace();

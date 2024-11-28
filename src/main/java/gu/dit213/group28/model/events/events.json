@@ -9,11 +9,3 @@
 ]
 
 
-//     this.id = builder.id;
-//    this.description = builder.description;
-//    this.type = builder.type;
-//    this.categories = builder.categories;
-//    this.iterationsLeft = builder.iterationsLeft;
-//    this.totalStages = builder.totalStages;
-//    this.stage = builder.stage;
-//    this.action = builder.action;

@@ -1,7 +1,10 @@
 package gu.dit213.group28.model;
 
-import gu.dit213.group28.model.enums.Stock;
+import gu.dit213.group28.model.enums.CompanyStocks;
+import gu.dit213.group28.model.enums.EventType;
+import gu.dit213.group28.model.enums.PlayerAction;
 import gu.dit213.group28.model.enums.StockCategory;
+import gu.dit213.group28.model.events.EventLoader;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,23 +28,86 @@ public class EventFacade {
   /**
    * The List of predefined events from the JSON file.
    */
-  private final List <Event> predefinedEvents = new ArrayList<>();
+  private List <Event> predefinedEvents = new ArrayList<>();
 
-  private final EventCalculator calculator = new EventCalculator();
+  private final EventCalculator calculator;
+
+  private final EventLoader loader;
+
+  private final IdManager idManager;
   public void addEventToQueue(Event event) {
     eventQueue.add(event);
   }
 
 
+  public EventFacade(){
+    this.calculator = new EventCalculator();
+    this.loader = new EventLoader();
+    this.idManager = new IdManager();
+    getPredefinedEvents();
+  }
+
+  public void getPredefinedEvents(){
+    predefinedEvents = loader.getPredefinedEvents();
+  }
+
+  public void getReservedIds(){
+
+  }
 
 
+  public void buyStock(Stock stock, int amount) {
+    if (amount > stock.getQuantity()) {
+      throw new IllegalArgumentException("Required amount supersedes the current stock quantity, try a lower amount.");
+    }
+    if(amount > 0 ){
+      for (int i = 0; i < amount; i++) {
+        makeUserPurchase(1, stock);
+      }
+    } else {
+      throw new IllegalArgumentException("Stock amount cannot be 0 or negative");
+    }
+  }
 
-  public void makeUserPurchase(int amount, Stock stock){
-    double newPrice = calculator.calculateNewPrice(stock.getValue(), amount, 10000); // totalAvailable needs to fetch from market
+  private void makeUserPurchase(int amount, Stock stock){
+    int quantity = stock.getQuantity(); // The amount of stocks available
+    int newQuantity = quantity - amount; // How many are left after user purschase
 
+    double newPrice = calculator.calculateNewPrice(stock.getValue(), amount, quantity);
+    double newMultiplier = calculator.calculateMultiplier(stock.getMultiplier(), amount, quantity);
+
+    Event.EventBuilder builder = new Event.EventBuilder(generateId(), stock.getCompanyStock().toString(), stock.getCompanyStock().getCategories(),
+        EventType.ONCE, PlayerAction.BUY_STOCK);
+
+    builder.build();
+
+    adjustSectorValues();
+
+
+  }
+
+  public int generateId(){
+    int bound = 2000;
+    int id = new Random().nextInt(bound);
+    for(Event e : predefinedEvents){
+      if (e.getId() != id){
+        return id;
+      }
+    }
+  }
+
+  public void adjustStock(Stock stock, int newQuantity, double newMultiplier, double newPrice){
+    stock.setQuantity(newQuantity);
     stock.setValue(newPrice);
-
-
+    stock.setMultiplier(newMultiplier);
+  }
+  public void adjustSectorValues(CompanyStocks purchasedStock, double impactFactor) {
+    for (CompanyStocks stock : CompanyStocks.values()) {
+      if (stock.getCategories().containsAll(purchasedStock.getCategories())) {
+        stock.setValue(stock.getValue() + (purchasedStock.getValue() * impactFactor));
+        stock.setMultiplier(stock.getQuantity() + (purchasedStock.getMultiplier()));
+      }
+    }
   }
 
 
