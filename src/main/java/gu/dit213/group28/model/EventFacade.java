@@ -3,6 +3,7 @@ package gu.dit213.group28.model;
 import gu.dit213.group28.model.enums.EventType;
 import gu.dit213.group28.model.enums.PlayerAction;
 import gu.dit213.group28.model.events.EventLoader;
+import java.util.List;
 import java.util.Random;
 
 public class EventFacade {
@@ -24,6 +25,10 @@ public class EventFacade {
 
   public void addEventToQueue(Event event) {
     eventManager.scheduleEvent(event);
+  }
+
+  public List<Event> getEventLog(){
+    return eventManager.getEventLog();
   }
 
   public void buyStock(Stock stock, int amount){
