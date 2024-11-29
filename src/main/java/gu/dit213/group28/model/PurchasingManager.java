@@ -15,6 +15,7 @@ public class PurchasingManager {
 
 
 
+  // TODO, HOW TO SAVE STOCKS AFTER THEY ARE UPDATED. SHOULD EVENT HOLD THE STOCK DATA?
   /** List of every stock on the market, and their multipliers */
   private final Set <Stock> stocks = new HashSet<>();
 
