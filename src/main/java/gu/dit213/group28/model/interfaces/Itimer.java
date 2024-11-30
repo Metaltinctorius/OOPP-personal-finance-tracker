@@ -7,7 +7,7 @@ public interface Itimer {
 
   void setThreshold(Speed s);
 
-  boolean isNextReady();
+  boolean next() throws InterruptedException;
 
   void start();
 

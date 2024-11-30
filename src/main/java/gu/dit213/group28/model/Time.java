@@ -4,6 +4,7 @@ import gu.dit213.group28.model.enums.Speed;
 import gu.dit213.group28.model.interfaces.Itimer;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -13,13 +14,13 @@ public class Time implements Itimer {
   private int tick;
   private int threshold;
   private boolean running;
-  private boolean next;
+  private final SynchronousQueue<Boolean> queue;
 
   public Time() {
     timer = Executors.newSingleThreadScheduledExecutor();
     threshold = 100;
     running = false;
-    next = true;
+    queue = new SynchronousQueue<>();
   }
 
   public void initTime() {
@@ -32,7 +33,8 @@ public class Time implements Itimer {
           tick++;
           if (tick >= threshold) {
             tick = 0;
-            next = true;
+
+            queue.offer(true);
           }
           lock.unlock();
         },
@@ -62,12 +64,8 @@ public class Time implements Itimer {
     lock.unlock();
   }
 
-  public boolean isNextReady() {
-    if (!next) {
-      return false;
-    }
-    next = false;
-    return true;
+  public boolean next() throws InterruptedException {
+    return queue.take();
   }
 
   public void start() {

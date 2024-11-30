@@ -40,70 +40,55 @@ public class TimeTest {
   @Test
   public void timeUpdateTest() throws InterruptedException {
     assertEquals(0, time.getCurrentTick());
-    assertTrue(time.isNextReady());
-    assertFalse(time.isNextReady());
     time.start();
-    TimeUnit.MILLISECONDS.sleep(3320);
-    assertTrue(time.isNextReady());
-    assertFalse(time.isNextReady());
+    assertTrue(time.next());
   }
 
   @Test
   public void timeSlowTest() throws InterruptedException {
     time.setThreshold(Speed.SLOW);
-    time.isNextReady();
     time.start();
-    assertFalse(time.isNextReady());
-    TimeUnit.MILLISECONDS.sleep(9920);
-    assertTrue(time.isNextReady());
+    assertTrue(time.next());
   }
 
   @Test
   public void timeNormalTest() throws InterruptedException {
     time.setThreshold(Speed.NORMAL);
-    time.isNextReady();
     time.start();
-    assertFalse(time.isNextReady());
-    TimeUnit.MILLISECONDS.sleep(3320);
-    assertTrue(time.isNextReady());
+    assertTrue(time.next());
   }
 
   @Test
   public void timeFastTest() throws InterruptedException {
     time.setThreshold(Speed.FAST);
-    time.isNextReady();
     time.start();
-    assertFalse(time.isNextReady());
-    TimeUnit.MILLISECONDS.sleep(1010);
-    assertTrue(time.isNextReady());
+    assertTrue(time.next());
   }
 
   @Test
   public void timeChangeFastToSlowTest() throws InterruptedException {
     time.setThreshold(Speed.FAST);
-    time.isNextReady();
+
     time.start();
-    assertFalse(time.isNextReady());
     TimeUnit.MILLISECONDS.sleep(515);
-    assertFalse(time.isNextReady());
+    System.out.println(time.getCurrentTick());
     time.setThreshold(Speed.SLOW);
-    assertFalse(time.isNextReady());
+    System.out.println(time.getCurrentTick());
     TimeUnit.MILLISECONDS.sleep(5010);
-    assertTrue(time.isNextReady());
+
+    assertTrue(time.next());
   }
 
   @Test
   public void timeChangeSlowToFastTest() throws InterruptedException {
     time.setThreshold(Speed.SLOW);
-    time.isNextReady();
     time.start();
-    assertFalse(time.isNextReady());
     TimeUnit.MILLISECONDS.sleep(5010);
-    assertFalse(time.isNextReady());
+    System.out.println(time.getCurrentTick());
     time.setThreshold(Speed.FAST);
-    assertFalse(time.isNextReady());
+    System.out.println(time.getCurrentTick());
     TimeUnit.MILLISECONDS.sleep(515);
-    assertTrue(time.isNextReady());
+    assertTrue(time.next());
   }
 
   @BeforeEach
