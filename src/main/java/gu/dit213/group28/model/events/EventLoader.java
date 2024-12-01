@@ -18,8 +18,7 @@ public class EventLoader {
   /** This is where the events from the json file are read and stored. */
   private final List<Event> predefinedEvents;
 
-
-  private final List <Integer> reservedIds;
+  private final List<Integer> reservedIds;
 
   public EventLoader() {
     predefinedEvents = new ArrayList<>();
@@ -29,16 +28,20 @@ public class EventLoader {
 
   /**
    * This is the function that is open for the EventLoader.
+   *
    * @return returns the list of all predefined events.
    */
-  public List <Event> getPredefinedEvents(){
+  public List<Event> getPredefinedEvents() {
     return predefinedEvents;
   }
 
-  public List <Integer> getReservedIds() { return reservedIds; }
+  public List<Integer> getReservedIds() {
+    return reservedIds;
+  }
 
   /**
    * Call this function to load the events from the predefined events from the JSON file
+   *
    * @return Returns a list of type Event with all predefined events.
    */
   private void loadEventsFromDocument() {
