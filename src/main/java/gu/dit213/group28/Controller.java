@@ -13,6 +13,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -21,6 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -50,11 +52,26 @@ public class Controller {
     root.setBottom(createLowerButtonPanel());
     root.setCenter(createCenterGrid());
     root.setTop(createUpperButtonPanel());
+    root.setRight(eventLogTextBox());
 
     Scene scene = new Scene(root, 640, 480);
     stage.setScene(scene);
     stage.setTitle("Finance Tracker");
     view.initView();
+  }
+
+  // Place in View or Controller?
+  // Unsure how to connect the event log to the facade. Probably using Platform.runLater
+  // somehow.
+  private ScrollPane eventLogTextBox() {
+    Text eventLog = new Text();
+    eventLog.setWrappingWidth(200);
+
+    ScrollPane scrollPane = new ScrollPane(eventLog);
+    scrollPane.setFitToWidth(true);
+    scrollPane.setPrefWidth(200);
+    scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+    return scrollPane;
   }
 
   private HBox createLowerButtonPanel() {
@@ -123,24 +140,24 @@ public class Controller {
   }
 
   private void alterGameSpeed(int snappedValue) {
-    // Add some action here that signals to model to update game speed.
+    // Change these calls if needed when connecting to the model.
     switch (snappedValue) {
       case 1:
-        logic.setSpeedSlow();
+        // logic.setSpeedSlow();
         break;
       case 2:
-        logic.setSpeedNormal();
+        // logic.setSpeedNormal();
         break;
       case 3:
-        logic.setSpeedFast();
+        // logic.setSpeedFast();
         break;
       default:
-        logic.setSpeedNormal();
+        // logic.setSpeedNormal();
         break;
     }
   }
 
-  // Button state depending on model state
+  // Button state depending on model state.
   private void togglePauseResume(Button pauseResumeButton) {
     isPaused = !isPaused;
     if (isPaused) {
@@ -179,7 +196,7 @@ public class Controller {
   }
 
   // Creates the whole popup dialog box for creating a transaction
-  // TODO: Decide on how to handle exceptions and where to do it
+  // TODO: Change this dialog method to suit our needs for the game.
   private void createTransactionDialog() {
     Dialog<List<String>> dialog = new Dialog<>();
     dialog.setHeaderText("Enter amount, transaction type and date");
@@ -187,7 +204,7 @@ public class Controller {
     ButtonType okButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
     dialog.getDialogPane().getButtonTypes().addAll(okButtonType, ButtonType.CANCEL);
 
-    // Different box types for the fields in the dialog box
+    // Different box types for the fields in the dialog box.
     TextField amount = new TextField();
     amount.setPromptText("Amount");
 
@@ -214,14 +231,14 @@ public class Controller {
     dialog.setResultConverter(
         dialogButton -> {
           if (dialogButton == okButtonType) {
-            // Dialog box consists of three fields, return input from user as a list of strings
+            // Dialog box consists of three fields, return input from user as a list of strings.
             return List.of(
                 amount.getText(), transactionType.getValue(), date.getValue().toString());
           }
           return null;
         });
 
-    // Send to the model (TransactionHandler) to insert the transaction
+    // Send to the model (TransactionHandler) to insert the transaction.
     dialog
         .showAndWait()
         .ifPresent(

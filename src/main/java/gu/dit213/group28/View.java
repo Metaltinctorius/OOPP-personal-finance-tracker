@@ -2,8 +2,12 @@ package gu.dit213.group28;
 
 import gu.dit213.group28.model.Iobserver;
 import gu.dit213.group28.model.Observable;
+import javafx.application.Platform;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -35,4 +39,7 @@ public class View implements Iobserver {
     g.getChildren().clear();
     g.add(beelieve, 10, 5);
   }
+
+  // TODO: Figure out how to connect events to text box
+
 }
