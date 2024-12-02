@@ -55,6 +55,17 @@ public class TestEventManager {
   }
 
   @Test
-  public void test_
+  public void test_add_event_to_queue(){
+    Event event = events.getFirst();
+    manager.addToEventQueue(event);
+    Assertions.assertTrue(manager.getEventQueue().contains(event));
+  }
+
+  @Test
+  public void test_get_next_event_from_queue(){
+    Event event = events.getFirst();
+    manager.addToEventQueue(event);
+    Assertions.assertEquals(manager.getNextEvent(), event);
+  }
 
 }

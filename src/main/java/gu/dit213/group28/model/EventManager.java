@@ -24,10 +24,6 @@ public class EventManager {
     this.idManager = new IdManager(reservedIdsFromLoader);
   }
 
-  public void scheduleEvent(Event event) {
-    eventQueue.add(event);
-  }
-
   public Event getNextEvent() {
     if (eventQueue.isEmpty()) {
       throw new IllegalStateException("No events in the queue.");
@@ -40,7 +36,7 @@ public class EventManager {
   }
 
   public void addToEventQueue(Event event) {
-    eventLog.add(event);
+    eventQueue.add(event);
   }
 
   public static int generateRandomIndex(List<Event> events) {

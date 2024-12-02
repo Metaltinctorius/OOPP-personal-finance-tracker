@@ -24,7 +24,7 @@ public class EventFacade {
 
 
   public void addEventToQueue(Event event) {
-    eventManager.scheduleEvent(event);
+    eventManager.addToEventQueue(event);
   }
 
   public List<Event> getEventLog(){
