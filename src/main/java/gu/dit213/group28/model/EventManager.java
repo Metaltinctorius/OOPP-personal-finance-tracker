@@ -66,4 +66,5 @@ public class EventManager {
   public Queue<Event> getEventQueue() {
     return eventQueue;
   }
+
 }

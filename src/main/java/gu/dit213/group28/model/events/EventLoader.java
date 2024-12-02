@@ -18,17 +18,24 @@ public class EventLoader {
   /** This is where the events from the json file are read and stored. */
   private final List<Event> predefinedEvents;
 
+  /**
+   * This list is where the ids predefined in the json file are stored
+   */
   private final List<Integer> reservedIds;
 
   public EventLoader() {
     predefinedEvents = new ArrayList<>();
     reservedIds = new ArrayList<>();
-    loadEventsFromDocument();
   }
 
   /**
+   * This is the method to load the events, reachable with an instance of the loader.
+   */
+  public void loadEvents(){
+    loadEventsFromDocument();
+  }
+  /**
    * This is the function that is open for the EventLoader.
-   *
    * @return returns the list of all predefined events.
    */
   public List<Event> getPredefinedEvents() {
@@ -41,7 +48,6 @@ public class EventLoader {
 
   /**
    * Call this function to load the events from the predefined events from the JSON file
-   *
    * @return Returns a list of type Event with all predefined events.
    */
   private void loadEventsFromDocument() {
@@ -106,7 +112,6 @@ public class EventLoader {
 
   /**
    * Used to parse the categories array of the event.
-   *
    * @param categoriesArray Takes in an array of type JSONArray
    * @return Returns an array with categories of type StockCategory
    */
@@ -118,10 +123,5 @@ public class EventLoader {
     return categories;
   }
 
-  private int generateRandomIndex(List<Event> events) {
-    if (events == null || events.isEmpty()) {
-      throw new IllegalArgumentException("List must not be null or empty");
-    }
-    return new Random().nextInt(events.size());
-  }
+
 }
