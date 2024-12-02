@@ -3,11 +3,10 @@ package gu.dit213.group28.model.events;
 import gu.dit213.group28.model.Event;
 import gu.dit213.group28.model.enums.EventType;
 import gu.dit213.group28.model.enums.PlayerAction;
-import gu.dit213.group28.model.enums.StockCategory;
+import gu.dit213.group28.model.enums.Sector;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.util.Random;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -18,9 +17,7 @@ public class EventLoader {
   /** This is where the events from the json file are read and stored. */
   private final List<Event> predefinedEvents;
 
-  /**
-   * This list is where the ids predefined in the json file are stored
-   */
+  /** This list is where the ids predefined in the json file are stored */
   private final List<Integer> reservedIds;
 
   public EventLoader() {
@@ -28,14 +25,14 @@ public class EventLoader {
     reservedIds = new ArrayList<>();
   }
 
-  /**
-   * This is the method to load the events, reachable with an instance of the loader.
-   */
-  public void loadEvents(){
-    loadEventsFromDocument();
+  /** This is the method to load the events, reachable with an instance of the loader. */
+  public void loadEvents() {
+    readFromJsonFile();
   }
+
   /**
    * This is the function that is open for the EventLoader.
+   *
    * @return returns the list of all predefined events.
    */
   public List<Event> getPredefinedEvents() {
@@ -48,9 +45,10 @@ public class EventLoader {
 
   /**
    * Call this function to load the events from the predefined events from the JSON file
+   *
    * @return Returns a list of type Event with all predefined events.
    */
-  private void loadEventsFromDocument() {
+  private void readFromJsonFile() {
     JSONParser parser = new JSONParser();
 
     try (FileReader reader =
@@ -70,58 +68,78 @@ public class EventLoader {
         /* Reads the type of event */
         EventType type = EventType.valueOf(jsonObject.get("type").toString());
 
+        int iterations = Integer.parseInt(jsonObject.get("iterations").toString());
+
         /* List of categories the event holds */
-        List<StockCategory> categories = parseCategories((JSONArray) jsonObject.get("categories"));
-
-        PlayerAction action = PlayerAction.valueOf(jsonObject.get("action").toString());
-
-        /* Build the event */
-        Event.EventBuilder builder =
-            new Event.EventBuilder(id, description, categories, type, action);
-
-        switch (type) {
-          case REPEATING:
-            int iterationsLeft = Integer.parseInt(String.valueOf(jsonObject.get("iterationsLeft")));
-            builder.setIterations(iterationsLeft);
-            break;
-
-          case SEQUENTIAL:
-            int stage = Integer.parseInt(String.valueOf(jsonObject.get("stage")));
-            int totalStages = Integer.parseInt(String.valueOf(jsonObject.get("totalStages")));
-            builder.setStage(stage, totalStages);
-            break;
-
-          case ONCE:
-            break;
-
-          default:
-            throw new IllegalArgumentException("Unknown EventType: " + type);
+        JSONArray categoriesJson = ((JSONArray) jsonObject.get("categories"));
+        List<String> categories = new ArrayList<>();
+        for (Object category : categoriesJson) {
+          categories.add(category.toString());
         }
 
-        Event event = builder.build().copy();
+        PlayerAction action = null;
+        if (jsonObject.containsKey("action")) {
+          action = PlayerAction.valueOf(jsonObject.get("action").toString());
+        }
 
-        /* Add the event to current (active) game events */
-        predefinedEvents.add(event);
-
-        reservedIds.add(event.getId());
+        buildFromFile(id, description, type, iterations, categories, action);
       }
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
+  private void buildFromFile(
+      int id,
+      String description,
+      EventType type,
+      int iterations,
+      List<String> categories,
+      PlayerAction action) {
+
+    /*
+     * Extract a list of Sector categories from the list of String arguments.
+     */
+    List<Sector> stockCategories = parseCategories(categories);
+
+    /* Build the event */
+    Event.EventBuilder builder = new Event.EventBuilder(id, description, stockCategories, type);
+    builder.setIterations(iterations);
+
+    if (action != null) {
+      builder.setPlayerAction(action);
+    }
+
+    Event event = builder.build().copy();
+
+    /* Add the event to current (active) game events */
+    predefinedEvents.add(event);
+
+    reservedIds.add(event.getId());
+  }
+
   /**
    * Used to parse the categories array of the event.
-   * @param categoriesArray Takes in an array of type JSONArray
+   *
+   * @param stringCategories Takes in an array of type String
    * @return Returns an array with categories of type StockCategory
    */
-  private List<StockCategory> parseCategories(JSONArray categoriesArray) {
-    List<StockCategory> categories = new ArrayList<>();
-    for (Object category : categoriesArray) {
-      categories.add(StockCategory.valueOf((String) category));
+  private List<Sector> parseCategories(List<String> stringCategories) {
+    List<Sector> categories = new ArrayList<>();
+    for (String category : stringCategories) {
+      categories.add(Sector.valueOf(category));
     }
     return categories;
   }
 
-
+  public void viewParsedInputs(){
+    for(Event event : predefinedEvents){
+      System.out.println("**************************");
+      System.out.println("* "+ event.getId());
+      System.out.println("* "+ event.getDescription());
+      System.out.println("* "+ event.getType());
+      System.out.println("* "+ event.getIterationsLeft());
+      System.out.println("* "+ event.getAction());
+    }
+  }
 }

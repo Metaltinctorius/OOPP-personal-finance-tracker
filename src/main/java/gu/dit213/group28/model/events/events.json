@@ -2,9 +2,18 @@
   {
     "id": "0001",
     "description": "Event 1",
-    "type": "ONCE",
-    "categories": ["MILITARY", "LIFESCIENCE"],
+    "type": "REPEATING",
+    "iterations": "9",
+    "categories": ["HEALTHCARE", "HEALTHCARE"],
     "action": "NONE"
+  },
+
+  {
+    "id": "0002",
+    "description": "Test without action",
+    "type": "REPEATING",
+    "iterations": "9",
+    "categories": ["HEALTHCARE", "HEALTHCARE"]
   }
 ]
 

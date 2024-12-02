@@ -2,7 +2,7 @@ package gu.dit213.group28.model;
 
 import gu.dit213.group28.model.enums.EventType;
 import gu.dit213.group28.model.enums.PlayerAction;
-import gu.dit213.group28.model.enums.StockCategory;
+import gu.dit213.group28.model.enums.Sector;
 import java.util.List;
 
 public class Event {
@@ -11,16 +11,14 @@ public class Event {
   private final int id;
   private final String description;
   private final EventType type;
-
   private final PlayerAction action;
-  private List<StockCategory> categories;
+  private final List<Sector> categories;
 
   /** For repeating events */
   private int iterationsLeft;
 
   /** For sequential events */
   private final int totalStages;
-
   private int stage;
 
   private Event(EventBuilder builder) {
@@ -46,7 +44,7 @@ public class Event {
 
   public PlayerAction getAction(){ return action ;}
 
-  public List<StockCategory> getCategories() {
+  public List<Sector> getCategories() {
     return categories;
   }
 
@@ -76,7 +74,7 @@ public class Event {
    * @return Returns a copy of the Event, instead of a reference to the event.
    */
   public Event copy(){
-    EventBuilder builder = new EventBuilder(this. id, this.description, this.categories, this.type, this.action);
+    EventBuilder builder = new EventBuilder(this. id, this.description, this.categories, this.type);
 
     if(type == EventType.REPEATING){
       builder.setIterations(this.iterationsLeft);
@@ -84,6 +82,11 @@ public class Event {
     if(type == EventType.SEQUENTIAL){
       builder.setStage(this.stage, this.totalStages);
     }
+
+    builder.setPlayerAction(this.action);
+
+
+
     return builder.build();
   }
 
@@ -91,11 +94,11 @@ public class Event {
 
     private final int id;
     private final String description;
-    private final List<StockCategory> categories;
+    private final List<Sector> categories;
 
     private final EventType type;
 
-    private final PlayerAction action;
+    private PlayerAction action;
 
     /** For repeating events */
     private int iterationsLeft;
@@ -105,12 +108,17 @@ public class Event {
 
     private int stage;
 
-    public EventBuilder(int  id, String description, List<StockCategory> categories, EventType type, PlayerAction action) {
+    public EventBuilder(int  id, String description, List<Sector> categories, EventType type) {
       this.id = id;
       this.description = description;
       this.categories = categories;
       this.type = type;
+    }
+
+    public  EventBuilder setPlayerAction(PlayerAction action){
+      System.out.println("INSIDE BUILDER: " + action);
       this.action = action;
+      return this;
     }
 
     public EventBuilder setStage(int stage, int totalStages) {

@@ -1,7 +1,7 @@
 package gu.dit213.group28.model;
 
 import gu.dit213.group28.model.enums.CompanyStocks;
-import gu.dit213.group28.model.enums.StockCategory;
+import gu.dit213.group28.model.enums.Sector;
 import java.util.List;
 
 public class Stock {
