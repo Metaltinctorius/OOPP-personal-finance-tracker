@@ -14,7 +14,7 @@ public enum EventType {
     @Override
     public boolean process(Event event) {
       event.decrementIterations();
-      return event.getIterationsLeft() <= 0; // Returns true if the iterations are completed.
+      return event.getIterations() <= 0; // Returns true if the iterations are completed.
     }
   },
   SEQUENTIAL(0) {

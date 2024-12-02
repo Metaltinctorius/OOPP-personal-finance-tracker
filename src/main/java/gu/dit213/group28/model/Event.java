@@ -13,11 +13,9 @@ public class Event {
   private final EventType type;
   private final PlayerAction action;
   private final List<Sector> categories;
-
   private final double modifier;
+  private int iterations;
 
-  /** For repeating events */
-  private int iterationsLeft;
 
   /** For sequential events */
   private final int totalStages;
@@ -27,11 +25,11 @@ public class Event {
     this.id = builder.id;
     this.description = builder.description;
     this.type = builder.type;
+    this.iterations = builder.iterations;
     this.categories = builder.categories;
     this.modifier = builder.modifier;
-    this.iterationsLeft = builder.iterationsLeft;
-    this.totalStages = builder.totalStages;
-    this.stage = builder.stage;
+    this.totalStages = builder.totalStages; // For sequential events
+    this.stage = builder.stage; // For sequential events
     this.action = builder.action;
   }
 
@@ -45,7 +43,9 @@ public class Event {
     return type;
   }
 
-  public PlayerAction getAction(){ return action ;}
+  public int getIterations() {
+    return iterations;
+  }
 
   public List<Sector> getCategories() {
     return categories;
@@ -53,81 +53,82 @@ public class Event {
 
   public double getModifier() { return modifier; }
 
-  public int getIterationsLeft() {
-    return iterationsLeft;
-  }
+  public PlayerAction getAction(){ return action ;}
 
+
+  /** ** ** For sequential events ** ** **/
   public int getTotalStages() {
     return totalStages;
   }
-
   public int getStage() {
     return stage;
   }
-
-  public void decrementIterations() {
-    if (iterationsLeft > 0) iterationsLeft--;
-  }
-
   public void advanceStage() {
     if (stage <= totalStages) stage++;
   }
 
+
+  /**
+   * Used to decrement iterations for repeating events.
+   */
+  public void decrementIterations() {
+    if (iterations > 0) iterations--;
+  }
+
   /**
    * The event object can call this method to produce a copy of itself.
-   * This is to avoid references
+   * This is to avoid references being passed around.
    * @return Returns a copy of the Event, instead of a reference to the event.
    */
   public Event copy(){
-    EventBuilder builder = new EventBuilder(this. id, this.description, this.categories, this.modifier, this.type);
-
-    if(type == EventType.REPEATING){
-      builder.setIterations(this.iterationsLeft);
-    }
+    EventBuilder builder = new EventBuilder(this. id, this.description, this.type, this.iterations,  this.categories, this.modifier);
     if(type == EventType.SEQUENTIAL){
       builder.setStage(this.stage, this.totalStages);
     }
-
     builder.setPlayerAction(this.action);
-
-
-
     return builder.build();
   }
 
   public static class EventBuilder {
-
     private final int id;
     private final String description;
     private final List<Sector> categories;
-
     private final double modifier;
     private final EventType type;
-
     private PlayerAction action;
+    private int iterations;
 
-    /** For repeating events */
-    private int iterationsLeft;
 
     /** For sequential events */
     private int totalStages;
-
     private int stage;
 
-    public EventBuilder(int  id, String description, List<Sector> categories,double modifier, EventType type) {
+    public EventBuilder(int  id, String description, EventType type, int iterations, List<Sector> categories, double modifier) {
       this.id = id;
       this.description = description;
+      this.type = type;
+      this.iterations = iterations;
       this.categories = categories;
       this.modifier = modifier;
-      this.type = type;
     }
 
+    /**
+     * Optional field. Primarily intended to be used to define an event as a purchase
+     * or sell made by the player.
+     * @param action The action made by the player for "purchase asset" or "selling asset".
+     * @return Builder returns itself.
+     */
     public  EventBuilder setPlayerAction(PlayerAction action){
-      System.out.println("INSIDE BUILDER: " + action);
       this.action = action;
       return this;
     }
 
+    /**
+     * Used for sequential events. To be done later.
+     * @param stage The stage the sequence is currently at
+     * @param totalStages The total number of stages in the event.
+     * @return Returns builder.
+     */
     public EventBuilder setStage(int stage, int totalStages) {
       if (type != EventType.SEQUENTIAL) {
         throw new IllegalStateException(
@@ -141,19 +142,28 @@ public class Event {
       return this;
     }
 
-    public EventBuilder setIterations(int iterationsLeft) {
-      if (type != EventType.REPEATING) {
-        throw new IllegalStateException(
-            "Can only set iterations for repeating event types! Invalid argument: " + type);
+    /**
+     * Used to validate the iterations specified in the json file, in order to make the handling
+     * of events safer. No event that is set to "ONCE" can have iterations > 0, no event
+     * set to "REPEATING" can have iterations < 1.
+     * @param iterations Iterations either given from creating an event or the json file.
+     */
+    public void checkIterations(int iterations) {
+      if (type == EventType.REPEATING && iterations <= 0) {
+        throw new IllegalArgumentException("Repeating events must have iterations > 0: " + iterations);
       }
-      if( iterationsLeft <= 0){
-        throw new IllegalStateException("REPEATING events must have positive iterations.");
+      if (type == EventType.ONCE && iterations != 0) {
+        throw new IllegalArgumentException("One-time events must have iterations = 0: " + iterations);
       }
-      this.iterationsLeft = iterationsLeft;
-      return this;
+      this.iterations = iterations;
     }
 
+    /**
+     * Primary method to produce (create) an event. The builder calls this to create the event.
+     * @return Event.
+     */
     public Event build() {
+      checkIterations(iterations);
       return new Event(this);
     }
   }

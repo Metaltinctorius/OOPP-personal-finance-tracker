@@ -15,7 +15,7 @@ public class EventManager {
   private final List<Event> eventLog = new ArrayList<>();
 
   /** The List of predefined events from the JSON file. */
-  private List<Event> predefinedEvents = new ArrayList<>();
+  private final List<Event> predefinedEvents;
 
   private final IdManager idManager;
 
@@ -26,7 +26,6 @@ public class EventManager {
 
   public void scheduleEvent(Event event) {
     eventQueue.add(event);
-    eventLog.add(event);
   }
 
   public Event getNextEvent() {
@@ -67,4 +66,12 @@ public class EventManager {
     return eventQueue;
   }
 
+  public Event getEventFromId(int id) {
+    for (Event e : predefinedEvents) {
+      if (e.getId() == id) {
+        return e;
+      }
+    }
+    throw new IllegalArgumentException("Input id not matching any ids in predefined events: " + id);
+  }
 }

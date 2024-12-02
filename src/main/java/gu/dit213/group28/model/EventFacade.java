@@ -34,8 +34,7 @@ public class EventFacade {
   public void buyStock(Stock stock, int amount){
     int id = eventManager.generateId();
     purchasingManager.buyStock(stock, amount);
-    Event.EventBuilder builder = new Event.EventBuilder(id, stock.getCompanyStock().toString(), stock.getCompanyStock().getCategories(), 0.5,
-        EventType.ONCE).setPlayerAction(PlayerAction.BUY_STOCK);
+    Event.EventBuilder builder = new Event.EventBuilder(id, stock.getCompanyStock().toString(), EventType.ONCE, 0, stock.getCompanyStock().getCategories(), 0.5).setPlayerAction(PlayerAction.BUY_STOCK);
 
     Event event = builder.build();
     eventManager.addToEventLog(event);

@@ -17,7 +17,9 @@ public class EventLoader {
   /** This is where the events from the json file are read and stored. */
   private final List<Event> predefinedEvents;
 
-  /** This list is where the ids predefined in the json file are stored */
+  /** This list is where the ids predefined in the json file are stored, this is important
+   * for the idManager for in-game created events
+   */
   private final List<Integer> reservedIds;
 
   public EventLoader() {
@@ -32,42 +34,37 @@ public class EventLoader {
 
   /**
    * This is the function that is open for the EventLoader.
-   *
    * @return returns the list of all predefined events.
    */
   public List<Event> getPredefinedEvents() {
     return predefinedEvents;
   }
 
+  /*
+  * Returns the list of reservedIds (important for in-game created events).
+   */
   public List<Integer> getReservedIds() {
     return reservedIds;
   }
 
-  /**
-   * Call this function to load the events from the predefined events from the JSON file
-   *
-   * @return Returns a list of type Event with all predefined events.
-   */
+
+  String testFile = "src/main/java/gu/dit213/group28/model/events/testFile.json";
+
+  /** Call this function to load the events from the predefined events from the JSON file */
   private void readFromJsonFile() {
     JSONParser parser = new JSONParser();
 
     try (FileReader reader =
-        new FileReader("src/main/java/gu/dit213/group28/model/events/events.json")) {
+        new FileReader(testFile)) {
 
       JSONArray jsonArray = (JSONArray) parser.parse(reader);
 
       for (Object obj : jsonArray) {
         JSONObject jsonObject = (JSONObject) obj;
 
-        /* Reads the int id */
         int id = Integer.parseInt(String.valueOf(jsonObject.get("id")));
-
-        /* Reads the description */
         String description = jsonObject.get("description").toString();
-
-        /* Reads the type of event */
         EventType type = EventType.valueOf(jsonObject.get("type").toString());
-
         int iterations = Integer.parseInt(jsonObject.get("iterations").toString());
 
         /* List of categories the event holds */
@@ -76,19 +73,45 @@ public class EventLoader {
         for (Object category : categoriesJson) {
           categories.add(category.toString());
         }
-
         double modifier = Double.parseDouble(jsonObject.get("modifier").toString());
 
-        PlayerAction action = null;
-        if (jsonObject.containsKey("action")) {
-          action = PlayerAction.valueOf(jsonObject.get("action").toString());
-        }
-
-        buildFromFile(id, description, type, iterations, categories, modifier,  action);
+        checkArguments(id, type, iterations, categories);
+        buildFromFile(id, description, type, iterations, categories, modifier);
       }
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  private void validateId(int id) {
+    if (reservedIds.contains(id)) {
+      throw new IllegalArgumentException("Duplicate ID in event JSON file: " + id);
+    }
+  }
+
+  private void validateIterations(EventType type, int iterations) {
+    if (type == EventType.REPEATING && iterations <= 0) {
+      throw new IllegalArgumentException("Repeating events must have iterations > 0.");
+    }
+    if (type == EventType.ONCE && iterations != 0) {
+      throw new IllegalArgumentException("One-time events must have iterations = 0.");
+    }
+  }
+
+  private void validateCategories(List<String> categories) {
+    for (String category : categories) {
+      try {
+        Sector.valueOf(category);
+      } catch (IllegalArgumentException e) {
+        throw new IllegalArgumentException("Invalid category: " + category, e);
+      }
+    }
+  }
+
+  private void checkArguments(int id, EventType type, int iterations, List<String> categories) {
+    validateId(id);
+    validateIterations(type, iterations);
+    validateCategories(categories);
   }
 
   private void buildFromFile(
@@ -97,33 +120,19 @@ public class EventLoader {
       EventType type,
       int iterations,
       List<String> categories,
-      double modifier,
-      PlayerAction action) {
+      double modifier) {
 
-    /*
-     * Extract a list of Sector categories from the list of String arguments.
-     */
     List<Sector> stockCategories = parseCategories(categories);
 
-    /* Build the event */
-    Event.EventBuilder builder = new Event.EventBuilder(id, description, stockCategories, modifier , type);
-    builder.setIterations(iterations);
-
-    if (action != null) {
-      builder.setPlayerAction(action);
-    }
-
+    Event.EventBuilder builder =
+        new Event.EventBuilder(id, description, type, iterations, stockCategories, modifier);
     Event event = builder.build().copy();
-
-    /* Add the event to current (active) game events */
     predefinedEvents.add(event);
-
     reservedIds.add(event.getId());
   }
 
   /**
    * Used to parse the categories array of the event.
-   *
    * @param stringCategories Takes in an array of type String
    * @return Returns an array with categories of type StockCategory
    */
@@ -135,16 +144,16 @@ public class EventLoader {
     return categories;
   }
 
-  public void viewParsedInputs(){
-    for(Event event : predefinedEvents){
+  public void viewParsedInputs() {
+    for (Event event : predefinedEvents) {
       System.out.println("**************************");
-      System.out.println("* "+ event.getId());
-      System.out.println("* "+ event.getDescription());
-      System.out.println("* "+ event.getType());
-      System.out.println("* "+ event.getCategories());
-      System.out.println("* "+ event.getModifier());
-      System.out.println("* "+ event.getIterationsLeft());
-      System.out.println("* "+ event.getAction());
+      System.out.println("* id:          " + event.getId());
+      System.out.println("* description: " + event.getDescription());
+      System.out.println("* type:        " + event.getType());
+      System.out.println("* categories:  " + event.getCategories());
+      System.out.println("* modifier:    " + event.getModifier());
+      System.out.println("* iterations:  " + event.getIterations());
+      System.out.println("* action:      " + event.getAction());
     }
   }
 }
