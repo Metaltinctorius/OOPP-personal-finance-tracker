@@ -77,12 +77,14 @@ public class EventLoader {
           categories.add(category.toString());
         }
 
+        double modifier = Double.parseDouble(jsonObject.get("modifier").toString());
+
         PlayerAction action = null;
         if (jsonObject.containsKey("action")) {
           action = PlayerAction.valueOf(jsonObject.get("action").toString());
         }
 
-        buildFromFile(id, description, type, iterations, categories, action);
+        buildFromFile(id, description, type, iterations, categories, modifier,  action);
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -95,6 +97,7 @@ public class EventLoader {
       EventType type,
       int iterations,
       List<String> categories,
+      double modifier,
       PlayerAction action) {
 
     /*
@@ -103,7 +106,7 @@ public class EventLoader {
     List<Sector> stockCategories = parseCategories(categories);
 
     /* Build the event */
-    Event.EventBuilder builder = new Event.EventBuilder(id, description, stockCategories, type);
+    Event.EventBuilder builder = new Event.EventBuilder(id, description, stockCategories, modifier , type);
     builder.setIterations(iterations);
 
     if (action != null) {
@@ -138,6 +141,8 @@ public class EventLoader {
       System.out.println("* "+ event.getId());
       System.out.println("* "+ event.getDescription());
       System.out.println("* "+ event.getType());
+      System.out.println("* "+ event.getCategories());
+      System.out.println("* "+ event.getModifier());
       System.out.println("* "+ event.getIterationsLeft());
       System.out.println("* "+ event.getAction());
     }

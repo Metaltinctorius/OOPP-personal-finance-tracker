@@ -5,6 +5,7 @@
     "type": "REPEATING",
     "iterations": "9",
     "categories": ["HEALTHCARE", "HEALTHCARE"],
+    "modifier": "0.5",
     "action": "NONE"
   },
 
@@ -13,7 +14,8 @@
     "description": "Test without action",
     "type": "REPEATING",
     "iterations": "9",
-    "categories": ["HEALTHCARE", "HEALTHCARE"]
+    "categories": ["HEALTHCARE", "HEALTHCARE"],
+    "modifier": "0.7"
   }
 ]
 

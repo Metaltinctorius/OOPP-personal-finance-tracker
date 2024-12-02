@@ -14,6 +14,8 @@ public class Event {
   private final PlayerAction action;
   private final List<Sector> categories;
 
+  private final double modifier;
+
   /** For repeating events */
   private int iterationsLeft;
 
@@ -26,6 +28,7 @@ public class Event {
     this.description = builder.description;
     this.type = builder.type;
     this.categories = builder.categories;
+    this.modifier = builder.modifier;
     this.iterationsLeft = builder.iterationsLeft;
     this.totalStages = builder.totalStages;
     this.stage = builder.stage;
@@ -47,6 +50,8 @@ public class Event {
   public List<Sector> getCategories() {
     return categories;
   }
+
+  public double getModifier() { return modifier; }
 
   public int getIterationsLeft() {
     return iterationsLeft;
@@ -74,7 +79,7 @@ public class Event {
    * @return Returns a copy of the Event, instead of a reference to the event.
    */
   public Event copy(){
-    EventBuilder builder = new EventBuilder(this. id, this.description, this.categories, this.type);
+    EventBuilder builder = new EventBuilder(this. id, this.description, this.categories, this.modifier, this.type);
 
     if(type == EventType.REPEATING){
       builder.setIterations(this.iterationsLeft);
@@ -96,6 +101,7 @@ public class Event {
     private final String description;
     private final List<Sector> categories;
 
+    private final double modifier;
     private final EventType type;
 
     private PlayerAction action;
@@ -108,10 +114,11 @@ public class Event {
 
     private int stage;
 
-    public EventBuilder(int  id, String description, List<Sector> categories, EventType type) {
+    public EventBuilder(int  id, String description, List<Sector> categories,double modifier, EventType type) {
       this.id = id;
       this.description = description;
       this.categories = categories;
+      this.modifier = modifier;
       this.type = type;
     }
 
