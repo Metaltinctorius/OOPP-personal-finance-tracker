@@ -103,13 +103,12 @@ public class Event {
     private int totalStages;
     private int stage;
 
-    public EventBuilder(int  id, String description, EventType type, int iterations, List<Sector> categories, double modifier) {
+    public EventBuilder(int  id, String description, EventType type, int iterations, List<Sector> categories) {
       this.id = id;
       this.description = description;
       this.type = type;
       this.iterations = iterations;
       this.categories = categories;
-      this.modifier = modifier;
     }
 
     /**
