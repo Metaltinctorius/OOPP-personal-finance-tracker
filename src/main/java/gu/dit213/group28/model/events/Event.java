@@ -81,7 +81,7 @@ public class Event {
    * @return Returns a copy of the Event, instead of a reference to the event.
    */
   public Event copy(){
-    EventBuilder builder = new EventBuilder(this. id, this.description, this.type, this.iterations,  this.categories, this.modifier);
+    EventBuilder builder = new EventBuilder(this. id, this.description, this.type, this.iterations,  this.categories);
     if(type == EventType.SEQUENTIAL){
       builder.setStage(this.stage, this.totalStages);
     }
@@ -93,7 +93,7 @@ public class Event {
     private final int id;
     private final String description;
     private final List<Sector> categories;
-    private final double modifier;
+    private double modifier;
     private final EventType type;
     private PlayerAction action;
     private int iterations;
@@ -103,13 +103,12 @@ public class Event {
     private int totalStages;
     private int stage;
 
-    public EventBuilder(int  id, String description, EventType type, int iterations, List<Sector> categories, double modifier) {
+    public EventBuilder(int  id, String description, EventType type, int iterations, List<Sector> categories) {
       this.id = id;
       this.description = description;
       this.type = type;
       this.iterations = iterations;
       this.categories = categories;
-      this.modifier = modifier;
     }
 
     /**
@@ -122,6 +121,11 @@ public class Event {
       this.action = action;
       action.setAmount(amount);
       action.setValue(value);
+      return this;
+    }
+
+    public EventBuilder setModifier(double modifier){
+      this.modifier = modifier;
       return this;
     }
 

@@ -13,12 +13,10 @@ public class EventFacade {
 
   private final EventLoader loader;
   private final EventManager eventManager;
-  private final PurchasingManager purchasingManager;
 
   public EventFacade() {
     this.loader = new EventLoader();
     this.eventManager = new EventManager(loader.getPredefinedEvents(), loader.getReservedIds());
-    this.purchasingManager = new PurchasingManager();
   }
 
   public void addEventToQueue(Event event) {
@@ -29,12 +27,12 @@ public class EventFacade {
     return eventManager.getEventLog();
   }
 
-  public Event buyAsset(Asset asset, int amount, double value) {
+  public Event buyAsset(Sector sector, int amount, double value) {
     List <Sector> sectors = new ArrayList<>();
-    sectors.add(asset.getSector());
+    sectors.add(sector);
     int id = eventManager.generateId();
 
-    Event.EventBuilder builder = new Event.EventBuilder(id, asset.getName(), EventType.ONCE, 0,sectors,0.0 )
+    Event.EventBuilder builder = new Event.EventBuilder(id, sector.name(), EventType.ONCE, 0,sectors)
             .setPlayerAction(PlayerAction.BUY_STOCK, amount, value);
 
     Event event = builder.build();
