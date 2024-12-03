@@ -28,11 +28,12 @@ public class EventFacade {
   }
 
   public Event buyAsset(Sector sector, int amount, double value) {
-    List <Sector> sectors = new ArrayList<>();
+    List<Sector> sectors = new ArrayList<>();
     sectors.add(sector);
     int id = eventManager.generateId();
 
-    Event.EventBuilder builder = new Event.EventBuilder(id, sector.name(), EventType.ONCE, 0,sectors)
+    Event.EventBuilder builder =
+        new Event.EventBuilder(id, sector.name(), EventType.ONCE, 0, sectors)
             .setPlayerAction(PlayerAction.BUY_STOCK, amount, value);
 
     Event event = builder.build();
@@ -40,6 +41,4 @@ public class EventFacade {
 
     return event;
   }
-
-
 }
