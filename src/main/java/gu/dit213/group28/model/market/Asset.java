@@ -11,19 +11,17 @@ public class Asset
 {
   private final String ticker;
   private final String name;
-  private final AssetType type;
   private final Sector sector;
   private final double trend;
   private final List<TrendModifier> trendModifiers;
   private double price;
   private final List<PriceRecord> historicalPrices;
 
-  public Asset(String ticker, String name, AssetType type, Sector sector,
+  public Asset(String ticker, String name, Sector sector,
                double price, List<PriceRecord> historicalPrices)
   {
     this.ticker = ticker;
     this.name = name;
-    this.type = type;
     this.sector = sector;
     this.trend = 1;
     this.price = price;
@@ -40,11 +38,6 @@ public class Asset
   public String getName()
   {
     return name;
-  }
-
-  public AssetType getType()
-  {
-    return type;
   }
 
   public Sector getSector()
@@ -96,7 +89,7 @@ public class Asset
 
   public void updatePrice()
   {
-    price *= this.getTrend() + Market.getInstance("",.07).getTrend();
+    price *= this.getTrend() + Market.getInstance("", 0.07).getTrend();
     System.out.println(price);
     historicalPrices.add(new PriceRecord(price, LocalDate.now()));
   }

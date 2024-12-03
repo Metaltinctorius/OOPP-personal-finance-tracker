@@ -28,8 +28,8 @@ public class PortfolioTest
   public void setUp()
   {
     portfolio = new Portfolio();
-    asset = new Asset("S&P500", "Index Fund", AssetType.INDEX_FUND, Sector.INDEX,  100, new ArrayList<>());
-    market = Market.getInstance("NYSE", .1);
+    asset = new Asset("S&P500", "Index Fund", Sector.INDEX,  100, new ArrayList<>());
+    market = Market.getInstance();
     market.addAsset(asset);
   }
 
@@ -44,9 +44,18 @@ public class PortfolioTest
   @Test
   public void testBuyAsset()
   {
-    portfolio.addEntry(new PortfolioEntry(asset, 5, asset.getPrice(), LocalDate.now()));
-    Asset owned = portfolio.getEntries().getFirst().getAsset();
-    assertEquals(asset, owned);
+    portfolio.addEntry(new PortfolioEntry(asset.getSector(), 5, asset.getPrice(), LocalDate.now()));
+    Sector ownedSector = portfolio.getEntries().getFirst().getSector();
+    Asset ownedAsset = null;
+    for (Asset asset : market.getAssets())
+    {
+      if (asset.getSector().equals(ownedSector))
+      {
+        ownedAsset = asset;
+        break;
+      }
+    }
+    assertEquals(asset, ownedAsset);
   }
 
   @Test
@@ -59,7 +68,7 @@ public class PortfolioTest
   @Test
   public void testUpdatePrice()
   {
-    portfolio.addEntry(new PortfolioEntry(asset, 5, asset.getPrice(), LocalDate.now()));
+    portfolio.addEntry(new PortfolioEntry(asset.getSector(), 5, asset.getPrice(), LocalDate.now()));
     asset.updatePrice();
     assertEquals(110, asset.getPrice(), 0.001);
   }
@@ -67,7 +76,7 @@ public class PortfolioTest
   @Test
   public void testPriceModifier()
   {
-    portfolio.addEntry(new PortfolioEntry(asset, 5, asset.getPrice(), LocalDate.now()));
+    portfolio.addEntry(new PortfolioEntry(asset.getSector(), 5, asset.getPrice(), LocalDate.now()));
     asset.addTrendModifier(new TrendModifier(.1, 1));
     asset.updatePrice();
     assertEquals(120, asset.getPrice(), 0.001);
