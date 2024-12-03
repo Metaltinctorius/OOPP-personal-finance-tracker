@@ -25,7 +25,7 @@ public class Market implements Imarket
   }
 
   // Public static method to get the single instance
-  public static Market getInstance(String name, double trend)
+  public static Market getInstance()
   {
     if (instance == null)
     {
@@ -33,7 +33,7 @@ public class Market implements Imarket
       { // Ensure thread safety
         if (instance == null)
         {
-          instance = new Market(name, trend);
+          instance = new Market("NYSE", 0.07);
         }
       }
     }

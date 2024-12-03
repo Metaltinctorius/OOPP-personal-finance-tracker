@@ -24,7 +24,7 @@ public class GameCore {
         timer.initTime();
         eventFacade = new wEventFacade(new EventFacade());
         this.logic = new wLogic(logic);
-        market = Market.getInstance("hej", 1.07);
+        market = Market.getInstance();
         Iuser user = new wUser(new Portfolio());
 
     }

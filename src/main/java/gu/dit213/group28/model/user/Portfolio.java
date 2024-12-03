@@ -30,13 +30,6 @@ public class Portfolio implements Iuser
     return entries;
   }
 
-  public double getTotalValue()
-  {
-    return entries.stream()
-        .mapToDouble(entry -> entry.getQuantity() * entry.getAsset().getPrice())
-        .sum();
-  }
-
   public double getTotalCost()
   {
     return entries.stream()
