@@ -89,7 +89,7 @@ public class Asset
 
   public void updatePrice()
   {
-    price *= this.getTrend() + Market.getInstance("", 0.07).getTrend();
+    price *= this.getTrend() + Market.getInstance().getTrend();
     System.out.println(price);
     historicalPrices.add(new PriceRecord(price, LocalDate.now()));
   }
