@@ -28,7 +28,7 @@ public class EventFacade {
 
   public void buyAsset(Asset asset, int amount) {
     int id = eventManager.generateId();
-    purchasingManager.buyStock(stock, amount);
+    purchasingManager.buyStock(asset, amount);
     Event.EventBuilder builder =
         new Event.EventBuilder(
                 id,
@@ -41,6 +41,11 @@ public class EventFacade {
 
     Event event = builder.build();
     eventManager.addToEventLog(event);
+  }
+
+
+  public double getModifier(){
+
   }
 
   public static double generateRandomDouble(double min, double max) {
