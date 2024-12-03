@@ -11,37 +11,37 @@ import java.util.Random;
 public class EventManager {
 
   /** A queue for scheduled events */
-  private final Queue<Event> eventQueue = new LinkedList<>();
+  private final Queue<OldEvent> eventQueue = new LinkedList<>();
 
   /** A list of all events that have been initiated during the game's lifecycle. */
-  private final List<Event> eventLog = new ArrayList<>();
+  private final List<OldEvent> eventLog = new ArrayList<>();
 
   /** The List of predefined events from the JSON file. */
-  private final List<Event> predefinedEvents;
+  private final List<OldEvent> predefinedEvents;
 
   private final IdManager idManager;
 
-  public EventManager(List<Event> predefinedEvents, List<Integer> reservedIdsFromLoader) {
+  public EventManager(List<OldEvent> predefinedEvents, List<Integer> reservedIdsFromLoader) {
     this.predefinedEvents = predefinedEvents;
     this.idManager = new IdManager(reservedIdsFromLoader);
   }
 
-  public Event getNextEvent() {
+  public OldEvent getNextEvent() {
     if (eventQueue.isEmpty()) {
       throw new IllegalStateException("No events in the queue.");
     }
     return eventQueue.poll();
   }
 
-  public void addToEventLog(Event event) {
+  public void addToEventLog(OldEvent event) {
     eventLog.add(event);
   }
 
-  public void addToEventQueue(Event event) {
+  public void addToEventQueue(OldEvent event) {
     eventQueue.add(event);
   }
 
-  public static int generateRandomIndex(List<Event> events) {
+  public static int generateRandomIndex(List<OldEvent> events) {
     if (events == null || events.isEmpty()) {
       throw new IllegalArgumentException("List must not be null or empty");
     }
@@ -52,20 +52,20 @@ public class EventManager {
     return idManager.getNextId();
   }
 
-  public List<Event> getPredefinedEvents() {
+  public List<OldEvent> getPredefinedEvents() {
     return predefinedEvents;
   }
 
-  public List<Event> getEventLog() {
+  public List<OldEvent> getEventLog() {
     return eventLog;
   }
 
-  public Queue<Event> getEventQueue() {
+  public Queue<OldEvent> getEventQueue() {
     return eventQueue;
   }
 
-  public Event getEventFromId(int id) {
-    for (Event e : predefinedEvents) {
+  public OldEvent getEventFromId(int id) {
+    for (OldEvent e : predefinedEvents) {
       if (e.getId() == id) {
         return e;
       }

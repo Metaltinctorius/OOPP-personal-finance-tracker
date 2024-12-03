@@ -1,6 +1,6 @@
 package gu.dit213.group28.eventTests;
 
-import gu.dit213.group28.model.events.Event;
+import gu.dit213.group28.model.events.OldEvent;
 import gu.dit213.group28.model.events.EventFacade;
 import gu.dit213.group28.model.events.EventLoader;
 import java.util.List;
@@ -12,11 +12,11 @@ public class TestEventFunctionality {
 
   static EventFacade facade;
   private EventLoader loader;
-  List<Event> predefinedEvents;
+  List<OldEvent> predefinedEvents;
 
   @Test
   public void test_decrement_iterations(){
-    Event event = predefinedEvents.get(3);
+    OldEvent event = predefinedEvents.get(3);
     event.decrementIterations();
     int actual = event.getIterations();
     int expected = 8;

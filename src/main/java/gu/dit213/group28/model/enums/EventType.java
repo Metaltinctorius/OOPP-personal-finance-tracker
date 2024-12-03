@@ -1,25 +1,25 @@
 package gu.dit213.group28.model.enums;
 
-import gu.dit213.group28.model.events.Event;
+import gu.dit213.group28.model.events.OldEvent;
 
 public enum EventType {
 
   ONCE(0) {
     @Override
-    public boolean process(Event event) {
+    public boolean process(OldEvent event) {
       return true;
     }
   },
   REPEATING(0) {
     @Override
-    public boolean process(Event event) {
+    public boolean process(OldEvent event) {
       event.decrementIterations();
       return event.getIterations() <= 0; // Returns true if the iterations are completed.
     }
   },
   SEQUENTIAL(0) {
     @Override
-    public boolean process(Event event) {
+    public boolean process(OldEvent event) {
       event.advanceStage();
       return event.getStage() > event.getTotalStages(); // Returns true if the stage has passed the total stages.
     }
@@ -38,5 +38,5 @@ public enum EventType {
   }
 
 
-  public abstract boolean process(Event event);
+  public abstract boolean process(OldEvent event);
 }

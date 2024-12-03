@@ -1,6 +1,6 @@
 package gu.dit213.group28.eventTests;
 
-import gu.dit213.group28.model.events.Event;
+import gu.dit213.group28.model.events.OldEvent;
 import gu.dit213.group28.model.events.EventManager;
 import gu.dit213.group28.model.events.EventLoader;
 import java.util.List;
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 public class TestEventManager {
 
   EventManager manager;
-  List <Event> events;
+  List <OldEvent> events;
 
 
   // Tests are based on the "testFile.json" file.
@@ -50,20 +50,20 @@ public class TestEventManager {
 
   @Test
   public void test_get_id_from_predefined_events(){
-    Event event = manager.getEventFromId(2);
+    OldEvent event = manager.getEventFromId(2);
     Assertions.assertEquals(event.getDescription(), "Event 2");
   }
 
   @Test
   public void test_add_event_to_queue(){
-    Event event = events.getFirst();
+    OldEvent event = events.getFirst();
     manager.addToEventQueue(event);
     Assertions.assertTrue(manager.getEventQueue().contains(event));
   }
 
   @Test
   public void test_get_next_event_from_queue(){
-    Event event = events.getFirst();
+    OldEvent event = events.getFirst();
     manager.addToEventQueue(event);
     Assertions.assertEquals(manager.getNextEvent(), event);
   }

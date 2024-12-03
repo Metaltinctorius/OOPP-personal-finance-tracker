@@ -79,8 +79,8 @@ public class EventBuilder {
      * Primary method to produce (create) an event. The builder calls this to create the event.
      * @return Event.
      */
-    public Event build() {
+    public OldEvent build() {
         checkIterations(iterations);
-        return new Event(this);
+        return new OldEvent(this);
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 public enum CompanyStocks
 {
 
-  PFIZER(List.of(HEALTHCARE)),
+  PFIZER(List.of(HEALTHCARE, INFORMATION_TECHNOLOGY)),
   ASTRA_ZENECA(List.of(HEALTHCARE));
 
   private final List<Sector> categories;

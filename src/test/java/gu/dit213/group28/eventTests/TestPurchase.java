@@ -1,7 +1,7 @@
 package gu.dit213.group28.eventTests;
 
 
-import gu.dit213.group28.model.events.Event;
+import gu.dit213.group28.model.events.OldEvent;
 import gu.dit213.group28.model.events.EventFacade;
 import gu.dit213.group28.model.enums.CompanyStocks;
 import java.util.List;
@@ -13,7 +13,7 @@ public class TestPurchase {
   public void testPurchaseStock(){
     EventFacade eventFacade = new EventFacade();
 
-    List<Event> log = eventFacade.getEventLog();
+    List<OldEvent> log = eventFacade.getEventLog();
 
     Stock newStock = new Stock(CompanyStocks.PFIZER, 0.0, 1000, 50);
     eventFacade.buyStock(newStock, 1);

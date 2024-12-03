@@ -13,7 +13,7 @@ import java.io.FileReader;
 public class EventLoader {
 
   /** This is where the events from the json file are read and stored. */
-  private final List<Event> predefinedEvents;
+  private final List<OldEvent> predefinedEvents;
 
   /** This list is where the ids predefined in the json file are stored, this is important
    * for the idManager for in-game created events
@@ -34,7 +34,7 @@ public class EventLoader {
    * This is the function that is open for the EventLoader.
    * @return returns the list of all predefined events.
    */
-  public List<Event> getPredefinedEvents() {
+  public List<OldEvent> getPredefinedEvents() {
     return predefinedEvents;
   }
 
@@ -122,9 +122,9 @@ public class EventLoader {
 
     List<Sector> stockCategories = parseCategories(categories);
 
-    Event.EventBuilder builder =
-        new Event.EventBuilder(id, description, type, iterations, stockCategories).setModifier(modifier);
-    Event event = builder.build().copy();
+    OldEvent.EventBuilder builder =
+        new OldEvent.EventBuilder(id, description, type, iterations, stockCategories).setModifier(modifier);
+    OldEvent event = builder.build().copy();
     predefinedEvents.add(event);
     reservedIds.add(event.getId());
   }
@@ -143,7 +143,7 @@ public class EventLoader {
   }
 
   public void viewParsedInputs() {
-    for (Event event : predefinedEvents) {
+    for (OldEvent event : predefinedEvents) {
       System.out.println("**************************");
       System.out.println("* id:          " + event.getId());
       System.out.println("* description: " + event.getDescription());

@@ -1,7 +1,7 @@
 package gu.dit213.group28.eventTests;
 
 
-import gu.dit213.group28.model.events.Event;
+import gu.dit213.group28.model.events.OldEvent;
 import gu.dit213.group28.model.events.EventFacade;
 import gu.dit213.group28.model.enums.EventType;
 import gu.dit213.group28.model.enums.Sector;
@@ -15,7 +15,7 @@ public class TestEventLoader {
 
   static EventFacade facade;
   private EventLoader loader;
-  List <Event> predefinedEvents;
+  List <OldEvent> predefinedEvents;
 
 
   /**
@@ -58,14 +58,14 @@ public class TestEventLoader {
 
   @Test
   public void test_type_once_iterations_zero(){
-    Event event = predefinedEvents.get(1);
+    OldEvent event = predefinedEvents.get(1);
     Assertions.assertEquals(event.getIterations(), 0);
   }
 
 
   @Test
   public void test_iterations(){
-    Event event = predefinedEvents.get(0);
+    OldEvent event = predefinedEvents.get(0);
     int actual = event.getIterations();
     int expected = 0;
     Assertions.assertEquals(expected, actual);
@@ -73,7 +73,7 @@ public class TestEventLoader {
 
   @Test
   public void test_categories_successful_list(){
-    Event event = predefinedEvents.get(0);
+    OldEvent event = predefinedEvents.get(0);
     List <Sector> sectors = event.getCategories();
     int expected = 2;
     Assertions.assertEquals(expected, sectors.size());
@@ -81,7 +81,7 @@ public class TestEventLoader {
 
   @Test
   public void test_categories(){
-    Event event = predefinedEvents.get(0);
+    OldEvent event = predefinedEvents.get(0);
     List <Sector> sectors = event.getCategories();
     Assertions.assertEquals(sectors.getFirst(), Sector.HEALTHCARE);
     Assertions.assertEquals(sectors.get(1), Sector.HEALTHCARE);
@@ -89,14 +89,14 @@ public class TestEventLoader {
 
   @Test
   public void test_categories_empty(){
-    Event event = predefinedEvents.get(2);
+    OldEvent event = predefinedEvents.get(2);
     List <Sector> sectors = event.getCategories();
     Assertions.assertTrue(sectors.isEmpty());
   }
 
   @Test
   public void test_no_action(){
-    Event event = predefinedEvents.get(3);
+    OldEvent event = predefinedEvents.get(3);
     Assertions.assertNull(event.getAction());
   }
 

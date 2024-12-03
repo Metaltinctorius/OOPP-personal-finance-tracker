@@ -5,11 +5,9 @@ import gu.dit213.group28.model.enums.PlayerAction;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.Ievent;
 import gu.dit213.group28.model.interfaces.Ieventfacade;
-import gu.dit213.group28.model.market.Asset;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class EventFacade implements Ieventfacade {
 
@@ -22,23 +20,23 @@ public class EventFacade implements Ieventfacade {
     this.eventManager = new EventManager(loader.getPredefinedEvents(), loader.getReservedIds());
   }
 
-  public void addEventToQueue(Event event) {
+  public void addEventToQueue(OldEvent event) {
     eventManager.addToEventQueue(event);
   }
 
-  public List<Event> getEventLog() {
+  public List<OldEvent> getEventLog() {
     return eventManager.getEventLog();
   }
 
-  public Event buyAsset(Sector sector, int amount, double value) {
+  public OldEvent buyAsset(Sector sector, int amount, double value) {
 
     List < Sector> sectors = new ArrayList<>();
     sectors.add(sector);
 
     int id = eventManager.generateId();
 
-    Event.EventBuilder builder =
-        new Event.EventBuilder(
+    OldEvent.EventBuilder builder =
+        new OldEvent.EventBuilder(
                 id,
             sector.name(),
                 EventType.ONCE,
@@ -47,7 +45,7 @@ public class EventFacade implements Ieventfacade {
                )
             .setPlayerAction(PlayerAction.BUY_STOCK, amount, value);
 
-    Event event = builder.build();
+    OldEvent event = builder.build();
     eventManager.addToEventLog(event);
 
     return event;
