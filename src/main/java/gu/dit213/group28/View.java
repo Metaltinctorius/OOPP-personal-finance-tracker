@@ -1,9 +1,7 @@
 package gu.dit213.group28;
 
 import gu.dit213.group28.model.interfaces.Iobserver;
-
 import gu.dit213.group28.model.Observable;
-import gu.dit213.group28.model.interfaces.Iobserver;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;

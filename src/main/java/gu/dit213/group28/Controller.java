@@ -1,6 +1,6 @@
 package gu.dit213.group28;
 
-import gu.dit213.group28.model.Icontrollable;
+import gu.dit213.group28.model.interfaces.Icontrollable;
 import gu.dit213.group28.model.Logic;
 import java.time.LocalDate;
 import java.util.List;

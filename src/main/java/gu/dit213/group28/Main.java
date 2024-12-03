@@ -1,6 +1,5 @@
 package gu.dit213.group28;
 
-import gu.dit213.group28.model.TransactionHandler;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -14,9 +13,10 @@ public class Main extends Application {
   @Override
   public void start(Stage stage) {
     /*
-    TransactionHandler transactionHandler = new TransactionHandler();
-    Controller controller =
-        new Controller(stage, logic, transactionHandler, new View(stage, transactionHandler));
+      TransactionHandler transactionHandler = new TransactionHandler();
+      Controller controller =
+          new Controller(stage, logic, transactionHandler, new View(stage, transactionHandler));
+    */
   }
 
   /** Launches the JavaFX application. */
