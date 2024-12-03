@@ -15,11 +15,16 @@ public class wMarket implements Imarket {
 
     @Override
     public void accept(Ievent e) {
-
+        lock.lock();
+        market.accept(e);
+        lock.unlock();
     }
 
     @Override
     public String getState() {
-        return "";
+        lock.lock();
+        String m = market.getState();
+        lock.unlock();
+        return m;
     }
 }
