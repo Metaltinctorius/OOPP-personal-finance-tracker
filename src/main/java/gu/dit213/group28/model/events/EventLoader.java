@@ -122,8 +122,8 @@ public class EventLoader {
 
     List<Sector> stockCategories = parseCategories(categories);
 
-    Event.EventBuilder builder =
-        new Event.EventBuilder(id, description, type, iterations, stockCategories, modifier);
+    EventBuilder builder =
+        new EventBuilder(id, description, type, iterations, stockCategories, modifier);
     Event event = builder.build().copy();
     predefinedEvents.add(event);
     reservedIds.add(event.getId());

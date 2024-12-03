@@ -32,8 +32,8 @@ public class EventFacade implements Ieventfacade {
   public void buyAsset(Asset asset, int amount) {
     int id = eventManager.generateId();
     purchasingManager.buyStock(asset, amount);
-    Event.EventBuilder builder =
-        new Event.EventBuilder(
+    EventBuilder builder =
+        new EventBuilder(
                 id,
             asset.getCompanyStock().toString(),
                 EventType.ONCE,
