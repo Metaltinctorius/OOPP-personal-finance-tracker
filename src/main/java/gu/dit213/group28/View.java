@@ -1,5 +1,9 @@
 package gu.dit213.group28;
 
+<<<<<<< HEAD
+=======
+import gu.dit213.group28.model.interfaces.Iobserver;
+>>>>>>> merge-market-asset-event
 import gu.dit213.group28.model.Observable;
 import gu.dit213.group28.model.interfaces.Iobserver;
 import javafx.scene.layout.BorderPane;
