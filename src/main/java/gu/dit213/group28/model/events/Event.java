@@ -81,11 +81,11 @@ public class Event {
    * @return Returns a copy of the Event, instead of a reference to the event.
    */
   public Event copy(){
-    EventBuilder builder = new EventBuilder(this. id, this.description, this.type, this.iterations,  this.categories, this.modifier);
+    EventBuilder builder = new EventBuilder(this. id, this.description, this.type, this.iterations,  this.categories);
     if(type == EventType.SEQUENTIAL){
       builder.setStage(this.stage, this.totalStages);
     }
-    builder.setPlayerAction(this.action);
+    builder.setPlayerAction(this.action, action.getAmount(), action.getValue());
     return builder.build();
   }
 
@@ -93,7 +93,7 @@ public class Event {
     private final int id;
     private final String description;
     private final List<Sector> categories;
-    private final double modifier;
+    private double modifier;
     private final EventType type;
     private PlayerAction action;
     private int iterations;
@@ -117,8 +117,15 @@ public class Event {
      * @param action The action made by the player for "purchase asset" or "selling asset".
      * @return Builder returns itself.
      */
-    public  EventBuilder setPlayerAction(PlayerAction action){
+    public  EventBuilder setPlayerAction(PlayerAction action, int amount, double value){
       this.action = action;
+      action.setAmount(amount);
+      action.setValue(value);
+      return this;
+    }
+
+    public EventBuilder setModifier(double modifier){
+      this.modifier = modifier;
       return this;
     }
 
@@ -165,5 +172,6 @@ public class Event {
       checkIterations(iterations);
       return new Event(this);
     }
+
   }
 }

@@ -2,10 +2,12 @@ package gu.dit213.group28.model.events;
 
 import gu.dit213.group28.model.enums.EventType;
 import gu.dit213.group28.model.enums.PlayerAction;
+import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.Ievent;
 import gu.dit213.group28.model.interfaces.Ieventfacade;
 import gu.dit213.group28.model.market.Asset;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -13,12 +15,11 @@ public class EventFacade implements Ieventfacade {
 
   private final EventLoader loader;
   private final EventManager eventManager;
-  private final PurchasingManager purchasingManager;
+
 
   public EventFacade() {
     this.loader = new EventLoader();
     this.eventManager = new EventManager(loader.getPredefinedEvents(), loader.getReservedIds());
-    this.purchasingManager = new PurchasingManager();
   }
 
   public void addEventToQueue(Event event) {
@@ -29,35 +30,29 @@ public class EventFacade implements Ieventfacade {
     return eventManager.getEventLog();
   }
 
-  public void buyAsset(Asset asset, int amount) {
+  public Event buyAsset(Sector sector, int amount, double value) {
+
+    List < Sector> sectors = new ArrayList<>();
+    sectors.add(sector);
+
     int id = eventManager.generateId();
-    purchasingManager.buyStock(asset, amount);
+
     Event.EventBuilder builder =
         new Event.EventBuilder(
                 id,
-            asset.getCompanyStock().toString(),
+            sector.name(),
                 EventType.ONCE,
                 0,
-            asset.getCompanyStock().getCategories(),
-                0.5)
-            .setPlayerAction(PlayerAction.BUY_STOCK);
+            sectors
+               )
+            .setPlayerAction(PlayerAction.BUY_STOCK, amount, value);
 
     Event event = builder.build();
     eventManager.addToEventLog(event);
+
+    return event;
   }
 
-
-  public double getModifier(){
-
-  }
-
-  public static double generateRandomDouble(double min, double max) {
-    if (min > max) {
-      throw new IllegalArgumentException("Min cannot be greater than max.");
-    }
-    Random random = new Random();
-    return min + (max - min) * random.nextDouble();
-  }
 
   @Override
   public Ievent getEmpty() {
