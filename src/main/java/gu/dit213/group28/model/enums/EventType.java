@@ -1,6 +1,6 @@
 package gu.dit213.group28.model.enums;
 
-import gu.dit213.group28.model.Event;
+import gu.dit213.group28.model.events.Event;
 
 public enum EventType {
 

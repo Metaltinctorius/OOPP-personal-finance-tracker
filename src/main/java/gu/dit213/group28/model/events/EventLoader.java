@@ -1,8 +1,6 @@
 package gu.dit213.group28.model.events;
 
-import gu.dit213.group28.model.Event;
 import gu.dit213.group28.model.enums.EventType;
-import gu.dit213.group28.model.enums.PlayerAction;
 import gu.dit213.group28.model.enums.Sector;
 import java.util.ArrayList;
 import java.util.List;

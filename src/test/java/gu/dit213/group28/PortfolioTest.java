@@ -2,17 +2,16 @@ package gu.dit213.group28;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import gu.dit213.group28.model.Asset;
-import gu.dit213.group28.model.Market;
-import gu.dit213.group28.model.Portfolio;
-import gu.dit213.group28.model.PortfolioEntry;
-import gu.dit213.group28.model.PriceRecord;
-import gu.dit213.group28.model.TrendModifier;
+import gu.dit213.group28.model.market.Asset;
+import gu.dit213.group28.model.market.Market;
+import gu.dit213.group28.model.user.Portfolio;
+import gu.dit213.group28.model.user.PortfolioEntry;
+import gu.dit213.group28.model.market.TrendModifier;
 import gu.dit213.group28.model.enums.AssetType;
 import gu.dit213.group28.model.enums.Sector;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

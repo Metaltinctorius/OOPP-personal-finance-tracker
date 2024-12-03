@@ -1,4 +1,6 @@
-package gu.dit213.group28.model;
+package gu.dit213.group28.model.user;
+
+import gu.dit213.group28.model.market.Asset;
 
 import java.time.LocalDate;
 

@@ -1,5 +1,6 @@
-package gu.dit213.group28.model;
+package gu.dit213.group28.model.market;
 
+import gu.dit213.group28.model.user.PriceRecord;
 import gu.dit213.group28.model.enums.AssetType;
 import gu.dit213.group28.model.enums.Sector;
 import java.util.ArrayList;

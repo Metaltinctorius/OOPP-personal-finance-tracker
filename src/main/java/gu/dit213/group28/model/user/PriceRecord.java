@@ -1,4 +1,4 @@
-package gu.dit213.group28.model;
+package gu.dit213.group28.model.user;
 
 import java.time.LocalDate;
 

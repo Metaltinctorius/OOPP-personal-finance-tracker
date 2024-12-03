@@ -1,10 +1,9 @@
 package gu.dit213.group28.eventTests;
 
 
-import gu.dit213.group28.model.Event;
-import gu.dit213.group28.model.EventFacade;
+import gu.dit213.group28.model.events.Event;
+import gu.dit213.group28.model.events.EventFacade;
 import gu.dit213.group28.model.enums.EventType;
-import gu.dit213.group28.model.enums.PlayerAction;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.events.EventLoader;
 import java.util.List;

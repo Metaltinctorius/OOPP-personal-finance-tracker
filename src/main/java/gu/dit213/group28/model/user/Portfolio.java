@@ -1,4 +1,4 @@
-package gu.dit213.group28.model;
+package gu.dit213.group28.model.user;
 
 import java.util.ArrayList;
 import java.util.List;

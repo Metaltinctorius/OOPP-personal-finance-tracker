@@ -1,4 +1,4 @@
-package gu.dit213.group28.model;
+package gu.dit213.group28.model.market;
 
 public class TrendModifier
 {

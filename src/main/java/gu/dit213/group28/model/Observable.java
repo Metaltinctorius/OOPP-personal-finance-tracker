@@ -1,5 +1,7 @@
 package gu.dit213.group28.model;
 
+import gu.dit213.group28.model.interfaces.Iobserver;
+
 import java.util.ArrayList;
 import java.util.List;
 

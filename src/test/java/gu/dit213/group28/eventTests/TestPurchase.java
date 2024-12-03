@@ -1,8 +1,8 @@
 package gu.dit213.group28.eventTests;
 
 
-import gu.dit213.group28.model.Event;
-import gu.dit213.group28.model.EventFacade;
+import gu.dit213.group28.model.events.Event;
+import gu.dit213.group28.model.events.EventFacade;
 import gu.dit213.group28.model.enums.CompanyStocks;
 import java.util.List;
 import org.junit.jupiter.api.*;

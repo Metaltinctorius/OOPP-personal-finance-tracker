@@ -1,4 +1,6 @@
-package gu.dit213.group28.model;
+package gu.dit213.group28.model.market;
+
+import gu.dit213.group28.model.interfaces.Imarket;
 
 import java.util.*;
 

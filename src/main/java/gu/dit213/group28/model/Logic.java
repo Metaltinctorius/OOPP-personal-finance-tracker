@@ -1,5 +1,8 @@
 package gu.dit213.group28.model;
 
+import gu.dit213.group28.model.interfaces.Icontrollable;
+import gu.dit213.group28.model.interfaces.Iobserver;
+
 import java.util.List;
 
 public class Logic extends Observable implements Icontrollable {
