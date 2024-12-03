@@ -2,10 +2,6 @@ package gu.dit213.group28.transactiontest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import gu.dit213.group28.model.Transaction;
-import gu.dit213.group28.model.TransactionHandler;
-import gu.dit213.group28.model.enums.TransactionCategory;
-import gu.dit213.group28.model.enums.TransactionType;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

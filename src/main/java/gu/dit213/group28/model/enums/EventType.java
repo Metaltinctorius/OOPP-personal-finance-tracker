@@ -25,9 +25,9 @@ public enum EventType {
     }
   };
 
-  private final int stage; // Make the field `final` since it's immutable in enums.
+  private final int stage;
 
-  // Constructor must follow the constants.
+
   EventType(int stage) {
     this.stage = stage;
   }
@@ -37,6 +37,6 @@ public enum EventType {
     return stage;
   }
 
-  // Abstract method to be implemented by each constant
+
   public abstract boolean process(Event event);
 }

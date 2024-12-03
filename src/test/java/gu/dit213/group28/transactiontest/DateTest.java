@@ -1,6 +1,5 @@
 package gu.dit213.group28.transactiontest;
 
-import gu.dit213.group28.model.TransactionHandler;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import org.junit.jupiter.api.Assertions;

@@ -1,6 +1,5 @@
 package gu.dit213.group28;
 
-import gu.dit213.group28.model.TransactionHandler;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
