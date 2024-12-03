@@ -1,5 +1,6 @@
 package gu.dit213.group28.model;
 
+import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.events.EventFacade;
 import gu.dit213.group28.model.interfaces.*;
 import gu.dit213.group28.model.market.Market;
@@ -13,10 +14,10 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class GameCore {
 
-    private Itimer timer;
-    private Ieventfacade eventFacade;
-    private Ilogic logic;
-    private Imarket market;
+    private final Itimer timer;
+    private final Ieventfacade eventFacade;
+    private final Ilogic logic;
+    private final Imarket market;
     private Iuser user;
 
     public GameCore(Logic logic) {
@@ -36,6 +37,16 @@ public class GameCore {
             String m = market.getState();
             logic.timerUpdate(m);
         }).start();
+    }
+
+    public void makePurchase(Sector s, int quantity) {
+        // get event
+        // send event to market (get price)
+        // send event to user (make transaction)
+        // send output to logic
+    }
+    public void makeSell(Sector s, int quantity) {
+
     }
 
 }
