@@ -37,4 +37,7 @@ public class View implements Iobserver {
     g.getChildren().clear();
     g.add(beelieve, 10, 5);
   }
+
+  // TODO: Figure out how to connect events to text box
+
 }
