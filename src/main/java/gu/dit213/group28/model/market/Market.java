@@ -1,5 +1,6 @@
 package gu.dit213.group28.model.market;
 
+import gu.dit213.group28.model.interfaces.Ievent;
 import gu.dit213.group28.model.interfaces.Imarket;
 
 import java.util.*;
@@ -87,16 +88,16 @@ public class Market implements Imarket
     }
   }
 //TODO: visitor pattern with Event
-/*
-  public void visit(Ievent e)
+
+  public void accept(Ievent e)
   {
     e.execute(this);
   }
 
   public String getState()
   {
-    return "state"
+    return "state";
   }
-*/
+
 }
 

@@ -1,9 +1,12 @@
 package gu.dit213.group28.model.user;
 
+import gu.dit213.group28.model.interfaces.Ievent;
+import gu.dit213.group28.model.interfaces.Iuser;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Portfolio
+public class Portfolio implements Iuser
 {
   private final List<PortfolioEntry> entries;
 
@@ -42,5 +45,8 @@ public class Portfolio
   }
 
 
-
+  @Override
+  public void accept(Ievent e) {
+    e.execute(this);
+  }
 }

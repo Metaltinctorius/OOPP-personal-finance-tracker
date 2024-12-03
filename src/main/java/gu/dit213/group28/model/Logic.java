@@ -1,10 +1,11 @@
 package gu.dit213.group28.model;
 
+import gu.dit213.group28.model.interfaces.Ilogic;
 import gu.dit213.group28.model.interfaces.Icontrollable;
 import gu.dit213.group28.model.interfaces.Iobserver;
 import java.util.List;
 
-public class Logic extends Observable implements Icontrollable {
+public class Logic extends Observable implements Icontrollable, Ilogic {
 
   /**
    * Very temporary model, only intended to show relationship between the different components of
@@ -56,4 +57,9 @@ public class Logic extends Observable implements Icontrollable {
 
   @Override
   public void insertTransaction(List<String> args) {}
+
+  @Override
+  public void timerUpdate(String m) {
+    System.out.println(m);
+  }
 }

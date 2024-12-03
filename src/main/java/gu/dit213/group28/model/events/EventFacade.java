@@ -2,12 +2,14 @@ package gu.dit213.group28.model.events;
 
 import gu.dit213.group28.model.enums.EventType;
 import gu.dit213.group28.model.enums.PlayerAction;
+import gu.dit213.group28.model.interfaces.Ievent;
+import gu.dit213.group28.model.interfaces.Ieventfacade;
 import gu.dit213.group28.model.market.Asset;
 
 import java.util.List;
 import java.util.Random;
 
-public class EventFacade {
+public class EventFacade implements Ieventfacade {
 
   private final EventLoader loader;
   private final EventManager eventManager;
@@ -55,5 +57,10 @@ public class EventFacade {
     }
     Random random = new Random();
     return min + (max - min) * random.nextDouble();
+  }
+
+  @Override
+  public Ievent getEmpty() {
+    return null;
   }
 }
