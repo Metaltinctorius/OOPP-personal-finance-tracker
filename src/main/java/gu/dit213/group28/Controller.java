@@ -21,6 +21,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -51,7 +52,6 @@ public class Controller {
     BorderPane root = new BorderPane();
     root.setBottom(createLowerButtonPanel());
     root.setCenter(createCenterGrid());
-    root.setTop(createUpperButtonPanel());
     root.setRight(eventLogTextBox());
 
     Scene scene = new Scene(root, 640, 480);
@@ -169,32 +169,6 @@ public class Controller {
     }
   }
 
-  private HBox createUpperButtonPanel() {
-    HBox buttonPanel = new HBox();
-    buttonPanel.setPadding(new Insets(15, 12, 15, 12));
-    buttonPanel.setSpacing(10);
-    buttonPanel.setStyle("-fx-background-color: #336699;");
-
-    Button modeB1 = new Button("Mode Button 1");
-    modeB1.setPrefSize(150, 20);
-    // do some setOnAction stuff here
-
-    Button modeB2 = new Button("Mode Button 2");
-    modeB2.setPrefSize(150, 20);
-    // do some setOnAction stuff here
-
-    Button modeB3 = new Button("Mode Button 3");
-    modeB3.setPrefSize(150, 20);
-    // do some setOnAction stuff here
-
-    Region spacer = new Region();
-    HBox.setHgrow(spacer, Priority.ALWAYS);
-
-    buttonPanel.getChildren().addAll(spacer, modeB1, modeB2, modeB3);
-
-    return buttonPanel;
-  }
-
   // Creates the whole popup dialog box for creating a transaction
   // TODO: Change this dialog method to suit our needs for the game.
   private void createTransactionDialog() {
@@ -254,7 +228,28 @@ public class Controller {
     GridPane grid = new GridPane();
     grid.setHgap(10);
     grid.setVgap(10);
-    grid.setPadding(new Insets(0, 30, 0, 30));
+    // grid.setPadding(new Insets(0, 30, 0, 30));
+    for (int i = 0; i < 6; i++) {
+      // Placeholder for the graph
+      Label graph = new Label("Graph " + (i + 1));
+      graph.setStyle("-fx-border-color: black; -fx-padding: 20;");
+
+      // Controls below the graph
+      Button buySellButton = new Button("Buy/Sell");
+      TextField quantityField = new TextField();
+      quantityField.setPromptText("Quantity");
+      TextField priceField = new TextField();
+      priceField.setPromptText("Price");
+
+      HBox controls =
+          new HBox(
+              10, buySellButton, new Label("Qty:"), quantityField, new Label("Price:"), priceField);
+      VBox graphAndControls =
+          new VBox(10, graph, controls); // Combine graph and controls vertically
+
+      // Add to GridPane
+      grid.add(graphAndControls, i % 3, i / 3); // Column: i % 3, Row: i / 3
+    }
 
     return grid;
   }
