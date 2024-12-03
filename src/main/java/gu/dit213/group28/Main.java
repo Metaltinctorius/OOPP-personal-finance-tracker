@@ -12,9 +12,11 @@ public class Main extends Application {
   /** Initializes the JavaFX application. */
   @Override
   public void start(Stage stage) {
+    /*
     TransactionHandler transactionHandler = new TransactionHandler();
     Controller controller =
-        new Controller(stage, transactionHandler, new View(stage, transactionHandler));
+        new Controller(stage, transactionHandler, new View(stage, transactionHandler));7
+        */
   }
 
   /** Launches the JavaFX application. */

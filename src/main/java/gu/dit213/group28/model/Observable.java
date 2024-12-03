@@ -1,10 +1,6 @@
 package gu.dit213.group28.model;
 
 import gu.dit213.group28.model.interfaces.Iobserver;
-<<<<<<< HEAD
-=======
-
->>>>>>> merge-market-asset-event
 import java.util.ArrayList;
 import java.util.List;
 

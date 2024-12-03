@@ -1,7 +1,5 @@
 package gu.dit213.group28.model.events;
 
-import gu.dit213.group28.model.market.MarketCalculator;
-
 import java.util.HashSet;
 import java.util.Set;
 

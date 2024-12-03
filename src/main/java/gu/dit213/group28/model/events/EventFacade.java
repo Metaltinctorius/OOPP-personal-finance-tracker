@@ -33,10 +33,10 @@ public class EventFacade {
     Event.EventBuilder builder =
         new Event.EventBuilder(
                 id,
-                stock.getCompanyStock().toString(),
+            asset.getCompanyStock().toString(),
                 EventType.ONCE,
                 0,
-                stock.getCompanyStock().getCategories(),
+            asset.getCompanyStock().getCategories(),
                 0.5)
             .setPlayerAction(PlayerAction.BUY_STOCK);
 
