@@ -85,7 +85,7 @@ public class Event {
     if(type == EventType.SEQUENTIAL){
       builder.setStage(this.stage, this.totalStages);
     }
-    builder.setPlayerAction(this.action);
+    builder.setPlayerAction(this.action, action.getAmount(), action.getValue());
     return builder.build();
   }
 
@@ -118,8 +118,10 @@ public class Event {
      * @param action The action made by the player for "purchase asset" or "selling asset".
      * @return Builder returns itself.
      */
-    public  EventBuilder setPlayerAction(PlayerAction action){
+    public  EventBuilder setPlayerAction(PlayerAction action, int amount, double value){
       this.action = action;
+      action.setAmount(amount);
+      action.setValue(value);
       return this;
     }
 
@@ -166,5 +168,6 @@ public class Event {
       checkIterations(iterations);
       return new Event(this);
     }
+
   }
 }

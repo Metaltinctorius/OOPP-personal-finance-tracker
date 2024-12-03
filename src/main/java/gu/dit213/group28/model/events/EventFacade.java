@@ -2,8 +2,10 @@ package gu.dit213.group28.model.events;
 
 import gu.dit213.group28.model.enums.EventType;
 import gu.dit213.group28.model.enums.PlayerAction;
+import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.market.Asset;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -27,33 +29,19 @@ public class EventFacade {
     return eventManager.getEventLog();
   }
 
-  public void buyAsset(Asset asset, int amount) {
+  public Event buyAsset(Asset asset, int amount, double value) {
+    List <Sector> sectors = new ArrayList<>();
+    sectors.add(asset.getSector());
     int id = eventManager.generateId();
-    purchasingManager.buyStock(asset, amount);
-    Event.EventBuilder builder =
-        new Event.EventBuilder(
-                id,
-            asset.getCompanyStock().toString(),
-                EventType.ONCE,
-                0,
-            asset.getCompanyStock().getCategories(),
-                0.5)
-            .setPlayerAction(PlayerAction.BUY_STOCK);
+
+    Event.EventBuilder builder = new Event.EventBuilder(id, asset.getName(), EventType.ONCE, 0,sectors,0.0 )
+            .setPlayerAction(PlayerAction.BUY_STOCK, amount, value);
 
     Event event = builder.build();
     eventManager.addToEventLog(event);
+
+    return event;
   }
 
 
-  public double getModifier(){
-
-  }
-
-  public static double generateRandomDouble(double min, double max) {
-    if (min > max) {
-      throw new IllegalArgumentException("Min cannot be greater than max.");
-    }
-    Random random = new Random();
-    return min + (max - min) * random.nextDouble();
-  }
 }
