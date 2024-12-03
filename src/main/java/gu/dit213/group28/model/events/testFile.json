@@ -4,8 +4,8 @@
     "description": "Event 1",
     "type": "ONCE",
     "iterations": "0",
-    "categories": ["HEALTHCARE", "HEALTHCARE"],
-    "modifier": "0.5"
+    "categories": ["HEALTHCARE"],
+    "modifier": "0.5",
   },
   {
     "id": "2",

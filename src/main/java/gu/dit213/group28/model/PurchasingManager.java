@@ -1,14 +1,6 @@
 package gu.dit213.group28.model;
 
-import gu.dit213.group28.model.Event;
-import gu.dit213.group28.model.MarketCalculator;
-import gu.dit213.group28.model.Stock;
-import gu.dit213.group28.model.enums.CompanyStocks;
-import gu.dit213.group28.model.enums.EventType;
-import gu.dit213.group28.model.enums.PlayerAction;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class PurchasingManager {

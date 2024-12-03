@@ -8,42 +8,40 @@ import java.util.Random;
 
 public class EventFacade {
 
-
-
-
-
   private final EventLoader loader;
   private final EventManager eventManager;
   private final PurchasingManager purchasingManager;
 
-  public EventFacade(){
+  public EventFacade() {
     this.loader = new EventLoader();
     this.eventManager = new EventManager(loader.getPredefinedEvents(), loader.getReservedIds());
     this.purchasingManager = new PurchasingManager();
   }
 
-
   public void addEventToQueue(Event event) {
     eventManager.addToEventQueue(event);
   }
 
-  public List<Event> getEventLog(){
+  public List<Event> getEventLog() {
     return eventManager.getEventLog();
   }
 
-  public void buyStock(Stock stock, int amount){
+  public void buyAsset(Asset asset, int amount) {
     int id = eventManager.generateId();
     purchasingManager.buyStock(stock, amount);
-    Event.EventBuilder builder = new Event.EventBuilder(id, stock.getCompanyStock().toString(), EventType.ONCE, 0, stock.getCompanyStock().getCategories(), 0.5).setPlayerAction(PlayerAction.BUY_STOCK);
+    Event.EventBuilder builder =
+        new Event.EventBuilder(
+                id,
+                stock.getCompanyStock().toString(),
+                EventType.ONCE,
+                0,
+                stock.getCompanyStock().getCategories(),
+                0.5)
+            .setPlayerAction(PlayerAction.BUY_STOCK);
 
     Event event = builder.build();
     eventManager.addToEventLog(event);
   }
-
-
-
-
-
 
   public static double generateRandomDouble(double min, double max) {
     if (min > max) {
@@ -52,5 +50,4 @@ public class EventFacade {
     Random random = new Random();
     return min + (max - min) * random.nextDouble();
   }
-
 }
