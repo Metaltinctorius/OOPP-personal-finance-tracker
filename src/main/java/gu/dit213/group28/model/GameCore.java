@@ -9,44 +9,45 @@ import gu.dit213.group28.model.wrappers.wEventFacade;
 import gu.dit213.group28.model.wrappers.wLogic;
 import gu.dit213.group28.model.wrappers.wUser;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-
 public class GameCore {
 
-    private final Itimer timer;
-    private final Ieventfacade eventFacade;
-    private final Ilogic logic;
-    private final Imarket market;
-    private Iuser user;
+  private final Itimer timer;
+  private final Ieventfacade eventFacade;
+  private final Ilogic logic;
+  private final Imarket market;
+  private final Iuser user;
 
-    public GameCore(Logic logic) {
-        timer = new Time();
-        timer.initTime();
-        eventFacade = new wEventFacade(new EventFacade());
-        this.logic = new wLogic(logic);
-        market = Market.getInstance();
-        Iuser user = new wUser(new Portfolio());
+  public GameCore(Logic logic) {
+    timer = new Time();
+    timer.initTime();
+    eventFacade = new wEventFacade(new EventFacade());
+    this.logic = new wLogic(logic);
+    market = Market.getInstance();
+    user = new wUser(new Portfolio(10000));
+  }
 
-    }
-    public void init() {
-        timer.start();
-        new Thread(() -> {
-            Ievent e = eventFacade.getEmpty();
-            market.accept(e);
-            String m = market.getState();
-            logic.timerUpdate(m);
-        }).start();
-    }
+  public void init() {
+    timer.start();
+    new Thread(
+            () -> {
+              Ievent e = eventFacade.getTickEvent();
+              market.accept(e);
+              logic.extractEvent(e);
+            })
+        .start();
+  }
 
-    public void makePurchase(Sector s, int quantity) {
-        // get event
-        // send event to market (get price)
-        // send event to user (make transaction)
-        // send output to logic
-    }
-    public void makeSell(Sector s, int quantity) {
+  public void makePurchase(Sector s, int quantity) {
+    Ievent e = eventFacade.getBuyEvent(s, quantity);
+    market.accept(e);
+    user.accept(e);
+    logic.extractEvent(e);
+  }
 
-    }
-
+  public void makeSell(Sector s, int quantity) {
+    Ievent e = eventFacade.getSellEvent(s, quantity);
+    market.accept(e);
+    user.accept(e);
+    logic.extractEvent(e);
+  }
 }

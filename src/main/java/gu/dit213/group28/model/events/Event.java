@@ -1,26 +1,16 @@
 package gu.dit213.group28.model.events;
 
-public abstract class Event {
+import gu.dit213.group28.model.interfaces.Ievent;
+
+public abstract class Event implements Ievent {
 
   private final int id;
-  private final String description;
 
-  public Event(int id, String description) {
+  public Event(int id) {
     this.id = id;
-    this.description = description;
   }
 
-  public int getId() {
+  public int getID() {
     return id;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void execute() {}
-
-  public void unpackage() {
-    // return something
   }
 }

@@ -15,8 +15,9 @@ public class EventLoader {
   /** This is where the events from the json file are read and stored. */
   private final List<EventPredef> predefinedEvents;
 
-  /** This list is where the ids predefined in the json file are stored, this is important
-   * for the idManager for in-game created events
+  /**
+   * This list is where the ids predefined in the json file are stored, this is important for the
+   * idManager for in-game created events
    */
   private final List<Integer> reservedIds;
 
@@ -32,6 +33,7 @@ public class EventLoader {
 
   /**
    * This is the function that is open for the EventLoader.
+   *
    * @return returns the list of all predefined events.
    */
   public List<EventPredef> getPredefinedEvents() {
@@ -39,12 +41,11 @@ public class EventLoader {
   }
 
   /*
-  * Returns the list of reservedIds (important for in-game created events).
+   * Returns the list of reservedIds (important for in-game created events).
    */
   public List<Integer> getReservedIds() {
     return reservedIds;
   }
-
 
   String testFile = "src/main/java/gu/dit213/group28/model/events/testFile.json";
 
@@ -52,8 +53,7 @@ public class EventLoader {
   private void readFromJsonFile() {
     JSONParser parser = new JSONParser();
 
-    try (FileReader reader =
-        new FileReader(testFile)) {
+    try (FileReader reader = new FileReader(testFile)) {
 
       JSONArray jsonArray = (JSONArray) parser.parse(reader);
 
@@ -122,13 +122,15 @@ public class EventLoader {
 
     List<Sector> stockCategories = parseCategories(categories);
 
-    EventPredef event = new EventPredef(id, description, type, iterations, stockCategories ,modifier);
+    EventPredef event =
+        new EventPredef(id, description, type, iterations, stockCategories, modifier);
     predefinedEvents.add(event);
-    reservedIds.add(event.getId());
+    reservedIds.add(event.getID());
   }
 
   /**
    * Used to parse the categories array of the event.
+   *
    * @param stringCategories Takes in an array of type String
    * @return Returns an array with categories of type StockCategory
    */
@@ -143,7 +145,7 @@ public class EventLoader {
   public void viewParsedInputs() {
     for (EventPredef event : predefinedEvents) {
       System.out.println("**************************");
-      System.out.println("* id:          " + event.getId());
+      System.out.println("* id:          " + event.getID());
       System.out.println("* description: " + event.getDescription());
       System.out.println("* type:        " + event.getType());
       System.out.println("* categories:  " + event.getSectorList());

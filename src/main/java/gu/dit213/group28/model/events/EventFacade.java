@@ -14,7 +14,6 @@ public class EventFacade implements Ieventfacade {
   private final EventLoader loader;
   private final EventManager eventManager;
 
-
   public EventFacade() {
     this.loader = new EventLoader();
     this.eventManager = new EventManager(loader.getPredefinedEvents(), loader.getReservedIds());
@@ -28,12 +27,13 @@ public class EventFacade implements Ieventfacade {
     return eventManager.getEventLog();
   }
 
-  public Event getPredefinedEvent(){
+  public Event getPredefinedEvent() {
     Event event = eventManager.getRandomEvent();
     eventManager.addToEventLog(event);
     return event;
   }
-/*
+
+  /*
   public OldEvent buyAsset(Sector sector, int amount, double value) {
 
     List < Sector> sectors = new ArrayList<>();
@@ -58,9 +58,18 @@ public class EventFacade implements Ieventfacade {
   }
   */
 
+  @Override
+  public Ievent getTickEvent() {
+    return new EventTick(0);
+  }
 
   @Override
-  public Ievent getEmpty() {
-    return null;
+  public Ievent getBuyEvent(Sector s, int quantity) {
+    return new EventBuy(1, s, quantity);
+  }
+
+  @Override
+  public Ievent getSellEvent(Sector s, int quantity) {
+    return new EventSell(2, s, quantity);
   }
 }

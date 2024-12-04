@@ -1,6 +1,9 @@
 package gu.dit213.group28.model.interfaces;
 
 public interface Ievent {
-    void execute(Imarket m);
-    void execute(Iuser u);
+  int getID();
+
+  void execute(ImarketEx m);
+
+  void execute(IuserEx u);
 }

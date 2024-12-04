@@ -16,41 +16,33 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class PortfolioTest
-{
+public class PortfolioTest {
   private Market market;
   private Portfolio portfolio;
   private Asset asset;
 
-
-
   @BeforeEach
-  public void setUp()
-  {
-    portfolio = new Portfolio();
-    asset = new Asset("S&P500", "Index Fund", Sector.INDEX,  100, new ArrayList<>());
+  public void setUp() {
+    portfolio = new Portfolio(10000);
+    asset = new Asset("S&P500", "Index Fund", Sector.INDEX, 100, new ArrayList<>());
     market = Market.getInstance();
     market.addAsset(asset);
   }
 
   @AfterEach
-  public void tearDown()
-  {
+  public void tearDown() {
     market = null;
     asset = null;
     portfolio = null;
   }
 
   @Test
-  public void testBuyAsset()
-  {
-    portfolio.addEntry(new PortfolioEntry(asset.getSector(), 5, asset.getPrice(), LocalDate.now()));
+  public void testBuyAsset() {
+    portfolio.addEntry(new PortfolioEntry(asset.getSector(), 5, asset.getPrice()));
     Sector ownedSector = portfolio.getEntries().getFirst().getSector();
     Asset ownedAsset = null;
-    for (Asset asset : market.getAssets())
-    {
-      if (asset.getSector().equals(ownedSector))
-      {
+    for (Asset asset : market.getAssets()) {
+      if (asset.getSector().equals(ownedSector)) {
         ownedAsset = asset;
         break;
       }
@@ -59,40 +51,32 @@ public class PortfolioTest
   }
 
   @Test
-  public void testGetTrendAsset()
-  {
+  public void testGetTrendAsset() {
     asset.addTrendModifier(new TrendModifier(.1, 1));
     assertEquals(1.1, asset.getTrend());
   }
 
   @Test
-  public void testUpdatePrice()
-  {
-    portfolio.addEntry(new PortfolioEntry(asset.getSector(), 5, asset.getPrice(), LocalDate.now()));
+  public void testUpdatePrice() {
+    portfolio.addEntry(new PortfolioEntry(asset.getSector(), 5, asset.getPrice()));
     asset.updatePrice();
     assertEquals(110, asset.getPrice(), 0.001);
   }
 
   @Test
-  public void testPriceModifier()
-  {
-    portfolio.addEntry(new PortfolioEntry(asset.getSector(), 5, asset.getPrice(), LocalDate.now()));
+  public void testPriceModifier() {
+    portfolio.addEntry(new PortfolioEntry(asset.getSector(), 5, asset.getPrice()));
     asset.addTrendModifier(new TrendModifier(.1, 1));
     asset.updatePrice();
     assertEquals(120, asset.getPrice(), 0.001);
   }
 
   @Test
-  public void testRemoveModifier()
-  {
+  public void testRemoveModifier() {
     asset.addTrendModifier(new TrendModifier(.1, 1));
     asset.addTrendModifier(new TrendModifier(.2, 2));
     asset.addTrendModifier(new TrendModifier(.3, 3));
     asset.removeTrendModifier(2);
     assertEquals(1.4, asset.getTrend());
   }
-
 }
-
-
-

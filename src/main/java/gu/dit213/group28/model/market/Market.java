@@ -3,10 +3,10 @@ package gu.dit213.group28.model.market;
 import gu.dit213.group28.model.interfaces.Ievent;
 import gu.dit213.group28.model.interfaces.Imarket;
 
+import gu.dit213.group28.model.interfaces.ImarketEx;
 import java.util.*;
 
-public class Market implements Imarket
-{
+public class Market implements Imarket, ImarketEx {
   private final String name;
   private final double trend;
   private List<TrendModifier> trendModifiers;
@@ -16,8 +16,7 @@ public class Market implements Imarket
   private static Market instance;
 
   // Private constructor to prevent direct instantiation
-  private Market(String name, double trend)
-  {
+  private Market(String name, double trend) {
     this.name = name;
     this.trend = trend;
     this.assets = new ArrayList<>();
@@ -25,14 +24,10 @@ public class Market implements Imarket
   }
 
   // Public static method to get the single instance
-  public static Market getInstance()
-  {
-    if (instance == null)
-    {
-      synchronized (Market.class)
-      { // Ensure thread safety
-        if (instance == null)
-        {
+  public static Market getInstance() {
+    if (instance == null) {
+      synchronized (Market.class) { // Ensure thread safety
+        if (instance == null) {
           instance = new Market("NYSE", 0.07);
         }
       }
@@ -41,66 +36,50 @@ public class Market implements Imarket
   }
 
   // Getters
-  public String getName()
-  {
+  public String getName() {
     return name;
   }
 
-  public double getTrend()
-  {
+  public double getTrend() {
     double sumMods = 0;
-    for (TrendModifier mod : trendModifiers)
-    {
+    for (TrendModifier mod : trendModifiers) {
       sumMods += mod.getModifier();
     }
     return trend + sumMods;
   }
 
-  public List<Asset> getAssets()
-  {
+  public List<Asset> getAssets() {
     return assets;
   }
 
-  public void addAsset(Asset asset)
-  {
+  public void addAsset(Asset asset) {
     assets.add(asset);
   }
 
-  public List<TrendModifier> getTrendModifiers()
-  {
+  public List<TrendModifier> getTrendModifiers() {
     return trendModifiers;
   }
 
-  public void addTrendModifier(TrendModifier mod)
-  {
+  public void addTrendModifier(TrendModifier mod) {
     trendModifiers.add(mod);
   }
 
-  public void removeTrendModifier(int id)
-  {
-    for (int i = 0; i < trendModifiers.size(); i++)
-    {
-      if (trendModifiers.get(i).getId() == id)
-      {
+  public void removeTrendModifier(int id) {
+    for (int i = 0; i < trendModifiers.size(); i++) {
+      if (trendModifiers.get(i).getId() == id) {
         trendModifiers.remove(i);
         break;
       }
     }
   }
-//TODO: visitor pattern with Event
 
-  public void accept(Ievent e)
-  {
+  // TODO: visitor pattern with Event
+
+  public void accept(Ievent e) {
     e.execute(this);
   }
 
-  public String getState()
-  {
+  public String getState() {
     return "state";
   }
-
-
-
-
 }
-

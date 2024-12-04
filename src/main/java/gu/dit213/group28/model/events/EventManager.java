@@ -64,26 +64,28 @@ public class EventManager {
     return eventQueue;
   }
 
-
   /**
    * Returns a random event from the list of PredefinedEvents
+   *
    * @return
    */
-  public EventPredef getRandomEvent(){
-    if(predefinedEvents.isEmpty()) {throw new IllegalStateException("List of predefined events is empty.");
-      int index = generateRandomIndex(predefinedEvents);
-      return predefinedEvents.get(index);
+  public EventPredef getRandomEvent() {
+    if (predefinedEvents.isEmpty()) {
+      throw new IllegalStateException("List of predefined events is empty.");
+    }
+    int index = generateRandomIndex(predefinedEvents);
+    return predefinedEvents.get(index);
   }
-
 
   /**
    * Used to get an event from the predefinedEvents with an id.
+   *
    * @param id
    * @return
    */
   public EventPredef getEventFromId(int id) {
     for (EventPredef e : predefinedEvents) {
-      if (e.getId() == id) {
+      if (e.getID() == id) {
         return e;
       }
     }

@@ -5,16 +5,16 @@ import gu.dit213.group28.model.interfaces.ImarketEx;
 import gu.dit213.group28.model.interfaces.IuserEx;
 import gu.dit213.group28.model.market.Asset;
 import gu.dit213.group28.model.user.PortfolioEntry;
+import gu.dit213.group28.model.user.PortfolioRecord;
 
-public class EventBuy extends Event {
-
+public class EventSell extends Event {
   private final Sector sector;
   private final int amount;
   private boolean success;
 
   private double value;
 
-  public EventBuy(int id, Sector sector, int amount) {
+  public EventSell(int id, Sector sector, int amount) {
     super(id);
     this.sector = sector;
     this.amount = amount;
@@ -33,8 +33,6 @@ public class EventBuy extends Event {
     return amount;
   }
 
-  public void execute() {}
-
   public void unpackage() {
     // return something
   }
@@ -51,10 +49,18 @@ public class EventBuy extends Event {
 
   @Override
   public void execute(IuserEx u) {
-    if (u.getMoney() >= value * amount) {
-      u.addMoney(-value * amount);
-      u.addEntry(new PortfolioEntry(sector, amount, value));
-      u.addRecord(sector, amount);
+    PortfolioRecord sell = null;
+    for (PortfolioRecord record : u.getRecords()) {
+      if (record.getSector() == sector) {
+        sell = record;
+      }
+    }
+    if (sell != null && sell.getQuantity() >= amount) {
+      u.addMoney(value * amount);
+      sell.addQuantity(-amount);
+      if (sell.getQuantity() <= 0) {
+        u.getRecords().remove(sell);
+      }
       success = true;
     }
   }
