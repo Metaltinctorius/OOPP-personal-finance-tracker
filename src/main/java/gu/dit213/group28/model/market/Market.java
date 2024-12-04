@@ -89,7 +89,7 @@ public class Market implements Imarket, ImarketEx {
     Random rng = new Random();
     Sector[] sectors = Sector.values();
     for (Sector sector : sectors) {
-      double price = 5000 + 5000 * rng.nextDouble();
+      double price = 500 + 500 * rng.nextDouble();
       Asset a = new Asset("", "", sector, price);
       assets.add(a);
     }

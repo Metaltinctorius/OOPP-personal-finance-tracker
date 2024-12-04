@@ -10,7 +10,7 @@ import gu.dit213.group28.model.user.PortfolioRecord;
 public class EventSell extends Event {
   private final Sector sector;
   private final int amount;
-  private boolean success;
+  private int owned;
 
   private double value;
 
@@ -18,7 +18,6 @@ public class EventSell extends Event {
     super(id);
     this.sector = sector;
     this.amount = amount;
-    success = false;
   }
 
   public Sector getSector() {
@@ -33,8 +32,8 @@ public class EventSell extends Event {
     return amount;
   }
 
-  public void unpackage() {
-    // return something
+  public int getOwned() {
+    return owned;
   }
 
   @Override
@@ -49,6 +48,7 @@ public class EventSell extends Event {
 
   @Override
   public void execute(IuserEx u) {
+    owned = u.getRecordQuantity(sector);
     PortfolioRecord sell = null;
     for (PortfolioRecord record : u.getRecords()) {
       if (record.getSector() == sector) {
@@ -61,7 +61,7 @@ public class EventSell extends Event {
       if (sell.getQuantity() <= 0) {
         u.getRecords().remove(sell);
       }
-      success = true;
+      owned = sell.getQuantity();
     }
   }
 }

@@ -21,4 +21,6 @@ public interface IuserEx {
   void addRecord(Sector s, int quantity);
 
   List<PortfolioRecord> getRecords();
+
+  int getRecordQuantity(Sector sector);
 }

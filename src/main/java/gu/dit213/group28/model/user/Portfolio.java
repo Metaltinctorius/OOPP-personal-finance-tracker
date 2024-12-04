@@ -58,6 +58,15 @@ public class Portfolio implements Iuser, IuserEx {
     return records;
   }
 
+  public int getRecordQuantity(Sector s) {
+    for (PortfolioRecord record : records) {
+      if (record.getSector() == s) {
+        return record.getQuantity();
+      }
+    }
+    return 0;
+  }
+
   public double getTotalCost() {
     return entries.stream().mapToDouble(PortfolioEntry::getTotalCost).sum();
   }

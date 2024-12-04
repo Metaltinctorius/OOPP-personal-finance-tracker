@@ -50,6 +50,10 @@ public class GameCore {
 
   public void makePurchase(Sector s, int quantity) {
     Ievent e = eventFacade.getBuyEvent(s, quantity);
+    if (e.getID() == 2) {
+      logic.extractEvent(e);
+      return;
+    }
     market.accept(e);
     user.accept(e);
     logic.extractEvent(e);
@@ -57,6 +61,10 @@ public class GameCore {
 
   public void makeSell(Sector s, int quantity) {
     Ievent e = eventFacade.getSellEvent(s, quantity);
+    if (e.getID() == 4) {
+      logic.extractEvent(e);
+      return;
+    }
     market.accept(e);
     user.accept(e);
     logic.extractEvent(e);

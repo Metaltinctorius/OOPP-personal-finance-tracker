@@ -1,6 +1,7 @@
 package gu.dit213.group28.model.interfaces;
 
 import gu.dit213.group28.model.UserOutput;
+import gu.dit213.group28.model.enums.Sector;
 import java.util.List;
 
 /**
@@ -11,4 +12,6 @@ public interface Iobserver {
   void update(String s);
 
   void updateGraphs(int xAxis, List<UserOutput> output);
+
+  void updateOwned(Sector sector, int amount);
 }

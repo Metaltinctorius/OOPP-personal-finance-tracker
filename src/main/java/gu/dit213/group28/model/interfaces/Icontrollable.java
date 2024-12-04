@@ -1,5 +1,6 @@
 package gu.dit213.group28.model.interfaces;
 
+import gu.dit213.group28.model.enums.Sector;
 import java.util.List;
 
 /**
@@ -14,4 +15,8 @@ public interface Icontrollable {
   void setSpeedNormal();
 
   void setSpeedSlow();
+
+  void buyAsset(Sector sector, String amount);
+
+  void sellAsset(Sector sector, String amount);
 }

@@ -1,6 +1,7 @@
 package gu.dit213.group28;
 
 import gu.dit213.group28.model.UserOutput;
+import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.Iobserver;
 import gu.dit213.group28.model.Observable;
 import java.util.List;
@@ -47,8 +48,14 @@ public class View implements Iobserver {
     g.add(beelieve, 10, 5);
   }
 
+  @Override
   public void updateGraphs(int xAxis, List<UserOutput> output) {
     Platform.runLater(() -> graphs.updateGraphs(xAxis, output));
+  }
+
+  @Override
+  public void updateOwned(Sector sector, int amount) {
+    Platform.runLater(() -> graphs.updateOwnedField(sector, amount));
   }
 
   // TODO: Figure out how to connect events to text box

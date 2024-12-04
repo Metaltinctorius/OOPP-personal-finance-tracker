@@ -203,8 +203,7 @@ public class Controller {
       LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
       // Change titles to asset or sector type with a toString method and add the asset as a
       // parameter.
-      lineChart.setTitle("Graph " + (i + 1));
-      graphs.addGraph(lineChart, sectors[i + 1]);
+      lineChart.setTitle(sectors[i + 1].toString());
 
       // Sample data for the chart, implement with data from our model instead.
       // XYChart.Series<Number, Number> series = new XYChart.Series<>();
@@ -215,15 +214,29 @@ public class Controller {
       lineChart.getData().add(series);*/
 
       // Adds the functionality under the graphs.
-      Button buyButton = new Button("Buy");
-      Button sellButton = new Button("Sell");
+
+      TextField ownedField = new TextField();
+      ownedField.setEditable(false);
+      ownedField.setText("0");
       TextField quantityField = new TextField();
       quantityField.setPromptText("Quantity");
       TextField priceField = new TextField();
       priceField.setEditable(false);
-      priceField.setPromptText("Price");
+      priceField.setText("0");
+      graphs.addGraph(lineChart, sectors[i + 1], ownedField, priceField);
+      Sector s = sectors[i + 1];
+      Button buyButton = new Button("Buy");
+      buyButton.setOnAction(
+          event -> {
+            logic.buyAsset(s, quantityField.getText());
+          });
+      Button sellButton = new Button("Sell");
+      sellButton.setOnAction(
+          event -> {
+            logic.sellAsset(s, quantityField.getText());
+          });
 
-      HBox buySellControls = new HBox(10, buyButton, sellButton);
+      HBox buySellControls = new HBox(10, buyButton, sellButton, new Label("Owned:"), ownedField);
       buySellControls.setAlignment(Pos.CENTER);
 
       HBox quantityPriceControls =

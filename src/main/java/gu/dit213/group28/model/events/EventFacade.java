@@ -65,11 +65,17 @@ public class EventFacade implements Ieventfacade {
 
   @Override
   public Ievent getBuyEvent(Sector s, int quantity) {
+    if (quantity <= 0) {
+      return new EventBuy(2, s, quantity);
+    }
     return new EventBuy(1, s, quantity);
   }
 
   @Override
   public Ievent getSellEvent(Sector s, int quantity) {
-    return new EventSell(2, s, quantity);
+    if (quantity <= 0) {
+      return new EventBuy(4, s, quantity);
+    }
+    return new EventSell(3, s, quantity);
   }
 }
