@@ -214,6 +214,7 @@ public class Controller {
       TextField quantityField = new TextField();
       quantityField.setPromptText("Quantity");
       TextField priceField = new TextField();
+      priceField.setEditable(false);
       priceField.setPromptText("Price");
 
       HBox buySellControls = new HBox(10, buyButton, sellButton);
