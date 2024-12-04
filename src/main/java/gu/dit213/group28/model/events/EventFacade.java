@@ -27,6 +27,12 @@ public class EventFacade implements Ieventfacade {
   public List<Event> getEventLog() {
     return eventManager.getEventLog();
   }
+
+  public Event getPredefinedEvent(){
+    Event event = eventManager.getRandomEvent();
+    eventManager.addToEventLog(event);
+    return event;
+  }
 /*
   public OldEvent buyAsset(Sector sector, int amount, double value) {
 
