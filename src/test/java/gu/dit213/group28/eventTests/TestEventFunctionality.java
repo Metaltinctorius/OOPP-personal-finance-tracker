@@ -1,8 +1,8 @@
 package gu.dit213.group28.eventTests;
 
-import gu.dit213.group28.model.events.OldEvent;
 import gu.dit213.group28.model.events.EventFacade;
 import gu.dit213.group28.model.events.EventLoader;
+import gu.dit213.group28.model.events.EventPredef;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,11 +12,11 @@ public class TestEventFunctionality {
 
   static EventFacade facade;
   private EventLoader loader;
-  List<OldEvent> predefinedEvents;
+  List<EventPredef> predefinedEvents;
 
   @Test
   public void test_decrement_iterations(){
-    OldEvent event = predefinedEvents.get(3);
+    EventPredef event = predefinedEvents.get(3);
     event.decrementIterations();
     int actual = event.getIterations();
     int expected = 8;

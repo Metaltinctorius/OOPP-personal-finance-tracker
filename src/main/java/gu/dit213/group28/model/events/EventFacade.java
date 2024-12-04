@@ -20,14 +20,14 @@ public class EventFacade implements Ieventfacade {
     this.eventManager = new EventManager(loader.getPredefinedEvents(), loader.getReservedIds());
   }
 
-  public void addEventToQueue(OldEvent event) {
+  public void addEventToQueue(Event event) {
     eventManager.addToEventQueue(event);
   }
 
-  public List<OldEvent> getEventLog() {
+  public List<Event> getEventLog() {
     return eventManager.getEventLog();
   }
-
+/*
   public OldEvent buyAsset(Sector sector, int amount, double value) {
 
     List < Sector> sectors = new ArrayList<>();
@@ -50,6 +50,7 @@ public class EventFacade implements Ieventfacade {
 
     return event;
   }
+  */
 
 
   @Override

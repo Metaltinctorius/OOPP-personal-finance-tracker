@@ -1,7 +1,7 @@
 package gu.dit213.group28.eventTests;
 
 
-import gu.dit213.group28.model.events.OldEvent;
+import gu.dit213.group28.model.events.EventPredef;
 import gu.dit213.group28.model.events.EventFacade;
 import gu.dit213.group28.model.enums.EventType;
 import gu.dit213.group28.model.enums.Sector;
@@ -15,7 +15,7 @@ public class TestEventLoader {
 
   static EventFacade facade;
   private EventLoader loader;
-  List <OldEvent> predefinedEvents;
+  List <EventPredef> predefinedEvents;
 
 
   /**
@@ -58,14 +58,14 @@ public class TestEventLoader {
 
   @Test
   public void test_type_once_iterations_zero(){
-    OldEvent event = predefinedEvents.get(1);
+    EventPredef event = predefinedEvents.get(1);
     Assertions.assertEquals(event.getIterations(), 0);
   }
 
 
   @Test
   public void test_iterations(){
-    OldEvent event = predefinedEvents.get(0);
+    EventPredef event = predefinedEvents.get(0);
     int actual = event.getIterations();
     int expected = 0;
     Assertions.assertEquals(expected, actual);
@@ -73,31 +73,25 @@ public class TestEventLoader {
 
   @Test
   public void test_categories_successful_list(){
-    OldEvent event = predefinedEvents.get(0);
-    List <Sector> sectors = event.getCategories();
-    int expected = 2;
+    EventPredef event = predefinedEvents.get(0);
+    List <Sector> sectors = event.getSectorList();
+    int expected = 1;
     Assertions.assertEquals(expected, sectors.size());
   }
 
   @Test
   public void test_categories(){
-    OldEvent event = predefinedEvents.get(0);
-    List <Sector> sectors = event.getCategories();
+    EventPredef event = predefinedEvents.get(1);
+    List <Sector> sectors = event.getSectorList();
     Assertions.assertEquals(sectors.getFirst(), Sector.HEALTHCARE);
-    Assertions.assertEquals(sectors.get(1), Sector.HEALTHCARE);
+    Assertions.assertEquals(sectors.get(1), Sector.UTILITIES);
   }
 
   @Test
   public void test_categories_empty(){
-    OldEvent event = predefinedEvents.get(2);
-    List <Sector> sectors = event.getCategories();
+    EventPredef event = predefinedEvents.get(2);
+    List <Sector> sectors = event.getSectorList();
     Assertions.assertTrue(sectors.isEmpty());
-  }
-
-  @Test
-  public void test_no_action(){
-    OldEvent event = predefinedEvents.get(3);
-    Assertions.assertNull(event.getAction());
   }
 
   @BeforeEach

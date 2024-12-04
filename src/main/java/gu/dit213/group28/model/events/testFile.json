@@ -5,14 +5,14 @@
     "type": "ONCE",
     "iterations": "0",
     "categories": ["HEALTHCARE"],
-    "modifier": "0.5",
+    "modifier": "0.5"
   },
   {
     "id": "2",
     "description": "Event 2",
     "type": "ONCE",
     "iterations": "0",
-    "categories": ["HEALTHCARE", "HEALTHCARE"],
+    "categories": ["HEALTHCARE", "UTILITIES"],
     "modifier": "0.5"
   },
   {

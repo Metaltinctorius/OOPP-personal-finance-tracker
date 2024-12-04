@@ -11,37 +11,37 @@ import java.util.Random;
 public class EventManager {
 
   /** A queue for scheduled events */
-  private final Queue<OldEvent> eventQueue = new LinkedList<>();
+  private final Queue<Event> eventQueue = new LinkedList<>();
 
   /** A list of all events that have been initiated during the game's lifecycle. */
-  private final List<OldEvent> eventLog = new ArrayList<>();
+  private final List<Event> eventLog = new ArrayList<>();
 
   /** The List of predefined events from the JSON file. */
-  private final List<OldEvent> predefinedEvents;
+  private final List<EventPredef> predefinedEvents;
 
   private final IdManager idManager;
 
-  public EventManager(List<OldEvent> predefinedEvents, List<Integer> reservedIdsFromLoader) {
+  public EventManager(List<EventPredef> predefinedEvents, List<Integer> reservedIdsFromLoader) {
     this.predefinedEvents = predefinedEvents;
     this.idManager = new IdManager(reservedIdsFromLoader);
   }
 
-  public OldEvent getNextEvent() {
+  public Event getNextEvent() {
     if (eventQueue.isEmpty()) {
       throw new IllegalStateException("No events in the queue.");
     }
     return eventQueue.poll();
   }
 
-  public void addToEventLog(OldEvent event) {
+  public void addToEventLog(Event event) {
     eventLog.add(event);
   }
 
-  public void addToEventQueue(OldEvent event) {
+  public void addToEventQueue(Event event) {
     eventQueue.add(event);
   }
 
-  public static int generateRandomIndex(List<OldEvent> events) {
+  public static int generateRandomIndex(List<EventPredef> events) {
     if (events == null || events.isEmpty()) {
       throw new IllegalArgumentException("List must not be null or empty");
     }
@@ -52,20 +52,26 @@ public class EventManager {
     return idManager.getNextId();
   }
 
-  public List<OldEvent> getPredefinedEvents() {
+  public List<EventPredef> getPredefinedEvents() {
     return predefinedEvents;
   }
 
-  public List<OldEvent> getEventLog() {
+  public List<Event> getEventLog() {
     return eventLog;
   }
 
-  public Queue<OldEvent> getEventQueue() {
+  public Queue<Event> getEventQueue() {
     return eventQueue;
   }
 
-  public OldEvent getEventFromId(int id) {
-    for (OldEvent e : predefinedEvents) {
+
+  /**
+   * Used to get an event from the predefinedEvents with an id.
+   * @param id
+   * @return
+   */
+  public EventPredef getEventFromId(int id) {
+    for (EventPredef e : predefinedEvents) {
       if (e.getId() == id) {
         return e;
       }

@@ -1,8 +1,10 @@
 package gu.dit213.group28.eventTests;
 
-import gu.dit213.group28.model.events.OldEvent;
+import gu.dit213.group28.model.events.Event;
 import gu.dit213.group28.model.events.EventManager;
 import gu.dit213.group28.model.events.EventLoader;
+import gu.dit213.group28.model.events.EventPredef;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,19 +13,20 @@ import org.junit.jupiter.api.Test;
 public class TestEventManager {
 
   EventManager manager;
-  List <OldEvent> events;
+  List <Event> events;
 
 
   // Tests are based on the "testFile.json" file.
 
   @BeforeEach
   public void setup(){
+    events = new ArrayList<>();
     EventLoader loader = new EventLoader();
     loader.loadEvents();
     // Manager needs the list of loaded events from the json file, as well as the ids the occupy.
     manager = new EventManager(loader.getPredefinedEvents(), loader.getReservedIds());
     // Only the events in the json file.
-    events = manager.getPredefinedEvents();
+    events.addAll(manager.getPredefinedEvents());
   }
 
 
@@ -50,20 +53,20 @@ public class TestEventManager {
 
   @Test
   public void test_get_id_from_predefined_events(){
-    OldEvent event = manager.getEventFromId(2);
+    EventPredef event = manager.getEventFromId(2);
     Assertions.assertEquals(event.getDescription(), "Event 2");
   }
 
   @Test
   public void test_add_event_to_queue(){
-    OldEvent event = events.getFirst();
+    Event event = events.getFirst();
     manager.addToEventQueue(event);
     Assertions.assertTrue(manager.getEventQueue().contains(event));
   }
 
   @Test
   public void test_get_next_event_from_queue(){
-    OldEvent event = events.getFirst();
+    Event event = events.getFirst();
     manager.addToEventQueue(event);
     Assertions.assertEquals(manager.getNextEvent(), event);
   }
