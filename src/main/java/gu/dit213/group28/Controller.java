@@ -1,11 +1,14 @@
 package gu.dit213.group28;
 
 import gu.dit213.group28.model.Icontrollable;
-import gu.dit213.group28.model.Logic;
 import java.time.LocalDate;
 import java.util.List;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -17,10 +20,12 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -50,9 +55,12 @@ public class Controller {
 
   private void initStage() {
     BorderPane root = new BorderPane();
+    GridPane centerGrid = createCenterGrid();
+    populateCenterGrid(centerGrid);
+
+    root.setCenter(centerGrid);
     root.setBottom(createLowerButtonPanel());
-    root.setCenter(createCenterGrid());
-    root.setRight(eventLogTextBox());
+    root.setRight(createEventTextBox());
 
     Scene scene = new Scene(root, 640, 480);
     stage.setScene(scene);
@@ -60,16 +68,15 @@ public class Controller {
     view.initView();
   }
 
-  // Place in View or Controller?
   // Unsure how to connect the event log to the facade. Probably using Platform.runLater
   // somehow.
-  private ScrollPane eventLogTextBox() {
+  private ScrollPane createEventTextBox() {
     Text eventLog = new Text();
-    eventLog.setWrappingWidth(200);
+    eventLog.setWrappingWidth(400);
 
     ScrollPane scrollPane = new ScrollPane(eventLog);
     scrollPane.setFitToWidth(true);
-    scrollPane.setPrefWidth(200);
+    scrollPane.setPrefWidth(400);
     scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
     return scrollPane;
   }
@@ -80,20 +87,17 @@ public class Controller {
     buttonPanel.setSpacing(10);
     buttonPanel.setStyle("-fx-background-color: #336699;");
 
-    Button makeTransactionButton = new Button("Make Transaction");
-    makeTransactionButton.setPrefSize(150, 20);
-    makeTransactionButton.setOnAction(event -> createTransactionDialog());
-
-    Button editTransactionButton = new Button("Edit Transaction");
-    editTransactionButton.setPrefSize(150, 20);
-    // do some setOnAction stuff here, remove/change transaction logic
+    Button menuButton = new Button("menu");
+    menuButton.setPrefSize(80, 20);
+    // do a setOnAction stuff here, implement when ready
+    // menuButton.setOnAction(event -> placeholder );
 
     Button pauseResumeButton = new Button("Pause");
-    pauseResumeButton.setPrefSize(100, 20);
+    pauseResumeButton.setPrefSize(80, 20);
     pauseResumeButton.setOnAction(event -> togglePauseResume(pauseResumeButton));
 
     Button info = new Button("info");
-    info.setPrefSize(100, 20);
+    info.setPrefSize(80, 20);
     // do some setOnAction stuff here
 
     // Game speed multiplier
@@ -128,14 +132,7 @@ public class Controller {
 
     buttonPanel
         .getChildren()
-        .addAll(
-            makeTransactionButton,
-            editTransactionButton,
-            pauseResumeButton,
-            gameSpeedSlider,
-            gameSpeedLabel,
-            spacer,
-            info);
+        .addAll(menuButton, pauseResumeButton, gameSpeedSlider, gameSpeedLabel, spacer, info);
     return buttonPanel;
   }
 
@@ -169,88 +166,68 @@ public class Controller {
     }
   }
 
-  // Creates the whole popup dialog box for creating a transaction
-  // TODO: Change this dialog method to suit our needs for the game.
-  private void createTransactionDialog() {
-    Dialog<List<String>> dialog = new Dialog<>();
-    dialog.setHeaderText("Enter amount, transaction type and date");
-
-    ButtonType okButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
-    dialog.getDialogPane().getButtonTypes().addAll(okButtonType, ButtonType.CANCEL);
-
-    // Different box types for the fields in the dialog box.
-    TextField amount = new TextField();
-    amount.setPromptText("Amount");
-
-    ComboBox<String> transactionType = new ComboBox<>();
-    transactionType.getItems().addAll("Income", "Expense");
-    transactionType.setPromptText("Transaction Type");
-
-    DatePicker date = new DatePicker();
-    date.setValue(LocalDate.now());
-    date.setPromptText("Select Date");
-
-    GridPane grid = new GridPane();
-    grid.setHgap(10);
-    grid.setVgap(10);
-    grid.add(new Label("Amount"), 0, 0);
-    grid.add(amount, 1, 0);
-    grid.add(new Label("Type"), 0, 1);
-    grid.add(transactionType, 1, 1);
-    grid.add(new Label("Date:"), 0, 2);
-    grid.add(date, 1, 2);
-
-    dialog.getDialogPane().setContent(grid);
-
-    dialog.setResultConverter(
-        dialogButton -> {
-          if (dialogButton == okButtonType) {
-            // Dialog box consists of three fields, return input from user as a list of strings.
-            return List.of(
-                amount.getText(), transactionType.getValue(), date.getValue().toString());
-          }
-          return null;
-        });
-
-    // Send to the model (TransactionHandler) to insert the transaction.
-    dialog
-        .showAndWait()
-        .ifPresent(
-            inputList -> {
-              transactionHandler.insertTransaction(inputList);
-              System.out.println("Amount: " + inputList.get(0));
-              System.out.println("TransactionType: " + inputList.get(1));
-              System.out.println("Date:" + inputList.get(2));
-            });
-  }
-
   private GridPane createCenterGrid() {
     GridPane grid = new GridPane();
     grid.setHgap(10);
     grid.setVgap(10);
-    // grid.setPadding(new Insets(0, 30, 0, 30));
-    for (int i = 0; i < 6; i++) {
-      // Placeholder for the graph
-      Label graph = new Label("Graph " + (i + 1));
-      graph.setStyle("-fx-border-color: black; -fx-padding: 20;");
+    grid.setPadding(new Insets(0, 0, 15, 15));
 
-      // Controls below the graph
-      Button buySellButton = new Button("Buy/Sell");
+    // Distributes the columns and rows sizes evenly in the center grid.
+    for (int i = 0; i < 3; i++) {
+      ColumnConstraints colConstraint = new ColumnConstraints();
+      colConstraint.setPercentWidth(33.33);
+      grid.getColumnConstraints().add(colConstraint);
+    }
+    for (int i = 0; i < 2; i++) {
+      RowConstraints rowConstraint = new RowConstraints();
+      rowConstraint.setPercentHeight(50);
+      grid.getRowConstraints().add(rowConstraint);
+    }
+
+    return grid;
+  }
+
+  private void populateCenterGrid(GridPane grid) {
+    for (int i = 0; i < 6; i++) {
+      // Create the graph/chart
+      NumberAxis xAxis = new NumberAxis();
+      NumberAxis yAxis = new NumberAxis();
+      xAxis.setLabel("Game time");
+      yAxis.setLabel("Current value");
+
+      LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
+      // Change titles to asset or sector type with a toString method and add the asset as a
+      // parameter.
+      lineChart.setTitle("Graph " + (i + 1));
+
+      // Sample data for the chart, implement with data from our model instead.
+      XYChart.Series<Number, Number> series = new XYChart.Series<>();
+      lineChart.setLegendVisible(false);
+      series.getData().add(new XYChart.Data<>(1, 5));
+      series.getData().add(new XYChart.Data<>(2, 10));
+      series.getData().add(new XYChart.Data<>(3, 15));
+      lineChart.getData().add(series);
+
+      // Adds the functionality under the graphs.
+      Button buyButton = new Button("Buy");
+      Button sellButton = new Button("Sell");
       TextField quantityField = new TextField();
       quantityField.setPromptText("Quantity");
       TextField priceField = new TextField();
       priceField.setPromptText("Price");
 
-      HBox controls =
-          new HBox(
-              10, buySellButton, new Label("Qty:"), quantityField, new Label("Price:"), priceField);
-      VBox graphAndControls =
-          new VBox(10, graph, controls); // Combine graph and controls vertically
+      HBox buySellControls = new HBox(10, buyButton, sellButton);
+      buySellControls.setAlignment(Pos.CENTER);
 
-      // Add to GridPane
-      grid.add(graphAndControls, i % 3, i / 3); // Column: i % 3, Row: i / 3
+      HBox quantityPriceControls =
+          new HBox(10, new Label("Qty:"), quantityField, new Label("Price:"), priceField);
+      quantityPriceControls.setAlignment(Pos.CENTER);
+
+      VBox graphAndControls = new VBox(10, lineChart, buySellControls, quantityPriceControls);
+      graphAndControls.setAlignment(Pos.CENTER);
+      VBox.setVgrow(lineChart, Priority.ALWAYS);
+
+      grid.add(graphAndControls, i % 3, i / 3);
     }
-
-    return grid;
   }
 }
