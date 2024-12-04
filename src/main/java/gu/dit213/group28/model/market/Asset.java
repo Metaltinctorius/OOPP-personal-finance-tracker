@@ -6,9 +6,9 @@ import gu.dit213.group28.model.enums.Sector;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
+import java.util.Random;
 
-public class Asset
-{
+public class Asset {
   private final String ticker;
   private final String name;
   private final Sector sector;
@@ -16,83 +16,69 @@ public class Asset
   private final List<TrendModifier> trendModifiers;
   private double price;
   private final List<PriceRecord> historicalPrices;
+  private final Random rng;
 
-  public Asset(String ticker, String name, Sector sector,
-               double price, List<PriceRecord> historicalPrices)
-  {
+  public Asset(String ticker, String name, Sector sector, double price) {
     this.ticker = ticker;
     this.name = name;
     this.sector = sector;
     this.trend = 1;
     this.price = price;
-    this.historicalPrices = historicalPrices;
+    this.historicalPrices = new ArrayList<>();
     trendModifiers = new ArrayList<>();
+    rng = new Random();
   }
 
-  //Getters
-  public String getTicker()
-  {
+  // Getters
+  public String getTicker() {
     return ticker;
   }
 
-  public String getName()
-  {
+  public String getName() {
     return name;
   }
 
-  public Sector getSector()
-  {
+  public Sector getSector() {
     return sector;
   }
 
-  public double getPrice()
-  {
+  public double getPrice() {
     return price;
   }
 
-  public double getTrend()
-  {
+  public double getTrend() {
     double sumMods = 0;
-    for (TrendModifier mod : trendModifiers)
-    {
+    for (TrendModifier mod : trendModifiers) {
       sumMods += mod.getModifier();
     }
     return trend + sumMods;
   }
 
-  public List<PriceRecord> getHistoricalPrices()
-  {
+  public List<PriceRecord> getHistoricalPrices() {
     return historicalPrices;
   }
 
-  public List<TrendModifier> getTrendModifiers()
-  {
+  public List<TrendModifier> getTrendModifiers() {
     return trendModifiers;
   }
 
-  public void addTrendModifier(TrendModifier mod)
-  {
+  public void addTrendModifier(TrendModifier mod) {
     trendModifiers.add(mod);
   }
 
-  public void removeTrendModifier(int id)
-  {
-    for (int i = 0; i < trendModifiers.size(); i++)
-    {
-      if (trendModifiers.get(i).getId() == id)
-      {
+  public void removeTrendModifier(int id) {
+    for (int i = 0; i < trendModifiers.size(); i++) {
+      if (trendModifiers.get(i).getId() == id) {
         trendModifiers.remove(i);
         break;
       }
     }
   }
 
-  public void updatePrice()
-  {
+  public void updatePrice() {
     price *= this.getTrend() + Market.getInstance().getTrend();
-    System.out.println(price);
+
+    price *= 1 + (rng.nextDouble() - 0.5) / 5;
     historicalPrices.add(new PriceRecord(price, LocalDate.now()));
   }
-
-
 }

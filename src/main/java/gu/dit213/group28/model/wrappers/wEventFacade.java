@@ -15,9 +15,9 @@ public class wEventFacade implements Ieventfacade {
   }
 
   @Override
-  public Ievent getTickEvent() {
+  public Ievent getTickEvent(int tick) {
     lock.lock();
-    Ievent e = facade.getTickEvent();
+    Ievent e = facade.getTickEvent(tick);
     lock.unlock();
     return e;
   }

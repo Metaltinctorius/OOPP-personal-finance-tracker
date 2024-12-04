@@ -24,7 +24,7 @@ public class PortfolioTest {
   @BeforeEach
   public void setUp() {
     portfolio = new Portfolio(10000);
-    asset = new Asset("S&P500", "Index Fund", Sector.INDEX, 100, new ArrayList<>());
+    asset = new Asset("S&P500", "Index Fund", Sector.INDEX, 100);
     market = Market.getInstance();
     market.addAsset(asset);
   }

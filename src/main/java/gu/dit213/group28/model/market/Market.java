@@ -1,5 +1,6 @@
 package gu.dit213.group28.model.market;
 
+import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.Ievent;
 import gu.dit213.group28.model.interfaces.Imarket;
 
@@ -21,6 +22,7 @@ public class Market implements Imarket, ImarketEx {
     this.trend = trend;
     this.assets = new ArrayList<>();
     this.trendModifiers = new ArrayList<>();
+    createAssets();
   }
 
   // Public static method to get the single instance
@@ -81,5 +83,15 @@ public class Market implements Imarket, ImarketEx {
 
   public String getState() {
     return "state";
+  }
+
+  private void createAssets() {
+    Random rng = new Random();
+    Sector[] sectors = Sector.values();
+    for (Sector sector : sectors) {
+      double price = 5000 + 5000 * rng.nextDouble();
+      Asset a = new Asset("", "", sector, price);
+      assets.add(a);
+    }
   }
 }

@@ -7,6 +7,11 @@ import java.util.List;
  * the model and called in the controller.
  */
 public interface Icontrollable {
+  void init();
 
-  void insertTransaction(List<String> args);
+  void setSpeedFast();
+
+  void setSpeedNormal();
+
+  void setSpeedSlow();
 }

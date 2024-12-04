@@ -59,8 +59,8 @@ public class EventFacade implements Ieventfacade {
   */
 
   @Override
-  public Ievent getTickEvent() {
-    return new EventTick(0);
+  public Ievent getTickEvent(int tick) {
+    return new EventTick(0, tick);
   }
 
   @Override

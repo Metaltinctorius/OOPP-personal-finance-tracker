@@ -1,6 +1,7 @@
 package gu.dit213.group28;
 
-import gu.dit213.group28.model.Icontrollable;
+import gu.dit213.group28.model.enums.Sector;
+import gu.dit213.group28.model.interfaces.Icontrollable;
 import java.time.LocalDate;
 import java.util.List;
 import javafx.geometry.Insets;
@@ -39,18 +40,18 @@ import javafx.stage.Stage;
  */
 public class Controller {
   private final Stage stage;
-  private final Icontrollable transactionHandler;
   private final View view;
-  private final Icontrollable logic;
   private boolean isPaused = false;
+  private final Icontrollable logic;
 
-  Controller(Stage stage, Icontrollable transactionHandler, Icontrollable logic, View view) {
+  public Controller(Stage stage, Icontrollable logic, View view) {
     this.stage = stage;
-    this.transactionHandler = transactionHandler;
-    this.logic = logic;
     this.view = view;
+    this.logic = logic;
 
     initStage();
+    // OBS!!! IT IS VITAL THAT LOGIC.INIT() IS CALLED LAST!!
+    logic.init();
   }
 
   private void initStage() {
@@ -140,16 +141,16 @@ public class Controller {
     // Change these calls if needed when connecting to the model.
     switch (snappedValue) {
       case 1:
-        // logic.setSpeedSlow();
+        logic.setSpeedSlow();
         break;
       case 2:
-        // logic.setSpeedNormal();
+        logic.setSpeedNormal();
         break;
       case 3:
-        // logic.setSpeedFast();
+        logic.setSpeedFast();
         break;
       default:
-        // logic.setSpeedNormal();
+        logic.setSpeedNormal();
         break;
     }
   }
@@ -188,25 +189,30 @@ public class Controller {
   }
 
   private void populateCenterGrid(GridPane grid) {
+    Graphs graphs = new Graphs();
+    Sector[] sectors = Sector.values();
     for (int i = 0; i < 6; i++) {
       // Create the graph/chart
       NumberAxis xAxis = new NumberAxis();
       NumberAxis yAxis = new NumberAxis();
       xAxis.setLabel("Game time");
+      xAxis.setForceZeroInRange(false);
       yAxis.setLabel("Current value");
+      yAxis.setForceZeroInRange(false);
 
       LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
       // Change titles to asset or sector type with a toString method and add the asset as a
       // parameter.
       lineChart.setTitle("Graph " + (i + 1));
+      graphs.addGraph(lineChart, sectors[i + 1]);
 
       // Sample data for the chart, implement with data from our model instead.
-      XYChart.Series<Number, Number> series = new XYChart.Series<>();
+      // XYChart.Series<Number, Number> series = new XYChart.Series<>();
       lineChart.setLegendVisible(false);
-      series.getData().add(new XYChart.Data<>(1, 5));
+      /*series.getData().add(new XYChart.Data<>(1, 5));
       series.getData().add(new XYChart.Data<>(2, 10));
       series.getData().add(new XYChart.Data<>(3, 15));
-      lineChart.getData().add(series);
+      lineChart.getData().add(series);*/
 
       // Adds the functionality under the graphs.
       Button buyButton = new Button("Buy");
@@ -230,5 +236,6 @@ public class Controller {
 
       grid.add(graphAndControls, i % 3, i / 3);
     }
+    view.setGraphs(graphs);
   }
 }

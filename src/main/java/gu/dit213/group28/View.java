@@ -1,7 +1,10 @@
 package gu.dit213.group28;
 
+import gu.dit213.group28.model.UserOutput;
 import gu.dit213.group28.model.interfaces.Iobserver;
 import gu.dit213.group28.model.Observable;
+import java.util.List;
+import javafx.application.Platform;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
@@ -16,6 +19,8 @@ import javafx.stage.Stage;
  */
 public class View implements Iobserver {
   private final Stage stage;
+  private GridPane center;
+  private Graphs graphs;
 
   View(Stage stage, Observable observable) {
     this.stage = stage;
@@ -23,7 +28,13 @@ public class View implements Iobserver {
   }
 
   public void initView() {
+    BorderPane root = (BorderPane) stage.getScene().getRoot();
+    center = (GridPane) root.getCenter();
     stage.show();
+  }
+
+  public void setGraphs(Graphs graphs) {
+    this.graphs = graphs;
   }
 
   @Override
@@ -34,6 +45,10 @@ public class View implements Iobserver {
     GridPane g = (GridPane) b.getCenter();
     g.getChildren().clear();
     g.add(beelieve, 10, 5);
+  }
+
+  public void updateGraphs(int xAxis, List<UserOutput> output) {
+    Platform.runLater(() -> graphs.updateGraphs(xAxis, output));
   }
 
   // TODO: Figure out how to connect events to text box

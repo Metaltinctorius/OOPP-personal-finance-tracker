@@ -1,6 +1,7 @@
 package gu.dit213.group28.model;
 
 import gu.dit213.group28.model.enums.Sector;
+import gu.dit213.group28.model.enums.Speed;
 import gu.dit213.group28.model.events.EventFacade;
 import gu.dit213.group28.model.interfaces.*;
 import gu.dit213.group28.model.market.Market;
@@ -16,6 +17,7 @@ public class GameCore {
   private final Ilogic logic;
   private final Imarket market;
   private final Iuser user;
+  private int tick;
 
   public GameCore(Logic logic) {
     timer = new Time();
@@ -24,15 +26,24 @@ public class GameCore {
     this.logic = new wLogic(logic);
     market = Market.getInstance();
     user = new wUser(new Portfolio(10000));
+    tick = 0;
   }
 
   public void init() {
     timer.start();
     new Thread(
             () -> {
-              Ievent e = eventFacade.getTickEvent();
-              market.accept(e);
-              logic.extractEvent(e);
+              while (true) {
+                Ievent e = eventFacade.getTickEvent(tick);
+                market.accept(e);
+                logic.extractEvent(e);
+                try {
+                  timer.next();
+                  tick++;
+                } catch (InterruptedException ex) {
+                  throw new RuntimeException(ex);
+                }
+              }
             })
         .start();
   }
@@ -49,5 +60,17 @@ public class GameCore {
     market.accept(e);
     user.accept(e);
     logic.extractEvent(e);
+  }
+
+  public void setSpeedNormal() {
+    timer.setThreshold(Speed.NORMAL);
+  }
+
+  public void setSpeedSlow() {
+    timer.setThreshold(Speed.SLOW);
+  }
+
+  public void setSpeedFast() {
+    timer.setThreshold(Speed.FAST);
   }
 }

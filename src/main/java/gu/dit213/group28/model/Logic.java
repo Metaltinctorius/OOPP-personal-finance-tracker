@@ -16,13 +16,31 @@ public class Logic implements Icontrollable, Ilogic {
     eventExtractor = new EventExtractor();
   }
 
-  public void addObserver(Iobserver observer) {
-    eventExtractor.addObserver(observer);
+  public void init() {
+    gameCore.init();
   }
 
   @Override
-  public void insertTransaction(List<String> args) {}
+  public void setSpeedFast() {
+    gameCore.setSpeedFast();
+  }
 
   @Override
-  public void extractEvent(Ievent e) {}
+  public void setSpeedNormal() {
+    gameCore.setSpeedNormal();
+  }
+
+  @Override
+  public void setSpeedSlow() {
+    gameCore.setSpeedSlow();
+  }
+
+  public Observable getObservable() {
+    return eventExtractor.getObservable();
+  }
+
+  @Override
+  public void extractEvent(Ievent e) {
+    eventExtractor.extractEvent(e);
+  }
 }
