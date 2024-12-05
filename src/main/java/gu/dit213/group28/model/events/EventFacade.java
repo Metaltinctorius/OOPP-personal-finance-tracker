@@ -16,6 +16,7 @@ public class EventFacade implements Ieventfacade {
 
   public EventFacade() {
     this.loader = new EventLoader();
+    loader.loadEvents();
     this.eventManager = new EventManager(loader.getPredefinedEvents(), loader.getReservedIds());
   }
 
@@ -76,10 +77,6 @@ public class EventFacade implements Ieventfacade {
 
   @Override
   public Ievent getPredefinedEvent(){
-    List <Sector> sectors = new ArrayList<>();
-    sectors.add(Sector.HEALTHCARE);
-    Event mock = new EventPredef(15,
-        "test", EventType.ONCE, 0, sectors, (-9.0)); // Extreme value to see output.
-    return mock;
+    return eventManager.getRandomEvent();
   }
 }
