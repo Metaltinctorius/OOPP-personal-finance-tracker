@@ -10,4 +10,6 @@ public interface Ieventfacade {
   Ievent getSellEvent(Sector s, int quantity);
 
   Ievent getPredefinedEvent();
+
+  void addEventToLog(Ievent event);
 }

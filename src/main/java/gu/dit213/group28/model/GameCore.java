@@ -10,6 +10,7 @@ import gu.dit213.group28.model.market.Market;
 import gu.dit213.group28.model.user.Portfolio;
 import gu.dit213.group28.model.wrappers.wEventFacade;
 import gu.dit213.group28.model.wrappers.wLogic;
+import gu.dit213.group28.model.wrappers.wMarket;
 import gu.dit213.group28.model.wrappers.wUser;
 import java.util.List;
 import java.util.Random;
@@ -28,7 +29,7 @@ public class GameCore {
     timer.initTime();
     eventFacade = new wEventFacade(new EventFacade());
     this.logic = new wLogic(logic);
-    market = Market.getInstance();
+    market = new wMarket(Market.getInstance());
     user = new wUser(new Portfolio(10000));
     tick = 0;
   }
@@ -42,8 +43,8 @@ public class GameCore {
                 market.accept(e);
                 logic.extractEvent(e);
                 try {
+                  market.decrementAllModifiers();
                   timer.next();
-                  removeEvent();
                   makePredefEvent();
                   tick++;
                 } catch (InterruptedException ex) {
@@ -79,23 +80,15 @@ public class GameCore {
 
   public void makePredefEvent() {
     Random rng = new Random();
-    int percentage = 20;
+    int percentage = 10;
 
     if (rng.nextInt(100) < percentage) {
       EventPredef e = (EventPredef) eventFacade.getPredefinedEvent();
+      eventFacade.addEventToLog(e);
       market.accept(e);
       System.out.println(e.getDescription());
 
     }
-  }
-
-  public void removeEvent(){
-
-    List<Asset> assets = Market.getInstance().getAssets();
-    for(Asset a : assets){
-        a.removeTrendModifier();
-        System.out.println(a.getTrendModifiers());
-      }
   }
 
 

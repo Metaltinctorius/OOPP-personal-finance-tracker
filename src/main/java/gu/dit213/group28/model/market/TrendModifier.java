@@ -1,28 +1,29 @@
 package gu.dit213.group28.model.market;
 
-public class TrendModifier
-{
+public class TrendModifier {
   private double modifier;
-  private final int id;
+  private int iterationsLeft;
 
-  public TrendModifier(double modifier, int id)
-  {
+  public TrendModifier(double modifier, int iterations) {
     this.modifier = modifier;
-    this.id = id;
+    this.iterationsLeft = iterations;
   }
 
-  public double getModifier()
-  {
+  public double getModifier() {
     return modifier;
   }
 
-  public int getId()
-  {
-    return id;
+  public int getIterationsLeft() {
+    return iterationsLeft;
   }
 
-  public void setModifier(double modifier)
-  {
+  public void decrementIterations() {
+    if (iterationsLeft > 0) {
+      iterationsLeft--;
+    }
+  }
+
+  public void setModifier(double modifier) {
     this.modifier = modifier;
   }
 }

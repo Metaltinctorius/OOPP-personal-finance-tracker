@@ -92,8 +92,8 @@ public class EventLoader {
     if (type == EventType.REPEATING && iterations <= 0) {
       throw new IllegalArgumentException("Repeating events must have iterations > 0.");
     }
-    if (type == EventType.ONCE && iterations != 0) {
-      throw new IllegalArgumentException("One-time events must have iterations = 0.");
+    if (type == EventType.ONCE && iterations != 1) {
+      throw new IllegalArgumentException("One-time events must have iterations = 1.");
     }
   }
 

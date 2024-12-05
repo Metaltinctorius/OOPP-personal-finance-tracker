@@ -95,7 +95,7 @@ public class EventPredef extends Event {
 
   @Override
   public void execute(ImarketEx m) {
-    TrendModifier mod = new TrendModifier(this.getModifier(), this.getID());
+    TrendModifier mod = new TrendModifier(this.getModifier(), this.getIterations());
     System.out.println(mod);
     System.out.println(this.getModifier());
     List <Asset>assets = m.getAssets();

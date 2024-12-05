@@ -4,6 +4,7 @@ import gu.dit213.group28.model.enums.EventType;
 import gu.dit213.group28.model.enums.PlayerAction;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.Ievent;
+import gu.dit213.group28.model.interfaces.IeventExtractor;
 import gu.dit213.group28.model.interfaces.Ieventfacade;
 
 import java.util.ArrayList;
@@ -26,6 +27,10 @@ public class EventFacade implements Ieventfacade {
 
   public List<Event> getEventLog() {
     return eventManager.getEventLog();
+  }
+
+  public void addEventToLog(Ievent event) {
+    eventManager.addToEventLog((Event) event); // TODO MAYBE CHANGE FROM CASTING?
   }
 
 
