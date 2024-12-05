@@ -5,8 +5,6 @@ import gu.dit213.group28.model.interfaces.Ievent;
 import gu.dit213.group28.model.interfaces.IeventExtractor;
 import gu.dit213.group28.model.interfaces.Ilogic;
 import gu.dit213.group28.model.interfaces.Icontrollable;
-import gu.dit213.group28.model.interfaces.Iobserver;
-import java.util.List;
 
 public class Logic implements Icontrollable, Ilogic {
   private final GameCore gameCore;
@@ -51,6 +49,15 @@ public class Logic implements Icontrollable, Ilogic {
       int amount_ = Integer.parseInt(amount);
       gameCore.makeSell(sector, amount_);
     } catch (NumberFormatException ignored) {
+    }
+  }
+
+  @Override
+  public void triggerPredef(){
+    try {
+      gameCore.makePredefEvent();
+    } catch (NumberFormatException ignored){
+
     }
   }
 

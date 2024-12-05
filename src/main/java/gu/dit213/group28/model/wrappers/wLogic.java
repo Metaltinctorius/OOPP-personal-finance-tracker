@@ -14,6 +14,15 @@ public class wLogic implements Ilogic {
   }
 
   @Override
+  public void triggerPredef()
+  {
+    lock.lock();
+    logic.triggerPredef();
+    lock.unlock();
+
+  }
+
+  @Override
   public void extractEvent(Ievent e) {
     lock.lock();
     logic.extractEvent(e);

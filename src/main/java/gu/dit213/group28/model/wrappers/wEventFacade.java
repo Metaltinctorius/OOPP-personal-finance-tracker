@@ -37,4 +37,13 @@ public class wEventFacade implements Ieventfacade {
     lock.unlock();
     return e;
   }
+
+  @Override
+  public Ievent getPredefinedEvent()
+  {
+    lock.lock();
+    Ievent e = facade.getPredefinedEvent();
+    lock.unlock();
+    return  e;
+  }
 }

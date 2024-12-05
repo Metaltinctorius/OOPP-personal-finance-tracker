@@ -8,4 +8,6 @@ public interface Ieventfacade {
   Ievent getBuyEvent(Sector s, int quantity);
 
   Ievent getSellEvent(Sector s, int quantity);
+
+  Ievent getPredefinedEvent();
 }

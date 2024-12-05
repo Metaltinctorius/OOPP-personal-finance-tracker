@@ -27,11 +27,6 @@ public class EventFacade implements Ieventfacade {
     return eventManager.getEventLog();
   }
 
-  public Event getPredefinedEvent() {
-    Event event = eventManager.getRandomEvent();
-    eventManager.addToEventLog(event);
-    return event;
-  }
 
   /*
   public OldEvent buyAsset(Sector sector, int amount, double value) {
@@ -77,5 +72,14 @@ public class EventFacade implements Ieventfacade {
       return new EventBuy(4, s, quantity);
     }
     return new EventSell(3, s, quantity);
+  }
+
+  @Override
+  public Ievent getPredefinedEvent(){
+    List <Sector> sectors = new ArrayList<>();
+    sectors.add(Sector.HEALTHCARE);
+    Event mock = new EventPredef(15,
+        "test", EventType.ONCE, 0, sectors, (90000.0)); // Extreme value to see output.
+    return mock;
   }
 }

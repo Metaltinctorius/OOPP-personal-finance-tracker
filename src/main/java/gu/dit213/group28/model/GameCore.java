@@ -70,6 +70,13 @@ public class GameCore {
     logic.extractEvent(e);
   }
 
+  public void makePredefEvent(){
+    Ievent e = eventFacade.getPredefinedEvent();
+    market.accept(e);
+    logic.extractEvent(e);
+  }
+
+
   public void setSpeedNormal() {
     timer.setThreshold(Speed.NORMAL);
   }

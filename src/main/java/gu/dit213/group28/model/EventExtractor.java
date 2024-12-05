@@ -42,5 +42,11 @@ public class EventExtractor extends Observable implements IeventExtractor {
     if (e.getID() == 4) {
       // send error?
     }
+    if(e.getID() == 15){
+      EventTick te = (EventTick) e;
+      for (Iobserver o : observers) {
+        o.updateGraphs(te.tick, te.output);
+      }
+    }
   }
 }

@@ -4,6 +4,9 @@ import gu.dit213.group28.model.enums.EventType;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.ImarketEx;
 import gu.dit213.group28.model.interfaces.IuserEx;
+import gu.dit213.group28.model.market.Asset;
+import gu.dit213.group28.model.market.Market;
+import gu.dit213.group28.model.market.TrendModifier;
 import java.util.List;
 
 public class EventPredef extends Event {
@@ -80,7 +83,19 @@ public class EventPredef extends Event {
   }
 
   @Override
-  public void execute(ImarketEx m) {}
+  public void execute(ImarketEx m) {
+    TrendModifier mod = new TrendModifier(this.getModifier(), this.getID());
+    List <Asset>assets = m.getAssets();
+
+
+    for(Asset a : assets){ // FIX
+      if(a.getSector() == this.getSectorList().getFirst()){
+        System.out.println(this.getSectorList().getFirst());
+        System.out.println(mod);
+        a.addTrendModifier(mod);
+      }
+    }
+  }
 
   @Override
   public void execute(IuserEx u) {}

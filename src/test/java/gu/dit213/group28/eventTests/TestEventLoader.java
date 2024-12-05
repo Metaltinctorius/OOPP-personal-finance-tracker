@@ -31,7 +31,7 @@ public class TestEventLoader {
 
   @Test
   public void test_id(){
-    int actualId = predefinedEvents.get(0).getId();
+    int actualId = predefinedEvents.get(0).getID();
     int expectedId = 1;
     Assertions.assertEquals(expectedId, actualId);
   }
