@@ -41,4 +41,15 @@ public class AssetTest {
     System.out.println(asset.getTrendModifiers().getFirst().getModifier());
     Assertions.assertTrue(asset.getTrendModifiers().contains(mod));
   }
+
+  @Test
+  public void testAddModifier2(){
+    EventPredef event = (EventPredef) facade.getPredefinedEvent();
+    TrendModifier mod = new TrendModifier(event.getModifier(), event.getID());
+    asset.addTrendModifier(mod);
+    System.out.println(mod);
+    System.out.println(asset.getTrendModifiers().getFirst().getModifier());
+    Assertions.assertEquals(;);
+  }
+
 }

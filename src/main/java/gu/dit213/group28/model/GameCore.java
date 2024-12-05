@@ -4,11 +4,14 @@ import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.enums.Speed;
 import gu.dit213.group28.model.events.EventFacade;
 import gu.dit213.group28.model.interfaces.*;
+import gu.dit213.group28.model.market.Asset;
 import gu.dit213.group28.model.market.Market;
 import gu.dit213.group28.model.user.Portfolio;
 import gu.dit213.group28.model.wrappers.wEventFacade;
 import gu.dit213.group28.model.wrappers.wLogic;
 import gu.dit213.group28.model.wrappers.wUser;
+import java.util.List;
+import java.util.Random;
 
 public class GameCore {
 
@@ -39,6 +42,8 @@ public class GameCore {
                 logic.extractEvent(e);
                 try {
                   timer.next();
+                  removeEvent();
+                  makePredefEvent();
                   tick++;
                 } catch (InterruptedException ex) {
                   throw new RuntimeException(ex);
@@ -61,6 +66,7 @@ public class GameCore {
 
   public void makeSell(Sector s, int quantity) {
     Ievent e = eventFacade.getSellEvent(s, quantity);
+
     if (e.getID() == 4) {
       logic.extractEvent(e);
       return;
@@ -70,10 +76,26 @@ public class GameCore {
     logic.extractEvent(e);
   }
 
-  public void makePredefEvent(){
-    Ievent e = eventFacade.getPredefinedEvent();
-    market.accept(e);
-    logic.extractEvent(e);
+  public void makePredefEvent() {
+    Random rng = new Random();
+    int percentage = 20;
+
+    if (rng.nextInt(100) < percentage) {
+      Ievent e = eventFacade.getPredefinedEvent();
+      market.accept(e);
+      logic.extractEvent(e);
+    }
+  }
+
+  public void removeEvent(){
+    Sector se = Sector.HEALTHCARE;
+    List<Asset> assets = Market.getInstance().getAssets();
+    for(Asset a : assets){
+      if (a.getSector() == se){
+        a.removeTrendModifier(15);
+        System.out.println(a.getTrendModifiers());
+      }
+    }
   }
 
 

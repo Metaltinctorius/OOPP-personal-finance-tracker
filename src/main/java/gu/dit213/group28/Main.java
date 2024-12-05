@@ -14,6 +14,7 @@ public class Main extends Application {
   @Override
   public void start(Stage stage) {
     Logic logic = new Logic();
+
     new Controller(stage, logic, new View(stage, logic.getObservable()));
   }
 

@@ -8,10 +8,11 @@ import gu.dit213.group28.model.market.Asset;
 import gu.dit213.group28.model.market.Market;
 import gu.dit213.group28.model.market.TrendModifier;
 import java.util.List;
+import org.bson.internal.BsonUtil;
 
 public class EventPredef extends Event {
 
-  private final List<Sector> sectorList;
+  private final List<Sector> sectors;
   private final EventType type;
   private int iterations;
   private final String description;
@@ -29,16 +30,14 @@ public class EventPredef extends Event {
     this.description = description;
     this.iterations = iterations;
     this.modifier = modifier;
-    this.sectorList = sectorCategories;
+    this.sectors = sectorCategories;
   }
 
   public String getDescription() {
     return description;
   }
 
-  public List<Sector> getSectorList() {
-    return sectorList;
-  }
+
 
   public EventType getType() {
     return type;
@@ -76,21 +75,29 @@ public class EventPredef extends Event {
   }
 
   public void addSectorToList(Sector sector) {
-    sectorList.add(sector);
-    if (!sectorList.contains(sector)) {
+    sectors.add(sector);
+    if (!sectors.contains(sector)) {
       throw new Error("Failed to add sector");
     }
+  }
+
+
+  public List<Sector> getSectors()
+  {
+    return sectors;
   }
 
   @Override
   public void execute(ImarketEx m) {
     TrendModifier mod = new TrendModifier(this.getModifier(), this.getID());
+    System.out.println(mod);
+    System.out.println(this.getModifier());
     List <Asset>assets = m.getAssets();
 
 
     for(Asset a : assets){ // FIX
-      if(a.getSector() == this.getSectorList().getFirst()){
-        System.out.println(this.getSectorList().getFirst());
+      if(a.getSector() == this.getSectors().getFirst()){
+        System.out.println(this.getSectors().getFirst());
         System.out.println(mod);
         a.addTrendModifier(mod);
       }

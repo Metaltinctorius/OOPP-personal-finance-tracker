@@ -148,7 +148,7 @@ public class EventLoader {
       System.out.println("* id:          " + event.getID());
       System.out.println("* description: " + event.getDescription());
       System.out.println("* type:        " + event.getType());
-      System.out.println("* categories:  " + event.getSectorList());
+      System.out.println("* categories:  " + event.getSectors());
       System.out.println("* modifier:    " + event.getModifier());
       System.out.println("* iterations:  " + event.getIterations());
     }

@@ -6,6 +6,7 @@ import gu.dit213.group28.model.interfaces.IuserEx;
 import gu.dit213.group28.model.market.Asset;
 import gu.dit213.group28.model.user.PortfolioEntry;
 import gu.dit213.group28.model.user.PortfolioRecord;
+import java.util.List;
 
 public class EventBuy extends Event {
 
@@ -37,6 +38,8 @@ public class EventBuy extends Event {
   public int getOwned() {
     return owned;
   }
+
+
 
   @Override
   public void execute(ImarketEx m) {

@@ -52,14 +52,6 @@ public class Logic implements Icontrollable, Ilogic {
     }
   }
 
-  @Override
-  public void triggerPredef(){
-    try {
-      gameCore.makePredefEvent();
-    } catch (NumberFormatException ignored){
-
-    }
-  }
 
   public Observable getObservable() {
     return eventExtractor.getObservable();

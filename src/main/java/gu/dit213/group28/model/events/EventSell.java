@@ -6,6 +6,7 @@ import gu.dit213.group28.model.interfaces.IuserEx;
 import gu.dit213.group28.model.market.Asset;
 import gu.dit213.group28.model.user.PortfolioEntry;
 import gu.dit213.group28.model.user.PortfolioRecord;
+import java.util.List;
 
 public class EventSell extends Event {
   private final Sector sector;
@@ -35,6 +36,8 @@ public class EventSell extends Event {
   public int getOwned() {
     return owned;
   }
+
+
 
   @Override
   public void execute(ImarketEx m) {

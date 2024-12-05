@@ -79,7 +79,7 @@ public class EventFacade implements Ieventfacade {
     List <Sector> sectors = new ArrayList<>();
     sectors.add(Sector.HEALTHCARE);
     Event mock = new EventPredef(15,
-        "test", EventType.ONCE, 0, sectors, (90000.0)); // Extreme value to see output.
+        "test", EventType.ONCE, 0, sectors, (-9.0)); // Extreme value to see output.
     return mock;
   }
 }

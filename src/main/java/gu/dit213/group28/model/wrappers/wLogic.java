@@ -13,14 +13,7 @@ public class wLogic implements Ilogic {
     this.logic = logic;
   }
 
-  @Override
-  public void triggerPredef()
-  {
-    lock.lock();
-    logic.triggerPredef();
-    lock.unlock();
 
-  }
 
   @Override
   public void extractEvent(Ievent e) {
