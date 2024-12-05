@@ -88,6 +88,12 @@ public class EventPredef extends Event {
   }
 
   @Override
+  public Sector getSector()
+  {
+    return null;
+  }
+
+  @Override
   public void execute(ImarketEx m) {
     TrendModifier mod = new TrendModifier(this.getModifier(), this.getID());
     System.out.println(mod);

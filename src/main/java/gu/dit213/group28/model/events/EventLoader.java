@@ -49,11 +49,12 @@ public class EventLoader {
 
   String testFile = "src/main/java/gu/dit213/group28/model/events/testFile.json";
 
+  String mvpEvents = "src/main/java/gu/dit213/group28/model/events/mvpEvents.json";
   /** Call this function to load the events from the predefined events from the JSON file */
   private void readFromJsonFile() {
     JSONParser parser = new JSONParser();
 
-    try (FileReader reader = new FileReader(testFile)) {
+    try (FileReader reader = new FileReader(mvpEvents)) {
 
       JSONArray jsonArray = (JSONArray) parser.parse(reader);
 

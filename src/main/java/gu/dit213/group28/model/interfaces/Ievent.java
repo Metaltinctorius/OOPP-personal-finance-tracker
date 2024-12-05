@@ -6,6 +6,7 @@ import java.util.List;
 public interface Ievent {
   int getID();
 
+  Sector getSector();
 
   void execute(ImarketEx m);
 

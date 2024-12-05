@@ -3,6 +3,7 @@ package gu.dit213.group28.model;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.enums.Speed;
 import gu.dit213.group28.model.events.EventFacade;
+import gu.dit213.group28.model.events.EventPredef;
 import gu.dit213.group28.model.interfaces.*;
 import gu.dit213.group28.model.market.Asset;
 import gu.dit213.group28.model.market.Market;
@@ -81,21 +82,20 @@ public class GameCore {
     int percentage = 20;
 
     if (rng.nextInt(100) < percentage) {
-      Ievent e = eventFacade.getPredefinedEvent();
+      EventPredef e = (EventPredef) eventFacade.getPredefinedEvent();
       market.accept(e);
-      logic.extractEvent(e);
+      System.out.println(e.getDescription());
+
     }
   }
 
   public void removeEvent(){
-    Sector se = Sector.HEALTHCARE;
+
     List<Asset> assets = Market.getInstance().getAssets();
     for(Asset a : assets){
-      if (a.getSector() == se){
         a.removeTrendModifier();
         System.out.println(a.getTrendModifiers());
       }
-    }
   }
 
 

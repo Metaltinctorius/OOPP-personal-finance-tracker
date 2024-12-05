@@ -1,0 +1,28 @@
+[
+  {
+    "id": "1",
+    "description": "TEST 01 HEALTHCARE",
+    "type": "ONCE",
+    "iterations": "0",
+    "categories": ["HEALTHCARE"],
+    "modifier": "-0.5"
+  },
+  {
+    "id": "2",
+    "description": "TEST 02 INFORMATION TECHNOLOGY",
+    "type": "ONCE",
+    "iterations": "0",
+    "categories": ["INFORMATION_TECHNOLOGY"],
+    "modifier": "-0.5"
+  },
+  {
+    "id": "3",
+    "description": "TEST 03 REAL_ESTATE",
+    "type": "REPEATING",
+    "iterations": "2",
+    "categories": ["REAL_ESTATE"],
+    "modifier": "-0.5"
+  }
+]
+
+

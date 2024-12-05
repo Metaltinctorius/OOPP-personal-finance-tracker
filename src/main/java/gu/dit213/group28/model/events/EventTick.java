@@ -1,6 +1,7 @@
 package gu.dit213.group28.model.events;
 
 import gu.dit213.group28.model.UserOutput;
+import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.ImarketEx;
 import gu.dit213.group28.model.interfaces.IuserEx;
 import gu.dit213.group28.model.market.Asset;
@@ -15,6 +16,12 @@ public class EventTick extends Event {
     super(id);
     output = new ArrayList<>();
     this.tick = tick;
+  }
+
+  @Override
+  public Sector getSector()
+  {
+    return null;
   }
 
   @Override
