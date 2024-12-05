@@ -92,7 +92,7 @@ public class GameCore {
     List<Asset> assets = Market.getInstance().getAssets();
     for(Asset a : assets){
       if (a.getSector() == se){
-        a.removeTrendModifier();
+        a.removeTrendModifier(15);
         System.out.println(a.getTrendModifiers());
       }
     }
