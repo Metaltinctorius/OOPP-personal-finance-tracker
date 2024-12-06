@@ -88,16 +88,12 @@ public class Asset {
 
   public void updatePrice() {
     price *= this.getTrend() + Market.getInstance().getTrend();
-<<<<<<< HEAD
-    price *= 1 + (rng.nextDouble() - 0.5) / 5;
+
+    //price *= 1 + (rng.nextDouble() - 0.5) / 5;
 
     indexValue *= this.getTrend() + Market.getInstance().getTrend();
 
-=======
 
-
-    //price *= 1 + (rng.nextDouble() - 0.5) / 5;
->>>>>>> implement-predefined
     historicalPrices.add(new PriceRecord(price, LocalDate.now()));
   }
 }

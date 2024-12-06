@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface ImarketEx {
   List<Asset> getAssets();
-<<<<<<< HEAD
+
   double getIndexValue();
-=======
+
 
   void addTrendModifier(TrendModifier mod);
->>>>>>> implement-predefined
+
 }
