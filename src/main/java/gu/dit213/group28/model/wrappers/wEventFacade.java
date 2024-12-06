@@ -46,4 +46,10 @@ public class wEventFacade implements Ieventfacade {
     lock.unlock();
     return  e;
   }
+
+  @Override
+  public void addEventToLog(Ievent event)
+  {
+
+  }
 }
