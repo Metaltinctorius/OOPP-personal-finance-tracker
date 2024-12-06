@@ -81,6 +81,7 @@ public class Controller {
     root.setCenter(centerGrid);
     root.setBottom(createLowerButtonPanel());
     root.setRight(createEventTextBox());
+    root.setLeft(createInfoBox());
     return new Scene(root, 1280, 720);
   }
 
