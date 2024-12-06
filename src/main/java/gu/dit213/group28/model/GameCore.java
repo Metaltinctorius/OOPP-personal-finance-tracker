@@ -41,6 +41,7 @@ public class GameCore {
     new Thread(
             () -> {
               while (true) {
+                System.out.println(tick + "first");
                 Ievent e = eventFacade.getTickEvent(tick);
                 market.accept(e);
                 user.accept(e);
@@ -49,6 +50,7 @@ public class GameCore {
                   market.decrementAllModifiers();
                   timer.next();
                   makePredefEvent();
+                  System.out.println(tick + "second");
                   tick++;
                 } catch (InterruptedException ex) {
                   throw new RuntimeException(ex);
@@ -83,16 +85,15 @@ public class GameCore {
 
   public void makePredefEvent() {
     Random rng = new Random();
-    pauseAndResume();
-
-
-    int percentage = 90;
+    int percentage = 50;
 
     if (rng.nextInt(100) < percentage) {
       EventPredef e = (EventPredef) eventFacade.getPredefinedEvent();
       eventFacade.addEventToLog(e);
+      //tick++;
+      System.out.println(e.getDescription() + tick);
+      pauseAndResume();
       market.accept(e);
-      System.out.println(e.getDescription());
 
     }
   }
@@ -112,8 +113,10 @@ public class GameCore {
 
   public void pauseAndResume() {
     if(!isPaused){
+      System.out.println("paused");
       timer.pause();
     }else{
+      System.out.println("resumed");
       timer.start();
     }
     this.isPaused = !this.isPaused;
