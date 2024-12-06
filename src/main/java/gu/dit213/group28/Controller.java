@@ -112,7 +112,7 @@ public class Controller {
 
     Button pauseResumeButton = new Button("Pause");
     pauseResumeButton.setPrefSize(80, 20);
-    pauseResumeButton.setOnAction(event -> logic.pauseAndResume());
+    pauseResumeButton.setOnAction(event -> togglePauseResume(pauseResumeButton));
 
     // Alter game speed with a slider, 1 is slow, 2 is normal, 3 is fast
     Slider gameSpeedSlider = new Slider(1, 3, 2);
