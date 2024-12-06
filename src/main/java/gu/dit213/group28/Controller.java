@@ -8,9 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
@@ -21,7 +18,6 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -41,17 +37,36 @@ public class Controller {
   private final Icontrollable logic;
   private Text eventLog;
 
+  /**
+   * Initializes the controller with the stage, logic, and view. The stage is used to create the
+   * JavaFX window, the logic is used to control the game, and the view is used to display the game
+   * state.
+   *
+   * @param stage The JavaFX stage.
+   * @param logic The logic of the game.
+   * @param view The view of the game.
+   */
   public Controller(Stage stage, Icontrollable logic, View view) {
     this.stage = stage;
     this.view = view;
     this.logic = logic;
 
-    initStage();
+    initStage(stage);
     // OBS!!! IT IS VITAL THAT LOGIC.INIT() IS CALLED LAST!!
     logic.init();
   }
 
-  private void initStage() {
+  /** Initializes the JavaFX window container stage. */
+  private void initStage(Stage stage) {
+    Scene scene = createScene();
+    stage.setScene(scene);
+    stage.setTitle("Finance Tracker");
+    view.setEventLog(eventLog);
+    view.initView();
+  }
+
+  /** Defines the scene layout for the stage. */
+  private Scene createScene() {
     BorderPane root = new BorderPane();
     GridPane centerGrid = createCenterGrid();
     populateCenterGrid(centerGrid);
@@ -59,16 +74,10 @@ public class Controller {
     root.setCenter(centerGrid);
     root.setBottom(createLowerButtonPanel());
     root.setRight(createEventTextBox());
-
-    Scene scene = new Scene(root, 640, 480);
-    stage.setScene(scene);
-    stage.setTitle("Finance Tracker");
-    view.setEventLog(eventLog);
-    view.initView();
+    return new Scene(root, 640, 480);
   }
 
-  // Unsure how to connect the event log to the facade. Probably using Platform.runLater
-  // somehow.
+  /** Creates a scene component showing events. */
   private TitledPane createEventTextBox() {
     eventLog = new Text();
     ScrollPane scrollPane = new ScrollPane(eventLog);
@@ -81,6 +90,7 @@ public class Controller {
     return titledPane;
   }
 
+  /** Creates a scene component with buttons for the bottom part of the scene. */
   private HBox createLowerButtonPanel() {
     HBox buttonPanel = new HBox();
     buttonPanel.setPadding(new Insets(15, 12, 15, 12));
@@ -90,24 +100,19 @@ public class Controller {
     Button menuButton = new Button("Menu");
     menuButton.setPrefSize(80, 20);
     // do a setOnAction stuff here, implement when ready
-    // menuButton.setOnAction(event -> placeholder );
 
     Button pauseResumeButton = new Button("Pause");
     pauseResumeButton.setPrefSize(80, 20);
-    pauseResumeButton.setOnAction(event -> togglePauseResume(pauseResumeButton));
+    pauseResumeButton.setOnAction(event -> logic.pause());
 
-    Button info = new Button("info");
-    info.setPrefSize(80, 20);
-    // do some setOnAction stuff here
-
-    // Game speed multiplier
+    // Alter game speed with a slider, 1 is slow, 2 is normal, 3 is fast
     Slider gameSpeedSlider = new Slider(1, 3, 2);
     gameSpeedSlider.setShowTickMarks(true);
     gameSpeedSlider.setMajorTickUnit(1);
     gameSpeedSlider.setBlockIncrement(1);
     gameSpeedSlider.setMinorTickCount(0);
 
-    // Showing game speed interactively in a label next to the slider
+    // Show game speed interactively in a label next to the slider
     Label gameSpeedLabel = new Label("Game Speed: Normal");
     gameSpeedLabel.setTextFill(Color.WHITE);
 
@@ -127,17 +132,13 @@ public class Controller {
               }
             });
 
-    Region spacer = new Region();
-    HBox.setHgrow(spacer, Priority.ALWAYS);
-
     buttonPanel
         .getChildren()
-        .addAll(menuButton, pauseResumeButton, gameSpeedSlider, gameSpeedLabel, spacer, info);
+        .addAll(menuButton, pauseResumeButton, gameSpeedSlider, gameSpeedLabel);
     return buttonPanel;
   }
 
   private void alterGameSpeed(int snappedValue) {
-    // Change these calls if needed when connecting to the model.
     switch (snappedValue) {
       case 1:
         logic.setSpeedSlow();

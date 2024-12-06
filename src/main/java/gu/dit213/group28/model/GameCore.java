@@ -81,4 +81,8 @@ public class GameCore {
   public void setSpeedFast() {
     timer.setThreshold(Speed.FAST);
   }
+
+  public void pause() {
+    timer.pause();
+  }
 }

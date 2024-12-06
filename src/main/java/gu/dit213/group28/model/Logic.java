@@ -62,4 +62,12 @@ public class Logic implements Icontrollable, Ilogic {
   public void extractEvent(Ievent e) {
     eventExtractor.extractEvent(e);
   }
+
+  @Override
+  public void pause() {
+    try {
+      gameCore.pause();
+    } catch (NumberFormatException ignored) {
+    }
+  }
 }
