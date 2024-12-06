@@ -26,8 +26,8 @@ public class EventExtractor extends Observable implements IeventExtractor {
         o.updateProgress(te.tick, te.getIndexValue(), te.getPlayerValue());
 
         o.updateGraphs(te.tick, te.mOutput, te.uOutput);
-        o.updateOnEvent("Test");
-        o.updateEventHistory("Test event history");
+        //o.updateOnEvent("Test");
+        //o.updateEventHistory("Test event history");
 
       }
     }

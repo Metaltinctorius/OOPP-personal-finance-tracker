@@ -79,11 +79,15 @@ public class Market implements Imarket, ImarketEx {
     }
   }*/
 
+
+
   public void decrementMarketModifiers() {
-    for (TrendModifier mod : trendModifiers) {
+    Iterator<TrendModifier> iterator = trendModifiers.iterator();
+    while (iterator.hasNext()) {
+      TrendModifier mod = iterator.next();
       mod.decrementIterations();
       if (mod.getIterationsLeft() < 1) {
-        trendModifiers.remove(mod);
+        iterator.remove();
       }
     }
   }

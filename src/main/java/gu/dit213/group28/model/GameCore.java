@@ -86,7 +86,7 @@ public class GameCore {
     pauseAndResume();
 
 
-    int percentage = 70;
+    int percentage = 90;
 
     if (rng.nextInt(100) < percentage) {
       EventPredef e = (EventPredef) eventFacade.getPredefinedEvent();

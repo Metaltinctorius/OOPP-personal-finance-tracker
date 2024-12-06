@@ -101,18 +101,20 @@ public class EventPredef extends Event {
   @Override
   public void execute(ImarketEx m) {
     TrendModifier mod = new TrendModifier(this.getModifier(), this.getIterations());
-    System.out.println(mod);
-    System.out.println(this.getModifier());
     List <Asset>assets = m.getAssets();
-
-
-    for(Asset a : assets){ // FIX
-      if(a.getSector() == this.getSectors().getFirst()){
-        System.out.println(this.getSectors().getFirst());
-        System.out.println(mod);
-        a.addTrendModifier(mod);
+    if (this.getSectors().isEmpty()) {
+      m.addTrendModifier(mod);
+    }
+    else {
+      for(Asset a : assets){ // FIX
+        for(Sector s : this.getSectors()){
+          if(a.getSector() == s) {
+            a.addTrendModifier(mod);
+          }
+        }
       }
     }
+
   }
 
   @Override
