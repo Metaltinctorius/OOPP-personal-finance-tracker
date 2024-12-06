@@ -13,6 +13,7 @@ import org.bson.internal.BsonUtil;
 public class EventPredef extends Event {
 
   private final List<Sector> sectors;
+  private final String title;
   private final EventType type;
   private int iterations;
   private final String description;
@@ -20,12 +21,14 @@ public class EventPredef extends Event {
 
   public EventPredef(
       int id,
+      String title,
       String description,
       EventType type,
       int iterations,
       List<Sector> sectorCategories,
       double modifier) {
     super(id);
+    this.title = title;
     this.type = type;
     this.description = description;
     this.iterations = iterations;
@@ -37,7 +40,9 @@ public class EventPredef extends Event {
     return description;
   }
 
-
+  public String getTitle() {
+    return title;
+  }
 
   public EventType getType() {
     return type;

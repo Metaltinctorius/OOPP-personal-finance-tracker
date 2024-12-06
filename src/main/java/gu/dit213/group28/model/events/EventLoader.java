@@ -62,6 +62,7 @@ public class EventLoader {
         JSONObject jsonObject = (JSONObject) obj;
 
         int id = Integer.parseInt(String.valueOf(jsonObject.get("id")));
+        String title = jsonObject.get("title").toString();
         String description = jsonObject.get("description").toString();
         EventType type = EventType.valueOf(jsonObject.get("type").toString());
         int iterations = Integer.parseInt(jsonObject.get("iterations").toString());
@@ -75,7 +76,7 @@ public class EventLoader {
         double modifier = Double.parseDouble(jsonObject.get("modifier").toString());
 
         checkArguments(id, type, iterations, categories);
-        buildFromFile(id, description, type, iterations, categories, modifier);
+        buildFromFile(id, title, description, type, iterations, categories, modifier);
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -115,6 +116,7 @@ public class EventLoader {
 
   private void buildFromFile(
       int id,
+      String title,
       String description,
       EventType type,
       int iterations,
@@ -124,7 +126,7 @@ public class EventLoader {
     List<Sector> stockCategories = parseCategories(categories);
 
     EventPredef event =
-        new EventPredef(id, description, type, iterations, stockCategories, modifier);
+        new EventPredef(id, title, description, type, iterations, stockCategories, modifier);
     predefinedEvents.add(event);
     reservedIds.add(event.getID());
   }

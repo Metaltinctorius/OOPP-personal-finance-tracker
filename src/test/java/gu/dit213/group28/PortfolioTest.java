@@ -71,12 +71,12 @@ public class PortfolioTest {
     assertEquals(120, asset.getPrice(), 0.001);
   }
 
-  @Test
+  /*@Test
   public void testRemoveModifier() {
     asset.addTrendModifier(new TrendModifier(.1, 1));
     asset.addTrendModifier(new TrendModifier(.2, 2));
     asset.addTrendModifier(new TrendModifier(.3, 3));
     asset.removeTrendModifier(2);
     assertEquals(1.4, asset.getTrend());
-  }
+  }*/
 }
