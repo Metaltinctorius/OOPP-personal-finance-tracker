@@ -23,7 +23,6 @@ public class GameCore {
   private final Imarket market;
   private final Iuser user;
   private int tick;
-
   private boolean isPaused;
 
   public GameCore(Logic logic) {
@@ -84,6 +83,9 @@ public class GameCore {
 
   public void makePredefEvent() {
     Random rng = new Random();
+    pauseAndResume();
+
+
     int percentage = 70;
 
     if (rng.nextInt(100) < percentage) {
