@@ -63,9 +63,9 @@ public class Logic implements Icontrollable, Ilogic {
   }
 
   @Override
-  public void pause() {
+  public void pauseAndResume() {
     try {
-      gameCore.pause();
+      gameCore.pauseAndResume();
     } catch (NumberFormatException ignored) {
     }
   }

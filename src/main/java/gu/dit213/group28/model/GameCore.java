@@ -24,6 +24,8 @@ public class GameCore {
   private final Iuser user;
   private int tick;
 
+  private boolean isPaused;
+
   public GameCore(Logic logic) {
     timer = new Time();
     timer.initTime();
@@ -32,6 +34,7 @@ public class GameCore {
     market = new wMarket(Market.getInstance());
     user = new wUser(new Portfolio(100000));
     tick = 0;
+    isPaused = false;
   }
 
   public void init() {
@@ -105,7 +108,12 @@ public class GameCore {
     timer.setThreshold(Speed.FAST);
   }
 
-  public void pause() {
-    timer.pause();
+  public void pauseAndResume() {
+    if(!isPaused){
+      timer.pause();
+    }else{
+      timer.start();
+    }
+    this.isPaused = !this.isPaused;
   }
 }

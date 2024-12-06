@@ -112,7 +112,7 @@ public class Controller {
 
     Button pauseResumeButton = new Button("Pause");
     pauseResumeButton.setPrefSize(80, 20);
-    pauseResumeButton.setOnAction(event -> logic.pause());
+    pauseResumeButton.setOnAction(event -> logic.pauseAndResume());
 
     // Alter game speed with a slider, 1 is slow, 2 is normal, 3 is fast
     Slider gameSpeedSlider = new Slider(1, 3, 2);
@@ -166,13 +166,12 @@ public class Controller {
 
   // Button state depending on model state.
   private void togglePauseResume(Button pauseResumeButton) {
+    logic.pauseAndResume();
     isPaused = !isPaused;
     if (isPaused) {
       pauseResumeButton.setText("Resume");
-      // Add some action here that signals to model to pause
     } else {
       pauseResumeButton.setText("Pause");
-      // Add some action here that signals to model to resume
     }
   }
 
