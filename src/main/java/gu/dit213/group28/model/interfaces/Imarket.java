@@ -4,5 +4,7 @@ public interface Imarket
 {
   void accept(Ievent e);
 
+  void decrementAllModifiers();
+
   String getState();
 }

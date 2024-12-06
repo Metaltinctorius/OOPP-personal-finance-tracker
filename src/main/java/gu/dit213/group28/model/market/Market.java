@@ -34,7 +34,7 @@ public class Market implements Imarket, ImarketEx {
     if (instance == null) {
       synchronized (Market.class) { // Ensure thread safety
         if (instance == null) {
-          instance = new Market("NYSE", 0.07);
+          instance = new Market("NYSE", 1.00565);
         }
       }
     }
@@ -70,12 +70,28 @@ public class Market implements Imarket, ImarketEx {
     trendModifiers.add(mod);
   }
 
-  public void removeTrendModifier(int id) {
+  /*    public void removeTrendModifier() {
     for (int i = 0; i < trendModifiers.size(); i++) {
-      if (trendModifiers.get(i).getId() == id) {
+      if (trendModifiers.get(i).getIterationsLeft() == id) {
         trendModifiers.remove(i);
         break;
       }
+    }
+  }*/
+
+  public void decrementMarketModifiers() {
+    for (TrendModifier mod : trendModifiers) {
+      mod.decrementIterations();
+      if (mod.getIterationsLeft() < 1) {
+        trendModifiers.remove(mod);
+      }
+    }
+  }
+
+  public void decrementAllModifiers() {
+    decrementMarketModifiers();
+    for (Asset asset : assets) {
+      asset.decrementAssetModifiers();
     }
   }
   private void initIndex() {

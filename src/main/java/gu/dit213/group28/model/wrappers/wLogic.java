@@ -13,6 +13,8 @@ public class wLogic implements Ilogic {
     this.logic = logic;
   }
 
+
+
   @Override
   public void extractEvent(Ievent e) {
     lock.lock();

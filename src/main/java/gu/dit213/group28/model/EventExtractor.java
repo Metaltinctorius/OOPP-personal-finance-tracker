@@ -1,6 +1,7 @@
 package gu.dit213.group28.model;
 
 import gu.dit213.group28.model.events.EventBuy;
+import gu.dit213.group28.model.events.EventPredef;
 import gu.dit213.group28.model.events.EventSell;
 import gu.dit213.group28.model.events.EventTick;
 import gu.dit213.group28.model.interfaces.Ievent;

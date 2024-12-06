@@ -49,11 +49,12 @@ public class EventLoader {
 
   String testFile = "src/main/java/gu/dit213/group28/model/events/testFile.json";
 
+  String mvpEvents = "src/main/java/gu/dit213/group28/model/events/mvpEvents.json";
   /** Call this function to load the events from the predefined events from the JSON file */
   private void readFromJsonFile() {
     JSONParser parser = new JSONParser();
 
-    try (FileReader reader = new FileReader(testFile)) {
+    try (FileReader reader = new FileReader(mvpEvents)) {
 
       JSONArray jsonArray = (JSONArray) parser.parse(reader);
 
@@ -91,8 +92,8 @@ public class EventLoader {
     if (type == EventType.REPEATING && iterations <= 0) {
       throw new IllegalArgumentException("Repeating events must have iterations > 0.");
     }
-    if (type == EventType.ONCE && iterations != 0) {
-      throw new IllegalArgumentException("One-time events must have iterations = 0.");
+    if (type == EventType.ONCE && iterations != 1) {
+      throw new IllegalArgumentException("One-time events must have iterations = 1.");
     }
   }
 
@@ -148,7 +149,7 @@ public class EventLoader {
       System.out.println("* id:          " + event.getID());
       System.out.println("* description: " + event.getDescription());
       System.out.println("* type:        " + event.getType());
-      System.out.println("* categories:  " + event.getSectorList());
+      System.out.println("* categories:  " + event.getSectors());
       System.out.println("* modifier:    " + event.getModifier());
       System.out.println("* iterations:  " + event.getIterations());
     }

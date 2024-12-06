@@ -4,6 +4,7 @@ import gu.dit213.group28.model.user.PriceRecord;
 import gu.dit213.group28.model.enums.AssetType;
 import gu.dit213.group28.model.enums.Sector;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.time.LocalDate;
 import java.util.Random;
@@ -23,7 +24,7 @@ public class Asset {
     this.ticker = ticker;
     this.name = name;
     this.sector = sector;
-    this.trend = 1;
+    this.trend = 0;
     this.price = price;
     this.historicalPrices = new ArrayList<>();
     trendModifiers = new ArrayList<>();
@@ -73,21 +74,30 @@ public class Asset {
     trendModifiers.add(mod);
   }
 
-  public void removeTrendModifier(int id) {
-    for (int i = 0; i < trendModifiers.size(); i++) {
-      if (trendModifiers.get(i).getId() == id) {
-        trendModifiers.remove(i);
-        break;
+
+  public void decrementAssetModifiers() {
+    Iterator<TrendModifier> iterator = trendModifiers.iterator();
+    while (iterator.hasNext()) {
+      TrendModifier mod = iterator.next();
+      mod.decrementIterations();
+      if (mod.getIterationsLeft() < 1) {
+        iterator.remove(); // Safely remove using the iterator
       }
     }
   }
 
   public void updatePrice() {
     price *= this.getTrend() + Market.getInstance().getTrend();
+<<<<<<< HEAD
     price *= 1 + (rng.nextDouble() - 0.5) / 5;
 
     indexValue *= this.getTrend() + Market.getInstance().getTrend();
 
+=======
+
+
+    //price *= 1 + (rng.nextDouble() - 0.5) / 5;
+>>>>>>> implement-predefined
     historicalPrices.add(new PriceRecord(price, LocalDate.now()));
   }
 }

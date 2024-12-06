@@ -3,13 +3,17 @@ package gu.dit213.group28.model;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.enums.Speed;
 import gu.dit213.group28.model.events.EventFacade;
+import gu.dit213.group28.model.events.EventPredef;
 import gu.dit213.group28.model.interfaces.*;
+import gu.dit213.group28.model.market.Asset;
 import gu.dit213.group28.model.market.Market;
 import gu.dit213.group28.model.user.Portfolio;
 import gu.dit213.group28.model.wrappers.wEventFacade;
 import gu.dit213.group28.model.wrappers.wLogic;
 import gu.dit213.group28.model.wrappers.wMarket;
 import gu.dit213.group28.model.wrappers.wUser;
+import java.util.List;
+import java.util.Random;
 
 public class GameCore {
 
@@ -40,7 +44,9 @@ public class GameCore {
                 user.accept(e);
                 logic.extractEvent(e);
                 try {
+                  market.decrementAllModifiers();
                   timer.next();
+                  makePredefEvent();
                   tick++;
                 } catch (InterruptedException ex) {
                   throw new RuntimeException(ex);
@@ -63,6 +69,7 @@ public class GameCore {
 
   public void makeSell(Sector s, int quantity) {
     Ievent e = eventFacade.getSellEvent(s, quantity);
+
     if (e.getID() == 4) {
       logic.extractEvent(e);
       return;
@@ -71,6 +78,20 @@ public class GameCore {
     user.accept(e);
     logic.extractEvent(e);
   }
+
+  public void makePredefEvent() {
+    Random rng = new Random();
+    int percentage = 80;
+
+    if (rng.nextInt(100) < percentage) {
+      EventPredef e = (EventPredef) eventFacade.getPredefinedEvent();
+      eventFacade.addEventToLog(e);
+      market.accept(e);
+      System.out.println(e.getDescription());
+
+    }
+  }
+
 
   public void setSpeedNormal() {
     timer.setThreshold(Speed.NORMAL);

@@ -4,6 +4,7 @@ import gu.dit213.group28.model.enums.EventType;
 import gu.dit213.group28.model.enums.PlayerAction;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.Ievent;
+import gu.dit213.group28.model.interfaces.IeventExtractor;
 import gu.dit213.group28.model.interfaces.Ieventfacade;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class EventFacade implements Ieventfacade {
 
   public EventFacade() {
     this.loader = new EventLoader();
+    loader.loadEvents();
     this.eventManager = new EventManager(loader.getPredefinedEvents(), loader.getReservedIds());
   }
 
@@ -27,11 +29,10 @@ public class EventFacade implements Ieventfacade {
     return eventManager.getEventLog();
   }
 
-  public Event getPredefinedEvent() {
-    Event event = eventManager.getRandomEvent();
-    eventManager.addToEventLog(event);
-    return event;
+  public void addEventToLog(Ievent event) {
+    eventManager.addToEventLog((Event) event); // TODO MAYBE CHANGE FROM CASTING?
   }
+
 
   /*
   public OldEvent buyAsset(Sector sector, int amount, double value) {
@@ -77,5 +78,10 @@ public class EventFacade implements Ieventfacade {
       return new EventBuy(4, s, quantity);
     }
     return new EventSell(3, s, quantity);
+  }
+
+  @Override
+  public Ievent getPredefinedEvent(){
+    return eventManager.getRandomEvent();
   }
 }
