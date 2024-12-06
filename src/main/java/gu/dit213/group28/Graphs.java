@@ -1,11 +1,13 @@
 package gu.dit213.group28;
 
+import gu.dit213.group28.model.MarketOutput;
 import gu.dit213.group28.model.UserOutput;
 import gu.dit213.group28.model.enums.Sector;
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.application.Platform;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
 
@@ -18,8 +20,10 @@ public class Graphs {
   }
 
   public void addGraph(
-      LineChart<Number, Number> graph, Sector sector, TextField oField, TextField pField) {
-    graph.getData().add(new XYChart.Series<>());
+      LineChart<Number, Number> graph, Sector sector, TextField oField, TextField pField, String colour) {
+    XYChart.Series<Number, Number> c = new XYChart.Series<>();
+    Platform.runLater(() ->c.getNode().setStyle("-fx-stroke: " + colour+";"));
+    graph.getData().add(c);
     graphs.add(new SectorGraph(graph, sector, oField, pField));
   }
 
@@ -31,9 +35,9 @@ public class Graphs {
     }
   }
 
-  public void updateGraphs(int xAxis, List<UserOutput> marketOutput) {
+  public void updateGraphs(int xAxis, List<MarketOutput> mOutput) {
     for (SectorGraph sg : graphs) {
-      for (UserOutput output : marketOutput) {
+      for (MarketOutput output : mOutput) {
         if (sg.sector() == output.sector()) {
           sg.pField.setText(String.format("%.2f", output.value()));
           XYChart.Series<Number, Number> s = sg.graph.getData().getFirst();

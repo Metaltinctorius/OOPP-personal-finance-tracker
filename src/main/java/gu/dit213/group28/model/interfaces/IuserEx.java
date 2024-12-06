@@ -1,5 +1,6 @@
 package gu.dit213.group28.model.interfaces;
 
+import gu.dit213.group28.model.MarketOutput;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.user.PortfolioEntry;
 import gu.dit213.group28.model.user.PortfolioRecord;
@@ -23,4 +24,5 @@ public interface IuserEx {
   List<PortfolioRecord> getRecords();
 
   int getRecordQuantity(Sector sector);
+  double getTotalValue(List<MarketOutput> m);
 }

@@ -1,5 +1,6 @@
 package gu.dit213.group28.model.user;
 
+import gu.dit213.group28.model.MarketOutput;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.Ievent;
 import gu.dit213.group28.model.interfaces.Iuser;
@@ -67,6 +68,17 @@ public class Portfolio implements Iuser, IuserEx {
     return 0;
   }
 
+  public double getTotalValue(List<MarketOutput> values){
+    double res = money;
+    for (MarketOutput m : values) {
+      for (PortfolioRecord p : records) {
+        if (p.getSector() == m.sector()){
+          res += p.getQuantity() * m.value();
+        }
+      }
+    }
+    return res;
+  }
   public double getTotalCost() {
     return entries.stream().mapToDouble(PortfolioEntry::getTotalCost).sum();
   }

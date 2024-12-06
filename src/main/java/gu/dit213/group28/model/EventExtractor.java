@@ -19,7 +19,9 @@ public class EventExtractor extends Observable implements IeventExtractor {
     if (e.getID() == 0) {
       EventTick te = (EventTick) e;
       for (Iobserver o : observers) {
-        o.updateGraphs(te.tick, te.output);
+        o.updateGraphs(te.tick, te.mOutput, te.uOutput);
+        o.updateCurrency(te.getCurrency());
+        o.updateProgress(te.tick, te.getIndexValue(), te.getPlayerValue());
       }
     }
     if (e.getID() == 1) {

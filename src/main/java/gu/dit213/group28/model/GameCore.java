@@ -8,6 +8,7 @@ import gu.dit213.group28.model.market.Market;
 import gu.dit213.group28.model.user.Portfolio;
 import gu.dit213.group28.model.wrappers.wEventFacade;
 import gu.dit213.group28.model.wrappers.wLogic;
+import gu.dit213.group28.model.wrappers.wMarket;
 import gu.dit213.group28.model.wrappers.wUser;
 
 public class GameCore {
@@ -24,8 +25,8 @@ public class GameCore {
     timer.initTime();
     eventFacade = new wEventFacade(new EventFacade());
     this.logic = new wLogic(logic);
-    market = Market.getInstance();
-    user = new wUser(new Portfolio(10000));
+    market = new wMarket(Market.getInstance());
+    user = new wUser(new Portfolio(100000));
     tick = 0;
   }
 
@@ -36,6 +37,7 @@ public class GameCore {
               while (true) {
                 Ievent e = eventFacade.getTickEvent(tick);
                 market.accept(e);
+                user.accept(e);
                 logic.extractEvent(e);
                 try {
                   timer.next();

@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface ImarketEx {
   List<Asset> getAssets();
+  double getIndexValue();
 }

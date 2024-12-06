@@ -1,5 +1,6 @@
 package gu.dit213.group28;
 
+import gu.dit213.group28.model.MarketOutput;
 import gu.dit213.group28.model.UserOutput;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.Iobserver;
@@ -22,6 +23,7 @@ public class View implements Iobserver {
   private final Stage stage;
   private GridPane center;
   private Graphs graphs;
+  private InfoBox info;
 
   View(Stage stage, Observable observable) {
     this.stage = stage;
@@ -37,6 +39,9 @@ public class View implements Iobserver {
   public void setGraphs(Graphs graphs) {
     this.graphs = graphs;
   }
+  public void setInfoBox(InfoBox info){
+    this.info = info;
+  }
 
   @Override
   public void update(String s) {
@@ -49,13 +54,20 @@ public class View implements Iobserver {
   }
 
   @Override
-  public void updateGraphs(int xAxis, List<UserOutput> output) {
-    Platform.runLater(() -> graphs.updateGraphs(xAxis, output));
+  public void updateGraphs(int xAxis,List<MarketOutput> mOutput, List<UserOutput> uOutput) {
+    Platform.runLater(() -> {graphs.updateGraphs(xAxis, mOutput);
+    info.updatePie(uOutput);});
   }
 
   @Override
   public void updateOwned(Sector sector, int amount) {
-    Platform.runLater(() -> graphs.updateOwnedField(sector, amount));
+    Platform.runLater(() -> {graphs.updateOwnedField(sector, amount);});
+  }
+  public void updateCurrency(double currency) {
+    Platform.runLater(() -> info.updateCurrency(currency));
+  }
+  public void updateProgress(int xAxis, double index, double player) {
+    Platform.runLater(() -> info.updateLine(xAxis, index, player));
   }
 
   // TODO: Figure out how to connect events to text box

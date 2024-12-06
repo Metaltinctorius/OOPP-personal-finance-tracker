@@ -12,6 +12,7 @@ public class Market implements Imarket, ImarketEx {
   private final double trend;
   private List<TrendModifier> trendModifiers;
   private final List<Asset> assets;
+  private final double startValue;
 
   // The single instance of the Market
   private static Market instance;
@@ -22,7 +23,10 @@ public class Market implements Imarket, ImarketEx {
     this.trend = trend;
     this.assets = new ArrayList<>();
     this.trendModifiers = new ArrayList<>();
+
     createAssets();
+    startValue = 100000;
+    initIndex();
   }
 
   // Public static method to get the single instance
@@ -73,6 +77,18 @@ public class Market implements Imarket, ImarketEx {
         break;
       }
     }
+  }
+  private void initIndex() {
+    for (Asset a : assets) {
+      a.setIndexValue(startValue / assets.size());
+    }
+  }
+  public double getIndexValue(){
+    double res = 0;
+    for (Asset a : assets) {
+      res += 0.5 * a.getIndexValue();
+    }
+    return res;
   }
 
   // TODO: visitor pattern with Event

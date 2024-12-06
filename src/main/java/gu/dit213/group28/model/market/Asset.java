@@ -17,6 +17,7 @@ public class Asset {
   private double price;
   private final List<PriceRecord> historicalPrices;
   private final Random rng;
+  private double indexValue;
 
   public Asset(String ticker, String name, Sector sector, double price) {
     this.ticker = ticker;
@@ -53,6 +54,12 @@ public class Asset {
     }
     return trend + sumMods;
   }
+  public void setIndexValue(double value){
+    indexValue = value;
+  }
+  public double getIndexValue(){
+    return indexValue;
+  }
 
   public List<PriceRecord> getHistoricalPrices() {
     return historicalPrices;
@@ -77,8 +84,10 @@ public class Asset {
 
   public void updatePrice() {
     price *= this.getTrend() + Market.getInstance().getTrend();
-
     price *= 1 + (rng.nextDouble() - 0.5) / 5;
+
+    indexValue *= this.getTrend() + Market.getInstance().getTrend();
+
     historicalPrices.add(new PriceRecord(price, LocalDate.now()));
   }
 }

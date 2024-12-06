@@ -9,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
@@ -62,8 +63,9 @@ public class Controller {
     root.setCenter(centerGrid);
     root.setBottom(createLowerButtonPanel());
     root.setRight(createEventTextBox());
+    root.setLeft(createInfoBox());
 
-    Scene scene = new Scene(root, 640, 480);
+    Scene scene = new Scene(root, 1280, 720);
     stage.setScene(scene);
     stage.setTitle("Finance Tracker");
     view.initView();
@@ -73,11 +75,11 @@ public class Controller {
   // somehow.
   private ScrollPane createEventTextBox() {
     Text eventLog = new Text();
-    eventLog.setWrappingWidth(400);
+    eventLog.setWrappingWidth(250);
 
     ScrollPane scrollPane = new ScrollPane(eventLog);
     scrollPane.setFitToWidth(true);
-    scrollPane.setPrefWidth(400);
+    scrollPane.setPrefWidth(250);
     scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
     return scrollPane;
   }
@@ -184,7 +186,7 @@ public class Controller {
       rowConstraint.setPercentHeight(50);
       grid.getRowConstraints().add(rowConstraint);
     }
-
+  grid.setPrefWidth(800);
     return grid;
   }
 
@@ -195,19 +197,22 @@ public class Controller {
       // Create the graph/chart
       NumberAxis xAxis = new NumberAxis();
       NumberAxis yAxis = new NumberAxis();
-      xAxis.setLabel("Game time");
       xAxis.setForceZeroInRange(false);
-      yAxis.setLabel("Current value");
       yAxis.setForceZeroInRange(false);
 
       LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
+      lineChart.setCreateSymbols(false);
+      lineChart.setHorizontalGridLinesVisible(false);
+      lineChart.setHorizontalZeroLineVisible(false);
+      lineChart.setVerticalGridLinesVisible(false);
+      lineChart.setVerticalZeroLineVisible(false);
+      lineChart.setLegendVisible(false);
       // Change titles to asset or sector type with a toString method and add the asset as a
       // parameter.
       lineChart.setTitle(sectors[i + 1].toString());
 
       // Sample data for the chart, implement with data from our model instead.
       // XYChart.Series<Number, Number> series = new XYChart.Series<>();
-      lineChart.setLegendVisible(false);
       /*series.getData().add(new XYChart.Data<>(1, 5));
       series.getData().add(new XYChart.Data<>(2, 10));
       series.getData().add(new XYChart.Data<>(3, 15));
@@ -223,7 +228,7 @@ public class Controller {
       TextField priceField = new TextField();
       priceField.setEditable(false);
       priceField.setText("0");
-      graphs.addGraph(lineChart, sectors[i + 1], ownedField, priceField);
+      graphs.addGraph(lineChart, sectors[i + 1], ownedField, priceField, getColour(sectors[i +1]));
       Sector s = sectors[i + 1];
       Button buyButton = new Button("Buy");
       buyButton.setOnAction(
@@ -250,5 +255,59 @@ public class Controller {
       grid.add(graphAndControls, i % 3, i / 3);
     }
     view.setGraphs(graphs);
+  }
+  private VBox createInfoBox(){
+    Region spacer1 = new Region();
+    spacer1.setMaxHeight(50);
+    PieChart pieChart = new PieChart();
+    pieChart.getData().add(new PieChart.Data("Currency", 0));
+    Sector[] sectors = Sector.values();
+    for (int i = 1; i < sectors.length; i++){
+      pieChart.getData().add(new PieChart.Data(sectors[i].toString(), 0));
+    }
+    NumberAxis xAxis = new NumberAxis();
+    NumberAxis yAxis = new NumberAxis();
+    xAxis.setForceZeroInRange(false);
+    xAxis.setVisible(false);
+    yAxis.setForceZeroInRange(false);
+    yAxis.setVisible(false);
+
+    LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
+    lineChart.setHorizontalGridLinesVisible(false);
+    lineChart.setHorizontalZeroLineVisible(false);
+    lineChart.setVerticalGridLinesVisible(false);
+    lineChart.setVerticalZeroLineVisible(false);
+    lineChart.setLegendVisible(false);
+    lineChart.setPrefHeight(250);
+    lineChart.getData().add(new XYChart.Series<>());
+    lineChart.getData().add(new XYChart.Series<>());
+    lineChart.setCreateSymbols(false);
+
+
+    TextField currencyField = new TextField();
+    currencyField.setPromptText("Currency");
+    currencyField.setEditable(false);
+    currencyField.setText("0");
+    currencyField.setMaxWidth(100);
+
+    InfoBox info = new InfoBox(pieChart, lineChart, currencyField);
+    view.setInfoBox(info);
+    VBox infoBox = new VBox(10, pieChart, lineChart, currencyField, spacer1);
+    VBox.setVgrow(spacer1, Priority.ALWAYS);
+    infoBox.setPrefWidth(250);
+    infoBox.setAlignment(Pos.BOTTOM_CENTER);
+    return infoBox;
+  }
+
+  private String getColour(Sector s){
+      return switch (s) {
+          case INFORMATION_TECHNOLOGY -> "#fba71b";
+          case FINANCIALS -> "#57b757";
+          case REAL_ESTATE -> "#41a9c9";
+          case HEALTHCARE -> "#4258c9";
+          case CONSUMER_STAPLES -> "#9a42c8";
+          case UTILITIES -> "#c84164";
+          default -> "#888888";
+      };
   }
 }
