@@ -29,8 +29,8 @@
     "description": "Test without action",
     "type": "REPEATING",
     "iterations": "9",
-    "categories": ["HEALTHCARE", "HEALTHCARE"],
-    "modifier": "0.7"
+    "categories": ["HEALTHCARE", "UTILITIES"],
+    "modifier": "0.87"
   }
 ]
 

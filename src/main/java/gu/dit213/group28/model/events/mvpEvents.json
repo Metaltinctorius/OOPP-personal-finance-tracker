@@ -4,50 +4,9 @@
     "description": "TEST 01 HEALTHCARE",
     "type": "ONCE",
     "iterations": "1",
-    "categories": ["HEALTHCARE"],
-    "modifier": "-0.05"
-  },
-  {
-    "id": "2",
-    "description": "TEST 02 INFORMATION TECHNOLOGY",
-    "type": "ONCE",
-    "iterations": "1",
-    "categories": ["INFORMATION_TECHNOLOGY"],
-    "modifier": "0.09"
-  },
-  {
-    "id": "3",
-    "description": "TEST 03 REAL_ESTATE",
-    "type": "ONCE",
-    "iterations": "1",
-    "categories": ["REAL_ESTATE"],
-    "modifier": "0.12"
-  },
-  {
-    "id": "4",
-    "description": "TEST 04 UTILITIES",
-    "type": "ONCE",
-    "iterations": "1",
-    "categories": ["UTILITIES"],
-    "modifier": "0.12"
-  },
-  {
-    "id": "5",
-    "description": "TEST 05 FINANCIALS",
-    "type": "ONCE",
-    "iterations": "1",
-    "categories": ["FINANCIALS"],
-    "modifier": "0.15"
-  },
-  {
-    "id": "6",
-    "description": "TEST 06 CONSUMER_STAPLES",
-    "type": "ONCE",
-    "iterations": "1",
-    "categories": ["CONSUMER_STAPLES"],
-    "modifier": "0.11"
+    "categories": [],
+    "modifier": "0.99"
   }
-
 
 ]
 
