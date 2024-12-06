@@ -2,24 +2,20 @@ package gu.dit213.group28;
 
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.Icontrollable;
-import java.time.LocalDate;
-import java.util.List;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -43,6 +39,7 @@ public class Controller {
   private final View view;
   private boolean isPaused = false;
   private final Icontrollable logic;
+  private Text eventLog;
 
   public Controller(Stage stage, Icontrollable logic, View view) {
     this.stage = stage;
@@ -66,20 +63,22 @@ public class Controller {
     Scene scene = new Scene(root, 640, 480);
     stage.setScene(scene);
     stage.setTitle("Finance Tracker");
+    view.setEventLog(eventLog);
     view.initView();
   }
 
   // Unsure how to connect the event log to the facade. Probably using Platform.runLater
   // somehow.
-  private ScrollPane createEventTextBox() {
-    Text eventLog = new Text();
-    eventLog.setWrappingWidth(400);
-
+  private TitledPane createEventTextBox() {
+    eventLog = new Text();
     ScrollPane scrollPane = new ScrollPane(eventLog);
     scrollPane.setFitToWidth(true);
-    scrollPane.setPrefWidth(400);
     scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-    return scrollPane;
+
+    TitledPane titledPane = new TitledPane("News history", scrollPane);
+    titledPane.setPrefWidth(400);
+    titledPane.setPrefHeight(600);
+    return titledPane;
   }
 
   private HBox createLowerButtonPanel() {
@@ -88,7 +87,7 @@ public class Controller {
     buttonPanel.setSpacing(10);
     buttonPanel.setStyle("-fx-background-color: #336699;");
 
-    Button menuButton = new Button("menu");
+    Button menuButton = new Button("Menu");
     menuButton.setPrefSize(80, 20);
     // do a setOnAction stuff here, implement when ready
     // menuButton.setOnAction(event -> placeholder );

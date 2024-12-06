@@ -6,6 +6,10 @@ import gu.dit213.group28.model.interfaces.Iobserver;
 import gu.dit213.group28.model.Observable;
 import java.util.List;
 import javafx.application.Platform;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
@@ -22,6 +26,8 @@ public class View implements Iobserver {
   private final Stage stage;
   private GridPane center;
   private Graphs graphs;
+  private Text eventLog;
+  private boolean isPaused = false;
 
   View(Stage stage, Observable observable) {
     this.stage = stage;
@@ -32,6 +38,10 @@ public class View implements Iobserver {
     BorderPane root = (BorderPane) stage.getScene().getRoot();
     center = (GridPane) root.getCenter();
     stage.show();
+  }
+
+  public void setEventLog(Text eventLog) {
+    this.eventLog = eventLog;
   }
 
   public void setGraphs(Graphs graphs) {
@@ -58,6 +68,37 @@ public class View implements Iobserver {
     Platform.runLater(() -> graphs.updateOwnedField(sector, amount));
   }
 
-  // TODO: Figure out how to connect events to text box
+  @Override
+  public void updateOnEvent(String eventMessage) {
+    Platform.runLater(
+        () -> {
+          Dialog<String> dialog = new Dialog<>();
+          dialog.setTitle("Event notification");
 
+          /*
+          // Buttons for events with choices
+          ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.CANCEL_CLOSE);
+          dialog.getDialogPane().getButtonTypes().add(okButton);
+          // setOnAction for okButton
+
+          ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+          dialog.getDialogPane().getButtonTypes().add(noButton);
+          // setOnAction for noButton
+          */
+          ButtonType closeButton = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
+          dialog.getDialogPane().getButtonTypes().add(closeButton);
+
+          Label messageLabel = new Label(eventMessage);
+          dialog.getDialogPane().setContent(messageLabel);
+          dialog.showAndWait();
+        });
+  }
+
+  @Override
+  public void updateEventHistory(String event) {
+    Platform.runLater(
+        () -> {
+          eventLog.setText(eventLog.getText() + "\n" + event);
+        });
+  }
 }

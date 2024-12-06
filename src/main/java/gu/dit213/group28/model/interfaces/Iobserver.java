@@ -14,4 +14,8 @@ public interface Iobserver {
   void updateGraphs(int xAxis, List<UserOutput> output);
 
   void updateOwned(Sector sector, int amount);
+
+  void updateOnEvent(String event);
+
+  void updateEventHistory(String testEventHistory);
 }

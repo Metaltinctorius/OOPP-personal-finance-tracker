@@ -20,6 +20,8 @@ public class EventExtractor extends Observable implements IeventExtractor {
       EventTick te = (EventTick) e;
       for (Iobserver o : observers) {
         o.updateGraphs(te.tick, te.output);
+        o.updateOnEvent("Test");
+        o.updateEventHistory("Test event history");
       }
     }
     if (e.getID() == 1) {
