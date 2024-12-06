@@ -81,7 +81,7 @@ public class GameCore {
 
   public void makePredefEvent() {
     Random rng = new Random();
-    int percentage = 80;
+    int percentage = 10;
 
     if (rng.nextInt(100) < percentage) {
       EventPredef e = (EventPredef) eventFacade.getPredefinedEvent();

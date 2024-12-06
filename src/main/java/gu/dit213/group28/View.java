@@ -27,12 +27,12 @@ public class View implements Iobserver {
   private final Stage stage;
   private GridPane center;
   private Graphs graphs;
-<<<<<<< HEAD
+
   private InfoBox info;
-=======
+
   private Text eventLog;
   private boolean isPaused = false;
->>>>>>> freja-big-stuff-popup-events
+
 
   View(Stage stage, Observable observable) {
     this.stage = stage;
