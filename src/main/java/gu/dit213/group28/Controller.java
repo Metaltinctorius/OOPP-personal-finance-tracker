@@ -94,7 +94,7 @@ public class Controller {
     scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
     TitledPane titledPane = new TitledPane("News history", scrollPane);
-    titledPane.setPrefWidth(400);
+    titledPane.setPrefWidth(200);
     titledPane.setPrefHeight(600);
     return titledPane;
   }
@@ -192,7 +192,7 @@ public class Controller {
       rowConstraint.setPercentHeight(50);
       grid.getRowConstraints().add(rowConstraint);
     }
-  grid.setPrefWidth(800);
+    grid.setPrefWidth(800);
     return grid;
   }
 
@@ -227,21 +227,32 @@ public class Controller {
       // Adds the functionality under the graphs.
 
       TextField ownedField = new TextField();
+      ownedField.setPrefWidth(150);
       ownedField.setEditable(false);
       ownedField.setText("0");
+      ownedField.setMinWidth(Region.USE_PREF_SIZE);
+
       TextField quantityField = new TextField();
+      quantityField.setPrefWidth(100);
       quantityField.setPromptText("Quantity");
+      quantityField.setMinWidth(Region.USE_PREF_SIZE);
+
       TextField priceField = new TextField();
+      priceField.setPrefWidth(120);
+      priceField.setMinWidth(Region.USE_PREF_SIZE);
       priceField.setEditable(false);
       priceField.setText("0");
-      graphs.addGraph(lineChart, sectors[i + 1], ownedField, priceField, getColour(sectors[i +1]));
+
+      graphs.addGraph(lineChart, sectors[i + 1], ownedField, priceField, getColour(sectors[i + 1]));
       Sector s = sectors[i + 1];
       Button buyButton = new Button("Buy");
+      buyButton.setMinWidth(Region.USE_PREF_SIZE);
       buyButton.setOnAction(
           event -> {
             logic.buyAsset(s, quantityField.getText());
           });
       Button sellButton = new Button("Sell");
+      sellButton.setMinWidth(Region.USE_PREF_SIZE);
       sellButton.setOnAction(
           event -> {
             logic.sellAsset(s, quantityField.getText());
@@ -253,6 +264,7 @@ public class Controller {
       HBox quantityPriceControls =
           new HBox(10, new Label("Qty:"), quantityField, new Label("Price:"), priceField);
       quantityPriceControls.setAlignment(Pos.CENTER);
+      quantityPriceControls.setMinWidth(Region.USE_PREF_SIZE);
 
       VBox graphAndControls = new VBox(10, lineChart, buySellControls, quantityPriceControls);
       graphAndControls.setAlignment(Pos.CENTER);
@@ -262,13 +274,14 @@ public class Controller {
     }
     view.setGraphs(graphs);
   }
-  private VBox createInfoBox(){
+
+  private VBox createInfoBox() {
     Region spacer1 = new Region();
     spacer1.setMaxHeight(50);
     PieChart pieChart = new PieChart();
     pieChart.getData().add(new PieChart.Data("Currency", 0));
     Sector[] sectors = Sector.values();
-    for (int i = 1; i < sectors.length; i++){
+    for (int i = 1; i < sectors.length; i++) {
       pieChart.getData().add(new PieChart.Data(sectors[i].toString(), 0));
     }
     NumberAxis xAxis = new NumberAxis();
@@ -289,7 +302,6 @@ public class Controller {
     lineChart.getData().add(new XYChart.Series<>());
     lineChart.setCreateSymbols(false);
 
-
     TextField currencyField = new TextField();
     currencyField.setPromptText("Currency");
     currencyField.setEditable(false);
@@ -305,15 +317,15 @@ public class Controller {
     return infoBox;
   }
 
-  private String getColour(Sector s){
-      return switch (s) {
-          case INFORMATION_TECHNOLOGY -> "#fba71b";
-          case FINANCIALS -> "#57b757";
-          case REAL_ESTATE -> "#41a9c9";
-          case HEALTHCARE -> "#4258c9";
-          case CONSUMER_STAPLES -> "#9a42c8";
-          case UTILITIES -> "#c84164";
-          default -> "#888888";
-      };
+  private String getColour(Sector s) {
+    return switch (s) {
+      case INFORMATION_TECHNOLOGY -> "#fba71b";
+      case FINANCIALS -> "#57b757";
+      case REAL_ESTATE -> "#41a9c9";
+      case HEALTHCARE -> "#4258c9";
+      case CONSUMER_STAPLES -> "#9a42c8";
+      case UTILITIES -> "#c84164";
+      default -> "#888888";
+    };
   }
 }
