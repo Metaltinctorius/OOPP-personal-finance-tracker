@@ -20,4 +20,5 @@ public interface Icontrollable {
 
   void sellAsset(Sector sector, String amount);
 
+  void pause();
 }

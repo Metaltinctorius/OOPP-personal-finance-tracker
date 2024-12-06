@@ -17,4 +17,10 @@ public interface Iobserver {
   void updateOwned(Sector sector, int amount);
   void updateCurrency(double currency);
   void updateProgress(int xAxis, double index, double player);
+
+
+  void updateOnEvent(String event);
+
+  void updateEventHistory(String testEventHistory);
+
 }
