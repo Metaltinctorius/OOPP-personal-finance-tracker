@@ -83,16 +83,6 @@ public class View implements Iobserver {
           Dialog<String> dialog = new Dialog<>();
           dialog.setTitle("Event notification");
 
-          /*
-          // Buttons for events with choices
-          ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.CANCEL_CLOSE);
-          dialog.getDialogPane().getButtonTypes().add(okButton);
-          // setOnAction for okButton
-
-          ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-          dialog.getDialogPane().getButtonTypes().add(noButton);
-          // setOnAction for noButton
-          */
           ButtonType closeButton = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
           dialog.getDialogPane().getButtonTypes().add(closeButton);
 
@@ -102,7 +92,7 @@ public class View implements Iobserver {
         });
   }
 
-  /** Updates the event history box */
+  /** Updates the event history box, not yet connected */
   @Override
   public void updateEventHistory(String event) {
     Platform.runLater(

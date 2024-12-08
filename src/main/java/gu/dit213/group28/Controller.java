@@ -44,9 +44,8 @@ public class Controller {
   private Text eventLog;
 
   /**
-   * Initializes the controller with the stage, logic, and view. The stage is used to create the
-   * JavaFX window, the logic is used to control the game, and the view is used to display the game
-   * state.
+   * Initializes the controller with the stage, logic, and view. The stage creates the JavaFX
+   * window, the logic is used to control the game, and the view is used to display the game state.
    *
    * @param stage The JavaFX stage.
    * @param logic The logic of the game.
@@ -71,8 +70,7 @@ public class Controller {
     view.initView();
   }
 
-  // Unsure how to connect the event log to the facade. Probably using Platform.runLater
-  // somehow.
+  /** Creates the scene for the JavaFX stage. */
   private Scene createScene() {
     BorderPane root = new BorderPane();
     GridPane centerGrid = createCenterGrid();
@@ -164,17 +162,17 @@ public class Controller {
     }
   }
 
-  // Button state depending on model state.
-  private void togglePauseResume(Button pauseResumeButton) {
-    logic.pauseAndResume();
-    isPaused = !isPaused;
-    if (isPaused) {
-      pauseResumeButton.setText("Resume");
-    } else {
-      pauseResumeButton.setText("Pause");
+  /* Button state depending on model state. Ignore for now.
+    private void togglePauseResume(Button pauseResumeButton) {
+      logic.pauseAndResume();
+      isPaused = !isPaused;
+      if (isPaused) {
+        pauseResumeButton.setText("Resume");
+      } else {
+        pauseResumeButton.setText("Pause");
+      }
     }
-  }
-
+  */
   private GridPane createCenterGrid() {
     GridPane grid = new GridPane();
     grid.setHgap(10);
@@ -211,10 +209,7 @@ public class Controller {
       LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
       lineChart.setTitle(s.toString());
 
-      // Sample data for the chart, implement with data from our model instead.
-
       // Adds the functionality under the graphs.
-
       TextField ownedField = new TextField();
 
       TextField priceField = new TextField();
