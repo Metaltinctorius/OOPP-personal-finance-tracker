@@ -1,10 +1,11 @@
 package gu.dit213.group28.model.interfaces;
 
-import gu.dit213.group28.model.user.PortfolioRecord;
-import java.util.List;
-
+/** Interface for users */
 public interface Iuser {
+  /**
+   * Accepts incoming events
+   *
+   * @param e Event that will execute on this market
+   */
   void accept(Ievent e);
-
-  List<PortfolioRecord> getState();
 }

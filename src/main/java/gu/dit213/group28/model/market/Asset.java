@@ -1,7 +1,6 @@
 package gu.dit213.group28.model.market;
 
 import gu.dit213.group28.model.user.PriceRecord;
-import gu.dit213.group28.model.enums.AssetType;
 import gu.dit213.group28.model.enums.Sector;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -55,10 +54,12 @@ public class Asset {
     }
     return trend + sumMods;
   }
-  public void setIndexValue(double value){
+
+  public void setIndexValue(double value) {
     indexValue = value;
   }
-  public double getIndexValue(){
+
+  public double getIndexValue() {
     return indexValue;
   }
 
@@ -74,7 +75,6 @@ public class Asset {
     trendModifiers.add(mod);
   }
 
-
   public void decrementAssetModifiers() {
     Iterator<TrendModifier> iterator = trendModifiers.iterator();
     while (iterator.hasNext()) {
@@ -89,10 +89,9 @@ public class Asset {
   public void updatePrice() {
     price *= this.getTrend() + Market.getInstance().getTrend();
 
-    //price *= 1 + (rng.nextDouble() - 0.5) / 5;
+    price *= 1 + (rng.nextDouble() - 0.5) / 20;
 
     indexValue *= this.getTrend() + Market.getInstance().getTrend();
-
 
     historicalPrices.add(new PriceRecord(price, LocalDate.now()));
   }

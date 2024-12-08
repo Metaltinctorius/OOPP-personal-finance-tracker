@@ -33,6 +33,7 @@ public class TimeTest {
     time.start();
     TimeUnit.MILLISECONDS.sleep(119);
     time.pause();
+    assertEquals(3, time.getCurrentTick());
     TimeUnit.MILLISECONDS.sleep(119);
     assertEquals(3, time.getCurrentTick());
   }
@@ -71,10 +72,7 @@ public class TimeTest {
 
     time.start();
     TimeUnit.MILLISECONDS.sleep(515);
-    System.out.println(time.getCurrentTick());
     time.setThreshold(Speed.SLOW);
-    System.out.println(time.getCurrentTick());
-    TimeUnit.MILLISECONDS.sleep(5010);
 
     assertTrue(time.next());
   }
@@ -84,9 +82,7 @@ public class TimeTest {
     time.setThreshold(Speed.SLOW);
     time.start();
     TimeUnit.MILLISECONDS.sleep(5010);
-    System.out.println(time.getCurrentTick());
     time.setThreshold(Speed.FAST);
-    System.out.println(time.getCurrentTick());
     TimeUnit.MILLISECONDS.sleep(515);
     assertTrue(time.next());
   }

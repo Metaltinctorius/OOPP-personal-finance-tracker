@@ -23,9 +23,8 @@ public class Market implements Imarket, ImarketEx {
     this.trend = trend;
     this.assets = new ArrayList<>();
     this.trendModifiers = new ArrayList<>();
-
     createAssets();
-    startValue = 100000;
+    startValue = 1000;
     initIndex();
   }
 
@@ -70,17 +69,6 @@ public class Market implements Imarket, ImarketEx {
     trendModifiers.add(mod);
   }
 
-  /*    public void removeTrendModifier() {
-    for (int i = 0; i < trendModifiers.size(); i++) {
-      if (trendModifiers.get(i).getIterationsLeft() == id) {
-        trendModifiers.remove(i);
-        break;
-      }
-    }
-  }*/
-
-
-
   public void decrementMarketModifiers() {
     Iterator<TrendModifier> iterator = trendModifiers.iterator();
     while (iterator.hasNext()) {
@@ -98,15 +86,17 @@ public class Market implements Imarket, ImarketEx {
       asset.decrementAssetModifiers();
     }
   }
+
   private void initIndex() {
     for (Asset a : assets) {
       a.setIndexValue(startValue / assets.size());
     }
   }
-  public double getIndexValue(){
+
+  public double getIndexValue() {
     double res = 0;
     for (Asset a : assets) {
-      res += 0.5 * a.getIndexValue();
+      res += 0.5 * a.getPrice() * a.getIndexValue();
     }
     return res;
   }
@@ -117,14 +107,14 @@ public class Market implements Imarket, ImarketEx {
     e.execute(this);
   }
 
-  public String getState() {
-    return "state";
-  }
-
   private void createAssets() {
     Random rng = new Random();
     Sector[] sectors = Sector.values();
     for (Sector sector : sectors) {
+      if (sector == Sector.INDEX) {
+        continue;
+      }
+
       double price = 500 + 500 * rng.nextDouble();
       Asset a = new Asset("", "", sector, price);
       assets.add(a);

@@ -200,6 +200,8 @@ public class Controller {
     Graphs graphs = new Graphs();
     Sector[] sectors = Sector.values();
     for (int i = 0; i < 6; i++) {
+      Sector s = sectors[i + 1];
+
       // Create the graph/chart
       NumberAxis xAxis = new NumberAxis();
       NumberAxis yAxis = new NumberAxis();
@@ -207,44 +209,22 @@ public class Controller {
       yAxis.setForceZeroInRange(false);
 
       LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
-      lineChart.setCreateSymbols(false);
-      lineChart.setHorizontalGridLinesVisible(false);
-      lineChart.setHorizontalZeroLineVisible(false);
-      lineChart.setVerticalGridLinesVisible(false);
-      lineChart.setVerticalZeroLineVisible(false);
-      lineChart.setLegendVisible(false);
-      // Change titles to asset or sector type with a toString method and add the asset as a
-      // parameter.
-      lineChart.setTitle(sectors[i + 1].toString());
+      lineChart.setTitle(s.toString());
 
       // Sample data for the chart, implement with data from our model instead.
-      // XYChart.Series<Number, Number> series = new XYChart.Series<>();
-      /*series.getData().add(new XYChart.Data<>(1, 5));
-      series.getData().add(new XYChart.Data<>(2, 10));
-      series.getData().add(new XYChart.Data<>(3, 15));
-      lineChart.getData().add(series);*/
 
       // Adds the functionality under the graphs.
 
       TextField ownedField = new TextField();
-      ownedField.setPrefWidth(150);
-      ownedField.setEditable(false);
-      ownedField.setText("0");
-      ownedField.setMinWidth(Region.USE_PREF_SIZE);
+
+      TextField priceField = new TextField();
+
+      graphs.addGraph(lineChart, s, ownedField, priceField, getColour(s));
 
       TextField quantityField = new TextField();
       quantityField.setPrefWidth(100);
       quantityField.setPromptText("Quantity");
       quantityField.setMinWidth(Region.USE_PREF_SIZE);
-
-      TextField priceField = new TextField();
-      priceField.setPrefWidth(120);
-      priceField.setMinWidth(Region.USE_PREF_SIZE);
-      priceField.setEditable(false);
-      priceField.setText("0");
-
-      graphs.addGraph(lineChart, sectors[i + 1], ownedField, priceField, getColour(sectors[i + 1]));
-      Sector s = sectors[i + 1];
       Button buyButton = new Button("Buy");
       buyButton.setMinWidth(Region.USE_PREF_SIZE);
       buyButton.setOnAction(
@@ -276,45 +256,10 @@ public class Controller {
   }
 
   private VBox createInfoBox() {
-    Region spacer1 = new Region();
-    spacer1.setMaxHeight(50);
-    PieChart pieChart = new PieChart();
-    pieChart.getData().add(new PieChart.Data("Currency", 0));
-    Sector[] sectors = Sector.values();
-    for (int i = 1; i < sectors.length; i++) {
-      pieChart.getData().add(new PieChart.Data(sectors[i].toString(), 0));
-    }
-    NumberAxis xAxis = new NumberAxis();
-    NumberAxis yAxis = new NumberAxis();
-    xAxis.setForceZeroInRange(false);
-    xAxis.setVisible(false);
-    yAxis.setForceZeroInRange(false);
-    yAxis.setVisible(false);
-
-    LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
-    lineChart.setHorizontalGridLinesVisible(false);
-    lineChart.setHorizontalZeroLineVisible(false);
-    lineChart.setVerticalGridLinesVisible(false);
-    lineChart.setVerticalZeroLineVisible(false);
-    lineChart.setLegendVisible(false);
-    lineChart.setPrefHeight(250);
-    lineChart.getData().add(new XYChart.Series<>());
-    lineChart.getData().add(new XYChart.Series<>());
-    lineChart.setCreateSymbols(false);
-
-    TextField currencyField = new TextField();
-    currencyField.setPromptText("Currency");
-    currencyField.setEditable(false);
-    currencyField.setText("0");
-    currencyField.setMaxWidth(100);
-
-    InfoBox info = new InfoBox(pieChart, lineChart, currencyField);
+    InfoBox info = new InfoBox();
     view.setInfoBox(info);
-    VBox infoBox = new VBox(10, pieChart, lineChart, currencyField, spacer1);
-    VBox.setVgrow(spacer1, Priority.ALWAYS);
-    infoBox.setPrefWidth(250);
-    infoBox.setAlignment(Pos.BOTTOM_CENTER);
-    return infoBox;
+
+    return info.createInfoBox();
   }
 
   private String getColour(Sector s) {

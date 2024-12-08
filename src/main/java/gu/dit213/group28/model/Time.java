@@ -8,6 +8,7 @@ import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
+/** Timer class that schedules a ticker task every 33 milliseconds. */
 public class Time implements Itimer {
   private final ReentrantLock lock = new ReentrantLock();
   private final ScheduledExecutorService timer;
@@ -16,6 +17,7 @@ public class Time implements Itimer {
   private boolean running;
   private final SynchronousQueue<Boolean> queue;
 
+  /** Timer class that schedules a ticker task every 33 milliseconds. */
   public Time() {
     timer = Executors.newSingleThreadScheduledExecutor();
     threshold = 100;
@@ -23,6 +25,7 @@ public class Time implements Itimer {
     queue = new SynchronousQueue<>();
   }
 
+  /** Initializes the timer */
   public void initTime() {
     timer.scheduleAtFixedRate(
         () -> {
@@ -44,18 +47,24 @@ public class Time implements Itimer {
     // 30fps would 33.333... ms so the timing is a bit off, might not be a problem?
   }
 
+  /**
+   * Sets the speed of the timer. The actual definition of the different speeds are defined by the
+   * timer.
+   *
+   * @param s Speed enum
+   */
   public void setThreshold(Speed s) {
     lock.lock();
     int oldThreshold = threshold;
     switch (s) {
       case SLOW:
-        threshold = 300; // Change these to alter speed of the game
+        threshold = 1200; // Change these to alter speed of the game
         break;
       case NORMAL:
-        threshold = 100;
+        threshold = 600;
         break;
       case FAST:
-        threshold = 30;
+        threshold = 100;
         break;
       default:
         return;
@@ -64,18 +73,32 @@ public class Time implements Itimer {
     lock.unlock();
   }
 
+  /**
+   * Blocks the current thread until the next game tick occurs-
+   *
+   * @return Always true
+   * @throws InterruptedException
+   */
   public boolean next() throws InterruptedException {
     return queue.take();
   }
 
+  /** Starts the timer */
   public void start() {
     running = true;
   }
 
+  /** Pauses the timer */
   public void pause() {
     running = false;
   }
 
+  /**
+   * Retrieves the current timer tick. Note that this is not the same as a game tick. A game tick
+   * occurs after a certain number of timer ticks, as defined in the timer itself.
+   *
+   * @return current timer tick
+   */
   public int getCurrentTick() {
     return tick;
   }

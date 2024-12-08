@@ -3,54 +3,54 @@ package gu.dit213.group28.model;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.enums.Speed;
 import gu.dit213.group28.model.events.EventFacade;
-import gu.dit213.group28.model.events.EventPredef;
 import gu.dit213.group28.model.interfaces.*;
-import gu.dit213.group28.model.market.Asset;
 import gu.dit213.group28.model.market.Market;
 import gu.dit213.group28.model.user.Portfolio;
 import gu.dit213.group28.model.wrappers.wEventFacade;
-import gu.dit213.group28.model.wrappers.wLogic;
+import gu.dit213.group28.model.wrappers.wModel;
 import gu.dit213.group28.model.wrappers.wMarket;
 import gu.dit213.group28.model.wrappers.wUser;
-import java.util.List;
-import java.util.Random;
 
+/** Class that takes input, creates events, delivers events and keeps track of game time. */
 public class GameCore {
 
   private final Itimer timer;
-  private final Ieventfacade eventFacade;
-  private final Ilogic logic;
+  private final IeventFacade eventFacade;
+  private final Imodel logic;
   private final Imarket market;
   private final Iuser user;
   private int tick;
   private boolean isPaused;
 
-  public GameCore(Logic logic) {
+  /** Class that takes input, creates events, delivers events and keeps track of game time. */
+  public GameCore(Model model) {
     timer = new Time();
     timer.initTime();
     eventFacade = new wEventFacade(new EventFacade());
-    this.logic = new wLogic(logic);
+    this.logic = new wModel(model);
     market = new wMarket(Market.getInstance());
     user = new wUser(new Portfolio(100000));
     tick = 0;
     isPaused = false;
   }
 
+  /** Initializes the GameCore, starting the timer. */
   public void init() {
     timer.start();
     new Thread(
             () -> {
               while (true) {
-                System.out.println(tick + "first");
-                Ievent e = eventFacade.getTickEvent(tick);
-                market.accept(e);
-                user.accept(e);
-                logic.extractEvent(e);
+
                 try {
-                  market.decrementAllModifiers();
                   timer.next();
-                  makePredefEvent();
-                  System.out.println(tick + "second");
+                  market.decrementAllModifiers();
+                  if (eventFacade.isRandomEventReady()) {
+                    makePredefEvent();
+                  }
+                  Ievent e = eventFacade.getTickEvent(tick);
+                  market.accept(e);
+                  user.accept(e);
+                  logic.extractEvent(e);
                   tick++;
                 } catch (InterruptedException ex) {
                   throw new RuntimeException(ex);
@@ -60,8 +60,15 @@ public class GameCore {
         .start();
   }
 
-  public void makePurchase(Sector s, int quantity) {
-    Ievent e = eventFacade.getBuyEvent(s, quantity);
+  /**
+   * Creates a basic buy event and, if successful, delivers it to the market first then to the user.
+   * Finally, it delivers the event for extraction.
+   *
+   * @param sector The sector of the assets.
+   * @param quantity The quantity of assets bought
+   */
+  public void makePurchase(Sector sector, int quantity) {
+    Ievent e = eventFacade.getBuyEvent(sector, quantity);
     if (e.getID() == 2) {
       logic.extractEvent(e);
       return;
@@ -71,8 +78,15 @@ public class GameCore {
     logic.extractEvent(e);
   }
 
-  public void makeSell(Sector s, int quantity) {
-    Ievent e = eventFacade.getSellEvent(s, quantity);
+  /**
+   * Creates a basic sell event and, if successful, delivers it to the market first then to the
+   * user. Finally, it delivers the event for extraction.
+   *
+   * @param sector The sector of the assets.
+   * @param quantity The quantity of assets sold
+   */
+  public void makeSell(Sector sector, int quantity) {
+    Ievent e = eventFacade.getSellEvent(sector, quantity);
 
     if (e.getID() == 4) {
       logic.extractEvent(e);
@@ -83,40 +97,32 @@ public class GameCore {
     logic.extractEvent(e);
   }
 
+  /** Creates a Predefined event and delivers it to the market. */
   public void makePredefEvent() {
-    Random rng = new Random();
-    int percentage = 50;
-
-    if (rng.nextInt(100) < percentage) {
-      EventPredef e = (EventPredef) eventFacade.getPredefinedEvent();
-      eventFacade.addEventToLog(e);
-      //tick++;
-      System.out.println(e.getDescription() + tick);
-      pauseAndResume();
-      market.accept(e);
-
-    }
+    Ievent e = eventFacade.getPredefinedEvent();
+    market.accept(e);
   }
 
-
+  /** Sets the game speed to Normal. */
   public void setSpeedNormal() {
     timer.setThreshold(Speed.NORMAL);
   }
 
+  /** Sets the game speed to Slow. */
   public void setSpeedSlow() {
     timer.setThreshold(Speed.SLOW);
   }
 
+  /** Sets the game speed to Fast. */
   public void setSpeedFast() {
     timer.setThreshold(Speed.FAST);
   }
 
+  /** Pauses the timer if currently active, resumes the timer if currently paused. */
   public void pauseAndResume() {
-    if(!isPaused){
-      System.out.println("paused");
+    if (!isPaused) {
       timer.pause();
-    }else{
-      System.out.println("resumed");
+    } else {
       timer.start();
     }
     this.isPaused = !this.isPaused;

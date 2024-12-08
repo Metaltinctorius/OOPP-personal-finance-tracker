@@ -2,15 +2,17 @@ package gu.dit213.group28.model.wrappers;
 
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.Ievent;
-import gu.dit213.group28.model.interfaces.Ieventfacade;
+import gu.dit213.group28.model.interfaces.IeventFacade;
 
 import java.util.concurrent.locks.ReentrantLock;
 
-public class wEventFacade implements Ieventfacade {
+/** Wrapper class for EventFacade that ensures thread safety. */
+public class wEventFacade implements IeventFacade {
   private final ReentrantLock lock = new ReentrantLock();
-  private final Ieventfacade facade;
+  private final IeventFacade facade;
 
-  public wEventFacade(Ieventfacade facade) {
+  /** Wrapper class for EventFacade that ensures thread safety. */
+  public wEventFacade(IeventFacade facade) {
     this.facade = facade;
   }
 
@@ -23,33 +25,31 @@ public class wEventFacade implements Ieventfacade {
   }
 
   @Override
-  public Ievent getBuyEvent(Sector s, int quantity) {
+  public Ievent getBuyEvent(Sector sector, int quantity) {
     lock.lock();
-    Ievent e = facade.getBuyEvent(s, quantity);
+    Ievent e = facade.getBuyEvent(sector, quantity);
     lock.unlock();
     return e;
   }
 
   @Override
-  public Ievent getSellEvent(Sector s, int quantity) {
+  public Ievent getSellEvent(Sector sector, int quantity) {
     lock.lock();
-    Ievent e = facade.getSellEvent(s, quantity);
+    Ievent e = facade.getSellEvent(sector, quantity);
     lock.unlock();
     return e;
   }
 
   @Override
-  public Ievent getPredefinedEvent()
-  {
+  public Ievent getPredefinedEvent() {
     lock.lock();
     Ievent e = facade.getPredefinedEvent();
     lock.unlock();
-    return  e;
+    return e;
   }
 
   @Override
-  public void addEventToLog(Ievent event)
-  {
-
+  public boolean isRandomEventReady() {
+    return facade.isRandomEventReady();
   }
 }

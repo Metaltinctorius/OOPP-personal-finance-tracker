@@ -86,35 +86,29 @@ public class EventPredef extends Event {
     }
   }
 
-
-  public List<Sector> getSectors()
-  {
+  public List<Sector> getSectors() {
     return sectors;
   }
 
-  @Override
-  public Sector getSector()
-  {
+  public Sector getSector() {
     return null;
   }
 
   @Override
   public void execute(ImarketEx m) {
     TrendModifier mod = new TrendModifier(this.getModifier(), this.getIterations());
-    List <Asset>assets = m.getAssets();
+    List<Asset> assets = m.getAssets();
     if (this.getSectors().isEmpty()) {
       m.addTrendModifier(mod);
-    }
-    else {
-      for(Asset a : assets){ // FIX
-        for(Sector s : this.getSectors()){
-          if(a.getSector() == s) {
+    } else {
+      for (Asset a : assets) { // FIX
+        for (Sector s : this.getSectors()) {
+          if (a.getSector() == s) {
             a.addTrendModifier(mod);
           }
         }
       }
     }
-
   }
 
   @Override

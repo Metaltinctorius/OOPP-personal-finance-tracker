@@ -1,6 +1,6 @@
 package gu.dit213.group28;
 
-import gu.dit213.group28.model.Logic;
+import gu.dit213.group28.model.Model;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -13,9 +13,9 @@ public class Main extends Application {
   /** Initializes the JavaFX application. */
   @Override
   public void start(Stage stage) {
-    Logic logic = new Logic();
+    Model model = new Model();
 
-    new Controller(stage, logic, new View(stage, logic.getObservable()));
+    new Controller(stage, model, new View(stage, model.getObservable()));
   }
 
   /** Launches the JavaFX application. */

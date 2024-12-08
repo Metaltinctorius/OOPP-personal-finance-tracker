@@ -1,6 +1,6 @@
 package gu.dit213.group28.model.user;
 
-import gu.dit213.group28.model.MarketOutput;
+import gu.dit213.group28.model.records.MarketOutput;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.Ievent;
 import gu.dit213.group28.model.interfaces.Iuser;
@@ -20,11 +20,11 @@ public class Portfolio implements Iuser, IuserEx {
     money = startMoney;
   }
 
-  public double getMoney() {
+  public double getCurrency() {
     return money;
   }
 
-  public void addMoney(double amount) {
+  public void addCurrency(double amount) {
     money += amount;
   }
 
@@ -40,16 +40,16 @@ public class Portfolio implements Iuser, IuserEx {
     return entries;
   }
 
-  public void addRecord(Sector s, int quantity) {
+  public void addRecord(Sector sector, int quantity) {
     boolean exists = false;
     for (PortfolioRecord record : records) {
-      if (record.getSector() == s) {
+      if (record.getSector() == sector) {
         record.addQuantity(quantity);
         exists = true;
       }
     }
     if (!exists) {
-      PortfolioRecord p = new PortfolioRecord(s);
+      PortfolioRecord p = new PortfolioRecord(sector);
       p.addQuantity(quantity);
       records.add(p);
     }
@@ -59,39 +59,29 @@ public class Portfolio implements Iuser, IuserEx {
     return records;
   }
 
-  public int getRecordQuantity(Sector s) {
+  public int getRecordQuantity(Sector sector) {
     for (PortfolioRecord record : records) {
-      if (record.getSector() == s) {
+      if (record.getSector() == sector) {
         return record.getQuantity();
       }
     }
     return 0;
   }
 
-  public double getTotalValue(List<MarketOutput> values){
+  public double getTotalValue(List<MarketOutput> values) {
     double res = money;
     for (MarketOutput m : values) {
       for (PortfolioRecord p : records) {
-        if (p.getSector() == m.sector()){
+        if (p.getSector() == m.sector()) {
           res += p.getQuantity() * m.value();
         }
       }
     }
     return res;
   }
+
   public double getTotalCost() {
     return entries.stream().mapToDouble(PortfolioEntry::getTotalCost).sum();
-  }
-
-  public List<PortfolioRecord> getState() {
-    return records.stream()
-        .map(
-            (p) -> { // deep copies
-              PortfolioRecord newP = new PortfolioRecord(p.getSector());
-              newP.addQuantity(p.getQuantity());
-              return newP;
-            })
-        .toList();
   }
 
   @Override

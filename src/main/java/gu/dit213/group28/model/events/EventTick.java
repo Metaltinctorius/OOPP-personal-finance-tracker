@@ -1,8 +1,7 @@
 package gu.dit213.group28.model.events;
 
-import gu.dit213.group28.model.MarketOutput;
-import gu.dit213.group28.model.UserOutput;
-import gu.dit213.group28.model.enums.Sector;
+import gu.dit213.group28.model.records.MarketOutput;
+import gu.dit213.group28.model.records.UserOutput;
 import gu.dit213.group28.model.interfaces.ImarketEx;
 import gu.dit213.group28.model.interfaces.IuserEx;
 import gu.dit213.group28.model.market.Asset;
@@ -11,6 +10,7 @@ import gu.dit213.group28.model.user.PortfolioRecord;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Basic tick event. */
 public class EventTick extends Event {
   public final List<MarketOutput> mOutput;
   public final int tick;
@@ -19,28 +19,38 @@ public class EventTick extends Event {
   private double playerValue;
   public final List<UserOutput> uOutput;
 
-  public EventTick(int id, int tick) {
-    super(id);
+  /**
+   * Basic tick event.
+   *
+   * @param tick Current game tick.
+   */
+  public EventTick(int tick) {
+    super(0);
     mOutput = new ArrayList<>();
     this.tick = tick;
     uOutput = new ArrayList<>();
   }
-  public double getCurrency(){
+
+  /** Gets the current currency of the user */
+  public double getCurrency() {
     return currency;
   }
-  public double getIndexValue(){
+
+  /** Gets the total value of all index fund assets. */
+  public double getIndexValue() {
     return indexValue;
   }
-  public double getPlayerValue(){
+
+  /** Gets the total value of all player assets and currency. */
+  public double getPlayerValue() {
     return playerValue;
   }
 
-  @Override
-  public Sector getSector()
-  {
-    return null;
-  }
-
+  /**
+   * Executes event on given ImarketEx
+   *
+   * @param m ImarketEx to be executed upon
+   */
   @Override
   public void execute(ImarketEx m) {
     for (Asset a : m.getAssets()) {
@@ -50,6 +60,11 @@ public class EventTick extends Event {
     indexValue = m.getIndexValue();
   }
 
+  /**
+   * Executes event on given IuserEx
+   *
+   * @param u IuserEx to be executed upon
+   */
   @Override
   public void execute(IuserEx u) {
     for (PortfolioRecord p : u.getRecords()) {
@@ -59,7 +74,7 @@ public class EventTick extends Event {
         }
       }
     }
-    currency = u.getMoney();
+    currency = u.getCurrency();
     playerValue = u.getTotalValue(mOutput);
   }
 }
