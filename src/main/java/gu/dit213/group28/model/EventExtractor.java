@@ -45,7 +45,7 @@ public class EventExtractor extends Observable implements IeventExtractor {
       assert e instanceof EventBuy;
       EventBuy be = (EventBuy) e;
       for (Iobserver o : observers) {
-        o.updateOwned(be.getSector(), be.getOwned());
+        o.updateOwned(be.getSector(), be.getOwned(), be.getValue());
       }
     }
 
@@ -55,11 +55,17 @@ public class EventExtractor extends Observable implements IeventExtractor {
     if (e.getID() == 3) {
       EventSell se = (EventSell) e;
       for (Iobserver o : observers) {
-        o.updateOwned(se.getSector(), se.getOwned());
+        o.updateOwned(se.getSector(), se.getOwned(), se.getValue());
       }
     }
     if (e.getID() == 4) {
       // send error?
+    }
+    if (e.getID()>4) {
+      EventPredef pre = (EventPredef) e;
+      for (Iobserver o : observers) {
+        o.updateOnEvent(pre.getDescription());
+      }
     }
   }
 }

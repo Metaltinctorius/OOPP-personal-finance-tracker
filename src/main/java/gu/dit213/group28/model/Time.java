@@ -92,6 +92,15 @@ public class Time implements Itimer {
   public void pause() {
     running = false;
   }
+  /** Pauses the timer if currently active, resumes the timer if currently paused. */
+  public void pauseAndResume(){
+    if (running) {
+      pause();
+    }
+    else {
+      start();
+    }
+  }
 
   /**
    * Retrieves the current timer tick. Note that this is not the same as a game tick. A game tick
