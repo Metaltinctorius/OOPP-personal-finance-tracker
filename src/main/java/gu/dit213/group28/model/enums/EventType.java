@@ -3,19 +3,8 @@ package gu.dit213.group28.model.enums;
 import gu.dit213.group28.model.events.EventPredef;
 
 public enum EventType {
-  ONCE(0) {
-    @Override
-    public boolean process(EventPredef event) {
-      return true;
-    }
-  },
-  REPEATING(0) {
-    @Override
-    public boolean process(EventPredef event) {
-      event.decrementIterations();
-      return event.getIterations() <= 0; // Returns true if the iterations are completed.
-    }
-  };
+  ONCE(0),
+  REPEATING(0);
 
   private final int stage;
 
@@ -23,10 +12,4 @@ public enum EventType {
     this.stage = stage;
   }
 
-  // Getter for stage
-  public int getStage() {
-    return stage;
-  }
-
-  public abstract boolean process(EventPredef event);
 }

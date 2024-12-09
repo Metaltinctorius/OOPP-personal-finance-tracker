@@ -4,7 +4,7 @@
     "description": "Event 1",
     "type": "ONCE",
     "iterations": "0",
-    "categories": ["HEALTHCARE"],
+    "sectors": ["HEALTHCARE"],
     "modifier": "0.5"
   },
   {
@@ -12,7 +12,7 @@
     "description": "Event 2",
     "type": "ONCE",
     "iterations": "0",
-    "categories": ["HEALTHCARE", "UTILITIES"],
+    "sectors": ["HEALTHCARE", "UTILITIES"],
     "modifier": "0.5"
   },
   {
@@ -20,7 +20,7 @@
     "description": "Iterations 0 and type is repeating",
     "type": "REPEATING",
     "iterations": "2",
-    "categories": [],
+    "sectors": [],
     "modifier": "0.5"
   },
 
@@ -29,7 +29,7 @@
     "description": "Test without action",
     "type": "REPEATING",
     "iterations": "9",
-    "categories": ["HEALTHCARE", "UTILITIES"],
+    "sectors": ["HEALTHCARE", "UTILITIES"],
     "modifier": "0.87"
   }
 ]

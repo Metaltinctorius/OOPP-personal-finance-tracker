@@ -32,8 +32,7 @@ public class EventLoader {
   }
 
   /**
-   * This is the function that is open for the EventLoader.
-   *
+   * This is the method that is open for the EventLoader.
    * @return returns the list of all predefined events.
    */
   public List<EventPredef> getPredefinedEvents() {
@@ -50,7 +49,9 @@ public class EventLoader {
   String testFile = "src/main/java/gu/dit213/group28/model/events/testFile.json";
 
   String mvpEvents = "src/main/java/gu/dit213/group28/model/events/mvpEvents.json";
-  /** Call this function to load the events from the predefined events from the JSON file */
+
+
+  /** This method reads and parses the json file */
   private void readFromJsonFile() {
     JSONParser parser = new JSONParser();
 
@@ -67,16 +68,16 @@ public class EventLoader {
         EventType type = EventType.valueOf(jsonObject.get("type").toString());
         int iterations = Integer.parseInt(jsonObject.get("iterations").toString());
 
-        /* List of categories the event holds */
-        JSONArray categoriesJson = ((JSONArray) jsonObject.get("categories"));
-        List<String> categories = new ArrayList<>();
-        for (Object category : categoriesJson) {
-          categories.add(category.toString());
+        /* List of stocks the event holds */
+        JSONArray sectorsJson = ((JSONArray) jsonObject.get("sectors"));
+        List<String> sectorStrings = new ArrayList<>();
+        for (Object sector : sectorsJson) {
+          sectorStrings.add(sector.toString());
         }
         double modifier = Double.parseDouble(jsonObject.get("modifier").toString());
 
-        checkArguments(id, type, iterations, categories);
-        buildFromFile(id, title, description, type, iterations, categories, modifier);
+        checkArguments(id, type, iterations, sectorStrings);
+        buildFromFile(id, title, description, type, iterations, sectorStrings, modifier);
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -98,20 +99,20 @@ public class EventLoader {
     }
   }
 
-  private void validateCategories(List<String> categories) {
-    for (String category : categories) {
+  private void validateSectors(List<String> sectorStrings) {
+    for (String sector : sectorStrings) {
       try {
-        Sector.valueOf(category);
+        Sector.valueOf(sector);
       } catch (IllegalArgumentException e) {
-        throw new IllegalArgumentException("Invalid category: " + category, e);
+        throw new IllegalArgumentException("Invalid sector: " + sector, e);
       }
     }
   }
 
-  private void checkArguments(int id, EventType type, int iterations, List<String> categories) {
+  private void checkArguments(int id, EventType type, int iterations, List<String> sectorStrings) {
     validateId(id);
     validateIterations(type, iterations);
-    validateCategories(categories);
+    validateSectors(sectorStrings);
   }
 
   private void buildFromFile(
@@ -120,13 +121,13 @@ public class EventLoader {
       String description,
       EventType type,
       int iterations,
-      List<String> categories,
+      List<String> sectorStrings,
       double modifier) {
 
-    List<Sector> stockCategories = parseCategories(categories);
+    List<Sector> sectors = parseSectors(sectorStrings);
 
     EventPredef event =
-        new EventPredef(id, title, description, type, iterations, stockCategories, modifier);
+        new EventPredef(id, title, description, type, iterations, sectors, modifier);
     predefinedEvents.add(event);
     reservedIds.add(event.getID());
   }
@@ -134,21 +135,25 @@ public class EventLoader {
   /**
    * Used to parse the categories array of the event.
    *
-   * @param stringCategories Takes in an array of type String
+   * @param stringSectors Takes in an array of type String
    * @return Returns an array with categories of type StockCategory
    */
-  private List<Sector> parseCategories(List<String> stringCategories) {
-    List<Sector> categories = new ArrayList<>();
-    for (String category : stringCategories) {
-      categories.add(Sector.valueOf(category));
+  private List<Sector> parseSectors(List<String> stringSectors) {
+    List<Sector> sectors = new ArrayList<>();
+    for (String sector : stringSectors) {
+      sectors.add(Sector.valueOf(sector));
     }
-    return categories;
+    return sectors;
   }
 
+  /**
+   * Method for viewing the parsed inputs.
+   */
   public void viewParsedInputs() {
     for (EventPredef event : predefinedEvents) {
       System.out.println("**************************");
       System.out.println("* id:          " + event.getID());
+      System.out.println("* title:       " + event.getTitle());
       System.out.println("* description: " + event.getDescription());
       System.out.println("* type:        " + event.getType());
       System.out.println("* categories:  " + event.getSectors());

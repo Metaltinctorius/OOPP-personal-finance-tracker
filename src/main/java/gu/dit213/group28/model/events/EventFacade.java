@@ -21,14 +21,26 @@ public class EventFacade implements IeventFacade {
     randomEventChance = -0.2;
   }
 
+  /**
+   * Adds an event to the event queue, this is useful for scheduled events.
+   * @param event to add to the queue
+   */
   public void addEventToQueue(Event event) {
     eventManager.addToEventQueue(event);
   }
 
+  /**
+   * Returns the event log (the history of passed events).
+   * @return List <Event>
+   */
   public List<Event> getEventLog() {
     return eventManager.getEventLog();
   }
 
+  /**
+   * Adds event to the log (history) of events.
+   * @param event to store in the log
+   */
   public void addEventToLog(Ievent event) {
     eventManager.addToEventLog((Event) event); // TODO MAYBE CHANGE FROM CASTING?
   }
