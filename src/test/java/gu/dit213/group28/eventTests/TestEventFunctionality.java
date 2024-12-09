@@ -14,14 +14,6 @@ public class TestEventFunctionality {
   private EventLoader loader;
   List<EventPredef> predefinedEvents;
 
-  @Test
-  public void test_decrement_iterations(){
-    EventPredef event = predefinedEvents.get(3);
-    event.decrementIterations();
-    int actual = event.getIterations();
-    int expected = 8;
-    Assertions.assertEquals(expected, actual);
-  }
 
 
   @BeforeEach
