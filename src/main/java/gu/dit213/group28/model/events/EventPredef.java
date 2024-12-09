@@ -15,7 +15,7 @@ public class EventPredef extends Event {
   private final List<Sector> sectors;
   private final String title;
   private final EventType type;
-  private int iterations;
+  private final int iterations;
   private final String description;
   private final double modifier;
 
@@ -56,44 +56,21 @@ public class EventPredef extends Event {
     return modifier;
   }
 
+
   /**
-   * Used to validate the iterations specified in the json file, in order to make the handling of
-   * events safer. No event that is set to "ONCE" can have iterations > 0, no event set to
-   * "REPEATING" can have iterations < 1.
+   * Returns the list of sectors for the event.
    *
-   * @param iterations Iterations either given from creating an event or the json file.
+   * @return List <Sector>
    */
-  public void checkIterations(int iterations) {
-    if (type == EventType.REPEATING && iterations <= 0) {
-      throw new IllegalArgumentException(
-          "Repeating events must have iterations > 0: " + iterations);
-    }
-    if (type == EventType.ONCE && iterations != 0) {
-      throw new IllegalArgumentException("One-time events must have iterations = 0: " + iterations);
-    }
-    this.iterations = iterations;
-  }
-
-  /** Used to decrement iterations for repeating events. */
-  public void decrementIterations() {
-    if (iterations > 0) iterations--;
-  }
-
-  public void addSectorToList(Sector sector) {
-    sectors.add(sector);
-    if (!sectors.contains(sector)) {
-      throw new Error("Failed to add sector");
-    }
-  }
-
   public List<Sector> getSectors() {
     return sectors;
   }
 
-  public Sector getSector() {
-    return null;
-  }
-
+  /**
+   * Method that executes the event. This adds the events modifier to the market.
+   *
+   * @param m ImarketEx to be executed upon
+   */
   @Override
   public void execute(ImarketEx m) {
     TrendModifier mod = new TrendModifier(this.getModifier(), this.getIterations());
@@ -101,7 +78,7 @@ public class EventPredef extends Event {
     if (this.getSectors().isEmpty()) {
       m.addTrendModifier(mod);
     } else {
-      for (Asset a : assets) { // FIX
+      for (Asset a : assets) {
         for (Sector s : this.getSectors()) {
           if (a.getSector() == s) {
             a.addTrendModifier(mod);
@@ -113,41 +90,4 @@ public class EventPredef extends Event {
 
   @Override
   public void execute(IuserEx u) {}
-
-  // FOR SEQUENTIAL EVENTS
-  /*
-
-
-  private int totalStages;
-  private int stage;
-
-  public int getTotalStages() {
-    return totalStages;
-  }
-  public int getStage() {
-    return stage;
-  }
-  public void advanceStage() {
-    if (stage <= totalStages) stage++;
-  }
-
-  /**
-   * Used for sequential events. To be done later.
-   * @param stage The stage the sequence is currently at
-   * @param totalStages The total number of stages in the event.
-   * @return Returns builder.
-
-  public OldEvent.EventBuilder setStage(int stage, int totalStages) {
-    if (type != EventType.SEQUENTIAL) {
-      throw new IllegalStateException(
-          "Can only set stages for sequential event types! Invalid argument: " + type);
-    }
-    if(totalStages <= 0 || stage < 0) {
-      throw new IllegalStateException("Stages and totalStages need to be larger than 0");
-    }
-    this.stage = stage;
-    this.totalStages = totalStages;
-    return this;
-  }
-  */
 }
