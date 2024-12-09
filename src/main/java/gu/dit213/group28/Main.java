@@ -1,4 +1,4 @@
-package gu.dit213group28;
+package gu.dit213.group28;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
