@@ -42,6 +42,9 @@ public class EventSell extends Event {
   public int getQuantity() {
     return quantity;
   }
+  public double getValue() {
+    return value;
+  }
 
   /**
    * Gets the total number of assets owned by the user in the sector.

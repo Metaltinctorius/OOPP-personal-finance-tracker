@@ -20,7 +20,7 @@ public class InfoBox {
 
   public InfoBox() {
     PieChart pie = new PieChart();
-    pie.getData().add(new PieChart.Data("Currency", 0));
+    pie.getData().add(new PieChart.Data("Currency", 100000));
     Sector[] sectors = Sector.values();
     for (int i = 1; i < sectors.length; i++) {
       pie.getData().add(new PieChart.Data(sectors[i].toString(), 0));
@@ -72,6 +72,13 @@ public class InfoBox {
         if (u.sector().toString().equals(p.getName())) {
           p.setPieValue(u.value() * u.quantity());
         }
+      }
+    }
+  }
+  public void updatePie(Sector sector, int quantity, double value){
+    for (PieChart.Data p : info.pie.getData()) {
+      if (sector.toString().equals(p.getName())){
+        p.setPieValue(quantity*value);
       }
     }
   }

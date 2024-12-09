@@ -11,6 +11,8 @@ import gu.dit213.group28.model.wrappers.wModel;
 import gu.dit213.group28.model.wrappers.wMarket;
 import gu.dit213.group28.model.wrappers.wUser;
 
+import java.util.concurrent.TimeUnit;
+
 /** Class that takes input, creates events, delivers events and keeps track of game time. */
 public class GameCore {
 
@@ -98,8 +100,10 @@ public class GameCore {
   }
 
   /** Creates a Predefined event and delivers it to the market. */
-  public void makePredefEvent() {
+  public void makePredefEvent() throws InterruptedException {
     Ievent e = eventFacade.getPredefinedEvent();
+    logic.extractEvent(e);
+    timer.pause();
     market.accept(e);
   }
 
@@ -120,11 +124,6 @@ public class GameCore {
 
   /** Pauses the timer if currently active, resumes the timer if currently paused. */
   public void pauseAndResume() {
-    if (!isPaused) {
-      timer.pause();
-    } else {
-      timer.start();
-    }
-    this.isPaused = !this.isPaused;
+    timer.pauseAndResume();
   }
 }

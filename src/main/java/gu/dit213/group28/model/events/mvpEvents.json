@@ -1,6 +1,6 @@
 [
   {
-    "id": "1",
+    "id": "51",
     "title": "Federal Reserve Hikes Interest Rates",
     "description": "The Federal Reserve announces a 0.75% increase in interest rates to curb inflation. The market reacts with caution, affecting all sectors negatively.",
     "type": "REPEATING",
@@ -9,7 +9,7 @@
     "modifier": "-0.03"
   },
   {
-    "id": "2",
+    "id": "52",
     "title": "Breakthrough in Cancer Treatment",
     "description": "A major pharmaceutical company announces a breakthrough in cancer treatment, boosting confidence in the healthcare sector.",
     "type": "REPEATING",
@@ -18,7 +18,7 @@
     "modifier": "0.10"
   },
   {
-    "id": "3",
+    "id": "53",
     "title": "Tech Giant Launches Revolutionary AI",
     "description": "A leading tech company releases a new AI platform that is projected to transform multiple industries. The tech sector sees a surge in investments.",
     "type": "REPEATING",
@@ -27,7 +27,7 @@
     "modifier": "0.12"
   },
   {
-    "id": "4",
+    "id": "54",
     "title": "Real Estate Market Slump",
     "description": "High mortgage rates and declining demand lead to a slump in the real estate market. Investors turn cautious about the sector.",
     "type": "REPEATING",

@@ -11,7 +11,7 @@ public interface Iobserver {
   void updateGraphs(int xAxis, List<MarketOutput> mOutput, List<UserOutput> uOutput);
 
   /** Updates the quantity of assets owned by the player in each sector. */
-  void updateOwned(Sector sector, int quantity);
+  void updateOwned(Sector sector, int quantity, double value);
 
   /** Updates the players current currency. */
   void updateCurrency(double currency);

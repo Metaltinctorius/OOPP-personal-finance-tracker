@@ -59,8 +59,9 @@ public class View implements Iobserver {
 
   /** Updates the quantity of assets owned by the player in each sector. */
   @Override
-  public void updateOwned(Sector sector, int quantity) {
-    Platform.runLater(() -> graphs.updateOwnedField(sector, quantity));
+  public void updateOwned(Sector sector, int quantity, double value) {
+    Platform.runLater(() -> {graphs.updateOwnedField(sector, quantity);
+            info.updatePie(sector, quantity, value);});
   }
 
   /** Updates the players current currency. */
