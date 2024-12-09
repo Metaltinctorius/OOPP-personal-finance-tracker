@@ -5,7 +5,7 @@ lies in the educational aspect of economical trends and a way to practice withou
 real currency.
 
 ## How to run
-For now it should be run from the dev branch.
+For now it should be run from the peer-review-branch.
 
 ### Prerequisites
 - Java JDK-21, either Oracle or OpenJDK should work.
