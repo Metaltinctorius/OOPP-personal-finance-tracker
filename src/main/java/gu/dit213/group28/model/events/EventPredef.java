@@ -56,7 +56,6 @@ public class EventPredef extends Event {
     return modifier;
   }
 
-
   /**
    * Returns the list of sectors for the event.
    *

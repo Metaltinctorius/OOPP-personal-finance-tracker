@@ -4,45 +4,46 @@ import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.Ievent;
 import gu.dit213.group28.model.interfaces.IeventFacade;
 
+import gu.dit213.group28.model.interfaces.IeventLoader;
 import java.util.List;
 import java.util.Random;
 
 public class EventFacade implements IeventFacade {
 
-  private final EventLoader loader;
   private final EventManager eventManager;
   private final Random rng = new Random();
   private double randomEventChance;
 
   public EventFacade() {
-    this.loader = new EventLoader();
-    loader.loadEvents();
-    this.eventManager = new EventManager(loader.getPredefinedEvents(), loader.getReservedIds());
+    this.eventManager = new EventManager();
     randomEventChance = -0.2;
   }
 
   /**
    * Adds an event to the event queue, this is useful for scheduled events.
+   *
    * @param event to add to the queue
    */
-  public void addEventToQueue(Event event) {
+  public void addEventToQueue(Ievent event) {
     eventManager.addToEventQueue(event);
   }
 
   /**
    * Returns the event log (the history of passed events).
+   *
    * @return List <Event>
    */
-  public List<Event> getEventLog() {
+  public List<Ievent> getEventLog() {
     return eventManager.getEventLog();
   }
 
   /**
    * Adds event to the log (history) of events.
+   *
    * @param event to store in the log
    */
   public void addEventToLog(Ievent event) {
-    eventManager.addToEventLog((Event) event); // TODO MAYBE CHANGE FROM CASTING?
+    eventManager.addToEventLog(event);
   }
 
   @Override

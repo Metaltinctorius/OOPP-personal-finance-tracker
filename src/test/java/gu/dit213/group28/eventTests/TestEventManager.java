@@ -23,7 +23,7 @@ public class TestEventManager {
     EventLoader loader = new EventLoader();
     loader.loadEvents();
     // Manager needs the list of loaded events from the json file, as well as the ids the occupy.
-    manager = new EventManager(loader.getPredefinedEvents(), loader.getReservedIds());
+    manager = new EventManager();
     // Only the events in the json file.
     events.addAll(manager.getPredefinedEvents());
   }
@@ -41,14 +41,6 @@ public class TestEventManager {
     // Assertions.assertEquals(manager.getEventLog().getFirst().getDescription(), "Event 1");
   }
 
-  @Test
-  public void test_generateId() {
-    // Testfile contains ids [1,2,3,4], next available id should be 5.
-    // The manager (upon instantiation) instantiates the idManager.
-    int actualId = manager.generateId();
-    int expectedId = 5;
-    Assertions.assertEquals(expectedId, actualId);
-  }
 
   @Test
   public void test_get_id_from_predefined_events() {
