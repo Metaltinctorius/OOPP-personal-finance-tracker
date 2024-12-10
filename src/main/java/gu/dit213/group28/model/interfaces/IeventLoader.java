@@ -10,6 +10,5 @@ public interface IeventLoader {
 
   List<Integer> getReservedIds();
 
-
   void loadEvents();
 }

@@ -8,8 +8,7 @@ import gu.dit213.group28.model.interfaces.IeventLoader;
 import java.util.List;
 import java.util.Random;
 
-public class EventFacade implements IeventFacade
-{
+public class EventFacade implements IeventFacade {
 
   private final EventManager eventManager;
   private final Random rng = new Random();
@@ -22,26 +21,29 @@ public class EventFacade implements IeventFacade
 
   /**
    * Adds an event to the event queue, this is useful for scheduled events.
+   *
    * @param event to add to the queue
    */
-  public void addEventToQueue(Event event) {
+  public void addEventToQueue(Ievent event) {
     eventManager.addToEventQueue(event);
   }
 
   /**
    * Returns the event log (the history of passed events).
+   *
    * @return List <Event>
    */
-  public List<Event> getEventLog() {
+  public List<Ievent> getEventLog() {
     return eventManager.getEventLog();
   }
 
   /**
    * Adds event to the log (history) of events.
+   *
    * @param event to store in the log
    */
   public void addEventToLog(Ievent event) {
-    eventManager.addToEventLog((Event) event); // TODO MAYBE CHANGE FROM CASTING?
+    eventManager.addToEventLog(event);
   }
 
   @Override
@@ -75,5 +77,4 @@ public class EventFacade implements IeventFacade
     randomEventChance += 0.2;
     return false;
   }
-
 }
