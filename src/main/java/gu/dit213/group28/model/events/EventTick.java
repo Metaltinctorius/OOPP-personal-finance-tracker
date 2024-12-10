@@ -19,6 +19,7 @@ public class EventTick extends Event {
   private double playerValue;
   public final List<UserOutput> uOutput;
 
+
   /**
    * Basic tick event.
    *
@@ -46,6 +47,7 @@ public class EventTick extends Event {
     return playerValue;
   }
 
+
   /**
    * Executes event on given ImarketEx
    *
@@ -56,6 +58,7 @@ public class EventTick extends Event {
     for (Asset a : m.getAssets()) {
       a.updatePrice();
       mOutput.add(new MarketOutput(a.getSector(), a.getPrice()));
+
     }
     indexValue = m.getIndexValue();
   }

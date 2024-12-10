@@ -4,20 +4,19 @@ import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.Ievent;
 import gu.dit213.group28.model.interfaces.IeventFacade;
 
+import gu.dit213.group28.model.interfaces.IeventLoader;
 import java.util.List;
 import java.util.Random;
 
-public class EventFacade implements IeventFacade {
+public class EventFacade implements IeventFacade
+{
 
-  private final EventLoader loader;
   private final EventManager eventManager;
   private final Random rng = new Random();
   private double randomEventChance;
 
   public EventFacade() {
-    this.loader = new EventLoader();
-    loader.loadEvents();
-    this.eventManager = new EventManager(loader.getPredefinedEvents(), loader.getReservedIds());
+    this.eventManager = new EventManager();
     randomEventChance = -0.2;
   }
 
@@ -76,4 +75,5 @@ public class EventFacade implements IeventFacade {
     randomEventChance += 0.2;
     return false;
   }
+
 }

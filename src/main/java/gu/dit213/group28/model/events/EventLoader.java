@@ -2,6 +2,7 @@ package gu.dit213.group28.model.events;
 
 import gu.dit213.group28.model.enums.EventType;
 import gu.dit213.group28.model.enums.Sector;
+import gu.dit213.group28.model.interfaces.IeventLoader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import java.io.FileReader;
 
-public class EventLoader {
+public class EventLoader implements IeventLoader {
 
   /** This is where the events from the json file are read and stored. */
   private final List<EventPredef> predefinedEvents;
@@ -33,6 +34,7 @@ public class EventLoader {
 
   /**
    * This is the method that is open for the EventLoader.
+   *
    * @return returns the list of all predefined events.
    */
   public List<EventPredef> getPredefinedEvents() {
@@ -50,11 +52,11 @@ public class EventLoader {
 
   String mvpEvents = "src/main/java/gu/dit213/group28/model/events/mvpEvents.json";
 
-
   /** This method reads and parses the json file */
   private void readFromJsonFile() {
     JSONParser parser = new JSONParser();
 
+    /** Input the json file to read. */
     try (FileReader reader = new FileReader(mvpEvents)) {
 
       JSONArray jsonArray = (JSONArray) parser.parse(reader);
@@ -84,12 +86,24 @@ public class EventLoader {
     }
   }
 
+  /**
+   * Method for checking if the id given to the event in the json file already exists.
+   *
+   * @param id int
+   */
   private void validateId(int id) {
     if (reservedIds.contains(id)) {
       throw new IllegalArgumentException("Duplicate ID in event JSON file: " + id);
     }
   }
 
+  /**
+   * Method for checking if the event type matches the iterations. A repeating event should not have
+   * iterations = 1 or 0
+   *
+   * @param type eventType (Once, Repeating)
+   * @param iterations the amount of iterations given.
+   */
   private void validateIterations(EventType type, int iterations) {
     if (type == EventType.REPEATING && iterations <= 0) {
       throw new IllegalArgumentException("Repeating events must have iterations > 0.");
@@ -99,22 +113,49 @@ public class EventLoader {
     }
   }
 
+  /**
+   * Method for validating the list of sectors an event has. Makes sure the sector matches actual
+   * sectors in the enum "Sector".
+   *
+   * @param sectorStrings strings of sectors
+   */
   private void validateSectors(List<String> sectorStrings) {
     for (String sector : sectorStrings) {
       try {
-        Sector.valueOf(sector);
+        Sector.valueOf(sector.toUpperCase());
       } catch (IllegalArgumentException e) {
         throw new IllegalArgumentException("Invalid sector: " + sector, e);
       }
     }
   }
 
+  /**
+   * Wrapper method for validating arguments. Used in the reader method before returning the
+   * arguments to the builder method
+   *
+   * @param id int (predefined in the json file)
+   * @param type eventType
+   * @param iterations int ierations
+   * @param sectorStrings sectors as strings
+   */
   private void checkArguments(int id, EventType type, int iterations, List<String> sectorStrings) {
     validateId(id);
     validateIterations(type, iterations);
     validateSectors(sectorStrings);
   }
 
+  /**
+   * Recieves the parameters from the reader and creates new Predefined Events, and adds them to the
+   * List of PredefinedEvents
+   *
+   * @param id int
+   * @param title string
+   * @param description string
+   * @param type eventType
+   * @param iterations int
+   * @param sectorStrings List of strings
+   * @param modifier double
+   */
   private void buildFromFile(
       int id,
       String title,
@@ -146,9 +187,7 @@ public class EventLoader {
     return sectors;
   }
 
-  /**
-   * Method for viewing the parsed inputs.
-   */
+  /** Method for viewing the parsed inputs. */
   public void viewParsedInputs() {
     for (EventPredef event : predefinedEvents) {
       System.out.println("**************************");
