@@ -168,91 +168,30 @@ public class Controller {
   */
 
   private void populateCenterGrid(GridPane grid) {
+    CenterGrid centerGrid = new CenterGrid();
     Graphs graphs = new Graphs();
     Sector[] sectors = Sector.values();
     for (int i = 0; i < 6; i++) {
       Sector sector = sectors[i + 1];
-      LineChart<Number, Number> lineChart = createGraph(sector);
+      LineChart<Number, Number> lineChart = centerGrid.createGraph(sector);
 
-      // Adds the functionality under the graphs.
       TextField ownedField = new TextField();
       TextField priceField = new TextField();
-      TextField quantityField = createQuantityField();
+      TextField quantityField = centerGrid.createQuantityField();
 
-      Button buyButton = createBuyButton(sector, quantityField);
-      Button sellButton = createSellButton(sector, quantityField);
+      Button buyButton = centerGrid.createButton("Buy");
+      Button sellButton = centerGrid.createButton("Sell");
+      buyButton.setOnAction(event -> logic.buyAsset(sector, quantityField.getText()));
+      sellButton.setOnAction(event -> logic.sellAsset(sector, quantityField.getText()));
 
-      HBox buySellOwnedBox = buySellOwnedBox(buyButton, sellButton, ownedField);
-      HBox quantityPriceControls = quantityPriceField(quantityField, priceField);
+      HBox buySellOwnedBox = centerGrid.buySellOwnedBox(buyButton, sellButton, ownedField);
+      HBox quantityPriceBox = centerGrid.quantityPriceField(quantityField, priceField);
+      VBox vbox = centerGrid.graphAndControlsBox(lineChart, buySellOwnedBox, quantityPriceBox);
 
-      VBox graphAndControls =
-          graphAndControlsBox(lineChart, buySellOwnedBox, quantityPriceControls);
-
-      grid.add(graphAndControls, i % 3, i / 3);
+      grid.add(vbox, i % 3, i / 3);
       graphs.addGraph(lineChart, sector, ownedField, priceField, getColour(sector));
     }
     view.setGraphs(graphs);
-  }
-
-  /**
-   * Buy and sell button together with the owned field, wrapped in a horizontal box for scene
-   * alignment of the grid
-   */
-  private HBox buySellOwnedBox(Button buyButton, Button sellButton, TextField ownedField) {
-    HBox buySellControls = new HBox(10, buyButton, sellButton, new Label("Owned:"), ownedField);
-    buySellControls.setAlignment(Pos.CENTER);
-    buySellControls.setMinWidth(Region.USE_PREF_SIZE);
-    return buySellControls;
-  }
-
-  /** Graph and controls wrapped in a vertical box for scene alignment of the grid */
-  private VBox graphAndControlsBox(
-      LineChart<Number, Number> lineChart, HBox buySellOwnedBox, HBox quantityPriceControls) {
-    VBox graphAndControls = new VBox(10, lineChart, buySellOwnedBox, quantityPriceControls);
-    graphAndControls.setAlignment(Pos.CENTER);
-    VBox.setVgrow(lineChart, Priority.ALWAYS);
-    return graphAndControls;
-  }
-
-  private HBox quantityPriceField(TextField quantityField, TextField priceField) {
-    HBox quantityPriceControls =
-        new HBox(10, new Label("Qty:"), quantityField, new Label("Price:"), priceField);
-    quantityPriceControls.setAlignment(Pos.CENTER);
-    quantityPriceControls.setMinWidth(Region.USE_PREF_SIZE);
-    return quantityPriceControls;
-  }
-
-  private LineChart<Number, Number> createGraph(Sector sector) {
-    NumberAxis xAxis = new NumberAxis();
-    NumberAxis yAxis = new NumberAxis();
-    xAxis.setForceZeroInRange(false);
-    yAxis.setForceZeroInRange(false);
-
-    LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
-    lineChart.setTitle(sector.toString());
-    return lineChart;
-  }
-
-  private TextField createQuantityField() {
-    TextField quantityField = new TextField();
-    quantityField.setPrefWidth(100);
-    quantityField.setPromptText("0");
-    quantityField.setMinWidth(Region.USE_PREF_SIZE);
-    return quantityField;
-  }
-
-  private Button createBuyButton(Sector sector, TextField quantityField) {
-    Button buyButton = new Button("Buy");
-    buyButton.setMinWidth(Region.USE_PREF_SIZE);
-    buyButton.setOnAction(event -> logic.buyAsset(sector, quantityField.getText()));
-    return buyButton;
-  }
-
-  private Button createSellButton(Sector sector, TextField quantityField) {
-    Button sellButton = new Button("Sell");
-    sellButton.setMinWidth(Region.USE_PREF_SIZE);
-    sellButton.setOnAction(event -> logic.sellAsset(sector, quantityField.getText()));
-    return sellButton;
   }
 
   private VBox createInfoBox() {

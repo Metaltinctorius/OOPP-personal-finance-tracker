@@ -99,9 +99,6 @@ public class View implements Iobserver {
   /** Updates the event history box, not yet connected */
   @Override
   public void updateEventHistory(String event) {
-    Platform.runLater(
-        () -> {
-          eventLog.setText(eventLog.getText() + "\n" + event);
-        });
+    Platform.runLater(() -> eventLog.setText(eventLog.getText() + "\n" + event));
   }
 }
