@@ -7,24 +7,17 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-
-import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -66,14 +59,13 @@ public class Controller {
     Scene scene = createScene();
     stage.setScene(scene);
     stage.setTitle("Finance Tracker");
-    view.setEventLog(eventLog);
     view.initView();
   }
 
   /** Creates the scene for the JavaFX stage. */
   private Scene createScene() {
     BorderPane root = new BorderPane();
-    GridPane centerGrid = createCenterGrid();
+    GridPane centerGrid = new GridPane();
     populateCenterGrid(centerGrid);
 
     root.setCenter(centerGrid);
@@ -94,6 +86,7 @@ public class Controller {
     TitledPane titledPane = new TitledPane("News history", scrollPane);
     titledPane.setPrefWidth(200);
     titledPane.setPrefHeight(600);
+    view.setEventLog(eventLog);
     return titledPane;
   }
 
@@ -173,81 +166,93 @@ public class Controller {
       }
     }
   */
-  private GridPane createCenterGrid() {
-    GridPane grid = new GridPane();
-    grid.setHgap(10);
-    grid.setVgap(10);
-    grid.setPadding(new Insets(0, 0, 15, 15));
-
-    // Distributes the columns and rows sizes evenly in the center grid.
-    for (int i = 0; i < 3; i++) {
-      ColumnConstraints colConstraint = new ColumnConstraints();
-      colConstraint.setPercentWidth(33.33);
-      grid.getColumnConstraints().add(colConstraint);
-    }
-    for (int i = 0; i < 2; i++) {
-      RowConstraints rowConstraint = new RowConstraints();
-      rowConstraint.setPercentHeight(50);
-      grid.getRowConstraints().add(rowConstraint);
-    }
-    grid.setPrefWidth(800);
-    return grid;
-  }
 
   private void populateCenterGrid(GridPane grid) {
     Graphs graphs = new Graphs();
     Sector[] sectors = Sector.values();
     for (int i = 0; i < 6; i++) {
-      Sector s = sectors[i + 1];
-
-      // Create the graph/chart
-      NumberAxis xAxis = new NumberAxis();
-      NumberAxis yAxis = new NumberAxis();
-      xAxis.setForceZeroInRange(false);
-      yAxis.setForceZeroInRange(false);
-
-      LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
-      lineChart.setTitle(s.toString());
+      Sector sector = sectors[i + 1];
+      LineChart<Number, Number> lineChart = createGraph(sector);
 
       // Adds the functionality under the graphs.
       TextField ownedField = new TextField();
-
       TextField priceField = new TextField();
+      TextField quantityField = createQuantityField();
 
-      graphs.addGraph(lineChart, s, ownedField, priceField, getColour(s));
+      Button buyButton = createBuyButton(sector, quantityField);
+      Button sellButton = createSellButton(sector, quantityField);
 
-      TextField quantityField = new TextField();
-      quantityField.setPrefWidth(100);
-      quantityField.setPromptText("Quantity");
-      quantityField.setMinWidth(Region.USE_PREF_SIZE);
-      Button buyButton = new Button("Buy");
-      buyButton.setMinWidth(Region.USE_PREF_SIZE);
-      buyButton.setOnAction(
-          event -> {
-            logic.buyAsset(s, quantityField.getText());
-          });
-      Button sellButton = new Button("Sell");
-      sellButton.setMinWidth(Region.USE_PREF_SIZE);
-      sellButton.setOnAction(
-          event -> {
-            logic.sellAsset(s, quantityField.getText());
-          });
+      HBox buySellOwnedBox = buySellOwnedBox(buyButton, sellButton, ownedField);
+      HBox quantityPriceControls = quantityPriceField(quantityField, priceField);
 
-      HBox buySellControls = new HBox(10, buyButton, sellButton, new Label("Owned:"), ownedField);
-      buySellControls.setAlignment(Pos.CENTER);
-
-      HBox quantityPriceControls =
-          new HBox(10, new Label("Qty:"), quantityField, new Label("Price:"), priceField);
-      quantityPriceControls.setAlignment(Pos.CENTER);
-      quantityPriceControls.setMinWidth(Region.USE_PREF_SIZE);
-
-      VBox graphAndControls = new VBox(10, lineChart, buySellControls, quantityPriceControls);
-      graphAndControls.setAlignment(Pos.CENTER);
-      VBox.setVgrow(lineChart, Priority.ALWAYS);
+      VBox graphAndControls =
+          graphAndControlsBox(lineChart, buySellOwnedBox, quantityPriceControls);
 
       grid.add(graphAndControls, i % 3, i / 3);
+      graphs.addGraph(lineChart, sector, ownedField, priceField, getColour(sector));
     }
     view.setGraphs(graphs);
+  }
+
+  /**
+   * Buy and sell button together with the owned field, wrapped in a horizontal box for scene
+   * alignment of the grid
+   */
+  private HBox buySellOwnedBox(Button buyButton, Button sellButton, TextField ownedField) {
+    HBox buySellControls = new HBox(10, buyButton, sellButton, new Label("Owned:"), ownedField);
+    buySellControls.setAlignment(Pos.CENTER);
+    buySellControls.setMinWidth(Region.USE_PREF_SIZE);
+    return buySellControls;
+  }
+
+  /** Graph and controls wrapped in a vertical box for scene alignment of the grid */
+  private VBox graphAndControlsBox(
+      LineChart<Number, Number> lineChart, HBox buySellOwnedBox, HBox quantityPriceControls) {
+    VBox graphAndControls = new VBox(10, lineChart, buySellOwnedBox, quantityPriceControls);
+    graphAndControls.setAlignment(Pos.CENTER);
+    VBox.setVgrow(lineChart, Priority.ALWAYS);
+    return graphAndControls;
+  }
+
+  private HBox quantityPriceField(TextField quantityField, TextField priceField) {
+    HBox quantityPriceControls =
+        new HBox(10, new Label("Qty:"), quantityField, new Label("Price:"), priceField);
+    quantityPriceControls.setAlignment(Pos.CENTER);
+    quantityPriceControls.setMinWidth(Region.USE_PREF_SIZE);
+    return quantityPriceControls;
+  }
+
+  private LineChart<Number, Number> createGraph(Sector sector) {
+    NumberAxis xAxis = new NumberAxis();
+    NumberAxis yAxis = new NumberAxis();
+    xAxis.setForceZeroInRange(false);
+    yAxis.setForceZeroInRange(false);
+
+    LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
+    lineChart.setTitle(sector.toString());
+    return lineChart;
+  }
+
+  private TextField createQuantityField() {
+    TextField quantityField = new TextField();
+    quantityField.setPrefWidth(100);
+    quantityField.setPromptText("0");
+    quantityField.setMinWidth(Region.USE_PREF_SIZE);
+    return quantityField;
+  }
+
+  private Button createBuyButton(Sector sector, TextField quantityField) {
+    Button buyButton = new Button("Buy");
+    buyButton.setMinWidth(Region.USE_PREF_SIZE);
+    buyButton.setOnAction(event -> logic.buyAsset(sector, quantityField.getText()));
+    return buyButton;
+  }
+
+  private Button createSellButton(Sector sector, TextField quantityField) {
+    Button sellButton = new Button("Sell");
+    sellButton.setMinWidth(Region.USE_PREF_SIZE);
+    sellButton.setOnAction(event -> logic.sellAsset(sector, quantityField.getText()));
+    return sellButton;
   }
 
   private VBox createInfoBox() {

@@ -1,10 +1,10 @@
 package gu.dit213.group28;
 
-import gu.dit213.group28.model.records.MarketOutput;
-import gu.dit213.group28.model.records.UserOutput;
+import gu.dit213.group28.model.Observable;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.Iobserver;
-import gu.dit213.group28.model.Observable;
+import gu.dit213.group28.model.records.MarketOutput;
+import gu.dit213.group28.model.records.UserOutput;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.scene.control.ButtonBar;
@@ -60,8 +60,11 @@ public class View implements Iobserver {
   /** Updates the quantity of assets owned by the player in each sector. */
   @Override
   public void updateOwned(Sector sector, int quantity, double value) {
-    Platform.runLater(() -> {graphs.updateOwnedField(sector, quantity);
-            info.updatePie(sector, quantity, value);});
+    Platform.runLater(
+        () -> {
+          graphs.updateOwnedField(sector, quantity);
+          info.updatePie(sector, quantity, value);
+        });
   }
 
   /** Updates the players current currency. */
