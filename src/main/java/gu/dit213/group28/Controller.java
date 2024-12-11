@@ -1,12 +1,11 @@
 package gu.dit213.group28;
 
+import com.sun.javafx.menu.MenuItemBase;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.Icontrollable;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -16,8 +15,6 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -34,7 +31,6 @@ public class Controller {
   private final View view;
   private boolean isPaused = false;
   private final Icontrollable logic;
-  private Text eventLog;
 
   /**
    * Initializes the controller with the stage, logic, and view. The stage creates the JavaFX
@@ -65,10 +61,7 @@ public class Controller {
   /** Creates the scene for the JavaFX stage. */
   private Scene createScene() {
     BorderPane root = new BorderPane();
-    GridPane centerGrid = new GridPane();
-    populateCenterGrid(centerGrid);
-
-    root.setCenter(centerGrid);
+    root.setCenter(createCenterGrid());
     root.setBottom(createLowerButtonPanel());
     root.setRight(createEventTextBox());
     root.setLeft(createInfoBox());
@@ -77,7 +70,7 @@ public class Controller {
 
   /** Creates a scene component showing events. */
   private TitledPane createEventTextBox() {
-    eventLog = new Text();
+    Text eventLog = new Text();
     ScrollPane scrollPane = new ScrollPane(eventLog);
     scrollPane.setFitToWidth(true);
 
@@ -167,10 +160,14 @@ public class Controller {
     }
   */
 
-  private void populateCenterGrid(GridPane grid) {
+  /**
+   * Creates the center scene component with graphs, fields and buttons with buy/sell functionality.
+   */
+  private GridPane createCenterGrid() {
     CenterGrid centerGrid = new CenterGrid();
     Graphs graphs = new Graphs();
     Sector[] sectors = Sector.values();
+    GridPane grid = new GridPane();
     for (int i = 0; i < 6; i++) {
       Sector sector = sectors[i + 1];
       LineChart<Number, Number> lineChart = centerGrid.createGraph(sector);
@@ -192,10 +189,12 @@ public class Controller {
       graphs.addGraph(lineChart, sector, ownedField, priceField, getColour(sector));
     }
     view.setGraphs(graphs);
+    return grid;
   }
 
   private VBox createInfoBox() {
     InfoBox info = new InfoBox();
+
     view.setInfoBox(info);
 
     return info.createInfoBox();
