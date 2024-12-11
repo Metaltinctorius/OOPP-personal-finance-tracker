@@ -36,13 +36,14 @@ public class Time implements Itimer {
           tick++;
           if (tick >= threshold) {
             tick = 0;
-
+            lock.unlock();
             queue.offer(true);
+            return;
           }
           lock.unlock();
         },
-        33L,
-        33L,
+        0L,
+        16L,
         TimeUnit.MILLISECONDS);
     // 30fps would 33.333... ms so the timing is a bit off, might not be a problem?
   }
@@ -58,13 +59,13 @@ public class Time implements Itimer {
     int oldThreshold = threshold;
     switch (s) {
       case SLOW:
-        threshold = 1200; // Change these to alter speed of the game
+        threshold = 2000; // Change these to alter speed of the game
         break;
       case NORMAL:
-        threshold = 600;
+        threshold = 1000;
         break;
       case FAST:
-        threshold = 100;
+        threshold = 200;
         break;
       default:
         return;
@@ -85,20 +86,26 @@ public class Time implements Itimer {
 
   /** Starts the timer */
   public void start() {
+    lock.lock();
     running = true;
+    lock.unlock();
   }
 
   /** Pauses the timer */
   public void pause() {
+    lock.lock();
     running = false;
+    lock.unlock();
   }
+
   /** Pauses the timer if currently active, resumes the timer if currently paused. */
-  public void pauseAndResume(){
+  public boolean pauseAndResume() {
     if (running) {
       pause();
-    }
-    else {
+      return true;
+    } else {
       start();
+      return false;
     }
   }
 

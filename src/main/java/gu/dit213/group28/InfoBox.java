@@ -54,7 +54,7 @@ public class InfoBox {
     info = new Info(pie, line, currency);
   }
 
-  public VBox createInfoBox() {
+  public VBox createInfoBox(View view) {
     Region spacer1 = new Region();
     spacer1.setMaxHeight(50);
     VBox infoBox = new VBox(10, info.pie, info.line, info.currency, spacer1);
@@ -62,7 +62,7 @@ public class InfoBox {
     VBox.setVgrow(spacer1, Priority.ALWAYS);
     infoBox.setPrefWidth(250);
     infoBox.setAlignment(Pos.BOTTOM_CENTER);
-
+    view.setInfoBox(this);
     return infoBox;
   }
 
@@ -75,10 +75,11 @@ public class InfoBox {
       }
     }
   }
-  public void updatePie(Sector sector, int quantity, double value){
+
+  public void updatePie(Sector sector, int quantity, double value) {
     for (PieChart.Data p : info.pie.getData()) {
-      if (sector.toString().equals(p.getName())){
-        p.setPieValue(quantity*value);
+      if (sector.toString().equals(p.getName())) {
+        p.setPieValue(quantity * value);
       }
     }
   }

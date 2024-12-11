@@ -11,35 +11,32 @@ import gu.dit213.group28.model.wrappers.wModel;
 import gu.dit213.group28.model.wrappers.wMarket;
 import gu.dit213.group28.model.wrappers.wUser;
 
-import java.util.concurrent.TimeUnit;
-
 /** Class that takes input, creates events, delivers events and keeps track of game time. */
 public class GameCore {
 
   private final Itimer timer;
   private final IeventFacade eventFacade;
-  private final Imodel logic;
+  private final Imodel model;
   private final Imarket market;
   private final Iuser user;
   private int tick;
-  private boolean isPaused;
 
   /** Class that takes input, creates events, delivers events and keeps track of game time. */
   public GameCore(Model model) {
     timer = new Time();
     timer.initTime();
     eventFacade = new wEventFacade(new EventFacade());
-    this.logic = new wModel(model);
+    this.model = new wModel(model);
     market = new wMarket(Market.getInstance());
     user = new wUser(new Portfolio(100000));
     tick = 0;
-    isPaused = false;
   }
 
   /** Initializes the GameCore, starting the timer. */
   public void init() {
     timer.start();
-    new Thread(
+    Thread t =
+        new Thread(
             () -> {
               while (true) {
 
@@ -52,14 +49,15 @@ public class GameCore {
                   Ievent e = eventFacade.getTickEvent(tick);
                   market.accept(e);
                   user.accept(e);
-                  logic.extractEvent(e);
+                  model.extractEvent(e);
                   tick++;
                 } catch (InterruptedException ex) {
                   throw new RuntimeException(ex);
                 }
               }
-            })
-        .start();
+            });
+    t.setDaemon(true);
+    t.start();
   }
 
   /**
@@ -72,12 +70,12 @@ public class GameCore {
   public void makePurchase(Sector sector, int quantity) {
     Ievent e = eventFacade.getBuyEvent(sector, quantity);
     if (e.getID() == 2) {
-      logic.extractEvent(e);
+      model.extractEvent(e);
       return;
     }
     market.accept(e);
     user.accept(e);
-    logic.extractEvent(e);
+    model.extractEvent(e);
   }
 
   /**
@@ -91,39 +89,47 @@ public class GameCore {
     Ievent e = eventFacade.getSellEvent(sector, quantity);
 
     if (e.getID() == 4) {
-      logic.extractEvent(e);
+      model.extractEvent(e);
       return;
     }
     market.accept(e);
     user.accept(e);
-    logic.extractEvent(e);
+    model.extractEvent(e);
   }
 
   /** Creates a Predefined event and delivers it to the market. */
   public void makePredefEvent() throws InterruptedException {
     Ievent e = eventFacade.getPredefinedEvent();
-    logic.extractEvent(e);
+    model.extractEvent(e);
     timer.pause();
+    model.updatePause(true);
     market.accept(e);
   }
 
   /** Sets the game speed to Normal. */
   public void setSpeedNormal() {
+    // System.out.println("Before Normal: " + timer.getCurrentTick());
     timer.setThreshold(Speed.NORMAL);
+    // System.out.println("After Normal: " + timer.getCurrentTick());
   }
 
   /** Sets the game speed to Slow. */
   public void setSpeedSlow() {
+    // System.out.println("Before slow: " + timer.getCurrentTick());
     timer.setThreshold(Speed.SLOW);
+    // System.out.println("After slow: " + timer.getCurrentTick());
   }
 
   /** Sets the game speed to Fast. */
   public void setSpeedFast() {
+    // System.out.println("Before fast: " + timer.getCurrentTick());
     timer.setThreshold(Speed.FAST);
+    // System.out.println("After fast: " + timer.getCurrentTick());
   }
 
   /** Pauses the timer if currently active, resumes the timer if currently paused. */
   public void pauseAndResume() {
-    timer.pauseAndResume();
+    boolean running = timer.pauseAndResume();
+    model.updatePause(running);
   }
 }

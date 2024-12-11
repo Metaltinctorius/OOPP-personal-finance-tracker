@@ -39,7 +39,7 @@ public class EventExtractor extends Observable implements IeventExtractor {
         o.updateCurrency(te.getCurrency());
         o.updateProgress(te.tick, te.getIndexValue(), te.getPlayerValue());
 
-        //o.updateGraphs(te.tick, te.mOutput, te.uOutput);
+        // o.updateGraphs(te.tick, te.mOutput, te.uOutput);
         // o.updateOnEvent("Test");
         // o.updateEventHistory("Test event history");
 
@@ -54,7 +54,9 @@ public class EventExtractor extends Observable implements IeventExtractor {
     }
 
     if (e.getID() == 2) {
-      // send error?
+      for (Iobserver o : observers) {
+        o.updateOnEvent("YOU ARE BROKE, SIR");
+      }
     }
     if (e.getID() == 3) {
       EventSell se = (EventSell) e;
@@ -63,13 +65,22 @@ public class EventExtractor extends Observable implements IeventExtractor {
       }
     }
     if (e.getID() == 4) {
-      // send error?
+      for (Iobserver o : observers) {
+        o.updateOnEvent("YOU DON'T HAVE THOSE KINDA STOCKS BUD");
+      }
     }
-    if (e.getID()>4) {
+    if (e.getID() > 4) {
       EventPredef pre = (EventPredef) e;
       for (Iobserver o : observers) {
         o.updateOnEvent(pre.getDescription());
       }
+    }
+  }
+
+  @Override
+  public void updatePause(boolean pause) {
+    for (Iobserver o : observers) {
+      o.updatePause(pause);
     }
   }
 }

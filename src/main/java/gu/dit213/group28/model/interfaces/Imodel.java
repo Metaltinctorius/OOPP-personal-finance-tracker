@@ -8,4 +8,11 @@ public interface Imodel {
    * @param e Event to be extracted.
    */
   void extractEvent(Ievent e);
+
+  /**
+   * Informs view about game pause
+   *
+   * @param pause true if paused, false if resumed
+   */
+  void updatePause(boolean pause);
 }

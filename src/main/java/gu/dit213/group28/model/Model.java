@@ -13,8 +13,8 @@ public class Model implements Icontrollable, Imodel {
 
   /** Class that receives and delivers input. */
   public Model() {
-    gameCore = new GameCore(this);
     eventExtractor = new EventExtractor();
+    gameCore = new GameCore(this);
   }
 
   /** Initializes the Icontrollable */
@@ -49,8 +49,11 @@ public class Model implements Icontrollable, Imodel {
   @Override
   public void buyAsset(Sector sector, String quantity) {
     try {
-      int amount_ = Integer.parseInt(quantity);
-      gameCore.makePurchase(sector, amount_);
+      int quantity_ = Integer.parseInt(quantity);
+      if (quantity_ <= 0) {
+        return;
+      }
+      gameCore.makePurchase(sector, quantity_);
     } catch (NumberFormatException ignored) {
     }
   }
@@ -64,8 +67,11 @@ public class Model implements Icontrollable, Imodel {
   @Override
   public void sellAsset(Sector sector, String quantity) {
     try {
-      int amount_ = Integer.parseInt(quantity);
-      gameCore.makeSell(sector, amount_);
+      int quantity_ = Integer.parseInt(quantity);
+      if (quantity_ <= 0) {
+        return;
+      }
+      gameCore.makeSell(sector, quantity_);
     } catch (NumberFormatException ignored) {
     }
   }
@@ -85,12 +91,19 @@ public class Model implements Icontrollable, Imodel {
     eventExtractor.extractEvent(e);
   }
 
+  /**
+   * Informs view about game pause
+   *
+   * @param pause true if paused, false if resumed
+   */
+  @Override
+  public void updatePause(boolean pause) {
+    eventExtractor.updatePause(pause);
+  }
+
   /** Pauses the timer if currently active. Resumes the timer if it is currently paused. */
   @Override
   public void pauseAndResume() {
-    try {
-      gameCore.pauseAndResume();
-    } catch (NumberFormatException ignored) {
-    }
+    gameCore.pauseAndResume();
   }
 }

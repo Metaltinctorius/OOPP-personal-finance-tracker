@@ -19,6 +19,7 @@ public class View implements Iobserver {
   private final Stage stage;
   private Graphs graphs;
   private InfoBox info;
+  private LowerPanel low;
   private Text eventLog;
 
   /** The main view class, update various components after being sent a notice by its observer */
@@ -47,6 +48,11 @@ public class View implements Iobserver {
     this.info = info;
   }
 
+  /** Sets the Lowerpanel component of the view. */
+  public void setLowerPanel(LowerPanel low) {
+    this.low = low;
+  }
+
   /** Updates the central graphs. */
   @Override
   public void updateGraphs(int xAxis, List<MarketOutput> mOutput, List<UserOutput> uOutput) {
@@ -60,8 +66,11 @@ public class View implements Iobserver {
   /** Updates the quantity of assets owned by the player in each sector. */
   @Override
   public void updateOwned(Sector sector, int quantity, double value) {
-    Platform.runLater(() -> {graphs.updateOwnedField(sector, quantity);
-            info.updatePie(sector, quantity, value);});
+    Platform.runLater(
+        () -> {
+          graphs.updateOwnedField(sector, quantity);
+          info.updatePie(sector, quantity, value);
+        });
   }
 
   /** Updates the players current currency. */
@@ -100,5 +109,10 @@ public class View implements Iobserver {
         () -> {
           eventLog.setText(eventLog.getText() + "\n" + event);
         });
+  }
+
+  @Override
+  public void updatePause(boolean pause) {
+    Platform.runLater(() -> low.updatePauseButton(pause));
   }
 }

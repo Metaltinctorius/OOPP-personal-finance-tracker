@@ -71,9 +71,10 @@ public class TimeTest {
     time.setThreshold(Speed.FAST);
 
     time.start();
-    TimeUnit.MILLISECONDS.sleep(515);
+    TimeUnit.MILLISECONDS.sleep(1650);
+    System.out.println(time.getCurrentTick());
     time.setThreshold(Speed.SLOW);
-
+    System.out.println(time.getCurrentTick());
     assertTrue(time.next());
   }
 
@@ -81,9 +82,10 @@ public class TimeTest {
   public void timeChangeSlowToFastTest() throws InterruptedException {
     time.setThreshold(Speed.SLOW);
     time.start();
-    TimeUnit.MILLISECONDS.sleep(5010);
+    TimeUnit.MILLISECONDS.sleep(16500);
+    System.out.println(time.getCurrentTick());
     time.setThreshold(Speed.FAST);
-    TimeUnit.MILLISECONDS.sleep(515);
+    System.out.println(time.getCurrentTick());
     assertTrue(time.next());
   }
 
