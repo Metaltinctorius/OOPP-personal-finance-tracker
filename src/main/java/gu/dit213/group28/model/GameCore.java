@@ -108,7 +108,7 @@ public class GameCore {
   public void makePredefEvent() throws InterruptedException {
     Ievent e = eventFacade.getPredefinedEvent();
     timer.pause();
-    int trigger = 3;
+    int trigger = 0;
     pendingEvents.add(new ScheduleEvent(e, trigger));
     logic.extractEvent(e);
     //market.accept(e);
