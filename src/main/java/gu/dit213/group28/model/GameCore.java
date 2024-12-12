@@ -108,13 +108,12 @@ public class GameCore {
   public void makePredefEvent() throws InterruptedException {
     Ievent e = eventFacade.getPredefinedEvent();
     timer.pause();
-    int trigger = 0;
+    int trigger = 1; // Change this to increase delay of event to trigger after its been announced.
     pendingEvents.add(new ScheduleEvent(e, trigger));
     logic.extractEvent(e);
-    //market.accept(e);
   }
 
-  void processPendingEvents(){
+  private void processPendingEvents(){
     List<ScheduleEvent> toTrigger = new ArrayList<>();
     for(ScheduleEvent se : pendingEvents){
       if(se.trigger <= 0){

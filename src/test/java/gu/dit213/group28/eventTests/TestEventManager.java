@@ -1,9 +1,12 @@
 package gu.dit213.group28.eventTests;
 
+import gu.dit213.group28.model.enums.EventType;
+import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.events.Event;
 import gu.dit213.group28.model.events.EventManager;
 import gu.dit213.group28.model.events.EventLoader;
 import gu.dit213.group28.model.events.EventPredef;
+import gu.dit213.group28.model.interfaces.Ievent;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
@@ -13,52 +16,47 @@ import org.junit.jupiter.api.Test;
 public class TestEventManager {
 
   EventManager manager;
-  List<Event> events;
-
-  // Tests are based on the "testFile.json" file.
-
-  @BeforeEach
-  public void setup() {
-    events = new ArrayList<>();
-    EventLoader loader = new EventLoader();
-    loader.loadEvents();
-    // Manager needs the list of loaded events from the json file, as well as the ids the occupy.
-    manager = new EventManager();
-    // Only the events in the json file.
-    events.addAll(manager.getPredefinedEvents());
-  }
-
-  @Test
-  public void test_getPredefinedEvents() {
-    int expected = 4;
-    Assertions.assertEquals(events.size(), expected);
-  }
+  Ievent testEvent;
+  List<EventPredef> events;
 
   @Test
   public void test_add_event_to_log() {
-    manager.addToEventLog(events.getFirst());
-    assert (true);
-    // Assertions.assertEquals(manager.getEventLog().getFirst().getDescription(), "Event 1");
+    manager.addToEventLog(testEvent);
+    Assertions.assertEquals(manager.getEventLog().getFirst().getID(), 99);
   }
-
 
   @Test
   public void test_get_id_from_predefined_events() {
-    EventPredef event = manager.getEventFromId(2);
-    Assertions.assertEquals(event.getDescription(), "Event 2");
+    Assertions.assertFalse(manager.getPredefinedEvents().isEmpty());
   }
 
   @Test
-  public void test_add_event_to_queue() {
-    Event event = events.getFirst();
-    manager.addToEventQueue(event);
-    Assertions.assertTrue(manager.getEventQueue().contains(event));
+  public void get_event_log() {
+    manager.addToEventLog(testEvent);
+    Assertions.assertTrue(manager.getEventLog().contains(testEvent));
   }
 
   @Test
-  public void test_get_next_event_from_queue() {
-    Event event = events.getFirst();
-    manager.addToEventQueue(event);
-    Assertions.assertEquals(manager.getNextEvent(), event);
+  public void get_random_event() {
+    EventPredef event = manager.getRandomEvent();
+    Assertions.assertTrue(manager.getPredefinedEvents().contains(event));
+  }
+
+  @Test
+  public void get_event_from_id() {
+    EventPredef event = manager.getEventFromId(1);
+    Assertions.assertEquals(event, events.getFirst());
+  }
+
+  @BeforeEach
+  public void setup() {
+    manager = new EventManager();
+
+    // Tests are based on the "testFile.json" file.
+    manager.loadEvents(manager.getTestFile());
+    events = manager.getPredefinedEvents();
+
+    List<Sector> sectors = new ArrayList<>();
+    testEvent = new EventPredef(99, "test event", "for testing", EventType.ONCE, 1, sectors, 0.2);
   }
 }

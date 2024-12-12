@@ -1,9 +1,10 @@
 package gu.dit213.group28.eventTests;
 
+import gu.dit213.group28.model.enums.Sector;
+import gu.dit213.group28.model.events.EventManager;
 import gu.dit213.group28.model.events.EventPredef;
 import gu.dit213.group28.model.events.EventFacade;
 import gu.dit213.group28.model.enums.EventType;
-import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.events.EventLoader;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ public class TestEventLoader {
   /** Just a confirmation that the eventLoader can load several events. */
   @Test
   public void test_loading_several() {
-    int expected = 4;
+    int expected = 3;
     int actual = predefinedEvents.size();
     loader.viewParsedInputs();
     Assertions.assertEquals(expected, actual);
@@ -34,20 +35,32 @@ public class TestEventLoader {
   @Test
   public void test_description() {
     String description = predefinedEvents.get(0).getDescription();
-    String expected = "Event 1";
+    String expected = "Test repeating event with 6 iterations, healthcare";
+    Assertions.assertEquals(description, expected);
+  }
+
+  @Test
+  public void test_title() {
+    String description = predefinedEvents.get(0).getTitle();
+    String expected = "TEST REPEATING HEALTHCARE";
     Assertions.assertEquals(description, expected);
   }
 
   @Test
   public void test_type_once() {
-    EventType type = predefinedEvents.get(0).getType();
+    EventType type = predefinedEvents.get(1).getType();
     EventType expected = EventType.ONCE;
     Assertions.assertEquals(type, expected);
   }
 
   @Test
+  public void test_type_once_empty_sectors() {
+    Assertions.assertTrue(predefinedEvents.get(2).getSectors().isEmpty());
+  }
+
+  @Test
   public void test_type_repeating() {
-    EventType type = predefinedEvents.get(2).getType();
+    EventType type = predefinedEvents.get(0).getType();
     EventType expected = EventType.REPEATING;
     Assertions.assertEquals(type, expected);
   }
@@ -55,45 +68,42 @@ public class TestEventLoader {
   @Test
   public void test_type_once_iterations_zero() {
     EventPredef event = predefinedEvents.get(1);
-    Assertions.assertEquals(event.getIterations(), 0);
+    Assertions.assertEquals(event.getIterations(), 1);
   }
 
   @Test
   public void test_iterations() {
     EventPredef event = predefinedEvents.get(0);
     int actual = event.getIterations();
-    int expected = 0;
+    int expected = 6;
     Assertions.assertEquals(expected, actual);
   }
 
-  /*@Test
-  public void test_categories_successful_list(){
-    EventPredef event = predefinedEvents.get(0);
-    List <Sector> sectors = event.getSectorList();
-    int expected = 1;
-    Assertions.assertEquals(expected, sectors.size());
-  }
-
   @Test
-  public void test_categories(){
+  public void test_several_sectors() {
     EventPredef event = predefinedEvents.get(1);
-    List <Sector> sectors = event.getSectorList();
-    Assertions.assertEquals(sectors.getFirst(), Sector.HEALTHCARE);
-    Assertions.assertEquals(sectors.get(1), Sector.UTILITIES);
+    List<Sector> sectors = event.getSectors();
+    Assertions.assertEquals(sectors.size(), 3);
   }
 
   @Test
-  public void test_categories_empty(){
-    EventPredef event = predefinedEvents.get(2);
-    List <Sector> sectors = event.getSectorList();
-    Assertions.assertTrue(sectors.isEmpty());
-  }*/
+  public void test_get_predef_events() {
+    List<EventPredef> events = loader.getPredefinedEvents();
+    Assertions.assertFalse(events.isEmpty());
+  }
+
+  @Test
+  public void test_get_reservedIds() {
+    List<Integer> ids = loader.getReservedIds();
+    Assertions.assertFalse(ids.isEmpty());
+  }
 
   @BeforeEach
   public void setup() {
     facade = new EventFacade();
     loader = new EventLoader();
-    loader.loadEvents();
+    EventManager manager = new EventManager();
+    loader.loadEvents(manager.getTestFile());
     predefinedEvents = loader.getPredefinedEvents(); // Loads the events.
   }
 }

@@ -17,22 +17,21 @@ public class EventFacade implements IeventFacade
 
   public EventFacade() {
     this.eventManager = new EventManager();
+    eventManager.loadEvents(eventManager.getEventFile());
     randomEventChance = -0.2;
   }
 
-  /**
-   * Adds an event to the event queue, this is useful for scheduled events.
-   * @param event to add to the queue
-   */
-  public void addEventToQueue(Event event) {
-    eventManager.addToEventQueue(event);
+  public void loadTestEvents (){
+    eventManager.loadEvents(eventManager.getTestFile());
   }
+
+
 
   /**
    * Returns the event log (the history of passed events).
-   * @return List <Event>
+   * @return List <Ievent>
    */
-  public List<Event> getEventLog() {
+  public List<Ievent> getEventLog() {
     return eventManager.getEventLog();
   }
 
@@ -41,7 +40,7 @@ public class EventFacade implements IeventFacade
    * @param event to store in the log
    */
   public void addEventToLog(Ievent event) {
-    eventManager.addToEventLog((Event) event); // TODO MAYBE CHANGE FROM CASTING?
+    eventManager.addToEventLog(event);
   }
 
   @Override
