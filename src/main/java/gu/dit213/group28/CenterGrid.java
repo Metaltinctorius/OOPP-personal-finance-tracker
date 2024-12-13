@@ -44,69 +44,7 @@ public class CenterGrid {
     return grid;
   }
 
-  private void populateCenterGrid(GridPane grid, Icontrollable model, View view) {
-    Graphs graphs = new Graphs();
-    Sector[] sectors = Sector.values();
-    for (int i = 0; i < 6; i++) {
-      Sector s = sectors[i + 1];
-
-      // Create the graph/chart
-      NumberAxis xAxis = new NumberAxis();
-      NumberAxis yAxis = new NumberAxis();
-      xAxis.setForceZeroInRange(false);
-      yAxis.setForceZeroInRange(false);
-
-      LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
-      lineChart.setTitle(s.toString());
-
-      // Adds the functionality under the graphs.
-      TextField ownedField = new TextField();
-
-      TextField priceField = new TextField();
-
-      graphs.addGraph(lineChart, s, ownedField, priceField, getColour(s));
-
-      TextField quantityField = new TextField();
-      quantityField.setPrefWidth(100);
-      quantityField.setPromptText("Quantity");
-      quantityField.setMinWidth(Region.USE_PREF_SIZE);
-      HBox buySellControls = getHBox(s, quantityField, ownedField, model);
-
-      HBox quantityPriceControls =
-          new HBox(10, new Label("Qty:"), quantityField, new Label("Price:"), priceField);
-      quantityPriceControls.setAlignment(Pos.CENTER);
-      quantityPriceControls.setMinWidth(Region.USE_PREF_SIZE);
-
-      VBox graphAndControls = new VBox(10, lineChart, buySellControls, quantityPriceControls);
-      graphAndControls.setAlignment(Pos.CENTER);
-      VBox.setVgrow(lineChart, Priority.ALWAYS);
-
-      grid.add(graphAndControls, i % 3, i / 3);
-    }
-    view.setGraphs(graphs);
-  }
-
-  private static HBox getHBox(
-      Sector s, TextField quantityField, TextField ownedField, Icontrollable model) {
-    Button buyButton = new Button("Buy");
-    buyButton.setMinWidth(Region.USE_PREF_SIZE);
-    buyButton.setOnAction(
-        event -> {
-          model.buyAsset(s, quantityField.getText());
-        });
-    Button sellButton = new Button("Sell");
-    sellButton.setMinWidth(Region.USE_PREF_SIZE);
-    sellButton.setOnAction(
-        event -> {
-          model.sellAsset(s, quantityField.getText());
-        });
-
-    HBox buySellControls = new HBox(10, buyButton, sellButton, new Label("Owned:"), ownedField);
-    buySellControls.setAlignment(Pos.CENTER);
-    return buySellControls;
-  }
-
-  public LineChart<Number, Number> createGraph(Sector sector) {
+  private LineChart<Number, Number> createGraph(Sector sector) {
     NumberAxis xAxis = new NumberAxis();
     NumberAxis yAxis = new NumberAxis();
     xAxis.setForceZeroInRange(false);
@@ -117,7 +55,7 @@ public class CenterGrid {
     return lineChart;
   }
 
-  public TextField createQuantityField() {
+  private TextField createQuantityField() {
     TextField quantityField = new TextField();
     quantityField.setPrefWidth(100);
     quantityField.setPromptText("0");
@@ -125,7 +63,7 @@ public class CenterGrid {
     return quantityField;
   }
 
-  public HBox quantityPriceField(TextField quantityField, TextField priceField) {
+  private HBox quantityPriceField(TextField quantityField, TextField priceField) {
     HBox quantityPriceControls =
         new HBox(10, new Label("Qty:"), quantityField, new Label("Price:"), priceField);
     quantityPriceControls.setAlignment(Pos.CENTER);
@@ -133,7 +71,7 @@ public class CenterGrid {
     return quantityPriceControls;
   }
 
-  public Button createButton(String text) {
+  private Button createButton(String text) {
     Button button = new Button(text);
     button.setMinWidth(Region.USE_PREF_SIZE);
     return button;
@@ -143,7 +81,7 @@ public class CenterGrid {
    * Buy and sell button together with the owned field, wrapped in a horizontal box for scene
    * alignment of the grid
    */
-  public HBox buySellOwnedBox(Button buyButton, Button sellButton, TextField ownedField) {
+  private HBox buySellOwnedBox(Button buyButton, Button sellButton, TextField ownedField) {
     HBox buySellControls = new HBox(10, buyButton, sellButton, new Label("Owned:"), ownedField);
     buySellControls.setAlignment(Pos.CENTER);
     buySellControls.setMinWidth(Region.USE_PREF_SIZE);
@@ -151,7 +89,7 @@ public class CenterGrid {
   }
 
   /** Graph and controls wrapped in a vertical box for scene alignment of the grid */
-  public VBox graphAndControlsBox(
+  private VBox graphAndControlsBox(
       LineChart<Number, Number> lineChart, HBox buySellOwnedBox, HBox quantityPriceControls) {
     VBox graphAndControls = new VBox(10, lineChart, buySellOwnedBox, quantityPriceControls);
     graphAndControls.setAlignment(Pos.CENTER);
@@ -159,11 +97,10 @@ public class CenterGrid {
     return graphAndControls;
   }
 
-  public GridPane generateCenterGrid(Icontrollable model, View view) {
+  private void populateCenterGrid(GridPane grid, Icontrollable model, View view) {
     CenterGrid centerGrid = new CenterGrid();
     Graphs graphs = new Graphs();
     Sector[] sectors = Sector.values();
-    GridPane grid = new GridPane();
     for (int i = 0; i < 6; i++) {
       Sector sector = sectors[i + 1];
       LineChart<Number, Number> lineChart = centerGrid.createGraph(sector);
@@ -185,7 +122,6 @@ public class CenterGrid {
       graphs.addGraph(lineChart, sector, ownedField, priceField, getColour(sector));
     }
     view.setGraphs(graphs);
-    return grid;
   }
 
   private String getColour(Sector s) {
