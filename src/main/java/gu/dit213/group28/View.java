@@ -20,7 +20,7 @@ public class View implements Iobserver {
   private Graphs graphs;
   private InfoBox info;
   private LowerPanel low;
-  private Text eventLog;
+  private EventLogs eventLog;
 
   /** The main view class, update various components after being sent a notice by its observer */
   View(Stage stage, Observable observable) {
@@ -34,7 +34,7 @@ public class View implements Iobserver {
   }
 
   /** Sets the eventLog component of the view. */
-  public void setEventLog(Text eventLog) {
+  public void setEventLog(EventLogs eventLog) {
     this.eventLog = eventLog;
   }
 
@@ -104,10 +104,15 @@ public class View implements Iobserver {
 
   /** Updates the event history box, not yet connected */
   @Override
-  public void updateEventHistory(String event) {
+  public void updateEventHistory(String eventTitle, String eventDescription) {
     Platform.runLater(
         () -> {
-          eventLog.setText(eventLog.getText() + "\n" + event);
+          //eventLog.setText(eventLog.getText() + "\n" + event);
+          eventLog.populateEventTextBox(eventTitle);
+          eventLog.getEventLogText().getChildren().getFirst().setOnMouseClicked(event2 -> {
+              updateOnEvent(eventDescription);
+          });
+
         });
   }
 

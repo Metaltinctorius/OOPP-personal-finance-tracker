@@ -73,6 +73,7 @@ public class EventExtractor extends Observable implements IeventExtractor {
       EventPredef pre = (EventPredef) e;
       for (Iobserver o : observers) {
         o.updateOnEvent(pre.getDescription());
+        o.updateEventHistory(pre.getTitle(), pre.getDescription());
       }
     }
   }

@@ -44,7 +44,7 @@ public class Controller {
     stage.setScene(scene);
     low.setKeys(scene, model);
     stage.setTitle("Finance Tracker");
-    view.setEventLog(eventLog);
+    //view.setEventLog(eventLog);
     view.initView();
   }
 
@@ -52,15 +52,24 @@ public class Controller {
   private Scene createScene(LowerPanel low) {
     BorderPane root = new BorderPane();
     InfoBox info = new InfoBox();
+    EventLogs eventLog = new EventLogs();
 
     root.setCenter(CenterGrid.createCenterGrid(model, view));
     root.setBottom(low.createLowerButtonPanel(model, view));
-    root.setRight(createEventTextBox());
+
+    TitledPane eventLogPane = eventLog.createEventLog(view);
+    eventLogPane.prefWidthProperty().bind(root.widthProperty().multiply(0.2));
+    root.setRight(eventLogPane);
+
     root.setLeft(info.createInfoBox(view));
+
+
+
     return new Scene(root, 1280, 720);
   }
 
   /** Creates a scene component showing events. */
+  /*
   private TitledPane createEventTextBox() {
     eventLog = new Text();
     ScrollPane scrollPane = new ScrollPane(eventLog);
@@ -73,4 +82,8 @@ public class Controller {
     titledPane.setPrefHeight(600);
     return titledPane;
   }
+  public void populateEventTextBox(String eventTitle) {
+    createEventTextBox().setText(eventTitle);
+  }
+  */
 }
