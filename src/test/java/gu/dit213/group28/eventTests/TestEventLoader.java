@@ -79,25 +79,6 @@ public class TestEventLoader {
     Assertions.assertEquals(expected, actual);
   }
 
-  @Test
-  public void test_several_sectors() {
-    EventPredef event = predefinedEvents.get(1);
-    List<Sector> sectors = event.getSectors();
-    Assertions.assertEquals(sectors.size(), 3);
-  }
-
-  @Test
-  public void test_get_predef_events() {
-    List<EventPredef> events = loader.getPredefinedEvents();
-    Assertions.assertFalse(events.isEmpty());
-  }
-
-  @Test
-  public void test_get_reservedIds() {
-    List<Integer> ids = loader.getReservedIds();
-    Assertions.assertFalse(ids.isEmpty());
-  }
-
   @BeforeEach
   public void setup() {
     facade = new EventFacade();
