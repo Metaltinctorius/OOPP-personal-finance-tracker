@@ -36,6 +36,7 @@ public interface IeventFacade {
    */
   Ievent getPredefinedEvent();
 
+
   /**
    * Checks if a random event should be created. Each call increases the probability of the next.
    */

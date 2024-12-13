@@ -16,17 +16,15 @@ public class EventFacade implements IeventFacade {
 
   public EventFacade() {
     this.eventManager = new EventManager();
+    eventManager.loadEvents(eventManager.getEventFile());
     randomEventChance = -0.2;
   }
 
-  /**
-   * Adds an event to the event queue, this is useful for scheduled events.
-   *
-   * @param event to add to the queue
-   */
-  public void addEventToQueue(Ievent event) {
-    eventManager.addToEventQueue(event);
+  public void loadTestEvents (){
+    eventManager.loadEvents(eventManager.getTestFile());
   }
+
+
 
   /**
    * Returns the event log (the history of passed events).

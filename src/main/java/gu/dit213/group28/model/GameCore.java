@@ -11,7 +11,8 @@ import gu.dit213.group28.model.wrappers.wModel;
 import gu.dit213.group28.model.wrappers.wMarket;
 import gu.dit213.group28.model.wrappers.wUser;
 
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 /** Class that takes input, creates events, delivers events and keeps track of game time. */
 public class GameCore {
@@ -23,6 +24,8 @@ public class GameCore {
   private final Iuser user;
   private int tick;
   private boolean isPaused;
+
+  private final List<ScheduleEvent> pendingEvents = new ArrayList<>();
 
   /** Class that takes input, creates events, delivers events and keeps track of game time. */
   public GameCore(Model model) {
@@ -46,6 +49,7 @@ public class GameCore {
                 try {
                   timer.next();
                   market.decrementAllModifiers();
+                  processPendingEvents();
                   if (eventFacade.isRandomEventReady()) {
                     makePredefEvent();
                   }
@@ -100,11 +104,29 @@ public class GameCore {
   }
 
   /** Creates a Predefined event and delivers it to the market. */
+
   public void makePredefEvent() throws InterruptedException {
     Ievent e = eventFacade.getPredefinedEvent();
-    logic.extractEvent(e);
     timer.pause();
-    market.accept(e);
+    int trigger = 1; // Change this to increase delay of event to trigger after its been announced.
+    pendingEvents.add(new ScheduleEvent(e, trigger));
+    logic.extractEvent(e);
+  }
+
+  private void processPendingEvents(){
+    List<ScheduleEvent> toTrigger = new ArrayList<>();
+    for(ScheduleEvent se : pendingEvents){
+      if(se.trigger <= 0){
+        toTrigger.add(se);
+      } else {
+        se.trigger =- 1;
+      }
+    }
+
+    for(ScheduleEvent trigg : toTrigger){
+      market.accept(trigg.event);
+      pendingEvents.remove(trigg);
+    }
   }
 
   /** Sets the game speed to Normal. */

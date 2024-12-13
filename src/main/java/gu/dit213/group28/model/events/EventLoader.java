@@ -28,8 +28,9 @@ public class EventLoader implements IeventLoader {
   }
 
   /** This is the method to load the events, reachable with an instance of the loader. */
-  public void loadEvents() {
-    readFromJsonFile();
+  @Override
+  public void loadEvents(String path) {
+    readFromJsonFile(path);
   }
 
   /**
@@ -37,6 +38,7 @@ public class EventLoader implements IeventLoader {
    *
    * @return returns the list of all predefined events.
    */
+  @Override
   public List<EventPredef> getPredefinedEvents() {
     return predefinedEvents;
   }
@@ -44,20 +46,17 @@ public class EventLoader implements IeventLoader {
   /*
    * Returns the list of reservedIds (important for in-game created events).
    */
+  @Override
   public List<Integer> getReservedIds() {
     return reservedIds;
   }
 
-  String testFile = "src/main/java/gu/dit213/group28/model/events/testFile.json";
-
-  String mvpEvents = "src/main/java/gu/dit213/group28/model/events/mvpEvents.json";
-
   /** This method reads and parses the json file */
-  private void readFromJsonFile() {
+  private void readFromJsonFile(String file) {
     JSONParser parser = new JSONParser();
 
     /** Input the json file to read. */
-    try (FileReader reader = new FileReader(mvpEvents)) {
+    try (FileReader reader = new FileReader(file)) {
 
       JSONArray jsonArray = (JSONArray) parser.parse(reader);
 
@@ -84,6 +83,21 @@ public class EventLoader implements IeventLoader {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Wrapper method for validating arguments. Used in the reader method before returning the
+   * arguments to the builder method
+   *
+   * @param id int (predefined in the json file)
+   * @param type eventType
+   * @param iterations int ierations
+   * @param sectorStrings sectors as strings
+   */
+  private void checkArguments(int id, EventType type, int iterations, List<String> sectorStrings) {
+    validateId(id);
+    validateIterations(type, iterations);
+    validateSectors(sectorStrings);
   }
 
   /**
@@ -127,21 +141,6 @@ public class EventLoader implements IeventLoader {
         throw new IllegalArgumentException("Invalid sector: " + sector, e);
       }
     }
-  }
-
-  /**
-   * Wrapper method for validating arguments. Used in the reader method before returning the
-   * arguments to the builder method
-   *
-   * @param id int (predefined in the json file)
-   * @param type eventType
-   * @param iterations int ierations
-   * @param sectorStrings sectors as strings
-   */
-  private void checkArguments(int id, EventType type, int iterations, List<String> sectorStrings) {
-    validateId(id);
-    validateIterations(type, iterations);
-    validateSectors(sectorStrings);
   }
 
   /**

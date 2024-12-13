@@ -1,36 +1,30 @@
 [
   {
     "id": "1",
-    "description": "Event 1",
-    "type": "ONCE",
-    "iterations": "0",
+    "title": "TEST REPEATING HEALTHCARE",
+    "description": "Test repeating event with 6 iterations, healthcare",
+    "type": "REPEATING",
+    "iterations": "6",
     "sectors": ["HEALTHCARE"],
-    "modifier": "0.5"
+    "modifier": "0.10"
   },
   {
     "id": "2",
-    "description": "Event 2",
+    "title": "TEST ONCE",
+    "description": "Once, no sectors",
     "type": "ONCE",
-    "iterations": "0",
-    "sectors": ["HEALTHCARE", "UTILITIES"],
-    "modifier": "0.5"
+    "iterations": "1",
+    "sectors": ["HEALTHCARE", "UTILITIES", "FINANCIALS"],
+    "modifier": "0.10"
   },
   {
     "id": "3",
-    "description": "Iterations 0 and type is repeating",
-    "type": "REPEATING",
-    "iterations": "2",
+    "title": "TEST ONCE NO SECTOR",
+    "description": "Once, no sectors",
+    "type": "ONCE",
+    "iterations": "1",
     "sectors": [],
-    "modifier": "0.5"
-  },
-
-  {
-    "id": "4",
-    "description": "Test without action",
-    "type": "REPEATING",
-    "iterations": "9",
-    "sectors": ["HEALTHCARE", "UTILITIES"],
-    "modifier": "0.87"
+    "modifier": "0.10"
   }
 ]
 
