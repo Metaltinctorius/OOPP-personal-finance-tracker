@@ -1,12 +1,14 @@
 package gu.dit213.group28;
 
 import gu.dit213.group28.model.enums.Sector;
+import gu.dit213.group28.model.interfaces.Icontrollable;
 import javafx.geometry.Pos;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -65,5 +67,46 @@ public class CenterGrid {
     graphAndControls.setAlignment(Pos.CENTER);
     VBox.setVgrow(lineChart, Priority.ALWAYS);
     return graphAndControls;
+  }
+
+  public GridPane createCenterGrid(Icontrollable model, View view) {
+    CenterGrid centerGrid = new CenterGrid();
+    Graphs graphs = new Graphs();
+    Sector[] sectors = Sector.values();
+    GridPane grid = new GridPane();
+    for (int i = 0; i < 6; i++) {
+      Sector sector = sectors[i + 1];
+      LineChart<Number, Number> lineChart = centerGrid.createGraph(sector);
+
+      TextField ownedField = new TextField();
+      TextField priceField = new TextField();
+      TextField quantityField = centerGrid.createQuantityField();
+
+      Button buyButton = centerGrid.createButton("Buy");
+      Button sellButton = centerGrid.createButton("Sell");
+      buyButton.setOnAction(event -> model.buyAsset(sector, quantityField.getText()));
+      sellButton.setOnAction(event -> model.sellAsset(sector, quantityField.getText()));
+
+      HBox buySellOwnedBox = centerGrid.buySellOwnedBox(buyButton, sellButton, ownedField);
+      HBox quantityPriceBox = centerGrid.quantityPriceField(quantityField, priceField);
+      VBox vbox = centerGrid.graphAndControlsBox(lineChart, buySellOwnedBox, quantityPriceBox);
+
+      grid.add(vbox, i % 3, i / 3);
+      graphs.addGraph(lineChart, sector, ownedField, priceField, getColour(sector));
+    }
+    view.setGraphs(graphs);
+    return grid;
+  }
+
+  private String getColour(Sector s) {
+    return switch (s) {
+      case INFORMATION_TECHNOLOGY -> "#fba71b";
+      case FINANCIALS -> "#57b757";
+      case REAL_ESTATE -> "#41a9c9";
+      case HEALTHCARE -> "#4258c9";
+      case CONSUMER_STAPLES -> "#9a42c8";
+      case UTILITIES -> "#c84164";
+      default -> "#888888";
+    };
   }
 }

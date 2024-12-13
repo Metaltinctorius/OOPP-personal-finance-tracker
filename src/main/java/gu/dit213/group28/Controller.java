@@ -60,7 +60,8 @@ public class Controller {
   /** Creates the scene for the JavaFX stage. */
   private Scene createScene() {
     BorderPane root = new BorderPane();
-    root.setCenter(createCenterGrid());
+    CenterGrid centerGrid = new CenterGrid();
+    root.setCenter(centerGrid.createCenterGrid(logic, view));
     root.setBottom(createLowerButtonPanel());
     root.setRight(createEventTextBox());
     root.setLeft(createInfoBox());
@@ -162,52 +163,11 @@ public class Controller {
   /**
    * Creates the center scene component with graphs, fields and buttons with buy/sell functionality.
    */
-  private GridPane createCenterGrid() {
-    CenterGrid centerGrid = new CenterGrid();
-    Graphs graphs = new Graphs();
-    Sector[] sectors = Sector.values();
-    GridPane grid = new GridPane();
-    for (int i = 0; i < 6; i++) {
-      Sector sector = sectors[i + 1];
-      LineChart<Number, Number> lineChart = centerGrid.createGraph(sector);
-
-      TextField ownedField = new TextField();
-      TextField priceField = new TextField();
-      TextField quantityField = centerGrid.createQuantityField();
-
-      Button buyButton = centerGrid.createButton("Buy");
-      Button sellButton = centerGrid.createButton("Sell");
-      buyButton.setOnAction(event -> logic.buyAsset(sector, quantityField.getText()));
-      sellButton.setOnAction(event -> logic.sellAsset(sector, quantityField.getText()));
-
-      HBox buySellOwnedBox = centerGrid.buySellOwnedBox(buyButton, sellButton, ownedField);
-      HBox quantityPriceBox = centerGrid.quantityPriceField(quantityField, priceField);
-      VBox vbox = centerGrid.graphAndControlsBox(lineChart, buySellOwnedBox, quantityPriceBox);
-
-      grid.add(vbox, i % 3, i / 3);
-      graphs.addGraph(lineChart, sector, ownedField, priceField, getColour(sector));
-    }
-    view.setGraphs(graphs);
-    return grid;
-  }
-
   private VBox createInfoBox() {
     InfoBox info = new InfoBox();
 
     view.setInfoBox(info);
 
     return info.createInfoBox();
-  }
-
-  private String getColour(Sector s) {
-    return switch (s) {
-      case INFORMATION_TECHNOLOGY -> "#fba71b";
-      case FINANCIALS -> "#57b757";
-      case REAL_ESTATE -> "#41a9c9";
-      case HEALTHCARE -> "#4258c9";
-      case CONSUMER_STAPLES -> "#9a42c8";
-      case UTILITIES -> "#c84164";
-      default -> "#888888";
-    };
   }
 }
