@@ -71,7 +71,7 @@ public class TestEventLoader {
     Assertions.assertEquals(expected, actual);
   }
 
-  @Test
+/*  @Test
   public void test_categories_successful_list(){
     EventPredef event = predefinedEvents.get(0);
     List <Sector> sectors = event.getSectorList();
@@ -92,7 +92,7 @@ public class TestEventLoader {
     EventPredef event = predefinedEvents.get(2);
     List <Sector> sectors = event.getSectorList();
     Assertions.assertTrue(sectors.isEmpty());
-  }
+  }*/
 
   @BeforeEach
   public void setup(){

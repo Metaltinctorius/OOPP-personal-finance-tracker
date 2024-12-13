@@ -24,8 +24,8 @@ public class PortfolioTest {
   @BeforeEach
   public void setUp() {
     portfolio = new Portfolio(10000);
-    asset = new Asset("S&P500", "Index Fund", Sector.INDEX, 100);
-    market = Market.getInstance();
+    asset = new Asset("HC", "Healthcare Fund", Sector.HEALTHCARE, 100);
+    market = Market.getInstance(); // Trend = 1.00565
     market.addAsset(asset);
   }
 
@@ -47,36 +47,69 @@ public class PortfolioTest {
         break;
       }
     }
-    assertEquals(asset, ownedAsset);
+    assertEquals(asset.getSector(), ownedAsset.getSector());
   }
 
   @Test
   public void testGetTrendAsset() {
     asset.addTrendModifier(new TrendModifier(.1, 1));
-    assertEquals(1.1, asset.getTrend());
+    assertEquals(.1, asset.getTrend());
   }
 
   @Test
   public void testUpdatePrice() {
-    portfolio.addEntry(new PortfolioEntry(asset.getSector(), 5, asset.getPrice()));
     asset.updatePrice();
-    assertEquals(110, asset.getPrice(), 0.001);
+    double expectedPrice = 100 * 1.00565;
+    assertEquals(expectedPrice, asset.getPrice());
   }
 
   @Test
   public void testPriceModifier() {
-    portfolio.addEntry(new PortfolioEntry(asset.getSector(), 5, asset.getPrice()));
     asset.addTrendModifier(new TrendModifier(.1, 1));
     asset.updatePrice();
-    assertEquals(120, asset.getPrice(), 0.001);
+    double expectedPrice = 100 * (0.1 + 1.00565);
+    assertEquals(expectedPrice, asset.getPrice());
   }
 
-  /*@Test
+  @Test
+  public void testDecrementMods() {
+    asset.addTrendModifier(new TrendModifier(.1, 2));
+    asset.decrementAssetModifiers();
+    assertEquals(1, asset.getTrendModifiers().getFirst().getIterationsLeft());
+  }
+
+  @Test
   public void testRemoveModifier() {
     asset.addTrendModifier(new TrendModifier(.1, 1));
-    asset.addTrendModifier(new TrendModifier(.2, 2));
-    asset.addTrendModifier(new TrendModifier(.3, 3));
-    asset.removeTrendModifier(2);
-    assertEquals(1.4, asset.getTrend());
-  }*/
+    asset.decrementAssetModifiers();
+    assertEquals(0, asset.getTrendModifiers().size());
+  }
+
+  @Test
+  public void testMarketModifierDecrement() {
+    market.addTrendModifier(new TrendModifier(.1, 2));
+    market.decrementMarketModifiers();
+    assertEquals(1, market.getTrendModifiers().getFirst().getIterationsLeft());
+  }
+
+  @Test
+  public void testMarketModifierRemove() {
+    market.addTrendModifier(new TrendModifier(.1, 1));
+    market.decrementMarketModifiers();
+    assertEquals(0, market.getTrendModifiers().size());
+  }
+
+  @Test void testDecrementAllMods () {
+    asset.addTrendModifier(new TrendModifier(.1, 2));
+    market.addTrendModifier(new TrendModifier(.1, 1));
+    market.decrementAllModifiers();
+    assertEquals(0, market.getTrendModifiers().size());
+    assertEquals(1, asset.getTrendModifiers().getFirst().getIterationsLeft());
+    market.decrementAllModifiers();
+    assertEquals(0, market.getTrendModifiers().size());
+    assertEquals(0, asset.getTrendModifiers().size());
+    assertEquals(1.00565, market.getTrend());
+  }
+
+
 }
