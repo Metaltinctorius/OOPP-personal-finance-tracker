@@ -38,7 +38,7 @@ public class EventSellTest {
   }
 
   @Test
-  public void testSellEventMarket() {
+  public void testSellEventExecuteMarket() {
     eventSell.execute(market);
     assertEquals(
         1000, eventSell.getValue()); // getValue() should be the same as value in execute() right?
