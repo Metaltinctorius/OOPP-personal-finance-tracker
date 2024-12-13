@@ -8,11 +8,11 @@ import java.util.concurrent.locks.ReentrantLock;
 /** Wrapper class for Model that ensures thread safety. */
 public class wModel implements Imodel {
   private final ReentrantLock lock = new ReentrantLock();
-  private final Imodel logic;
+  private final Imodel model;
 
   /** Wrapper class for Model that ensures thread safety. */
-  public wModel(Imodel logic) {
-    this.logic = logic;
+  public wModel(Imodel model) {
+    this.model = model;
   }
 
   /**
@@ -23,7 +23,14 @@ public class wModel implements Imodel {
   @Override
   public void extractEvent(Ievent e) {
     lock.lock();
-    logic.extractEvent(e);
+    model.extractEvent(e);
+    lock.unlock();
+  }
+
+  @Override
+  public void updatePause(boolean pause) {
+    lock.lock();
+    model.updatePause(pause);
     lock.unlock();
   }
 }

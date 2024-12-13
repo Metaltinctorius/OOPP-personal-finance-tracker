@@ -23,5 +23,12 @@ public interface Iobserver {
   void updateOnEvent(String event);
 
   /** Updates the event history box */
-  void updateEventHistory(String testEventHistory);
+  void updateEventHistory(String eventTitle, String eventDescription);
+
+  /**
+   * Updates on pause or resume
+   *
+   * @param pause true if paused, false if resumed
+   */
+  void updatePause(boolean pause);
 }
