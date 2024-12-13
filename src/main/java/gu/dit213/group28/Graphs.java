@@ -1,10 +1,9 @@
 package gu.dit213.group28;
 
-import gu.dit213.group28.model.records.MarketOutput;
 import gu.dit213.group28.model.enums.Sector;
+import gu.dit213.group28.model.records.MarketOutput;
 import java.util.ArrayList;
 import java.util.List;
-
 import javafx.application.Platform;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;

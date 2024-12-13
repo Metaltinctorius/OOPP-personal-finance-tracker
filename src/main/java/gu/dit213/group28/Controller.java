@@ -1,11 +1,12 @@
 package gu.dit213.group28;
 
 import gu.dit213.group28.model.interfaces.Icontrollable;
+
 import javafx.scene.Scene;
 
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
+
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -18,7 +19,6 @@ import javafx.stage.Stage;
 public class Controller {
   private final View view;
   private final Icontrollable model;
-  private Text eventLog;
 
   /**
    * Initializes the controller with the stage, model, and view. The stage creates the JavaFX
@@ -51,10 +51,11 @@ public class Controller {
   /** Creates the scene for the JavaFX stage. */
   private Scene createScene(LowerPanel low) {
     BorderPane root = new BorderPane();
+
     InfoBox info = new InfoBox();
     EventLogs eventLog = new EventLogs();
-
-    root.setCenter(CenterGrid.createCenterGrid(model, view));
+    CenterGrid centerGrid = new CenterGrid();
+    root.setCenter(centerGrid.createCenterGrid(model, view));
     root.setBottom(low.createLowerButtonPanel(model, view));
 
     TitledPane eventLogPane = eventLog.createEventLog(view);
@@ -63,27 +64,7 @@ public class Controller {
 
     root.setLeft(info.createInfoBox(view));
 
-
-
     return new Scene(root, 1280, 720);
   }
 
-  /** Creates a scene component showing events. */
-  /*
-  private TitledPane createEventTextBox() {
-    eventLog = new Text();
-    ScrollPane scrollPane = new ScrollPane(eventLog);
-    scrollPane.setFitToWidth(true);
-
-    scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-    TitledPane titledPane = new TitledPane("News history", scrollPane);
-    titledPane.setPrefWidth(200);
-    titledPane.setPrefHeight(600);
-    return titledPane;
-  }
-  public void populateEventTextBox(String eventTitle) {
-    createEventTextBox().setText(eventTitle);
-  }
-  */
 }
