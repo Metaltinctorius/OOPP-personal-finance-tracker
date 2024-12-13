@@ -11,12 +11,10 @@ import gu.dit213.group28.model.wrappers.wModel;
 import gu.dit213.group28.model.wrappers.wMarket;
 import gu.dit213.group28.model.wrappers.wUser;
 
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
-=======
->>>>>>> origin/feature/eventlog
+
 /** Class that takes input, creates events, delivers events and keeps track of game time. */
 public class GameCore {
 
@@ -110,11 +108,10 @@ public class GameCore {
 
   public void makePredefEvent() throws InterruptedException {
     Ievent e = eventFacade.getPredefinedEvent();
-<<<<<<< HEAD
     timer.pause();
     int trigger = 1; // Change this to increase delay of event to trigger after its been announced.
     pendingEvents.add(new ScheduleEvent(e, trigger));
-    logic.extractEvent(e);
+    model.extractEvent(e);
   }
 
   private void processPendingEvents(){
@@ -131,12 +128,9 @@ public class GameCore {
       market.accept(trigg.event);
       pendingEvents.remove(trigg);
     }
-=======
-    model.extractEvent(e);
-    timer.pause();
-    model.updatePause(true);
-    market.accept(e);
->>>>>>> origin/feature/eventlog
+
+
+
   }
 
   /** Sets the game speed to Normal. */
