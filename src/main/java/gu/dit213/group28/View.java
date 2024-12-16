@@ -5,13 +5,13 @@ import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.Iobserver;
 import gu.dit213.group28.model.records.MarketOutput;
 import gu.dit213.group28.model.records.UserOutput;
+import gu.dit213.group28.view.EventLogs;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /** The main view class, update various components after being sent a notice by its observer */
@@ -107,14 +107,17 @@ public class View implements Iobserver {
   public void updateEventHistory(String eventTitle, String eventDescription) {
     Platform.runLater(
         () -> {
-          //eventLog.setText(eventLog.getText() + "\n" + event);
+          // eventLog.setText(eventLog.getText() + "\n" + event);
           eventLog.populateEventTextBox(eventTitle);
-          eventLog.getEventLogText().getChildren().getFirst().setOnMouseClicked(event2 -> {
-              updateOnEvent(eventDescription);
-          });
-
+          eventLog
+              .getEventLogText()
+              .getChildren()
+              .getFirst()
+              .setOnMouseClicked(
+                  event2 -> {
+                    updateOnEvent(eventDescription);
+                  });
         });
-
   }
 
   @Override

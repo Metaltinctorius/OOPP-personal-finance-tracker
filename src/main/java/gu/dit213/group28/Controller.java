@@ -1,13 +1,18 @@
 package gu.dit213.group28;
 
+import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.Icontrollable;
 
+import gu.dit213.group28.view.CenterGrid;
+import gu.dit213.group28.view.EventLogs;
 import javafx.scene.Scene;
 
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 
-import javafx.scene.text.Text;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
@@ -44,27 +49,44 @@ public class Controller {
     stage.setScene(scene);
     low.setKeys(scene, model);
     stage.setTitle("Finance Tracker");
-    //view.setEventLog(eventLog);
+    // view.setEventLog(eventLog);
     view.initView();
   }
 
   /** Creates the scene for the JavaFX stage. */
   private Scene createScene(LowerPanel low) {
     BorderPane root = new BorderPane();
-
+    GridPane grid = new GridPane();
+    CenterGrid centerGrid = new CenterGrid();
     InfoBox info = new InfoBox();
     EventLogs eventLog = new EventLogs();
-    CenterGrid centerGrid = new CenterGrid();
-    root.setCenter(centerGrid.createCenterGrid(model, view));
-    root.setBottom(low.createLowerButtonPanel(model, view));
-
     TitledPane eventLogPane = eventLog.createEventLog(view);
     eventLogPane.prefWidthProperty().bind(root.widthProperty().multiply(0.2));
-    root.setRight(eventLogPane);
 
+    root.setCenter(centerGrid.populateCenterGrid(grid, view));
+    root.setBottom(low.createLowerButtonPanel(model, view));
+    root.setRight(eventLogPane);
     root.setLeft(info.createInfoBox(view));
+
+    setOnBuySellButtonActionForEverySector(centerGrid);
 
     return new Scene(root, 1280, 720);
   }
 
+  private void setOnBuySellButtonActionForEverySector(CenterGrid centerGrid) {
+    Sector[] sectors = Sector.values();
+    for (int i = 0; i < 6; i++) {
+      Sector sector = sectors[i + 1];
+      Button buyButton = centerGrid.getBuyButton(sector);
+      Button sellButton = centerGrid.getSellButton(sector);
+      TextField quantityField = centerGrid.getQuantityField(sector);
+      setOnBuySellButtonAction(buyButton, sellButton, sector, quantityField);
+    }
+  }
+
+  private void setOnBuySellButtonAction(
+      Button buyButton, Button sellButton, Sector sector, TextField quantityField) {
+    buyButton.setOnAction(event -> model.buyAsset(sector, quantityField.getText()));
+    sellButton.setOnAction(event -> model.sellAsset(sector, quantityField.getText()));
+  }
 }
