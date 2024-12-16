@@ -25,9 +25,9 @@ import javafx.scene.layout.VBox;
  */
 public class CenterGrid {
 
-  private Map<Sector, Button> buyButtonMap = new HashMap<>();
-  private Map<Sector, Button> sellButtonMap = new HashMap<>();
-  private Map<Sector, TextField> quantityFieldMap = new HashMap<>();
+  private final Map<Sector, Button> buyButtonMap = new HashMap<>();
+  private final Map<Sector, Button> sellButtonMap = new HashMap<>();
+  private final Map<Sector, TextField> quantityFieldMap = new HashMap<>();
 
   /** Populates the center grid with the graphs, controls and information fields. */
   public GridPane populateCenterGrid(GridPane grid, View view) {
