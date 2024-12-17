@@ -1,6 +1,7 @@
 package gu.dit213.group28;
 
 import gu.dit213.group28.model.Model;
+import gu.dit213.group28.view.View;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

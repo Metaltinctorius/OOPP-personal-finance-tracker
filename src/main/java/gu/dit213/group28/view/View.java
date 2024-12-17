@@ -1,17 +1,12 @@
-package gu.dit213.group28;
+package gu.dit213.group28.view;
 
 import gu.dit213.group28.model.Observable;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.Iobserver;
 import gu.dit213.group28.model.records.MarketOutput;
 import gu.dit213.group28.model.records.UserOutput;
-import gu.dit213.group28.view.EventLogs;
 import java.util.List;
 import javafx.application.Platform;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 /** The main view class, update various components after being sent a notice by its observer */
@@ -23,7 +18,7 @@ public class View implements Iobserver {
   private EventLogs eventLog;
 
   /** The main view class, update various components after being sent a notice by its observer */
-  View(Stage stage, Observable observable) {
+  public View(Stage stage, Observable observable) {
     this.stage = stage;
     observable.addObserver(this);
   }
@@ -85,24 +80,13 @@ public class View implements Iobserver {
     Platform.runLater(() -> info.updateLine(xAxis, index, player));
   }
 
-  /** Starts event with description. */
+  /** Shows an event pop-up window with event description when event triggers. */
   @Override
   public void updateOnEvent(String eventMessage) {
-    Platform.runLater(
-        () -> {
-          Dialog<String> dialog = new Dialog<>();
-          dialog.setTitle("Event notification");
-
-          ButtonType closeButton = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
-          dialog.getDialogPane().getButtonTypes().add(closeButton);
-
-          Label messageLabel = new Label(eventMessage);
-          dialog.getDialogPane().setContent(messageLabel);
-          dialog.showAndWait();
-        });
+    Platform.runLater(() -> EventPopUp.createEventDialog(eventMessage));
   }
 
-  /** Updates the event history box, not yet connected */
+  /** Updates the event history box. */
   @Override
   public void updateEventHistory(String eventTitle, String eventDescription) {
     Platform.runLater(
@@ -120,6 +104,7 @@ public class View implements Iobserver {
         });
   }
 
+  /** Updates the pause button in the lower panel. */
   @Override
   public void updatePause(boolean pause) {
     Platform.runLater(() -> low.updatePauseButton(pause));

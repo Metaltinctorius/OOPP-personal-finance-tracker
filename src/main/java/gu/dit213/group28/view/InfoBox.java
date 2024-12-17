@@ -1,4 +1,4 @@
-package gu.dit213.group28;
+package gu.dit213.group28.view;
 
 import gu.dit213.group28.model.records.UserOutput;
 import gu.dit213.group28.model.enums.Sector;

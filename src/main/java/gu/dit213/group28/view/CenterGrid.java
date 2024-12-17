@@ -1,7 +1,5 @@
 package gu.dit213.group28.view;
 
-import gu.dit213.group28.Graphs;
-import gu.dit213.group28.View;
 import gu.dit213.group28.model.enums.Sector;
 
 import java.util.HashMap;

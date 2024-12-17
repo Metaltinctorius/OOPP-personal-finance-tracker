@@ -5,21 +5,25 @@ import gu.dit213.group28.model.interfaces.Icontrollable;
 
 import gu.dit213.group28.view.CenterGrid;
 import gu.dit213.group28.view.EventLogs;
+import gu.dit213.group28.view.InfoBox;
+import gu.dit213.group28.view.LowerPanel;
+import gu.dit213.group28.view.View;
 import javafx.scene.Scene;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
- * A controller class that initializes the JavaFX stage and passes it on to the view. Currently,
- * this class both initializes the stage and the buttons, which creates a dependency between the
- * model and the view. Alternatively, we might be able to separate the initialization of the stage
- * to happen somewhere else in a clean way.
+ * The controller class is responsible for initializing and managing the interaction between the
+ * JavaFX stage, the model, and the view. It sets up the JavaFX stage, initializes the view, and act
+ * as a mediator between the view and the model for handling user interactions.
  */
 public class Controller {
   private final View view;
@@ -43,13 +47,12 @@ public class Controller {
 
   /** Initializes the JavaFX window container stage. */
   private void initStage(Stage stage) {
-    LowerPanel low = new LowerPanel();
-    Scene scene = createScene(low);
+    LowerPanel lowerPanel = new LowerPanel();
+    Scene scene = createScene(lowerPanel);
 
     stage.setScene(scene);
-    low.setKeys(scene, model);
+    setKeys(scene, model, lowerPanel);
     stage.setTitle("Finance Tracker");
-    // view.setEventLog(eventLog);
     view.initView();
   }
 
@@ -64,11 +67,12 @@ public class Controller {
     eventLogPane.prefWidthProperty().bind(root.widthProperty().multiply(0.2));
 
     root.setCenter(centerGrid.populateCenterGrid(grid, view));
-    root.setBottom(low.createLowerButtonPanel(model, view));
+    root.setBottom(low.createLowerButtonPanel(view));
     root.setRight(eventLogPane);
     root.setLeft(info.createInfoBox(view));
 
     setOnBuySellButtonActionForEverySector(centerGrid);
+    setOnButtonActionLowerPanel(low);
 
     return new Scene(root, 1280, 720);
   }
@@ -88,5 +92,53 @@ public class Controller {
       Button buyButton, Button sellButton, Sector sector, TextField quantityField) {
     buyButton.setOnAction(event -> model.buyAsset(sector, quantityField.getText()));
     sellButton.setOnAction(event -> model.sellAsset(sector, quantityField.getText()));
+  }
+
+  private void setOnButtonActionLowerPanel(LowerPanel lowerPanel) {
+    Button pauseButton = lowerPanel.getPauseButton();
+    pauseButton.setOnAction(event -> model.pauseAndResume());
+
+    Button slowButton = lowerPanel.getSlowButton();
+    slowButton.setOnAction(
+        event -> {
+          model.setSpeedSlow();
+          lowerPanel.getGameSpeedLabel().setText("Speed: Slow");
+        });
+
+    Button normalButton = lowerPanel.getNormalButton();
+    normalButton.setOnAction(
+        event -> {
+          model.setSpeedNormal();
+          lowerPanel.getGameSpeedLabel().setText("Speed: Normal");
+        });
+
+    Button fastButton = lowerPanel.getFastButton();
+    fastButton.setOnAction(
+        event -> {
+          model.setSpeedFast();
+          lowerPanel.getGameSpeedLabel().setText("Speed: Fast");
+        });
+  }
+
+  private void setKeys(Scene scene, Icontrollable model, LowerPanel lowerPanel) {
+    scene.addEventHandler(
+        KeyEvent.KEY_PRESSED,
+        event -> {
+          if (event.getCode() == KeyCode.S) {
+            model.pauseAndResume();
+          }
+          if (event.getCode() == KeyCode.DIGIT1) {
+            model.setSpeedSlow();
+            lowerPanel.getGameSpeedLabel().setText("Speed: Slow");
+          }
+          if (event.getCode() == KeyCode.DIGIT2) {
+            model.setSpeedNormal();
+            lowerPanel.getGameSpeedLabel().setText("Speed: Normal");
+          }
+          if (event.getCode() == KeyCode.DIGIT3) {
+            model.setSpeedFast();
+            lowerPanel.getGameSpeedLabel().setText("Speed: Fast");
+          }
+        });
   }
 }

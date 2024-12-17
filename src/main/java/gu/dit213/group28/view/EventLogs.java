@@ -1,6 +1,5 @@
 package gu.dit213.group28.view;
 
-import gu.dit213.group28.View;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
