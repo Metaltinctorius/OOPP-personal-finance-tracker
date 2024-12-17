@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
@@ -56,6 +57,18 @@ public class Graphs {
   }
 
   public void updateGraphs(int xAxis, List<MarketOutput> mOutput) {
+    double globalMax = 0;
+    double globalMin = 500;
+
+    for (MarketOutput m : mOutput) {
+      if (m.value() > globalMax) {
+        globalMax = m.value();
+      }
+      if (m.value() < globalMin) {
+        globalMin = m.value();
+      }
+    }
+
     for (SectorGraph sg : graphs) {
       for (MarketOutput output : mOutput) {
         if (sg.sector() == output.sector()) {
@@ -67,6 +80,10 @@ public class Graphs {
           s.getData().add(new XYChart.Data<>(xAxis, output.value()));
         }
       }
+      NumberAxis yAxis = (NumberAxis) sg.graph.getYAxis();
+      yAxis.setAutoRanging(false);
+      yAxis.setUpperBound(globalMax + 200);
+      yAxis.setLowerBound(globalMin - 200);
     }
   }
 
