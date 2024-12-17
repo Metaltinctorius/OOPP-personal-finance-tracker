@@ -1,6 +1,7 @@
 package gu.dit213.group28.model;
 
 import gu.dit213.group28.model.enums.Sector;
+import gu.dit213.group28.model.interfaces.Icore;
 import gu.dit213.group28.model.interfaces.Ievent;
 import gu.dit213.group28.model.interfaces.IeventExtractor;
 import gu.dit213.group28.model.interfaces.Imodel;
@@ -8,7 +9,7 @@ import gu.dit213.group28.model.interfaces.Icontrollable;
 
 /** Class that receives and delivers input. */
 public class Model implements Icontrollable, Imodel {
-  private final GameCore gameCore;
+  private final Icore gameCore;
   private final IeventExtractor eventExtractor;
 
   /** Class that receives and delivers input. */

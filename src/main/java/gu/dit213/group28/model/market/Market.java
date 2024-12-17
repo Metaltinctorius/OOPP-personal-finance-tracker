@@ -8,8 +8,8 @@ import gu.dit213.group28.model.interfaces.ImarketEx;
 import java.util.*;
 
 /**
- * Represents a financial market that maintains a list of assets and overall trend modifiers.
- * It implements a singleton pattern to ensure only one instance of the Market exists.
+ * Represents a financial market that maintains a list of assets and overall trend modifiers. It
+ * implements a singleton pattern to ensure only one instance of the Market exists.
  */
 public class Market implements Imarket, ImarketEx {
   /** The name of the market. */
@@ -33,7 +33,7 @@ public class Market implements Imarket, ImarketEx {
   /**
    * Private constructor to initialize a Market instance.
    *
-   * @param name  The name of the market.
+   * @param name The name of the market.
    * @param trend The initial trend value of the market.
    */
   private Market(String name, double trend) {
@@ -143,9 +143,8 @@ public class Market implements Imarket, ImarketEx {
     }
   }
 
-  /**
-   * Decrements the iterations left on all trend modifiers across the market and its assets.
-   */
+  /** Decrements the iterations left on all trend modifiers across the market and its assets. */
+  @Override
   public void decrementAllModifiers() {
     decrementMarketModifiers();
     for (Asset asset : assets) {
@@ -153,22 +152,19 @@ public class Market implements Imarket, ImarketEx {
     }
   }
 
-  /**
-   * Initializes the index values for all assets in the market.
-   */
+  /** Initializes the index values for all assets in the market. */
   private void initIndex() {
     for (Asset a : assets) {
       a.setIndexValue(startValue / assets.size());
     }
   }
 
-
   /**
    * Computes and retrieves the current value of the market index.
    *
    * @return The market index value.
    */
-  public double getIndexValue(){
+  public double getIndexValue() {
     double res = 0;
     for (Asset a : assets) {
       res += 0.5 * a.getPrice() * a.getIndexValue();
@@ -185,9 +181,7 @@ public class Market implements Imarket, ImarketEx {
     e.execute(this);
   }
 
-  /**
-   * Creates and initializes assets for the market across all sectors.
-   */
+  /** Creates and initializes assets for the market across all sectors. */
   private void createAssets() {
     Random rng = new Random();
     Sector[] sectors = Sector.values();
@@ -202,4 +196,3 @@ public class Market implements Imarket, ImarketEx {
     }
   }
 }
-
