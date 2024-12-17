@@ -83,7 +83,12 @@ public class View implements Iobserver {
   /** Shows an event pop-up window with event description when event triggers. */
   @Override
   public void updateOnEvent(String eventMessage) {
-    Platform.runLater(() -> EventPopUp.createEventDialog(eventMessage));
+    Platform.runLater(
+        () -> {
+          updatePause(false);
+          EventPopUp.createEventDialog(eventMessage);
+          updatePause(true);
+        });
   }
 
   /** Updates the event history box. */

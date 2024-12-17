@@ -14,7 +14,6 @@ import gu.dit213.group28.model.wrappers.wUser;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /** Class that takes input, creates events, delivers events and keeps track of game time. */
 public class GameCore {
 
@@ -44,8 +43,8 @@ public class GameCore {
     Thread t =
         new Thread(
             () -> {
+              pauseAndResume();
               while (true) {
-
                 try {
                   timer.next();
                   market.decrementAllModifiers();
@@ -105,7 +104,6 @@ public class GameCore {
   }
 
   /** Creates a Predefined event and delivers it to the market. */
-
   public void makePredefEvent() throws InterruptedException {
     Ievent e = eventFacade.getPredefinedEvent();
     timer.pause();
@@ -114,23 +112,20 @@ public class GameCore {
     model.extractEvent(e);
   }
 
-  private void processPendingEvents(){
+  private void processPendingEvents() {
     List<ScheduleEvent> toTrigger = new ArrayList<>();
-    for(ScheduleEvent se : pendingEvents){
-      if(se.trigger <= 0){
+    for (ScheduleEvent se : pendingEvents) {
+      if (se.trigger <= 0) {
         toTrigger.add(se);
       } else {
-        se.trigger =- 1;
+        se.trigger = -1;
       }
     }
 
-    for(ScheduleEvent trigg : toTrigger){
+    for (ScheduleEvent trigg : toTrigger) {
       market.accept(trigg.event);
       pendingEvents.remove(trigg);
     }
-
-
-
   }
 
   /** Sets the game speed to Normal. */

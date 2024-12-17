@@ -8,6 +8,7 @@ import gu.dit213.group28.view.EventLogs;
 import gu.dit213.group28.view.InfoBox;
 import gu.dit213.group28.view.LowerPanel;
 import gu.dit213.group28.view.View;
+import gu.dit213.group28.view.WelcomeDialog;
 import javafx.scene.Scene;
 
 import javafx.scene.control.Button;
@@ -63,6 +64,9 @@ public class Controller {
     CenterGrid centerGrid = new CenterGrid();
     InfoBox info = new InfoBox();
     EventLogs eventLog = new EventLogs();
+    WelcomeDialog welcomeDialog = new WelcomeDialog();
+    welcomeDialog.createWelcomeDialog();
+
     TitledPane eventLogPane = eventLog.createEventLog(view);
     eventLogPane.prefWidthProperty().bind(root.widthProperty().multiply(0.2));
 
