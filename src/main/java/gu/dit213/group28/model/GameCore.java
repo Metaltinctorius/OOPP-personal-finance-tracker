@@ -47,6 +47,7 @@ public class GameCore implements Ipathable, Icore {
     Thread t =
         new Thread(
             () -> {
+              pauseAndResume();
               while (true) {
                 try {
                   timer.next();
