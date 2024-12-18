@@ -5,10 +5,8 @@ import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.ImarketEx;
 import gu.dit213.group28.model.interfaces.IuserEx;
 import gu.dit213.group28.model.market.Asset;
-import gu.dit213.group28.model.market.Market;
 import gu.dit213.group28.model.market.TrendModifier;
 import java.util.List;
-import org.bson.internal.BsonUtil;
 
 public class EventPredef extends Event {
 

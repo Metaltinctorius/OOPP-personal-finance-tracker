@@ -3,8 +3,6 @@ package gu.dit213.group28.model.events;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.Ievent;
 import gu.dit213.group28.model.interfaces.IeventFacade;
-
-import gu.dit213.group28.model.interfaces.IeventLoader;
 import java.util.List;
 import java.util.Random;
 
@@ -20,11 +18,9 @@ public class EventFacade implements IeventFacade {
     randomEventChance = -0.2;
   }
 
-  public void loadTestEvents (){
+  public void loadTestEvents() {
     eventManager.loadEvents(eventManager.getTestFile());
   }
-
-
 
   /**
    * Returns the event log (the history of passed events).

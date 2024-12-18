@@ -42,6 +42,7 @@ public class EventSell extends Event {
   public int getQuantity() {
     return quantity;
   }
+
   public double getValue() {
     return value;
   }

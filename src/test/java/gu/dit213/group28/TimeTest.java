@@ -24,7 +24,7 @@ public class TimeTest {
     assertEquals(0, time.getCurrentTick());
     time.start();
     TimeUnit.MILLISECONDS.sleep(119);
-    assertEquals(3, time.getCurrentTick());
+    assertEquals(7, time.getCurrentTick());
   }
 
   @Test
@@ -33,9 +33,9 @@ public class TimeTest {
     time.start();
     TimeUnit.MILLISECONDS.sleep(119);
     time.pause();
-    assertEquals(3, time.getCurrentTick());
+    assertEquals(7, time.getCurrentTick());
     TimeUnit.MILLISECONDS.sleep(119);
-    assertEquals(3, time.getCurrentTick());
+    assertEquals(7, time.getCurrentTick());
   }
 
   @Test

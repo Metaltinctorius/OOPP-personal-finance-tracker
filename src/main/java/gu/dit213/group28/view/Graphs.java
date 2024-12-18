@@ -72,7 +72,6 @@ public class Graphs {
         globalMin = m.value();
       }
     }
-    System.out.println(globalMax + buffer);
 
     for (SectorGraph sg : graphs) {
       for (MarketOutput output : mOutput) {
