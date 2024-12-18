@@ -79,7 +79,7 @@ public class Graphs {
         if (sg.sector() == output.sector()) {
           sg.pField.setText(String.format("%.2f", output.value()));
           XYChart.Series<Number, Number> s = sg.graph.getData().getFirst();
-          if (s.getData().size() > 50) {
+          if (s.getData().size() > 15) {
             s.getData().removeFirst();
           }
           s.getData().add(new XYChart.Data<>(xAxis, output.value()));
