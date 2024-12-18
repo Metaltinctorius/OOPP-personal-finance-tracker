@@ -14,6 +14,12 @@ import javafx.scene.layout.Region;
 public class Graphs {
   private final List<SectorGraph> graphs;
 
+  /** Fields for setting the y-axis to adjust based on the highest measured Sector value. */
+  private double globalMax = 0;
+
+  private double globalMin = 500;
+  private final double buffer = 300;
+
   public Graphs() {
     graphs = new ArrayList<>();
   }
@@ -57,9 +63,6 @@ public class Graphs {
   }
 
   public void updateGraphs(int xAxis, List<MarketOutput> mOutput) {
-    double globalMax = 0;
-    double globalMin = 500;
-    double buffer = 300;
 
     for (MarketOutput m : mOutput) {
       if (m.value() > globalMax + buffer) {
@@ -69,6 +72,7 @@ public class Graphs {
         globalMin = m.value();
       }
     }
+    System.out.println(globalMax + buffer);
 
     for (SectorGraph sg : graphs) {
       for (MarketOutput output : mOutput) {
