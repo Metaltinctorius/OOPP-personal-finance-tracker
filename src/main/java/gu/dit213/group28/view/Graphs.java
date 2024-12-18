@@ -59,12 +59,13 @@ public class Graphs {
   public void updateGraphs(int xAxis, List<MarketOutput> mOutput) {
     double globalMax = 0;
     double globalMin = 500;
+    double buffer = 300;
 
     for (MarketOutput m : mOutput) {
-      if (m.value() > globalMax) {
+      if (m.value() > globalMax + buffer) {
         globalMax = m.value();
       }
-      if (m.value() < globalMin) {
+      if (m.value() < globalMin - buffer) {
         globalMin = m.value();
       }
     }
@@ -74,7 +75,7 @@ public class Graphs {
         if (sg.sector() == output.sector()) {
           sg.pField.setText(String.format("%.2f", output.value()));
           XYChart.Series<Number, Number> s = sg.graph.getData().getFirst();
-          if (s.getData().size() > 15) {
+          if (s.getData().size() > 50) {
             s.getData().removeFirst();
           }
           s.getData().add(new XYChart.Data<>(xAxis, output.value()));
@@ -82,8 +83,8 @@ public class Graphs {
       }
       NumberAxis yAxis = (NumberAxis) sg.graph.getYAxis();
       yAxis.setAutoRanging(false);
-      yAxis.setUpperBound(globalMax + 200);
-      yAxis.setLowerBound(globalMin - 200);
+      yAxis.setUpperBound(globalMax + buffer);
+      yAxis.setLowerBound(globalMin - buffer);
     }
   }
 
