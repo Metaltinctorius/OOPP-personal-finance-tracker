@@ -83,9 +83,9 @@ public class TimeTest {
     time.setThreshold(Speed.SLOW);
     time.start();
     TimeUnit.MILLISECONDS.sleep(16500);
-    System.out.println(time.getCurrentTick());
+    // System.out.println(time.getCurrentTick());
     time.setThreshold(Speed.FAST);
-    System.out.println(time.getCurrentTick());
+    // System.out.println(time.getCurrentTick());
     assertTrue(time.next());
   }
 

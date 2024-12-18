@@ -18,6 +18,8 @@ public class EventTick extends Event {
   private double indexValue;
   private double playerValue;
 
+
+
   /**
    * Basic tick event.
    *

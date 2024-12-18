@@ -42,7 +42,7 @@ public class Market implements Imarket, ImarketEx {
     this.assets = new ArrayList<>();
     this.trendModifiers = new ArrayList<>();
     createAssets();
-    startValue = 1000;
+    startValue = 500;
     initIndex();
   }
 
@@ -144,6 +144,7 @@ public class Market implements Imarket, ImarketEx {
   }
 
   /** Decrements the iterations left on all trend modifiers across the market and its assets. */
+
   @Override
   public void decrementAllModifiers() {
     decrementMarketModifiers();
@@ -167,9 +168,9 @@ public class Market implements Imarket, ImarketEx {
   public double getIndexValue() {
     double res = 0;
     for (Asset a : assets) {
-      res += 0.5 * a.getPrice() * a.getIndexValue();
+      res += a.getPrice();
     }
-    return res;
+    return res * 33.3333;
   }
 
   /**
@@ -183,13 +184,14 @@ public class Market implements Imarket, ImarketEx {
 
   /** Creates and initializes assets for the market across all sectors. */
   private void createAssets() {
-    Random rng = new Random();
     Sector[] sectors = Sector.values();
     for (Sector sector : sectors) {
       if (sector == Sector.INDEX) {
         continue;
       }
-      double price = 500 + 500 * rng.nextDouble();
+
+      double price = 500;
+
       Asset a = new Asset("", "", sector, price);
       assets.add(a);
     }
