@@ -50,6 +50,7 @@ public class EventExtractor extends Observable implements IeventExtractor {
       EventBuy be = (EventBuy) e;
       for (Iobserver o : observers) {
         o.updateOwned(be.getSector(), be.getOwned(), be.getValue());
+        o.updateBuyHistory(be.getSector(), be.getQuantity(), be.getValue());
       }
     }
 
@@ -62,6 +63,7 @@ public class EventExtractor extends Observable implements IeventExtractor {
       EventSell se = (EventSell) e;
       for (Iobserver o : observers) {
         o.updateOwned(se.getSector(), se.getOwned(), se.getValue());
+        o.updateSellHistory(se.getSector(), se.getQuantity(), se.getValue());
       }
     }
     if (e.getID() == 4) {

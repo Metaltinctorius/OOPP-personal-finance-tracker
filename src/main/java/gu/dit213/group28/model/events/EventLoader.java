@@ -3,13 +3,12 @@ package gu.dit213.group28.model.events;
 import gu.dit213.group28.model.enums.EventType;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.IeventLoader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import java.io.FileReader;
 
 public class EventLoader implements IeventLoader {
 

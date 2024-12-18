@@ -37,8 +37,8 @@ public class EventManager {
   }
 
   /**
-   * For applying the file location outside the event manager, the loader is now more decoupled
-   * and only requires a json file as a string path, instead of having the file paths locally in its
+   * For applying the file location outside the event manager, the loader is now more decoupled and
+   * only requires a json file as a string path, instead of having the file paths locally in its
    * implementation.
    *
    * @return filepath as a string

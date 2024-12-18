@@ -7,6 +7,8 @@ import gu.dit213.group28.model.records.MarketOutput;
 import gu.dit213.group28.model.records.UserOutput;
 import java.util.List;
 import javafx.application.Platform;
+import javafx.scene.control.Tab;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /** The main view class, update various components after being sent a notice by its observer */
@@ -91,12 +93,11 @@ public class View implements Iobserver {
         });
   }
 
-  /** Updates the event history box. */
+  /** Updates the history panel with news events. */
   @Override
   public void updateEventHistory(String eventTitle, String eventDescription) {
     Platform.runLater(
         () -> {
-          // eventLog.setText(eventLog.getText() + "\n" + event);
           eventLog.populateEventTextBox(eventTitle);
           eventLog
               .getEventLogText()
@@ -108,6 +109,29 @@ public class View implements Iobserver {
                   });
         });
   }
+  /** Updates the history panel with buy events. */
+  @Override
+  public void updateBuyHistory(Sector sector, int quantity, double value) {
+      Platform.runLater(
+              () -> {
+                  eventLog.populateBuyTextBox(sector.toString(), quantity, value);
+
+              });
+
+  }
+  /** Updates the history panel with sell events. */
+  @Override
+  public void updateSellHistory(Sector sector, int quantity, double value) {
+      Platform.runLater(
+              () -> {
+                  eventLog.populateSellTextBox(sector.toString(), quantity, value);
+              });
+
+  }
+
+
+
+
 
   /** Updates the pause button in the lower panel. */
   @Override
@@ -115,3 +139,4 @@ public class View implements Iobserver {
     Platform.runLater(() -> low.updatePauseButton(pause));
   }
 }
+

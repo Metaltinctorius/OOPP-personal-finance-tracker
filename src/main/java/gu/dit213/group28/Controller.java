@@ -79,7 +79,7 @@ public class Controller {
     setOnBuySellButtonActionForEverySector(centerGrid);
     setOnButtonActionLowerPanel(low);
 
-    return new Scene(root, 1280, 720);
+    return new Scene(root, 1600, 720);
   }
 
   private void setOnBuySellButtonActionForEverySector(CenterGrid centerGrid) {

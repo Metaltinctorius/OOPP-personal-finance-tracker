@@ -52,6 +52,10 @@ public class EventBuy extends Event {
     return value;
   }
 
+  public int getQuantity() {
+    return quantity;
+  }
+
   /**
    * Executes event on given ImarketEx
    *
