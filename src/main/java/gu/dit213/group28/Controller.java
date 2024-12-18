@@ -55,6 +55,8 @@ public class Controller {
     setKeys(scene, model, lowerPanel);
     stage.setTitle("Finance Tracker");
     view.initView();
+    WelcomeDialog welcomeDialog = new WelcomeDialog();
+    welcomeDialog.createWelcomeDialog();
   }
 
   /** Creates the scene for the JavaFX stage. */
@@ -64,8 +66,6 @@ public class Controller {
     CenterGrid centerGrid = new CenterGrid();
     InfoBox info = new InfoBox();
     EventLogs eventLog = new EventLogs();
-    WelcomeDialog welcomeDialog = new WelcomeDialog();
-    welcomeDialog.createWelcomeDialog();
 
     TitledPane eventLogPane = eventLog.createEventLog(view);
     eventLogPane.prefWidthProperty().bind(root.widthProperty().multiply(0.2));

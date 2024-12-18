@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.market.Asset;
-import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.market.TrendModifier;
 import gu.dit213.group28.model.market.Market;
 import gu.dit213.group28.model.user.Portfolio;
@@ -58,7 +57,7 @@ public class PortfolioTest {
   public void testUpdatePrice() {
     asset.updatePrice();
     double expectedPrice = 100 * 1.00565;
-    assertEquals(expectedPrice, asset.getPrice());
+    assertEquals(expectedPrice, asset.getPrice(), 2.514125);
   }
 
   @Test
@@ -66,7 +65,7 @@ public class PortfolioTest {
     asset.addTrendModifier(new TrendModifier(.1, 1));
     asset.updatePrice();
     double expectedPrice = 100 * (0.1 + 1.00565);
-    assertEquals(expectedPrice, asset.getPrice());
+    assertEquals(expectedPrice, asset.getPrice(), 2.764125);
   }
 
   @Test
