@@ -83,6 +83,7 @@ public class EventSell extends Event {
     for (PortfolioRecord record : u.getRecords()) {
       if (record.getSector() == sector) {
         sell = record;
+
       }
     }
     if (sell != null && sell.getQuantity() >= quantity) {

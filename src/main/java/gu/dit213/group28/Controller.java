@@ -51,12 +51,15 @@ public class Controller {
     LowerPanel lowerPanel = new LowerPanel();
     Scene scene = createScene(lowerPanel);
 
+
+
     stage.setScene(scene);
     setKeys(scene, model, lowerPanel);
     stage.setTitle("Finance Tracker");
     view.initView();
     WelcomeDialog welcomeDialog = new WelcomeDialog();
     welcomeDialog.createWelcomeDialog();
+
   }
 
   /** Creates the scene for the JavaFX stage. */

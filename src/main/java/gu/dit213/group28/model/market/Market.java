@@ -189,7 +189,6 @@ public class Market implements Imarket, ImarketEx {
       if (sector == Sector.INDEX) {
         continue;
       }
-
       double price = 500 + 500 * rng.nextDouble();
       Asset a = new Asset("", "", sector, price);
       assets.add(a);
