@@ -9,8 +9,8 @@ import java.time.LocalDate;
 import java.util.Random;
 
 /**
- * Represents a financial asset in the market, characterized by its ticker, name, sector, price, and trend.
- * The class also maintains historical price records and allows for trend modifications.
+ * Represents a financial asset in the market, characterized by its ticker, name, sector, price, and
+ * trend. The class also maintains historical price records and allows for trend modifications.
  */
 public class Asset {
   /** The unique identifier for the asset. */
@@ -44,9 +44,9 @@ public class Asset {
    * Constructs a new Asset instance.
    *
    * @param ticker The unique identifier for the asset.
-   * @param name   The name of the asset.
+   * @param name The name of the asset.
    * @param sector The sector to which the asset belongs.
-   * @param price  The initial price of the asset.
+   * @param price The initial price of the asset.
    */
   public Asset(String ticker, String name, Sector sector, double price) {
     this.ticker = ticker;
@@ -117,7 +117,6 @@ public class Asset {
     indexValue = value;
   }
 
-
   /**
    * Retrieves the index value of the asset.
    *
@@ -154,10 +153,7 @@ public class Asset {
     trendModifiers.add(mod);
   }
 
-
-  /**
-   * Decrements the iterations left on all trend modifiers and removes any that have expired.
-   */
+  /** Decrements the iterations left on all trend modifiers and removes any that have expired. */
   public void decrementAssetModifiers() {
     Iterator<TrendModifier> iterator = trendModifiers.iterator();
     while (iterator.hasNext()) {
@@ -177,7 +173,7 @@ public class Asset {
 
     price *= 1 + (rng.nextDouble() - 0.5) / 20;
 
-    indexValue *= this.getTrend() + Market.getInstance().getTrend();
+    indexValue = price;
     historicalPrices.add(new PriceRecord(price, LocalDate.now()));
   }
 }

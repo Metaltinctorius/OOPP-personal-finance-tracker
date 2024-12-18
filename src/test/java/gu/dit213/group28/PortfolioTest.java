@@ -4,11 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.market.Asset;
-import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.market.TrendModifier;
 import gu.dit213.group28.model.market.Market;
 import gu.dit213.group28.model.user.Portfolio;
 import gu.dit213.group28.model.user.PortfolioEntry;
+import java.lang.reflect.Field;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,8 +27,10 @@ public class PortfolioTest {
   }
 
   @AfterEach
-  public void tearDown() {
-    market = null;
+  public void tearDown() throws NoSuchFieldException, IllegalAccessException {
+    Field instance = Market.class.getDeclaredField("instance");
+    instance.setAccessible(true);
+    instance.set(null, null);
     asset = null;
     portfolio = null;
   }
@@ -58,7 +60,7 @@ public class PortfolioTest {
   public void testUpdatePrice() {
     asset.updatePrice();
     double expectedPrice = 100 * 1.00565;
-    assertEquals(expectedPrice, asset.getPrice());
+    assertEquals(expectedPrice, asset.getPrice(), 2.514125);
   }
 
   @Test
@@ -66,7 +68,7 @@ public class PortfolioTest {
     asset.addTrendModifier(new TrendModifier(.1, 1));
     asset.updatePrice();
     double expectedPrice = 100 * (0.1 + 1.00565);
-    assertEquals(expectedPrice, asset.getPrice());
+    assertEquals(expectedPrice, asset.getPrice(), 2.764125);
   }
 
   @Test

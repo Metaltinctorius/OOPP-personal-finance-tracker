@@ -47,7 +47,14 @@ public class EventBuy extends Event {
   public int getOwned() {
     return owned;
   }
-  public double getValue(){return value;}
+
+  public double getValue() {
+    return value;
+  }
+
+  public int getQuantity() {
+    return quantity;
+  }
 
   /**
    * Executes event on given ImarketEx

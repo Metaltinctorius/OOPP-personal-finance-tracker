@@ -1,12 +1,11 @@
 package gu.dit213.group28.model.events;
 
-import gu.dit213.group28.model.records.MarketOutput;
-import gu.dit213.group28.model.records.UserOutput;
 import gu.dit213.group28.model.interfaces.ImarketEx;
 import gu.dit213.group28.model.interfaces.IuserEx;
 import gu.dit213.group28.model.market.Asset;
+import gu.dit213.group28.model.records.MarketOutput;
+import gu.dit213.group28.model.records.UserOutput;
 import gu.dit213.group28.model.user.PortfolioRecord;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +13,11 @@ import java.util.List;
 public class EventTick extends Event {
   public final List<MarketOutput> mOutput;
   public final int tick;
+  public final List<UserOutput> uOutput;
   private double currency;
   private double indexValue;
   private double playerValue;
-  public final List<UserOutput> uOutput;
+
 
 
   /**
@@ -47,7 +47,6 @@ public class EventTick extends Event {
     return playerValue;
   }
 
-
   /**
    * Executes event on given ImarketEx
    *
@@ -55,11 +54,12 @@ public class EventTick extends Event {
    */
   @Override
   public void execute(ImarketEx m) {
+    m.decrementAllModifiers();
     for (Asset a : m.getAssets()) {
       a.updatePrice();
       mOutput.add(new MarketOutput(a.getSector(), a.getPrice()));
-
     }
+
     indexValue = m.getIndexValue();
   }
 

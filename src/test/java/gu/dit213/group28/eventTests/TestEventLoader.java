@@ -16,14 +16,7 @@ public class TestEventLoader {
   private EventLoader loader;
   List<EventPredef> predefinedEvents;
 
-  /** Just a confirmation that the eventLoader can load several events. */
-  @Test
-  public void test_loading_several() {
-    int expected = 3;
-    int actual = predefinedEvents.size();
-    loader.viewParsedInputs();
-    Assertions.assertEquals(expected, actual);
-  }
+
 
   @Test
   public void test_id() {

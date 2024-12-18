@@ -146,7 +146,7 @@
   {
     "id": "17",
     "title": "Major Real Estate Project Delayed",
-    "description": "Construction delays on a high-profile real estate project raise cREPEATINGrns about the sector's growth prospects.",
+    "description": "Construction delays on a high-profile real estate project raise concerns about the sector's growth prospects.",
     "type": "REPEATING",
     "iterations": "4",
     "sectors": ["REAL_ESTATE"],
@@ -370,7 +370,7 @@
   },
   {
     "id": "43",
-    "title": "Real Estate Bubble CREPEATINGrns Grow",
+    "title": "Real Estate Bubble concerns Grow",
     "description": "Warnings of a potential real estate bubble cause investor caution in the sector.",
     "type": "REPEATING",
     "iterations": "3",
@@ -439,6 +439,15 @@
     "iterations": "3",
     "sectors": ["CONSUMER_STAPLES"],
     "modifier": "-0.05"
+  },
+  {
+    "id": "55",
+    "title": "Major market crash due to IT systems failure",
+    "description": "Windows latest update causes a critical failure in IT systems worldwide",
+    "type": "ONCE",
+    "iterations": "1",
+    "sectors": [],
+    "modifier": "-0.30"
   }
 ]
 

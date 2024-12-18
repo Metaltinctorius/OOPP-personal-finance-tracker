@@ -26,12 +26,4 @@ public class wMarket implements Imarket {
     market.accept(e);
     lock.unlock();
   }
-
-  /** Decrements the timer on all current modifiers inside the market */
-  @Override
-  public void decrementAllModifiers() {
-    lock.lock();
-    market.decrementAllModifiers();
-    lock.unlock();
-  }
 }

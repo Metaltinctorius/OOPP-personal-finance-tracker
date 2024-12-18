@@ -22,10 +22,17 @@ public interface Iobserver {
   /** Starts event with description. */
   void updateOnEvent(String event);
 
-  /** Updates the event history box */
+  /** Updates the history panel with news events */
   void updateEventHistory(String eventTitle, String eventDescription);
 
-  /**
+  /** Updates the history panel with buy events */
+  void updateBuyHistory(Sector sector, int quantity, double value);
+
+  /** Updates the history panel with sell events */
+  void updateSellHistory(Sector sector, int quantity, double value);
+
+
+    /**
    * Updates on pause or resume
    *
    * @param pause true if paused, false if resumed

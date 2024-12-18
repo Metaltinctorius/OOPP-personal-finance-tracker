@@ -1,4 +1,4 @@
-package gu.dit213.group28;
+package gu.dit213.group28.view;
 
 import gu.dit213.group28.model.records.UserOutput;
 import gu.dit213.group28.model.enums.Sector;
@@ -60,7 +60,7 @@ public class InfoBox {
     VBox infoBox = new VBox(10, info.pie, info.line, info.currency, spacer1);
 
     VBox.setVgrow(spacer1, Priority.ALWAYS);
-    infoBox.setPrefWidth(250);
+    infoBox.setPrefWidth(200);
     infoBox.setAlignment(Pos.BOTTOM_CENTER);
     view.setInfoBox(this);
     return infoBox;

@@ -42,6 +42,7 @@ public class EventSell extends Event {
   public int getQuantity() {
     return quantity;
   }
+
   public double getValue() {
     return value;
   }
@@ -82,6 +83,7 @@ public class EventSell extends Event {
     for (PortfolioRecord record : u.getRecords()) {
       if (record.getSector() == sector) {
         sell = record;
+
       }
     }
     if (sell != null && sell.getQuantity() >= quantity) {

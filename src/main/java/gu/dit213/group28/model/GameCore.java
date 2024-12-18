@@ -5,6 +5,7 @@ import gu.dit213.group28.model.enums.Speed;
 import gu.dit213.group28.model.events.EventFacade;
 import gu.dit213.group28.model.interfaces.*;
 import gu.dit213.group28.model.market.Market;
+import gu.dit213.group28.model.path.PathCreator;
 import gu.dit213.group28.model.user.Portfolio;
 import gu.dit213.group28.model.wrappers.wEventFacade;
 import gu.dit213.group28.model.wrappers.wModel;
@@ -14,9 +15,8 @@ import gu.dit213.group28.model.wrappers.wUser;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /** Class that takes input, creates events, delivers events and keeps track of game time. */
-public class GameCore {
+public class GameCore implements Ipathable, Icore {
 
   private final Itimer timer;
   private final IeventFacade eventFacade;
@@ -24,8 +24,9 @@ public class GameCore {
   private final Imarket market;
   private final Iuser user;
   private int tick;
+  private final IpathCreator pathCreator;
 
-  private final List<ScheduleEvent> pendingEvents = new ArrayList<>();
+  private final List<Ipath> pendingEvents = new ArrayList<>();
 
   /** Class that takes input, creates events, delivers events and keeps track of game time. */
   public GameCore(Model model) {
@@ -36,27 +37,25 @@ public class GameCore {
     market = new wMarket(Market.getInstance());
     user = new wUser(new Portfolio(100000));
     tick = 0;
+    pathCreator = new PathCreator();
   }
 
   /** Initializes the GameCore, starting the timer. */
+  @Override
   public void init() {
     timer.start();
     Thread t =
         new Thread(
             () -> {
+              pauseAndResume();
               while (true) {
-
                 try {
                   timer.next();
-                  market.decrementAllModifiers();
                   processPendingEvents();
                   if (eventFacade.isRandomEventReady()) {
                     makePredefEvent();
                   }
-                  Ievent e = eventFacade.getTickEvent(tick);
-                  market.accept(e);
-                  user.accept(e);
-                  model.extractEvent(e);
+                  makeTick();
                   tick++;
                 } catch (InterruptedException ex) {
                   throw new RuntimeException(ex);
@@ -67,6 +66,14 @@ public class GameCore {
     t.start();
   }
 
+  private void makeEvent(Ievent e) {
+    Ipath path = pathCreator.getEventPath(this, e);
+    if (path.isPending()) {
+      pendingEvents.add(path);
+    }
+    path.start();
+  }
+
   /**
    * Creates a basic buy event and, if successful, delivers it to the market first then to the user.
    * Finally, it delivers the event for extraction.
@@ -74,15 +81,9 @@ public class GameCore {
    * @param sector The sector of the assets.
    * @param quantity The quantity of assets bought
    */
+  @Override
   public void makePurchase(Sector sector, int quantity) {
-    Ievent e = eventFacade.getBuyEvent(sector, quantity);
-    if (e.getID() == 2) {
-      model.extractEvent(e);
-      return;
-    }
-    market.accept(e);
-    user.accept(e);
-    model.extractEvent(e);
+    makeEvent(eventFacade.getBuyEvent(sector, quantity));
   }
 
   /**
@@ -92,48 +93,36 @@ public class GameCore {
    * @param sector The sector of the assets.
    * @param quantity The quantity of assets sold
    */
+  @Override
   public void makeSell(Sector sector, int quantity) {
-    Ievent e = eventFacade.getSellEvent(sector, quantity);
+    makeEvent(eventFacade.getSellEvent(sector, quantity));
+  }
 
-    if (e.getID() == 4) {
-      model.extractEvent(e);
-      return;
-    }
-    market.accept(e);
-    user.accept(e);
-    model.extractEvent(e);
+  private void makeTick() {
+    makeEvent(eventFacade.getTickEvent(tick));
   }
 
   /** Creates a Predefined event and delivers it to the market. */
-
-  public void makePredefEvent() throws InterruptedException {
-    Ievent e = eventFacade.getPredefinedEvent();
+  private void makePredefEvent() {
+    makeEvent(eventFacade.getPredefinedEvent());
     timer.pause();
-    int trigger = 1; // Change this to increase delay of event to trigger after its been announced.
-    pendingEvents.add(new ScheduleEvent(e, trigger));
-    model.extractEvent(e);
+    model.updatePause(true);
   }
 
-  private void processPendingEvents(){
-    List<ScheduleEvent> toTrigger = new ArrayList<>();
-    for(ScheduleEvent se : pendingEvents){
-      if(se.trigger <= 0){
-        toTrigger.add(se);
-      } else {
-        se.trigger =- 1;
+  private void processPendingEvents() {
+    List<Ipath> done = new ArrayList<>();
+    for (Ipath p : pendingEvents) {
+      if (p.start()) {
+        done.add(p);
       }
     }
-
-    for(ScheduleEvent trigg : toTrigger){
-      market.accept(trigg.event);
-      pendingEvents.remove(trigg);
+    for (Ipath p : done) {
+      pendingEvents.remove(p);
     }
-
-
-
   }
 
   /** Sets the game speed to Normal. */
+  @Override
   public void setSpeedNormal() {
     // System.out.println("Before Normal: " + timer.getCurrentTick());
     timer.setThreshold(Speed.NORMAL);
@@ -141,6 +130,7 @@ public class GameCore {
   }
 
   /** Sets the game speed to Slow. */
+  @Override
   public void setSpeedSlow() {
     // System.out.println("Before slow: " + timer.getCurrentTick());
     timer.setThreshold(Speed.SLOW);
@@ -148,6 +138,7 @@ public class GameCore {
   }
 
   /** Sets the game speed to Fast. */
+  @Override
   public void setSpeedFast() {
     // System.out.println("Before fast: " + timer.getCurrentTick());
     timer.setThreshold(Speed.FAST);
@@ -155,8 +146,24 @@ public class GameCore {
   }
 
   /** Pauses the timer if currently active, resumes the timer if currently paused. */
+  @Override
   public void pauseAndResume() {
     boolean running = timer.pauseAndResume();
     model.updatePause(running);
+  }
+
+  @Override
+  public void executeOnMarket(Ievent e) {
+    market.accept(e);
+  }
+
+  @Override
+  public void executeOnUser(Ievent e) {
+    user.accept(e);
+  }
+
+  @Override
+  public void extract(Ievent e) {
+    model.extractEvent(e);
   }
 }

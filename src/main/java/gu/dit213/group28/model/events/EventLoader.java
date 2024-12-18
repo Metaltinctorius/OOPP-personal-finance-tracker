@@ -3,13 +3,12 @@ package gu.dit213.group28.model.events;
 import gu.dit213.group28.model.enums.EventType;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.IeventLoader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import java.io.FileReader;
 
 public class EventLoader implements IeventLoader {
 
@@ -55,7 +54,6 @@ public class EventLoader implements IeventLoader {
   private void readFromJsonFile(String file) {
     JSONParser parser = new JSONParser();
 
-    /** Input the json file to read. */
     try (FileReader reader = new FileReader(file)) {
 
       JSONArray jsonArray = (JSONArray) parser.parse(reader);
@@ -91,7 +89,7 @@ public class EventLoader implements IeventLoader {
    *
    * @param id int (predefined in the json file)
    * @param type eventType
-   * @param iterations int ierations
+   * @param iterations int iterations
    * @param sectorStrings sectors as strings
    */
   private void checkArguments(int id, EventType type, int iterations, List<String> sectorStrings) {
@@ -144,7 +142,7 @@ public class EventLoader implements IeventLoader {
   }
 
   /**
-   * Recieves the parameters from the reader and creates new Predefined Events, and adds them to the
+   * Receives the parameters from the reader and creates new Predefined Events, and adds them to the
    * List of PredefinedEvents
    *
    * @param id int

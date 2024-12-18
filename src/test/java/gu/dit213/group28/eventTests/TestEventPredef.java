@@ -22,42 +22,32 @@ public class TestEventPredef {
   EventPredef event;
 
   @Test
-  public void test_sectors_not_empty(){
+  public void test_sectors_not_empty() {
 
-    List < Asset> assets = m.getAssets();
+    List<Asset> assets = m.getAssets();
     event.execute(m);
 
     double actual = 0.0;
     double expected;
-    for(Asset a : assets){
-      if (a.getSector() == Sector.HEALTHCARE) {actual = a.getTrend();}
+    for (Asset a : assets) {
+      if (a.getSector() == Sector.HEALTHCARE) {
+        actual = a.getTrend();
+      }
     }
     expected = event.getModifier();
     Assertions.assertEquals(actual, expected);
   }
 
-
-
-
-
-
   @BeforeEach
-  public void setup(){
+  public void setup() {
     event = createEvent();
     facade = new EventFacade();
     m = Market.getInstance();
   }
 
-
-
-  public EventPredef createEvent(){
+  public EventPredef createEvent() {
     List<Sector> sectors = new ArrayList<>();
     sectors.add(Sector.HEALTHCARE);
     return new EventPredef(99, "test event", "for testing", EventType.ONCE, 1, sectors, 0.2);
   }
-
-
-
-
-
 }

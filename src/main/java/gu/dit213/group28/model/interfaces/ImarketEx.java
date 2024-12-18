@@ -14,4 +14,7 @@ public interface ImarketEx {
 
   /** Adds a new modifier to the markets growth rate. */
   void addTrendModifier(TrendModifier mod);
+
+  /** Decrements the timer on all current modifiers inside the market */
+  void decrementAllModifiers();
 }

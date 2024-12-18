@@ -1,22 +1,16 @@
 package gu.dit213.group28.model.events;
 
 import gu.dit213.group28.model.IdManager;
-
 import gu.dit213.group28.model.interfaces.Ievent;
 import gu.dit213.group28.model.interfaces.IeventLoader;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Random;
 
 public class EventManager {
 
   /** A list of all events that have been initiated during the game's lifecycle. */
   private final List<Ievent> eventLog = new ArrayList<>();
-
-  /** The List of predefined events from the JSON file. */
-  private List<EventPredef> predefinedEvents;
 
   /** Manager for managing the identification of events */
   private final IdManager idManager;
@@ -26,6 +20,9 @@ public class EventManager {
 
   String testFile = "src/main/java/gu/dit213/group28/model/events/testFile.json";
   String mvpEvents = "src/main/java/gu/dit213/group28/model/events/mvpEvents.json";
+
+  /** The List of predefined events from the JSON file. */
+  private List<EventPredef> predefinedEvents;
 
   public EventManager() {
     this.predefinedEvents = new ArrayList<>();
@@ -40,11 +37,11 @@ public class EventManager {
   }
 
   /**
-   * For applying the file location outside of the event manager, the loader is now more decoupled
-   * and only requires a json file as a string path, instead of having the file paths locally in its
+   * For applying the file location outside the event manager, the loader is now more decoupled and
+   * only requires a json file as a string path, instead of having the file paths locally in its
    * implementation.
    *
-   * @return
+   * @return filepath as a string
    */
   public String getTestFile() {
     return testFile;
@@ -79,12 +76,9 @@ public class EventManager {
     return returnEventFromId(id);
   }
 
-
   /// Private methods intended for in-class logic and mediation ///
 
-
   /**
->>>>>>> fix-graf-update-before-description
    * Returns a random event from the list of PredefinedEvents
    *
    * @return EventPredef

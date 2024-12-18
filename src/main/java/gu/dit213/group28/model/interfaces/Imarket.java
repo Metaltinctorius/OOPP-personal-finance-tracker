@@ -8,7 +8,4 @@ public interface Imarket {
    * @param e Event that will execute on this market
    */
   void accept(Ievent e);
-
-  /** Decrements the timer on all current modifiers inside the market */
-  void decrementAllModifiers();
 }
