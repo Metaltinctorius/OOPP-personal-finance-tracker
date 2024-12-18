@@ -444,11 +444,12 @@
     "id": "55",
     "title": "Major market crash due to IT systems failure",
     "description": "Windows latest update causes a critical failure in IT systems worldwide",
-    "type": "ONCE",
-    "iterations": "1",
+    "type": "REPEATING",
+    "iterations": "3",
     "sectors": [],
     "modifier": "-0.30"
   }
+
 ]
 
 

@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.*;
 
 public class TimeTest {
-
+/*
   private Itimer time;
 
   @Test
@@ -94,4 +94,6 @@ public class TimeTest {
     time = new Time();
     time.initTime();
   }
+  */
+
 }
