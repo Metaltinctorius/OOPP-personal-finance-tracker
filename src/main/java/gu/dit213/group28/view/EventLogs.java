@@ -34,15 +34,10 @@ public class EventLogs {
     titledPane.setPrefHeight(600);
     titledPane.setStyle(
         "-fx-font-size: 16px; "
-            + // Increase font size for the title
-            "-fx-text-fill: black; "
-            + // Change the title text color
-            "-fx-border-width: 2px; "
-            + // Border thickness
-            "-fx-border-radius: 5px; "
-            + // Rounded border corners
-            "-fx-background-radius: 5px;" // Match border radius
-        );
+            + "-fx-text-fill: black; "
+            + "-fx-border-width: 2px; "
+            + "-fx-border-radius: 5px; "
+            + "-fx-background-radius: 5px;");
     view.setEventLog(this);
     return titledPane;
   }

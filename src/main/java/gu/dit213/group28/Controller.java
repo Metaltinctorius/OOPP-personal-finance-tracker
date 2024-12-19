@@ -61,7 +61,6 @@ public class Controller {
     BorderPane root = new BorderPane();
     GridPane grid = new GridPane();
     CenterGrid centerGrid = new CenterGrid();
-    InfoBox info = new InfoBox();
     EventLogs eventLog = new EventLogs();
 
     TitledPane eventLogPane = eventLog.createEventLog(view);
@@ -71,7 +70,7 @@ public class Controller {
     root.setCenter(grid);
     root.setBottom(low.createLowerButtonPanel(view));
     root.setRight(eventLogPane);
-    root.setLeft(info.createInfoBox(view));
+    root.setLeft(new InfoBox().createInfoBox(view));
 
     setOnBuySellButtonActionForEverySector(centerGrid);
     setOnButtonActionLowerPanel(low);

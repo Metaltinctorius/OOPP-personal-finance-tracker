@@ -94,7 +94,8 @@ public class InfoBox {
     try {
       info.currency.setText(String.format("%.2f", currency));
       info.pie.getData().getFirst().setPieValue(currency);
-    } catch (IllegalFormatException ignored) {
+    } catch (IllegalFormatException e) {
+      System.out.println("Invalid currency");
     }
   }
 

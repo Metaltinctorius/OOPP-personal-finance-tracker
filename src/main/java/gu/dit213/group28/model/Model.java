@@ -55,7 +55,8 @@ public class Model implements Icontrollable, Imodel {
         return;
       }
       gameCore.makePurchase(sector, qty);
-    } catch (NumberFormatException ignored) {
+    } catch (NumberFormatException e) {
+      System.out.println("Invalid quantity");
     }
   }
 
@@ -73,7 +74,8 @@ public class Model implements Icontrollable, Imodel {
         return;
       }
       gameCore.makeSell(sector, qty);
-    } catch (NumberFormatException ignored) {
+    } catch (NumberFormatException e) {
+      System.out.println("Invalid quantity");
     }
   }
 

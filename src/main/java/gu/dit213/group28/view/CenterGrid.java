@@ -31,15 +31,16 @@ public class CenterGrid {
     Sector[] sectors = Sector.values();
     for (int i = 0; i < 6; i++) {
       Sector sector = sectors[i + 1];
-      LineChart<Number, Number> lineChart = createGraph(sector);
-
-      TextField ownedField = new TextField();
-      TextField priceField = new TextField();
-      TextField quantityField = createQuantityField();
 
       buyButtonMap.put(sector, createButton("Buy"));
       sellButtonMap.put(sector, createButton("Sell"));
+
+      TextField quantityField = createQuantityField();
       quantityFieldMap.put(sector, quantityField);
+
+      LineChart<Number, Number> lineChart = createGraph(sector);
+      TextField priceField = new TextField();
+      TextField ownedField = new TextField();
 
       HBox buySellOwnedBox =
           createBuySellOwnedBox(buyButtonMap.get(sector), sellButtonMap.get(sector), ownedField);
@@ -54,12 +55,12 @@ public class CenterGrid {
 
   /** Below are helper methods for creation of the components to populate the center grid. */
   private LineChart<Number, Number> createGraph(Sector sector) {
-    NumberAxis xAxis = new NumberAxis();
-    NumberAxis yAxis = new NumberAxis();
-    xAxis.setForceZeroInRange(false);
-    yAxis.setForceZeroInRange(false);
+    NumberAxis xaxis = new NumberAxis();
+    NumberAxis yaxis = new NumberAxis();
+    xaxis.setForceZeroInRange(false);
+    yaxis.setForceZeroInRange(false);
 
-    LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
+    LineChart<Number, Number> lineChart = new LineChart<>(xaxis, yaxis);
     lineChart.setTitle(sector.toString());
     return lineChart;
   }
