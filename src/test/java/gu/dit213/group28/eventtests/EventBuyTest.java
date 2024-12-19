@@ -3,7 +3,7 @@ package gu.dit213.group28.eventtests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import gu.dit213.group28.model.enums.Sector;
-import gu.dit213.group28.model.events.EventSell;
+import gu.dit213.group28.model.events.EventBuy;
 import gu.dit213.group28.model.market.Market;
 import gu.dit213.group28.model.user.Portfolio;
 import java.lang.reflect.Field;
@@ -11,8 +11,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class EventSellTest {
-  private EventSell eventSell;
+public class EventBuyTest {
+  private EventBuy eventBuy;
   private Sector sector;
   private Market market;
   private Portfolio portfolio;
@@ -21,14 +21,14 @@ public class EventSellTest {
   public void setup() {
     sector = Sector.HEALTHCARE;
     market = Market.getInstance();
-    eventSell = new EventSell(sector, 5);
+    eventBuy = new EventBuy(sector, 5);
     portfolio = new Portfolio(10000);
     portfolio.addRecord(sector, 5);
   }
 
   @AfterEach
   public void tearDown() throws NoSuchFieldException, IllegalAccessException {
-    eventSell = null;
+    eventBuy = null;
     Field instance = Market.class.getDeclaredField("instance");
     instance.setAccessible(true);
     instance.set(null, null);
@@ -37,32 +37,33 @@ public class EventSellTest {
 
   @Test
   public void testExecutePortfolio() {
-    eventSell.execute(portfolio);
-    assertEquals(0, portfolio.getRecordQuantity(sector));
+    eventBuy.execute(portfolio);
+    assertEquals(10, portfolio.getRecordQuantity(sector));
   }
 
   @Test
   public void testUserUpdatedPrice() {
-    eventSell.execute(market);
-    eventSell.execute(portfolio);
-    assertEquals(12500, portfolio.getCurrency());
+    eventBuy = new EventBuy(sector, 5);
+    eventBuy.execute(market);
+    eventBuy.execute(portfolio);
+    assertEquals(7500, portfolio.getCurrency());
   }
 
   @Test
-  public void testBadSell1() {
-    eventSell = new EventSell(sector, 1000000);
-    eventSell.execute(market);
-    eventSell.execute(portfolio);
-    assertEquals(4, eventSell.getId());
+  public void testBadBuy1() {
+    eventBuy = new EventBuy(sector, 1000000);
+    eventBuy.execute(market);
+    eventBuy.execute(portfolio);
+    assertEquals(2, eventBuy.getId());
   }
 
   @Test
-  public void testBadSell2() {
-    portfolio = new Portfolio(10000);
-    eventSell.execute(market);
-    eventSell.execute(portfolio);
-    assertEquals(4, eventSell.getId());
-    assertEquals(10000, portfolio.getCurrency());
+  public void testBadBuy2() {
+    portfolio = new Portfolio(0);
+    eventBuy.execute(market);
+    eventBuy.execute(portfolio);
+    assertEquals(2, eventBuy.getId());
     assertEquals(0, portfolio.getRecordQuantity(sector));
+    assertEquals(0, portfolio.getCurrency());
   }
 }

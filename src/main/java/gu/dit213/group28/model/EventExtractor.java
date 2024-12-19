@@ -12,9 +12,9 @@ import gu.dit213.group28.model.interfaces.Iobserver;
 public class EventExtractor extends Observable implements IeventExtractor {
 
   /**
-   * Getter for the observable. Always returns itself,
+   * Getter for the observable. Always returns itself.
    *
-   * @return this event extractor
+   * @return this event extractor.
    */
   @Override
   public Observable getObservable() {
@@ -24,7 +24,7 @@ public class EventExtractor extends Observable implements IeventExtractor {
   /**
    * Extracts an event based on its ID and updates the view accordingly.
    *
-   * @param e The Ievent to be extracted
+   * @param e The Ievent to be extracted.
    */
   @Override
   public void extractEvent(Ievent e) {

@@ -46,9 +46,9 @@ public class EventFacade implements IeventFacade {
   }
 
   /**
-   * Gets the basic tick event
+   * Gets the basic tick event.
    *
-   * @return
+   * @return Basic tick events.
    */
   @Override
   public Ievent getTickEvent(int tick) {

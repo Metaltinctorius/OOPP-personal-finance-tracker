@@ -16,7 +16,7 @@ public abstract class Observable {
   /**
    * Adds a given Iobserver to the observer list of this Observable.
    *
-   * @param observer Iobserver to be added
+   * @param observer Iobserver to be added.
    */
   public void addObserver(Iobserver observer) {
     observers.add(observer);
@@ -25,7 +25,7 @@ public abstract class Observable {
   /**
    * Removes a given Iobserver from the observer list of this Observable.
    *
-   * @param observer Iobserver to be removed
+   * @param observer Iobserver to be removed.
    */
   public void removeObserver(Iobserver observer) {
     observers.remove(observer);
