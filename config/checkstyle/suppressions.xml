@@ -5,6 +5,7 @@
         "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
 
 <suppressions>
+    <!--
     <suppress checks="AvoidStarImport" files="src[/\\]test[/\\]java[/\\].*"/>
     <suppress checks="JavadocStyleCheck"
               files="GeneratedObject.java"
@@ -18,6 +19,6 @@
               files="src[/\\]main[/\\]java[/\\]gu[/\\]dit213[/\\]group28[/\\].*\.java"/>
     <suppress checks="MissingJavadocType"
               files="src[/\\]test[/\\]java[/\\]gu[/\\]dit213[/\\]group28[/\\].*\.java"/>
-    <!-- <suppress checks="LineLength" files="src[/\\]test[/\\]resources[/\\].*"/>
+     <suppress checks="LineLength" files="src[/\\]test[/\\]resources[/\\].*"/>
     <suppress checks="LineLength" files="src[/\\]main[/\\]resources[/\\].*"/> -->
 </suppressions>
