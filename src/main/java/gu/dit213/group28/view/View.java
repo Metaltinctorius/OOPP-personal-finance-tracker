@@ -9,7 +9,7 @@ import java.util.List;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
-/** The main view class, update various components after being sent a notice by its observer */
+/** The main view class, update various components after being sent a notice by its observer. */
 public class View implements Iobserver {
   private final Stage stage;
   private Graphs graphs;
@@ -17,7 +17,7 @@ public class View implements Iobserver {
   private LowerPanel low;
   private EventLogs eventLog;
 
-  /** The main view class, update various components after being sent a notice by its observer */
+  /** The main view class, update various components after being sent a notice by its observer. */
   public View(Stage stage, Observable observable) {
     this.stage = stage;
     observable.addObserver(this);
@@ -50,11 +50,12 @@ public class View implements Iobserver {
 
   /** Updates the central graphs. */
   @Override
-  public void updateGraphs(int xAxis, List<MarketOutput> mOutput, List<UserOutput> uOutput) {
+  public void updateGraphs(
+      int xaxisVal, List<MarketOutput> marketOutputs, List<UserOutput> userOutputs) {
     Platform.runLater(
         () -> {
-          graphs.updateGraphs(xAxis, mOutput);
-          info.updatePie(uOutput);
+          graphs.updateGraphs(xaxisVal, marketOutputs);
+          info.updatePie(userOutputs);
         });
   }
 
@@ -76,8 +77,8 @@ public class View implements Iobserver {
 
   /** Updates the players current progress. I.e. The index value vs the players value. */
   @Override
-  public void updateProgress(int xAxis, double index, double player) {
-    Platform.runLater(() -> info.updateLine(xAxis, index, player));
+  public void updateProgress(int xaxisVal, double index, double player) {
+    Platform.runLater(() -> info.updateLine(xaxisVal, index, player));
   }
 
   /** Shows an event pop-up window with event description when event triggers. */

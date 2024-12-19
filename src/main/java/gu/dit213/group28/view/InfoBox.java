@@ -1,16 +1,15 @@
 package gu.dit213.group28.view;
 
-import gu.dit213.group28.model.records.UserOutput;
 import gu.dit213.group28.model.enums.Sector;
+import gu.dit213.group28.model.records.UserOutput;
+import java.util.IllegalFormatException;
+import java.util.List;
 import javafx.geometry.Pos;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
-
-import java.util.IllegalFormatException;
-import java.util.List;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -26,14 +25,14 @@ public class InfoBox {
       pie.getData().add(new PieChart.Data(sectors[i].toString(), 0));
     }
 
-    NumberAxis xAxis = new NumberAxis();
-    NumberAxis yAxis = new NumberAxis();
-    xAxis.setForceZeroInRange(false);
-    xAxis.setVisible(false);
-    yAxis.setForceZeroInRange(false);
-    yAxis.setVisible(false);
+    NumberAxis xaxis = new NumberAxis();
+    NumberAxis yaxis = new NumberAxis();
+    xaxis.setForceZeroInRange(false);
+    xaxis.setVisible(false);
+    yaxis.setForceZeroInRange(false);
+    yaxis.setVisible(false);
 
-    LineChart<Number, Number> line = new LineChart<>(xAxis, yAxis);
+    LineChart<Number, Number> line = new LineChart<>(xaxis, yaxis);
 
     line.setHorizontalGridLinesVisible(false);
     line.setHorizontalZeroLineVisible(false);
@@ -66,9 +65,9 @@ public class InfoBox {
     return infoBox;
   }
 
-  public void updatePie(List<UserOutput> uOutput) {
+  public void updatePie(List<UserOutput> userOutput) {
     for (PieChart.Data p : info.pie.getData()) {
-      for (UserOutput u : uOutput) {
+      for (UserOutput u : userOutput) {
         if (u.sector().toString().equals(p.getName())) {
           p.setPieValue(u.value() * u.quantity());
         }
@@ -84,11 +83,11 @@ public class InfoBox {
     }
   }
 
-  public void updateLine(int xAxis, double index, double player) {
+  public void updateLine(int xaxisVal, double index, double player) {
     XYChart.Series<Number, Number> is = info.line.getData().getFirst();
     XYChart.Series<Number, Number> ps = info.line.getData().getLast();
-    is.getData().add(new XYChart.Data<>(xAxis, index));
-    ps.getData().add(new XYChart.Data<>(xAxis, player));
+    is.getData().add(new XYChart.Data<>(xaxisVal, index));
+    ps.getData().add(new XYChart.Data<>(xaxisVal, player));
   }
 
   public void updateCurrency(double currency) {

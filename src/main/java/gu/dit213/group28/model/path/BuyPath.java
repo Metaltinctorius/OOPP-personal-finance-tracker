@@ -12,13 +12,13 @@ public class BuyPath extends AbstractPath implements Ipath {
 
   @Override
   public boolean start() {
-    if (e.getID() == 2) {
-      p.extract(e);
+    if (event.getId() == 2) {
+      path.extract(event);
       return true;
     }
-    p.executeOnMarket(e);
-    p.executeOnUser(e);
-    p.extract(e);
+    path.executeOnMarket(event);
+    path.executeOnUser(event);
+    path.extract(event);
     return true;
   }
 

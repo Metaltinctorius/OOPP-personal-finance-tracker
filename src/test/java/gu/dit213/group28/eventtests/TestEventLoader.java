@@ -1,14 +1,14 @@
-package gu.dit213.group28.eventTests;
+package gu.dit213.group28.eventtests;
 
-import gu.dit213.group28.model.enums.Sector;
+import gu.dit213.group28.model.enums.EventType;
+import gu.dit213.group28.model.events.EventFacade;
+import gu.dit213.group28.model.events.EventLoader;
 import gu.dit213.group28.model.events.EventManager;
 import gu.dit213.group28.model.events.EventPredef;
-import gu.dit213.group28.model.events.EventFacade;
-import gu.dit213.group28.model.enums.EventType;
-import gu.dit213.group28.model.events.EventLoader;
 import java.util.List;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.*;
 
 public class TestEventLoader {
 
@@ -16,11 +16,9 @@ public class TestEventLoader {
   private EventLoader loader;
   List<EventPredef> predefinedEvents;
 
-
-
   @Test
   public void test_id() {
-    int actualId = predefinedEvents.get(0).getID();
+    int actualId = predefinedEvents.get(0).getId();
     int expectedId = 1;
     Assertions.assertEquals(expectedId, actualId);
   }

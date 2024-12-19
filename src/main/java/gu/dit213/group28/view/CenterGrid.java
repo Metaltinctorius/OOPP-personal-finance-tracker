@@ -1,7 +1,6 @@
 package gu.dit213.group28.view;
 
 import gu.dit213.group28.model.enums.Sector;
-
 import java.util.HashMap;
 import java.util.Map;
 import javafx.geometry.Pos;
@@ -14,7 +13,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-
 import javafx.scene.layout.VBox;
 
 /**

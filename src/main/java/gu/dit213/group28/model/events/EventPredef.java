@@ -57,7 +57,7 @@ public class EventPredef extends Event {
   /**
    * Returns the list of sectors for the event.
    *
-   * @return List <Sector>
+   * @return List <Sector> sectors
    */
   public List<Sector> getSectors() {
     return sectors;

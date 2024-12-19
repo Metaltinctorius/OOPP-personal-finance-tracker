@@ -10,14 +10,14 @@ public interface IeventExtractor {
   /**
    * Extracts an event based on its ID and updates the view accordingly.
    *
-   * @param e The Ievent to be extracted
+   * @param e The Ievent to be extracted.
    */
   void extractEvent(Ievent e);
 
   /**
-   * Informs view about game pause
+   * Informs view about game pause.
    *
-   * @param pause true if paused, false if resumed
+   * @param pause true if paused, false if resumed.
    */
   void updatePause(boolean pause);
 }

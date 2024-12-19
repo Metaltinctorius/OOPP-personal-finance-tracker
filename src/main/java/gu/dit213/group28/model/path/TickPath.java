@@ -11,9 +11,9 @@ public class TickPath extends AbstractPath implements Ipath {
 
   @Override
   public boolean start() {
-    p.executeOnMarket(e);
-    p.executeOnUser(e);
-    p.extract(e);
+    path.executeOnMarket(event);
+    path.executeOnUser(event);
+    path.extract(event);
     return true;
   }
 

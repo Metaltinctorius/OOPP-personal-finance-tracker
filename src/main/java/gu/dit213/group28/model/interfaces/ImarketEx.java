@@ -6,7 +6,8 @@ import java.util.List;
 
 /** Interface used by events for executing on a market. */
 public interface ImarketEx {
-  /** Gets the list of assets listed on the market */
+
+  /** Gets the list of assets listed on the market. */
   List<Asset> getAssets();
 
   /** Gets the current value of the index fund of the market. */
@@ -15,6 +16,6 @@ public interface ImarketEx {
   /** Adds a new modifier to the markets growth rate. */
   void addTrendModifier(TrendModifier mod);
 
-  /** Decrements the timer on all current modifiers inside the market */
+  /** Decrements the timer on all current modifiers inside the market. */
   void decrementAllModifiers();
 }

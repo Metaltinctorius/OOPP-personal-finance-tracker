@@ -4,11 +4,11 @@ import gu.dit213.group28.model.interfaces.Ievent;
 import gu.dit213.group28.model.interfaces.Ipathable;
 
 public class AbstractPath {
-  protected final Ipathable p;
-  protected final Ievent e;
+  protected final Ipathable path;
+  protected final Ievent event;
 
-  public AbstractPath(Ipathable p, Ievent e) {
-    this.p = p;
-    this.e = e;
+  public AbstractPath(Ipathable path, Ievent event) {
+    this.path = path;
+    this.event = event;
   }
 }

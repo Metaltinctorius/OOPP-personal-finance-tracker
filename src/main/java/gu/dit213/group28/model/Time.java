@@ -25,7 +25,7 @@ public class Time implements Itimer {
     queue = new SynchronousQueue<>();
   }
 
-  /** Initializes the timer */
+  /** Initializes the timer. */
   public void initTime() {
     timer.scheduleAtFixedRate(
         () -> {
@@ -75,23 +75,23 @@ public class Time implements Itimer {
   }
 
   /**
-   * Blocks the current thread until the next game tick occurs-
+   * Blocks the current thread until the next game tick occurs.
    *
    * @return Always true
-   * @throws InterruptedException
+   * @throws InterruptedException if the thread is interrupted
    */
   public boolean next() throws InterruptedException {
     return queue.take();
   }
 
-  /** Starts the timer */
+  /** Starts the timer. */
   public void start() {
     lock.lock();
     running = true;
     lock.unlock();
   }
 
-  /** Pauses the timer */
+  /** Pauses the timer. */
   public void pause() {
     lock.lock();
     running = false;

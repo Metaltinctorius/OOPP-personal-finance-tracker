@@ -17,7 +17,7 @@ public class EventLoader implements IeventLoader {
 
   /**
    * This list is where the ids predefined in the json file are stored, this is important for the
-   * idManager for in-game created events
+   * idManager for in-game created events.
    */
   private final List<Integer> reservedIds;
 
@@ -50,7 +50,7 @@ public class EventLoader implements IeventLoader {
     return reservedIds;
   }
 
-  /** This method reads and parses the json file */
+  /** This method reads and parses the json file. */
   private void readFromJsonFile(String file) {
     JSONParser parser = new JSONParser();
 
@@ -143,7 +143,7 @@ public class EventLoader implements IeventLoader {
 
   /**
    * Receives the parameters from the reader and creates new Predefined Events, and adds them to the
-   * List of PredefinedEvents
+   * List of PredefinedEvents.
    *
    * @param id int
    * @param title string
@@ -167,7 +167,7 @@ public class EventLoader implements IeventLoader {
     EventPredef event =
         new EventPredef(id, title, description, type, iterations, sectors, modifier);
     predefinedEvents.add(event);
-    reservedIds.add(event.getID());
+    reservedIds.add(event.getId());
   }
 
   /**
@@ -188,7 +188,7 @@ public class EventLoader implements IeventLoader {
   public void viewParsedInputs() {
     for (EventPredef event : predefinedEvents) {
       System.out.println("**************************");
-      System.out.println("* id:          " + event.getID());
+      System.out.println("* id:          " + event.getId());
       System.out.println("* title:       " + event.getTitle());
       System.out.println("* description: " + event.getDescription());
       System.out.println("* type:        " + event.getType());

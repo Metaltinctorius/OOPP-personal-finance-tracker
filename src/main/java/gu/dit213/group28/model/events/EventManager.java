@@ -12,10 +12,10 @@ public class EventManager {
   /** A list of all events that have been initiated during the game's lifecycle. */
   private final List<Ievent> eventLog = new ArrayList<>();
 
-  /** Manager for managing the identification of events */
+  /** Manager for managing the identification of events. */
   private final IdManager idManager;
 
-  /** Loader to load the events from the Json file */
+  /** Loader to load the events from the Json file. */
   private final IeventLoader loader;
 
   String testFile = "src/main/java/gu/dit213/group28/model/events/testFile.json";
@@ -79,7 +79,7 @@ public class EventManager {
   /// Private methods intended for in-class logic and mediation ///
 
   /**
-   * Returns a random event from the list of PredefinedEvents
+   * Returns a random event from the list of PredefinedEvents.
    *
    * @return EventPredef
    */
@@ -99,7 +99,7 @@ public class EventManager {
    */
   private EventPredef returnEventFromId(int id) {
     for (EventPredef e : predefinedEvents) {
-      if (e.getID() == id) {
+      if (e.getId() == id) {
         return e;
       }
     }

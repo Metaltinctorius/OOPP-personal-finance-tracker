@@ -16,11 +16,11 @@ public class PreDefPath extends AbstractPath implements Ipath {
   public boolean start() {
     if (trigger > 0) {
       System.out.println("extract");
-      p.extract(e);
+      path.extract(event);
       trigger--;
       return false;
     }
-    p.executeOnMarket(e);
+    path.executeOnMarket(event);
     return true;
   }
 

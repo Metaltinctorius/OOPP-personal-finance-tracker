@@ -57,14 +57,14 @@ public class Graphs {
   public void updateOwnedField(Sector sector, int owned) {
     for (SectorGraph sg : graphs) {
       if (sg.sector == sector) {
-        sg.oField.setText(String.valueOf(owned));
+        sg.ownedField.setText(String.valueOf(owned));
       }
     }
   }
 
-  public void updateGraphs(int xAxis, List<MarketOutput> mOutput) {
+  public void updateGraphs(int xaxisVal, List<MarketOutput> marketOutputs) {
 
-    for (MarketOutput m : mOutput) {
+    for (MarketOutput m : marketOutputs) {
       if (m.value() > globalMax + buffer) {
         globalMax = m.value();
       }
@@ -74,23 +74,23 @@ public class Graphs {
     }
 
     for (SectorGraph sg : graphs) {
-      for (MarketOutput output : mOutput) {
+      for (MarketOutput output : marketOutputs) {
         if (sg.sector() == output.sector()) {
-          sg.pField.setText(String.format("%.2f", output.value()));
+          sg.priceField.setText(String.format("%.2f", output.value()));
           XYChart.Series<Number, Number> s = sg.graph.getData().getFirst();
           if (s.getData().size() > 40) {
             s.getData().removeFirst();
           }
-          s.getData().add(new XYChart.Data<>(xAxis, output.value()));
+          s.getData().add(new XYChart.Data<>(xaxisVal, output.value()));
         }
       }
-      NumberAxis yAxis = (NumberAxis) sg.graph.getYAxis();
-      yAxis.setAutoRanging(false);
-      yAxis.setUpperBound(globalMax + buffer);
-      yAxis.setLowerBound(globalMin - buffer);
+      NumberAxis yaxisVal = (NumberAxis) sg.graph.getYAxis();
+      yaxisVal.setAutoRanging(false);
+      yaxisVal.setUpperBound(globalMax + buffer);
+      yaxisVal.setLowerBound(globalMin - buffer);
     }
   }
 
   private record SectorGraph(
-      LineChart<Number, Number> graph, Sector sector, TextField oField, TextField pField) {}
+      LineChart<Number, Number> graph, Sector sector, TextField ownedField, TextField priceField) {}
 }

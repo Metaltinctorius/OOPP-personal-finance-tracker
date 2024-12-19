@@ -1,4 +1,4 @@
-package gu.dit213.group28.eventTests;
+package gu.dit213.group28.eventtests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -6,10 +6,8 @@ import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.events.EventSell;
 import gu.dit213.group28.model.market.Market;
 import gu.dit213.group28.model.user.Portfolio;
-
 import java.lang.reflect.Field;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,8 +26,6 @@ public class EventSellTest {
     portfolio.addRecord(sector, 5);
   }
 
-
-
   @AfterEach
   public void tearDown() throws NoSuchFieldException, IllegalAccessException {
     eventSell = null;
@@ -37,10 +33,7 @@ public class EventSellTest {
     instance.setAccessible(true);
     instance.set(null, null);
     portfolio = null;
-
-
   }
-
 
   @Test
   public void testExecutePortfolio() {
@@ -55,6 +48,4 @@ public class EventSellTest {
     eventSell.execute(portfolio);
     assertEquals(portfolio.getCurrency(), 12500);
   }
-
-
 }

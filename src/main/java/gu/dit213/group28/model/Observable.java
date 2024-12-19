@@ -14,7 +14,7 @@ public abstract class Observable {
   }
 
   /**
-   * Adds a given Iobserver to the observer list of this Observable
+   * Adds a given Iobserver to the observer list of this Observable.
    *
    * @param observer Iobserver to be added
    */
@@ -23,7 +23,7 @@ public abstract class Observable {
   }
 
   /**
-   * Removes a given Iobserver from the observer list of this Observable
+   * Removes a given Iobserver from the observer list of this Observable.
    *
    * @param observer Iobserver to be removed
    */

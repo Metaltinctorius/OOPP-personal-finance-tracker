@@ -2,7 +2,6 @@ package gu.dit213.group28;
 
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.Icontrollable;
-
 import gu.dit213.group28.view.CenterGrid;
 import gu.dit213.group28.view.EventLogs;
 import gu.dit213.group28.view.InfoBox;
@@ -10,14 +9,12 @@ import gu.dit213.group28.view.LowerPanel;
 import gu.dit213.group28.view.View;
 import gu.dit213.group28.view.WelcomeDialog;
 import javafx.scene.Scene;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
-
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 

@@ -1,4 +1,4 @@
-package gu.dit213.group28.marketTests;
+package gu.dit213.group28.markettests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;

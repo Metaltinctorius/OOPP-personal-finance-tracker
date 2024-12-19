@@ -25,13 +25,13 @@ public class EventSell extends Event {
     this.sector = sector;
     this.quantity = quantity;
     if (quantity <= 0) {
-      setID(4);
+      setId(4);
     }
     owned = -1;
   }
 
   /**
-   * Getter for sector
+   * Getter for sector.
    *
    * @return The sector of the assets.
    */
@@ -57,9 +57,9 @@ public class EventSell extends Event {
   }
 
   /**
-   * Executes event on given ImarketEx
+   * Executes event on given ImarketEx.
    *
-   * @param m ImarketEx to be executed upon
+   * @param m ImarketEx to be executed upon.
    */
   @Override
   public void execute(ImarketEx m) {
@@ -72,9 +72,9 @@ public class EventSell extends Event {
   }
 
   /**
-   * Executes event on given IuserEx
+   * Executes event on given IuserEx.
    *
-   * @param u IuserEx to be executed upon
+   * @param u IuserEx to be executed upon.
    */
   @Override
   public void execute(IuserEx u) {
@@ -83,7 +83,6 @@ public class EventSell extends Event {
     for (PortfolioRecord record : u.getRecords()) {
       if (record.getSector() == sector) {
         sell = record;
-
       }
     }
     if (sell != null && sell.getQuantity() >= quantity) {
@@ -94,7 +93,7 @@ public class EventSell extends Event {
       }
       owned = sell.getQuantity();
     } else {
-      setID(4);
+      setId(4);
     }
   }
 }

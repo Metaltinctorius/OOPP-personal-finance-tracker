@@ -1,7 +1,7 @@
 package gu.dit213.group28.model.interfaces;
 
-import gu.dit213.group28.model.records.MarketOutput;
 import gu.dit213.group28.model.enums.Sector;
+import gu.dit213.group28.model.records.MarketOutput;
 import gu.dit213.group28.model.user.PortfolioEntry;
 import gu.dit213.group28.model.user.PortfolioRecord;
 import java.util.List;
@@ -11,7 +11,7 @@ public interface IuserEx {
   /**
    * Gets the users current currency.
    *
-   * @return
+   * @return The users current currency.
    */
   double getCurrency();
 
@@ -23,9 +23,9 @@ public interface IuserEx {
   void addCurrency(double amount);
 
   /**
-   * Adds a given portfolio entry to the user
+   * Adds a given portfolio entry to the user.
    *
-   * @param entry The entry to be added
+   * @param entry The entry to be added.
    */
   void addEntry(PortfolioEntry entry);
 
@@ -74,7 +74,7 @@ public interface IuserEx {
   int getRecordQuantity(Sector sector);
 
   /**
-   * Gets the total value of a user, including both records and currency
+   * Gets the total value of a user, including both records and currency.
    *
    * @param m List of market outputs that include the current value of sectors.
    * @return Total value of a user.

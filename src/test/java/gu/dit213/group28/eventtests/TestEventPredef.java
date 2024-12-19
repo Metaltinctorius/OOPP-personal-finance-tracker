@@ -1,31 +1,29 @@
-package gu.dit213.group28.eventTests;
+package gu.dit213.group28.eventtests;
 
 import gu.dit213.group28.model.enums.EventType;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.events.EventFacade;
-import gu.dit213.group28.model.events.EventManager;
 import gu.dit213.group28.model.events.EventPredef;
-import gu.dit213.group28.model.interfaces.IeventFacade;
 import gu.dit213.group28.model.interfaces.ImarketEx;
 import gu.dit213.group28.model.market.Asset;
 import gu.dit213.group28.model.market.Market;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.*;
 
 public class TestEventPredef {
 
-  ImarketEx m;
-  EventManager manager;
+  ImarketEx market;
   EventFacade facade;
   EventPredef event;
 
   @Test
   public void test_sectors_not_empty() {
 
-    List<Asset> assets = m.getAssets();
-    event.execute(m);
+    List<Asset> assets = market.getAssets();
+    event.execute(market);
 
     double actual = 0.0;
     double expected;
@@ -42,7 +40,7 @@ public class TestEventPredef {
   public void setup() {
     event = createEvent();
     facade = new EventFacade();
-    m = Market.getInstance();
+    market = Market.getInstance();
   }
 
   public EventPredef createEvent() {

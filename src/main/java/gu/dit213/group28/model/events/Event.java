@@ -12,15 +12,15 @@ public abstract class Event implements Ievent {
   }
 
   /**
-   * Getter for event ID
+   * Getter for event ID.
    *
    * @return event ID
    */
-  public int getID() {
+  public int getId() {
     return id;
   }
 
-  protected void setID(int id) {
+  protected void setId(int id) {
     this.id = id;
   }
 }

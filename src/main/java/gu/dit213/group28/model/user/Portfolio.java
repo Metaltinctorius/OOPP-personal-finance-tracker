@@ -1,11 +1,10 @@
 package gu.dit213.group28.model.user;
 
-import gu.dit213.group28.model.records.MarketOutput;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.Ievent;
 import gu.dit213.group28.model.interfaces.Iuser;
-
 import gu.dit213.group28.model.interfaces.IuserEx;
+import gu.dit213.group28.model.records.MarketOutput;
 import java.util.ArrayList;
 import java.util.List;
 

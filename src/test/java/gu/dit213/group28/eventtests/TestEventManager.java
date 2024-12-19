@@ -1,10 +1,8 @@
-package gu.dit213.group28.eventTests;
+package gu.dit213.group28.eventtests;
 
 import gu.dit213.group28.model.enums.EventType;
 import gu.dit213.group28.model.enums.Sector;
-import gu.dit213.group28.model.events.Event;
 import gu.dit213.group28.model.events.EventManager;
-import gu.dit213.group28.model.events.EventLoader;
 import gu.dit213.group28.model.events.EventPredef;
 import gu.dit213.group28.model.interfaces.Ievent;
 import java.util.ArrayList;
@@ -22,7 +20,7 @@ public class TestEventManager {
   @Test
   public void test_add_event_to_log() {
     manager.addToEventLog(testEvent);
-    Assertions.assertEquals(manager.getEventLog().getFirst().getID(), 99);
+    Assertions.assertEquals(manager.getEventLog().getFirst().getId(), 99);
   }
 
   @Test

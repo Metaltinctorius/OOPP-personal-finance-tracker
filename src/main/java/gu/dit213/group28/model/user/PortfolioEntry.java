@@ -1,9 +1,6 @@
 package gu.dit213.group28.model.user;
 
 import gu.dit213.group28.model.enums.Sector;
-import gu.dit213.group28.model.market.Asset;
-
-import java.time.LocalDate;
 
 /** Represents an entry in a portfolio, containing information about a specific investment. */
 public class PortfolioEntry {

@@ -4,7 +4,7 @@ import gu.dit213.group28.model.enums.Speed;
 
 /** Interface for a timer that represents in-game time. */
 public interface Itimer {
-  /** Initializes the timer */
+  /** Initializes the timer. */
   void initTime();
 
   /**
@@ -16,17 +16,17 @@ public interface Itimer {
   void setThreshold(Speed s);
 
   /**
-   * Blocks the current thread until the next game tick occurs-
+   * Blocks the current thread until the next game tick occurs.
    *
    * @return Always true
-   * @throws InterruptedException
+   * @throws InterruptedException if the thread is interrupted
    */
   boolean next() throws InterruptedException;
 
-  /** Starts the timer */
+  /** Starts the timer. */
   void start();
 
-  /** Pauses the timer */
+  /** Pauses the timer. */
   void pause();
 
   /** Pauses the timer if currently active, resumes the timer if currently paused. */

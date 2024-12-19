@@ -3,15 +3,23 @@ package gu.dit213.group28.model;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.enums.Speed;
 import gu.dit213.group28.model.events.EventFacade;
-import gu.dit213.group28.model.interfaces.*;
+import gu.dit213.group28.model.interfaces.Icore;
+import gu.dit213.group28.model.interfaces.Ievent;
+import gu.dit213.group28.model.interfaces.IeventFacade;
+import gu.dit213.group28.model.interfaces.Imarket;
+import gu.dit213.group28.model.interfaces.Imodel;
+import gu.dit213.group28.model.interfaces.Ipath;
+import gu.dit213.group28.model.interfaces.IpathCreator;
+import gu.dit213.group28.model.interfaces.Ipathable;
+import gu.dit213.group28.model.interfaces.Itimer;
+import gu.dit213.group28.model.interfaces.Iuser;
 import gu.dit213.group28.model.market.Market;
 import gu.dit213.group28.model.path.PathCreator;
 import gu.dit213.group28.model.user.Portfolio;
-import gu.dit213.group28.model.wrappers.wEventFacade;
-import gu.dit213.group28.model.wrappers.wModel;
-import gu.dit213.group28.model.wrappers.wMarket;
-import gu.dit213.group28.model.wrappers.wUser;
-
+import gu.dit213.group28.model.wrappers.WrapEventFacade;
+import gu.dit213.group28.model.wrappers.WrapMarket;
+import gu.dit213.group28.model.wrappers.WrapModel;
+import gu.dit213.group28.model.wrappers.WrapUser;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,10 +40,10 @@ public class GameCore implements Ipathable, Icore {
   public GameCore(Model model) {
     timer = new Time();
     timer.initTime();
-    eventFacade = new wEventFacade(new EventFacade());
-    this.model = new wModel(model);
-    market = new wMarket(Market.getInstance());
-    user = new wUser(new Portfolio(100000));
+    eventFacade = new WrapEventFacade(new EventFacade());
+    this.model = new WrapModel(model);
+    market = new WrapMarket(Market.getInstance());
+    user = new WrapUser(new Portfolio(100000));
     tick = 0;
     pathCreator = new PathCreator();
   }

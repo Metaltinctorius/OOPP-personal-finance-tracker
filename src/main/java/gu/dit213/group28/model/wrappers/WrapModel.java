@@ -2,16 +2,15 @@ package gu.dit213.group28.model.wrappers;
 
 import gu.dit213.group28.model.interfaces.Ievent;
 import gu.dit213.group28.model.interfaces.Imodel;
-
 import java.util.concurrent.locks.ReentrantLock;
 
 /** Wrapper class for Model that ensures thread safety. */
-public class wModel implements Imodel {
+public class WrapModel implements Imodel {
   private final ReentrantLock lock = new ReentrantLock();
   private final Imodel model;
 
   /** Wrapper class for Model that ensures thread safety. */
-  public wModel(Imodel model) {
+  public WrapModel(Imodel model) {
     this.model = model;
   }
 

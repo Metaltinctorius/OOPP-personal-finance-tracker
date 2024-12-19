@@ -7,9 +7,6 @@ import gu.dit213.group28.model.events.EventTick;
 import gu.dit213.group28.model.interfaces.Ievent;
 import gu.dit213.group28.model.interfaces.IeventExtractor;
 import gu.dit213.group28.model.interfaces.Iobserver;
-import gu.dit213.group28.model.records.MarketOutput;
-import java.util.ArrayList;
-import java.util.List;
 
 /** Class for extracting output from events and updating the view. */
 public class EventExtractor extends Observable implements IeventExtractor {
@@ -31,11 +28,11 @@ public class EventExtractor extends Observable implements IeventExtractor {
    */
   @Override
   public void extractEvent(Ievent e) {
-    if (e.getID() == 0) {
+    if (e.getId() == 0) {
       EventTick te = (EventTick) e;
       for (Iobserver o : observers) {
 
-        o.updateGraphs(te.tick, te.mOutput, te.uOutput);
+        o.updateGraphs(te.tick, te.marketOutput, te.userOutput);
         o.updateCurrency(te.getCurrency());
         o.updateProgress(te.tick, te.getIndexValue(), te.getPlayerValue());
 
@@ -45,7 +42,7 @@ public class EventExtractor extends Observable implements IeventExtractor {
 
       }
     }
-    if (e.getID() == 1) {
+    if (e.getId() == 1) {
       assert e instanceof EventBuy;
       EventBuy be = (EventBuy) e;
       for (Iobserver o : observers) {
@@ -54,24 +51,24 @@ public class EventExtractor extends Observable implements IeventExtractor {
       }
     }
 
-    if (e.getID() == 2) {
+    if (e.getId() == 2) {
       for (Iobserver o : observers) {
         o.updateOnEvent("YOU ARE BROKE, SIR");
       }
     }
-    if (e.getID() == 3) {
+    if (e.getId() == 3) {
       EventSell se = (EventSell) e;
       for (Iobserver o : observers) {
         o.updateOwned(se.getSector(), se.getOwned(), se.getValue());
         o.updateSellHistory(se.getSector(), se.getQuantity(), se.getValue());
       }
     }
-    if (e.getID() == 4) {
+    if (e.getId() == 4) {
       for (Iobserver o : observers) {
         o.updateOnEvent("YOU DON'T HAVE THOSE KINDA STOCKS BUD");
       }
     }
-    if (e.getID() > 4) {
+    if (e.getId() > 4) {
       EventPredef pre = (EventPredef) e;
       for (Iobserver o : observers) {
         o.updateOnEvent(pre.getDescription());

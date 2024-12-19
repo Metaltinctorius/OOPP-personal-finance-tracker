@@ -25,7 +25,7 @@ public class EventFacade implements IeventFacade {
   /**
    * Returns the event log (the history of passed events).
    *
-   * @return List <Event>
+   * @return List <Event> eventLog
    */
   public List<Ievent> getEventLog() {
     return eventManager.getEventLog();
