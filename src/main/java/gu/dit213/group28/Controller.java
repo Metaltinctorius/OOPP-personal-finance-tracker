@@ -51,15 +51,12 @@ public class Controller {
     LowerPanel lowerPanel = new LowerPanel();
     Scene scene = createScene(lowerPanel);
 
-
-
     stage.setScene(scene);
     setKeys(scene, model, lowerPanel);
     stage.setTitle("Finance Tracker");
     view.initView();
     WelcomeDialog welcomeDialog = new WelcomeDialog();
     welcomeDialog.createWelcomeDialog();
-
   }
 
   /** Creates the scene for the JavaFX stage. */
@@ -70,11 +67,11 @@ public class Controller {
     InfoBox info = new InfoBox();
     EventLogs eventLog = new EventLogs();
 
-
     TitledPane eventLogPane = eventLog.createEventLog(view);
     eventLogPane.prefWidthProperty().bind(root.widthProperty().multiply(0.2));
 
-    root.setCenter(centerGrid.populateCenterGrid(grid, view));
+    centerGrid.populateCenterGrid(grid, view);
+    root.setCenter(grid);
     root.setBottom(low.createLowerButtonPanel(view));
     root.setRight(eventLogPane);
     root.setLeft(info.createInfoBox(view));

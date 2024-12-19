@@ -28,7 +28,7 @@ public class CenterGrid {
   private final Map<Sector, TextField> quantityFieldMap = new HashMap<>();
 
   /** Populates the center grid with the graphs, controls and information fields. */
-  public GridPane populateCenterGrid(GridPane grid, View view) {
+  public void populateCenterGrid(GridPane grid, View view) {
     Graphs graphs = new Graphs();
     Sector[] sectors = Sector.values();
     for (int i = 0; i < 6; i++) {
@@ -52,7 +52,6 @@ public class CenterGrid {
       graphs.addGraph(lineChart, sector, ownedField, priceField, getColour(sector));
     }
     view.setGraphs(graphs);
-    return grid;
   }
 
   /** Below are helper methods for creation of the components to populate the center grid. */
