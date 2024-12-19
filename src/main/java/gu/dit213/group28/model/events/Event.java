@@ -7,6 +7,11 @@ public abstract class Event implements Ievent {
 
   private int id;
 
+  /**
+   * Constructor for Event.
+   *
+   * @param id event ID
+   */
   public Event(int id) {
     this.id = id;
   }

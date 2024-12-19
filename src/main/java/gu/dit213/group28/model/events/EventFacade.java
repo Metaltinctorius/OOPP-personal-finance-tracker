@@ -6,12 +6,17 @@ import gu.dit213.group28.model.interfaces.IeventFacade;
 import java.util.List;
 import java.util.Random;
 
+/** Class that works as a facade and API for the event manager. */
 public class EventFacade implements IeventFacade {
 
   private final EventManager eventManager;
   private final Random rng = new Random();
   private double randomEventChance;
 
+  /**
+   * Constructor for EventFacade. Initializes the event manager and loads the events from the json
+   * file.
+   */
   public EventFacade() {
     this.eventManager = new EventManager();
     eventManager.loadEvents(eventManager.getEventFile());
@@ -40,6 +45,11 @@ public class EventFacade implements IeventFacade {
     eventManager.addToEventLog(event);
   }
 
+  /**
+   * Gets the basic tick event
+   *
+   * @return
+   */
   @Override
   public Ievent getTickEvent(int tick) {
     return new EventTick(tick);
