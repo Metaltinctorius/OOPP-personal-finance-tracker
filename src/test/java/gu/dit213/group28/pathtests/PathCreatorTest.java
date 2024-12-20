@@ -27,6 +27,7 @@ public class PathCreatorTest {
   private Ipathable pathable;
   private IeventFacade eventFacade;
 
+  /** Sets up variables for tests. */
   @BeforeEach
   public void setUp() {
     pathCreator = new PathCreator();

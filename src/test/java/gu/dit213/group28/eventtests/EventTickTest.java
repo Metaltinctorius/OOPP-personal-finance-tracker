@@ -13,12 +13,14 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/** Tests for EventTick class. */
 public class EventTickTest {
   private EventTick eventTick;
   private Sector sector;
   private Market market;
   private Portfolio portfolio;
 
+  /** Sets up variables for tests. */
   @BeforeEach
   public void setup() {
     sector = Sector.HEALTHCARE;
@@ -28,6 +30,7 @@ public class EventTickTest {
     portfolio.addRecord(sector, 5);
   }
 
+  /** Resets variables for tests. */
   @AfterEach
   public void tearDown() throws NoSuchFieldException, IllegalAccessException {
     eventTick = null;
@@ -37,6 +40,7 @@ public class EventTickTest {
     portfolio = null;
   }
 
+  /** Testing event execute on market. */
   @Test
   public void testEventTickMarket() {
     assertEquals(500, market.getAssets().getFirst().getPrice());
@@ -44,6 +48,7 @@ public class EventTickTest {
     assertNotEquals(500, market.getAssets().getFirst().getPrice());
   }
 
+  /** Testing event execute on User/Portfolio. */
   @Test
   public void testEventTickUser() {
     EventTick eventTick2 = new EventTick(0);
