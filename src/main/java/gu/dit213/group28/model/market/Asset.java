@@ -1,23 +1,16 @@
 package gu.dit213.group28.model.market;
 
 import gu.dit213.group28.model.enums.Sector;
-import gu.dit213.group28.model.user.PriceRecord;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
 /**
- * Represents a financial asset in the market, characterized by its ticker, name, sector, price, and trend.
- * The class also maintains historical price records and allows for trend modifications.
+ * Represents a financial asset in the market, characterized by its ticker, name, sector, price, and
+ * trend. The class also maintains historical price records and allows for trend modifications.
  */
 public class Asset {
-  /** The unique identifier for the asset. */
-  private final String ticker;
-
-  /** The name of the asset. */
-  private final String name;
 
   /** The sector to which the asset belongs. */
   private final Sector sector;
@@ -34,43 +27,20 @@ public class Asset {
   /** A random number generator for simulating random behavior. */
   private final Random rng;
 
-  /** The index value of the asset, used for market indices. */
   private double indexValue;
 
   /**
    * Constructs a new Asset instance.
    *
-   * @param ticker The unique identifier for the asset.
-   * @param name The name of the asset.
    * @param sector The sector to which the asset belongs.
    * @param price The initial price of the asset.
    */
-  public Asset(String ticker, String name, Sector sector, double price) {
-    this.ticker = ticker;
-    this.name = name;
+  public Asset(Sector sector, double price) {
     this.sector = sector;
     this.trend = 0;
     this.price = price;
     this.trendModifiers = new ArrayList<>();
     this.rng = new Random();
-  }
-
-  /**
-   * Retrieves the ticker of the asset.
-   *
-   * @return The asset's ticker.
-   */
-  public String getTicker() {
-    return ticker;
-  }
-
-  /**
-   * Retrieves the name of the asset.
-   *
-   * @return The asset's name.
-   */
-  public String getName() {
-    return name;
   }
 
   /**
@@ -111,15 +81,6 @@ public class Asset {
    */
   public void setIndexValue(double value) {
     indexValue = value;
-  }
-
-  /**
-   * Retrieves the index value of the asset.
-   *
-   * @return The index value.
-   */
-  public double getIndexValue() {
-    return indexValue;
   }
 
   /**

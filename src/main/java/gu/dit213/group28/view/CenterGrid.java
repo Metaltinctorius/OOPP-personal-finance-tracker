@@ -25,6 +25,9 @@ public class CenterGrid {
   private final Map<Sector, Button> sellButtonMap = new HashMap<>();
   private final Map<Sector, TextField> quantityFieldMap = new HashMap<>();
 
+  /** Constructor for the CenterGrid class. It initializes the CenterGrid. */
+  public CenterGrid() {}
+
   /**
    * Populates the center grid with the graphs, controls and information fields.
    *

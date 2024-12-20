@@ -11,6 +11,11 @@ import gu.dit213.group28.model.interfaces.Iobserver;
 /** Class for extracting output from events and updating the view. */
 public class EventExtractor extends Observable implements IeventExtractor {
 
+  /** Constructor for the EventExtractor. Initializes the observer list. */
+  public EventExtractor() {
+    super();
+  }
+
   /**
    * Getter for the observable. Always returns itself.
    *
@@ -35,11 +40,6 @@ public class EventExtractor extends Observable implements IeventExtractor {
         o.updateGraphs(te.tick, te.marketOutput, te.userOutput);
         o.updateCurrency(te.getCurrency());
         o.updateProgress(te.tick, te.getIndexValue(), te.getPlayerValue());
-
-        // o.updateGraphs(te.tick, te.mOutput, te.uOutput);
-        // o.updateOnEvent("Test");
-        // o.updateEventHistory("Test event history");
-
       }
     }
     if (e.getId() == 1) {

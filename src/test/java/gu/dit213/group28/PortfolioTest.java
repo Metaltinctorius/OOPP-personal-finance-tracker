@@ -24,7 +24,7 @@ public class PortfolioTest {
   @BeforeEach
   public void setUp() {
     portfolio = new Portfolio(10000);
-    asset = new Asset("HC", "Healthcare Fund", Sector.HEALTHCARE, 100);
+    asset = new Asset(Sector.HEALTHCARE, 100);
     market = Market.getInstance(); // Trend = 1.00565
     market.addAsset(asset);
   }

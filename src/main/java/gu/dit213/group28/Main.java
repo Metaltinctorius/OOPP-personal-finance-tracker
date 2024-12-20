@@ -11,6 +11,9 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
+  /** Constructor for the Main class. */
+  public Main() {}
+
   /** Initializes the JavaFX application. */
   @Override
   public void start(Stage stage) {

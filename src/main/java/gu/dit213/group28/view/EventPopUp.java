@@ -8,6 +8,9 @@ import javafx.scene.control.Label;
 /** A class that creates a pop-up dialog window when an event occurs. */
 public class EventPopUp {
 
+  /** Constructor for the EventPopUp class. It initializes the EventPopUp. */
+  public EventPopUp() {}
+
   /**
    * Method that creates the pop-up dialog window when an event occurs.
    *

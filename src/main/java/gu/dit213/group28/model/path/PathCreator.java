@@ -7,6 +7,10 @@ import gu.dit213.group28.model.interfaces.Ipathable;
 
 /** Class that creates paths for events. */
 public class PathCreator implements IpathCreator {
+
+  /** Constructor for the PathCreator. */
+  public PathCreator() {}
+
   /**
    * Creates a new Ipath for a given Ipathable and Ievent.
    *

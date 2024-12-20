@@ -10,7 +10,8 @@ public class WrapMarket implements Imarket {
   private final Imarket market;
 
   /**
-   * Wrapper class for Model that ensures thread safety
+   * Wrapper class for Model that ensures thread safety.
+   *
    * @param market the market instance
    */
   public WrapMarket(Imarket market) {

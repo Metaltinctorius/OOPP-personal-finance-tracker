@@ -11,6 +11,7 @@ public class WrapUser implements Iuser {
 
   /**
    * Wrapper class for a user that ensures thread safety.
+   *
    * @param user The portfolio of the playing user.
    */
   public WrapUser(Iuser user) {

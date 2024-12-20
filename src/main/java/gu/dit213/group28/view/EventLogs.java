@@ -12,6 +12,9 @@ import javafx.scene.text.Text;
 public class EventLogs {
   private static VBox eventLogContainer;
 
+  /** Constructor for the EventLogs class. It initializes the EventLogs. */
+  public EventLogs() {}
+
   /**
    * Creates the right side panel of the GUI, which contains the history of news, buy and sell
    * events.

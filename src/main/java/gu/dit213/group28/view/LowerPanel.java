@@ -19,6 +19,9 @@ public class LowerPanel {
   private Button normalButton;
   private Button fastButton;
 
+  /** Constructor for the LowerPanel class. It initializes the LowerPanel. */
+  public LowerPanel() {}
+
   /**
    * Creates the lower panel of the GUI, which contains buttons for controlling the game speed.
    *

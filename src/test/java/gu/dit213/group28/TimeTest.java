@@ -1,5 +1,9 @@
 package gu.dit213.group28;
 
+/**
+ * A class that test the time class, it takes a while to run which is why it is commented out. Also
+ * to save Travis time
+ */
 public class TimeTest {
 
   /*

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class Portfolio implements Iuser, IuserEx {
 
-   /** A list of records tracking the portfolio's investments. */
+  /** A list of records tracking the portfolio's investments. */
   private final List<PortfolioRecord> records;
 
   /** The amount of money available in the portfolio. */
@@ -109,22 +109,6 @@ public class Portfolio implements Iuser, IuserEx {
       }
     }
     return res;
-  }
-
-  /**
-   * Creates a deep copy of the portfolio's state.
-   *
-   * @return A list of PortfolioRecord objects representing the portfolio's state.
-   */
-  public List<PortfolioRecord> getState() {
-    return records.stream()
-        .map(
-            (p) -> { // deep copies
-              PortfolioRecord newP = new PortfolioRecord(p.getSector());
-              newP.addQuantity(p.getQuantity());
-              return newP;
-            })
-        .toList();
   }
 
   /**

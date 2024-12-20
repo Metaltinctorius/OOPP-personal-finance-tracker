@@ -20,7 +20,7 @@ public class AssetTest {
   /** Setup for the tests. */
   @BeforeEach
   public void setUp() {
-    asset = new Asset("S&P500", "Index Fund", Sector.INDEX, 100);
+    asset = new Asset(Sector.INDEX, 100);
     market = Market.getInstance();
     market.addAsset(asset);
   }

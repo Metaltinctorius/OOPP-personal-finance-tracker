@@ -121,15 +121,6 @@ public class Market implements Imarket, ImarketEx {
     trendModifiers.add(mod);
   }
 
-  /*    public void removeTrendModifier() {
-    for (int i = 0; i < trendModifiers.size(); i++) {
-      if (trendModifiers.get(i).getIterationsLeft() == id) {
-        trendModifiers.remove(i);
-        break;
-      }
-    }
-  }*/
-
   /**
    * Decrements the iterations left on all market trend modifiers and removes any that have expired.
    */
@@ -192,7 +183,7 @@ public class Market implements Imarket, ImarketEx {
 
       double price = 500;
 
-      Asset a = new Asset("", "", sector, price);
+      Asset a = new Asset(sector, price);
       assets.add(a);
     }
   }

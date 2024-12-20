@@ -19,6 +19,7 @@ public class View implements Iobserver {
 
   /**
    * The main view class, update various components after being sent a notice by its observer.
+   *
    * @param stage The instance of stage.
    * @param observable The instance of the observable entity.
    */
@@ -34,6 +35,7 @@ public class View implements Iobserver {
 
   /**
    * Sets the eventLog component of the view.
+   *
    * @param eventLog the instance of the event log.
    */
   public void setEventLog(EventLogs eventLog) {
@@ -42,6 +44,7 @@ public class View implements Iobserver {
 
   /**
    * Sets the central graphs component of the view.
+   *
    * @param graphs the instance of the graph
    */
   public void setGraphs(Graphs graphs) {
@@ -49,7 +52,8 @@ public class View implements Iobserver {
   }
 
   /**
-   * ets the InfoBox component of the view.
+   * Sets the InfoBox component of the view.
+   *
    * @param info the instance of InfoBox.
    */
   public void setInfoBox(InfoBox info) {
@@ -58,6 +62,7 @@ public class View implements Iobserver {
 
   /**
    * Sets the Lowerpanel component of the view.
+   *
    * @param low the instance of LowerPanel.
    */
   public void setLowerPanel(LowerPanel low) {

@@ -10,7 +10,8 @@ public class WrapModel implements Imodel {
   private final Imodel model;
 
   /**
-   * Wrapper class for Model that ensures thread safety
+   * Wrapper class for Model that ensures thread safety.
+   *
    * @param model The model used by the gameCore.
    */
   public WrapModel(Imodel model) {

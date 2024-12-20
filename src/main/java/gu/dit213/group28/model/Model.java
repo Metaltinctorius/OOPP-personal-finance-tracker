@@ -55,7 +55,8 @@ public class Model implements Icontrollable, Imodel {
         return;
       }
       gameCore.makePurchase(sector, qty);
-    } catch (NumberFormatException ignored) {
+    } catch (NumberFormatException e) {
+      System.out.println("Invalid input");
     }
   }
 
@@ -73,12 +74,14 @@ public class Model implements Icontrollable, Imodel {
         return;
       }
       gameCore.makeSell(sector, qty);
-    } catch (NumberFormatException ignored) {
+    } catch (NumberFormatException e) {
+      System.out.println("Invalid input");
     }
   }
 
   /**
    * Gets the Observable that this model holds.
+   *
    * @return the observable entity.
    */
   public Observable getObservable() {
