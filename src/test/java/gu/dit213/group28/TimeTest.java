@@ -1,30 +1,13 @@
 package gu.dit213.group28;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import gu.dit213.group28.model.Time;
-import gu.dit213.group28.model.enums.Speed;
-import gu.dit213.group28.model.interfaces.Itimer;
-import java.util.concurrent.TimeUnit;
-import org.junit.Ignore;
-import org.junit.jupiter.api.*;
-
-/** Tests for timer. */
 public class TimeTest {
 
   /*
    * These tests take a long time so we've commented them out
    */
-
-  /*  private Itimer time;
-
-  */
-  /**
-   * Tests initialization of timer.
-   *
-   * @throws InterruptedException If timer thread is interrupted.
-   */
   /*
+  private Itimer time;
+
   @Test
   public void timeInitTest() throws InterruptedException {
     assertEquals(0, time.getCurrentTick());
@@ -32,13 +15,6 @@ public class TimeTest {
     assertEquals(0, time.getCurrentTick());
   }
 
-  */
-  /**
-   * Tests start().
-   *
-   * @throws InterruptedException If timer thread is interrupted.
-   */
-  /*
   @Test
   public void timeStartTest() throws InterruptedException {
     assertEquals(0, time.getCurrentTick());
@@ -47,13 +23,6 @@ public class TimeTest {
     assertEquals(7, time.getCurrentTick());
   }
 
-  */
-  /**
-   * Tests pause().
-   *
-   * @throws InterruptedException If timer thread is interrupted.
-   */
-  /*
   @Test
   public void timePauseTest() throws InterruptedException {
     assertEquals(0, time.getCurrentTick());
@@ -65,13 +34,6 @@ public class TimeTest {
     assertEquals(7, time.getCurrentTick(), 1);
   }
 
-  */
-  /**
-   * Tests if timer updates blocked thread.
-   *
-   * @throws InterruptedException If timer thread is interrupted.
-   */
-  /*
   @Test
   public void timeUpdateTest() throws InterruptedException {
     assertEquals(0, time.getCurrentTick());
@@ -79,13 +41,6 @@ public class TimeTest {
     assertTrue(time.next());
   }
 
-  */
-  /**
-   * Tests Slow setting.
-   *
-   * @throws InterruptedException If timer thread is interrupted.
-   */
-  /*
   @Test
   public void timeSlowTest() throws InterruptedException {
     time.setThreshold(Speed.SLOW);
@@ -93,13 +48,6 @@ public class TimeTest {
     assertTrue(time.next());
   }
 
-  */
-  /**
-   * Tests Normal setting.
-   *
-   * @throws InterruptedException If timer thread is interrupted.
-   */
-  /*
   @Test
   public void timeNormalTest() throws InterruptedException {
     time.setThreshold(Speed.NORMAL);
@@ -107,13 +55,6 @@ public class TimeTest {
     assertTrue(time.next());
   }
 
-  */
-  /**
-   * Tests fast time setting.
-   *
-   * @throws InterruptedException If timer thread is interrupted.
-   */
-  /*
   @Test
   public void timeFastTest() throws InterruptedException {
     time.setThreshold(Speed.FAST);
@@ -121,13 +62,6 @@ public class TimeTest {
     assertTrue(time.next());
   }
 
-  */
-  /**
-   * Tests transition from fast to slow.
-   *
-   * @throws InterruptedException If timer thread is interrupted.
-   */
-  /*
   @Test
   public void timeChangeFastToSlowTest() throws InterruptedException {
     time.setThreshold(Speed.FAST);
@@ -140,13 +74,6 @@ public class TimeTest {
     assertTrue(time.next());
   }
 
-  */
-  /**
-   * Tests transition from slow to fast.
-   *
-   * @throws InterruptedException If timer thread is interrupted.
-   */
-  /*
   @Test
   public void timeChangeSlowToFastTest() throws InterruptedException {
     time.setThreshold(Speed.SLOW);
@@ -158,18 +85,12 @@ public class TimeTest {
     assertTrue(time.next());
   }
 
-  */
-  /** Sets up time variable. */
-  /*
   @BeforeEach
   public void setUp() {
     time = new Time();
     time.initTime();
   }
 
-  */
-  /** Resets time variable. */
-  /*
   @AfterEach
   public void tearDown() {
     time = null;
