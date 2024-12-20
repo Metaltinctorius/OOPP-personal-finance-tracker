@@ -6,7 +6,7 @@ import gu.dit213.group28.model.interfaces.IeventFacade;
 import java.util.List;
 import java.util.Random;
 
-/** Class that works as a facade and API for the event manager. */
+/** This class works as a facade and API for the event manager. */
 public class EventFacade implements IeventFacade {
 
   private final EventManager eventManager;
@@ -46,25 +46,45 @@ public class EventFacade implements IeventFacade {
   }
 
   /**
-   * Gets the basic tick event.
+   * Creates a basic tick event.
    *
-   * @return Basic tick events.
+   * @param tick The current game tick.
+   * @return The tick event.
    */
   @Override
   public Ievent getTickEvent(int tick) {
     return new EventTick(tick);
   }
 
+  /**
+   * Creates a buy event.
+   *
+   * @param sector The sector to buy from.
+   * @param quantity The quantity to buy.
+   * @return The buy event.
+   */
   @Override
   public Ievent getBuyEvent(Sector sector, int quantity) {
     return new EventBuy(sector, quantity);
   }
 
+  /**
+   * Creates a sell event.
+   *
+   * @param sector The sector to sell from.
+   * @param quantity The quantity to sell.
+   * @return The sell event.
+   */
   @Override
   public Ievent getSellEvent(Sector sector, int quantity) {
     return new EventSell(sector, quantity);
   }
 
+  /**
+   * Gets a random predefined event from the predefined event list.
+   *
+   * @return The predefined event.
+   */
   @Override
   public Ievent getPredefinedEvent() {
     Ievent e = eventManager.getRandomEvent();
@@ -72,6 +92,12 @@ public class EventFacade implements IeventFacade {
     return e;
   }
 
+  /**
+   * Checks if a random event should be created. Each call increases the probability for an event to
+   * be created.
+   *
+   * @return True if a random event should be created.
+   */
   @Override
   public boolean isRandomEventReady() {
     if (rng.nextDouble() < randomEventChance) {

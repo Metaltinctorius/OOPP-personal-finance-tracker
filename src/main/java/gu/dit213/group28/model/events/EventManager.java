@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Manages the events in the game. This class uses composition to incorporate an IdManager for
+ * managing event IDs and an EventLoader for loading events from JSON files. It maintains an event
+ * log, provides access to predefined events, and supports retrieving events by ID.
+ */
 public class EventManager {
 
   /** A list of all events that have been initiated during the game's lifecycle. */
@@ -24,12 +29,22 @@ public class EventManager {
   /** The List of predefined events from the JSON file. */
   private List<EventPredef> predefinedEvents;
 
+  /**
+   * Constructor for the EventManager. Initializes the predefinedEvents list and the loader. Also
+   * initializes the IdManager.
+   */
   public EventManager() {
     this.predefinedEvents = new ArrayList<>();
     this.loader = new EventLoader();
     this.idManager = new IdManager();
   }
 
+  /**
+   * Loads the events from the JSON file. The loader is responsible for reading the file and storing
+   * the events in a list. The IdManager is also updated with the reserved IDs from the JSON file.
+   *
+   * @param path The path to the JSON file containing the events.
+   */
   public void loadEvents(String path) {
     loader.loadEvents(path);
     predefinedEvents = loader.getPredefinedEvents();
@@ -47,6 +62,7 @@ public class EventManager {
     return testFile;
   }
 
+  /** Returns the event file path and saves it as a String. Used by the event facade. */
   public String getEventFile() {
     return mvpEvents;
   }
@@ -107,9 +123,12 @@ public class EventManager {
   }
 
   /**
-   * Generates a random id, this is used to take a random event (random index) from the event list.
+   * Generates a random index within the bounds of the predefined events list. This index can be
+   * used to select a random event from the list.
    *
-   * @return int
+   * @return A random index between 0 (inclusive) and the size of the predefined events list
+   *     (exclusive).
+   * @throws IllegalArgumentException If the predefined events list is null or empty.
    */
   private int generateRandomIndex() {
     if (predefinedEvents == null || predefinedEvents.isEmpty()) {
