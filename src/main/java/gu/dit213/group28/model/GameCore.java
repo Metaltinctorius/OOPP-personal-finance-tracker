@@ -36,7 +36,11 @@ public class GameCore implements Ipathable, Icore {
 
   private final List<Ipath> pendingEvents = new ArrayList<>();
 
-  /** Class that takes input, creates events, delivers events and keeps track of game time. */
+  /**
+   * Class that takes input, creates events, delivers events and keeps track of game time.
+   *
+   * @param model The model to be used.
+   */
   public GameCore(Imodel model) {
     timer = new Time();
     timer.initTime();

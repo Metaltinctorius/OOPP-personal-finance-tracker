@@ -4,7 +4,12 @@ import gu.dit213.group28.model.Observable;
 
 /** Interface for an evenExtractor which extracts output from events and sends them to the view. */
 public interface IeventExtractor {
-  /** Getter for the observable. Should be the eventExtractor itself. */
+
+  /**
+   * Getter for the observable. Should be the eventExtractor itself.
+   *
+   * @return the observable
+   */
   Observable getObservable();
 
   /**

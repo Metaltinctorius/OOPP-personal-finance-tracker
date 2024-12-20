@@ -42,7 +42,11 @@ public class EventLogs {
     return titledPane;
   }
 
-  /** Populates the right side panel with news events. */
+  /**
+   * Populates the right side panel with news events.
+   *
+   * @param eventTitle The title of the event.
+   */
   public void populateEventTextBox(String eventTitle) {
     Text eventTile = new Text(eventTitle);
     eventTile.setStyle("-fx-font-size: 14px; -fx-fill: blue; -fx-underline: false;");
@@ -55,7 +59,13 @@ public class EventLogs {
     eventLogContainer.getChildren().add(0, eventTile);
   }
 
-  /** Populates the right side panel with buy events. */
+  /**
+   * Populates the right side panel with buy events.
+   *
+   * @param sector
+   * @param quantity
+   * @param value
+   */
   public void populateBuyTextBox(String sector, int quantity, double value) {
     double sumValue = quantity * value;
     String formattedValue = String.format("%.2f", sumValue);
@@ -73,7 +83,13 @@ public class EventLogs {
     eventLogContainer.getChildren().add(0, buyTile);
   }
 
-  /** Populates the right side panel with sell events. */
+  /**
+   * Populates the right side panel with sell events.
+   *
+   * @param sector
+   * @param quantity
+   * @param value
+   */
   public void populateSellTextBox(String sector, int quantity, double value) {
     double sumValue = quantity * value;
     String formattedValue = String.format("%.2f", sumValue);
@@ -91,6 +107,11 @@ public class EventLogs {
     eventLogContainer.getChildren().add(0, sellTile);
   }
 
+  /**
+   * Getter for the event log text VBox.
+   *
+   * @return The VBox event log container.
+   */
   public VBox getEventLogText() {
     return eventLogContainer;
   }

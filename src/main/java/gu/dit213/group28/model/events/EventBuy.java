@@ -48,10 +48,20 @@ public class EventBuy extends Event {
     return owned;
   }
 
+  /**
+   * Getter for value.
+   *
+   * @return The value of the assets.
+   */
   public double getValue() {
     return value;
   }
 
+  /**
+   * Getter for quantity.
+   *
+   * @return The quantity of assets bought.
+   */
   public int getQuantity() {
     return quantity;
   }

@@ -23,10 +23,6 @@ public class EventFacade implements IeventFacade {
     randomEventChance = -0.2;
   }
 
-  public void loadTestEvents() {
-    eventManager.loadEvents(eventManager.getTestFile());
-  }
-
   /**
    * Returns the event log (the history of passed events).
    *

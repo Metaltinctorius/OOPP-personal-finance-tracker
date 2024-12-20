@@ -25,7 +25,12 @@ public class CenterGrid {
   private final Map<Sector, Button> sellButtonMap = new HashMap<>();
   private final Map<Sector, TextField> quantityFieldMap = new HashMap<>();
 
-  /** Populates the center grid with the graphs, controls and information fields. */
+  /**
+   * Populates the center grid with the graphs, controls and information fields.
+   *
+   * @param grid The grid to populate.
+   * @param view The view to populate.
+   */
   public void populateCenterGrid(GridPane grid, View view) {
     Graphs graphs = new Graphs();
     Sector[] sectors = Sector.values();
@@ -53,7 +58,6 @@ public class CenterGrid {
     view.setGraphs(graphs);
   }
 
-  /** Below are helper methods for creation of the components to populate the center grid. */
   private LineChart<Number, Number> createGraph(Sector sector) {
     NumberAxis xaxis = new NumberAxis();
     NumberAxis yaxis = new NumberAxis();
@@ -90,6 +94,9 @@ public class CenterGrid {
   /**
    * Getter to be used in the controller for every buy button depending on sector. Receives the Key
    * as input and returns the Value in the Key/Value pair.
+   *
+   * @param sector The sector to get the buy button for.
+   * @return The buy button for the sector.
    */
   public Button getBuyButton(Sector sector) {
     return buyButtonMap.get(sector);
@@ -98,6 +105,9 @@ public class CenterGrid {
   /**
    * Getter to be used in the controller for every sell button depending on sector. Receives the Key
    * as input and returns the Value in the Key/Value pair.
+   *
+   * @param sector The sector to get the sell button for.
+   * @return The sell button for the sector.
    */
   public Button getSellButton(Sector sector) {
     return sellButtonMap.get(sector);
@@ -106,15 +116,14 @@ public class CenterGrid {
   /**
    * Getter to be used in the controller for every quantity field depending on sector. Receives the
    * Key as input and returns the Value in the Key/Value pair.
+   *
+   * @param sector The sector to get the quantity field for.
+   * @return The quantity field for the sector.
    */
   public TextField getQuantityField(Sector sector) {
     return quantityFieldMap.get(sector);
   }
 
-  /**
-   * Buy and sell button together with the owned field, wrapped in a horizontal box for scene
-   * alignment of the grid.
-   */
   private HBox createBuySellOwnedBox(Button buyButton, Button sellButton, TextField ownedField) {
     HBox buySellControls = new HBox(10, buyButton, sellButton, new Label("Owned:"), ownedField);
     buySellControls.setAlignment(Pos.CENTER);
@@ -122,7 +131,6 @@ public class CenterGrid {
     return buySellControls;
   }
 
-  /** Graph and controls wrapped in a vertical box for scene alignment of the grid. */
   private VBox createGraphAndControlsBox(
       LineChart<Number, Number> lineChart, HBox buySellOwnedBox, HBox quantityPriceControls) {
     VBox graphAndControls = new VBox(10, lineChart, buySellOwnedBox, quantityPriceControls);
@@ -131,7 +139,6 @@ public class CenterGrid {
     return graphAndControls;
   }
 
-  /** Colour distinction for each sector. */
   private String getColour(Sector s) {
     return switch (s) {
       case INFORMATION_TECHNOLOGY -> "#fba71b";

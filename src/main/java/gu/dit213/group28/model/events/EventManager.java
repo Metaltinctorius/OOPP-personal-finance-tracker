@@ -62,22 +62,38 @@ public class EventManager {
     return testFile;
   }
 
-  /** Returns the event file path and saves it as a String. Used by the event facade. */
+  /**
+   * Returns the event file path and saves it as a String. Used by the event facade.
+   *
+   * @return The event file source path as a string.
+   */
   public String getEventFile() {
     return mvpEvents;
   }
 
-  /** Adds an event to the log. Exposed to the facade. */
+  /**
+   * Adds an event to the log. Exposed to the facade.
+   *
+   * @param event The event to add to the log.
+   */
   public void addToEventLog(Ievent event) {
     eventLog.add(event);
   }
 
-  /** Returns the loaded events. Exposed to the facade. */
+  /**
+   * Returns the loaded events. Exposed to the facade.
+   *
+   * @return The list of predefined events.
+   */
   public List<EventPredef> getPredefinedEvents() {
     return predefinedEvents;
   }
 
-  /** Returns the history (log) of events. Exposed to the facade. */
+  /**
+   * Returns the history (log) of events. Exposed to the facade.
+   *
+   * @return The list of events.
+   */
   public List<Ievent> getEventLog() {
     return eventLog;
   }

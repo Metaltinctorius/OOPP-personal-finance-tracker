@@ -8,6 +8,7 @@ public interface IeventFacade {
    * Creates a basic tick event.
    *
    * @param tick current game tick.
+   * @return basic tick event.
    */
   Ievent getTickEvent(int tick);
 
@@ -38,6 +39,8 @@ public interface IeventFacade {
 
   /**
    * Checks if a random event should be created. Each call increases the probability of the next.
+   *
+   * @return true if a random event should be created.
    */
   boolean isRandomEventReady();
 }
