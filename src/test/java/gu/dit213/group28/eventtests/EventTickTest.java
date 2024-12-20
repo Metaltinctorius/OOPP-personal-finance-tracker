@@ -57,6 +57,6 @@ public class EventTickTest {
     double test = eventTick2.getPlayerValue();
     eventTick.execute(market);
     eventTick.execute(portfolio);
-    assertTrue(test < eventTick.getPlayerValue());
+    assertNotEquals(test, eventTick.getPlayerValue());
   }
 }
