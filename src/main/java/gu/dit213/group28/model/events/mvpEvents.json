@@ -1,0 +1,455 @@
+[
+  {
+    "id": "51",
+    "title": "Federal Reserve Hikes Interest Rates",
+    "description": "The Federal Reserve announces a 0.75% increase in interest rates to curb inflation. The market reacts with caution, affecting all sectors negatively.",
+    "type": "REPEATING",
+    "iterations": "3",
+    "sectors": [],
+    "modifier": "-0.03"
+  },
+  {
+    "id": "52",
+    "title": "Breakthrough in Cancer Treatment",
+    "description": "A major pharmaceutical company announces a breakthrough in cancer treatment, boosting confidence in the healthcare sector.",
+    "type": "REPEATING",
+    "iterations": "6",
+    "sectors": ["HEALTHCARE"],
+    "modifier": "0.10"
+  },
+  {
+    "id": "53",
+    "title": "Tech Giant Launches Revolutionary AI",
+    "description": "A leading tech company releases a new AI platform that is projected to transform multiple industries. The tech sector sees a surge in investments.",
+    "type": "REPEATING",
+    "iterations": "4",
+    "sectors": ["INFORMATION_TECHNOLOGY"],
+    "modifier": "0.12"
+  },
+  {
+    "id": "54",
+    "title": "Real Estate Market Slump",
+    "description": "High mortgage rates and declining demand lead to a slump in the real estate market. Investors turn cautious about the sector.",
+    "type": "REPEATING",
+    "iterations": "5",
+    "sectors": ["REAL_ESTATE"],
+    "modifier": "-0.08"
+  },
+  {
+    "id": "5",
+    "title": "Severe Drought Impacts Utilities",
+    "description": "A severe drought reduces hydroelectric power output, increasing costs for utility companies.",
+    "type": "REPEATING",
+    "iterations": "3",
+    "sectors": ["UTILITIES"],
+    "modifier": "-0.06"
+  },
+  {
+    "id": "6",
+    "title": "Consumer Staples Boom Amid Economic Uncertainty",
+    "description": "Economic uncertainty drives consumers to prioritize essentials, leading to a boom in the consumer staples sector.",
+    "type": "REPEATING",
+    "iterations": "4",
+    "sectors": ["CONSUMER_STAPLES"],
+    "modifier": "0.07"
+  },
+  {
+    "id": "7",
+    "title": "Major Bank Faces Regulatory Penalties",
+    "description": "A leading financial institution faces heavy fines for regulatory violations, shaking investor confidence in the financial sector.",
+    "type": "REPEATING",
+    "iterations": "3",
+    "sectors": ["FINANCIALS"],
+    "modifier": "-0.10"
+  },
+  {
+    "id": "8",
+    "title": "Global Energy Prices Surge",
+    "description": "A geopolitical conflict causes global energy prices to spike, impacting sectors dependent on energy costs.",
+    "type": "REPEATING",
+    "iterations": "5",
+    "sectors": ["UTILITIES", "REAL_ESTATE"],
+    "modifier": "-0.04"
+  },
+  {
+    "id": "9",
+    "title": "New Data Privacy Laws Introduced",
+    "description": "Stricter data privacy regulations are introduced, increasing compliance costs for IT companies.",
+    "type": "REPEATING",
+    "iterations": "3",
+    "sectors": ["INFORMATION_TECHNOLOGY"],
+    "modifier": "-0.05"
+  },
+  {
+    "id": "10",
+    "title": "Housing Demand Skyrockets",
+    "description": "A surge in urban migration and low supply causes a sudden spike in demand for housing, benefiting the real estate sector.",
+    "type": "REPEATING",
+    "iterations": "6",
+    "sectors": ["REAL_ESTATE"],
+    "modifier": "0.09"
+  },
+  {
+    "id": "11",
+    "title": "Tech Company Reports Record Earnings",
+    "description": "A major tech company beats market expectations with record-breaking quarterly earnings, boosting the IT sector.",
+    "type": "REPEATING",
+    "iterations": "3",
+    "sectors": ["INFORMATION_TECHNOLOGY"],
+    "modifier": "0.08"
+  },
+  {
+    "id": "12",
+    "title": "Global Trade Dispute Intensifies",
+    "description": "Rising tariffs and trade barriers between major economies create uncertainty, negatively impacting most sectors.",
+    "type": "REPEATING",
+    "iterations": "4",
+    "sectors": [],
+    "modifier": "-0.02"
+  },
+  {
+    "id": "13",
+    "title": "Healthcare Policy Reforms Announced",
+    "description": "Government announces reforms aimed at reducing healthcare costs, benefiting healthcare providers.",
+    "type": "REPEATING",
+    "iterations": "5",
+    "sectors": ["HEALTHCARE"],
+    "modifier": "0.07"
+  },
+  {
+    "id": "14",
+    "title": "Utility Companies Invest in Renewable Energy",
+    "description": "Utility companies announce significant investments in renewable energy, attracting green-conscious investors.",
+    "type": "REPEATING",
+    "iterations": "6",
+    "sectors": ["UTILITIES"],
+    "modifier": "0.06"
+  },
+  {
+    "id": "15",
+    "title": "Tech Regulation Debate Heats Up",
+    "description": "Lawmakers debate new regulations targeting big tech companies, increasing uncertainty in the IT sector.",
+    "type": "REPEATING",
+    "iterations": "3",
+    "sectors": ["INFORMATION_TECHNOLOGY"],
+    "modifier": "-0.04"
+  },
+  {
+    "id": "16",
+    "title": "Recession Looms Over Economy",
+    "description": "Economic indicators point towards an impending recession, impacting all sectors negatively as investor confidence dwindles.",
+    "type": "REPEATING",
+    "iterations": "4",
+    "sectors": [],
+    "modifier": "-0.03"
+  },
+  {
+    "id": "17",
+    "title": "Major Real Estate Project Delayed",
+    "description": "Construction delays on a high-profile real estate project raise concerns about the sector's growth prospects.",
+    "type": "REPEATING",
+    "iterations": "4",
+    "sectors": ["REAL_ESTATE"],
+    "modifier": "-0.05"
+  },
+  {
+    "id": "18",
+    "title": "Consumer Confidence Rebounds",
+    "description": "A surge in consumer confidence drives demand for essential goods, benefiting the consumer staples sector.",
+    "type": "REPEATING",
+    "iterations": "4",
+    "sectors": ["CONSUMER_STAPLES"],
+    "modifier": "0.05"
+  },
+  {
+    "id": "19",
+    "title": "Healthcare Breakthrough in Gene Therapy",
+    "description": "A groundbreaking discovery in gene therapy revitalizes interest and investment in healthcare.",
+    "type": "REPEATING",
+    "iterations": "6",
+    "sectors": ["HEALTHCARE"],
+    "modifier": "0.08"
+  },
+  {
+    "id": "20",
+    "title": "Financial Sector Sees Increased M&A Activity",
+    "description": "Rising mergers and acquisitions activity bolsters confidence in the financial sector.",
+    "type": "REPEATING",
+    "iterations": "5",
+    "sectors": ["FINANCIALS"],
+    "modifier": "0.06"
+  },
+  {
+    "id": "21",
+    "title": "Tech Stocks Experience Sell-Off",
+    "description": "Investors take profits after a prolonged tech rally, causing a short-term dip in the IT sector.",
+    "type": "REPEATING",
+    "iterations": "2",
+    "sectors": ["INFORMATION_TECHNOLOGY"],
+    "modifier": "-0.5"
+  },
+  {
+    "id": "23",
+    "title": "Natural Disaster Disrupts Real Estate Market",
+    "description": "A major hurricane causes widespread damage to real estate, dampening investor confidence in the sector.",
+    "type": "REPEATING",
+    "iterations": "3",
+    "sectors": ["REAL_ESTATE"],
+    "modifier": "-0.07"
+  },
+  {
+    "id": "24",
+    "title": "Healthcare Workers Strike Nationwide",
+    "description": "A nationwide strike of healthcare workers disrupts operations and reduces revenues in the healthcare sector.",
+    "type": "REPEATING",
+    "iterations": "2",
+    "sectors": ["HEALTHCARE"],
+    "modifier": "-0.05"
+  },
+  {
+    "id": "25",
+    "title": "Utilities Modernize Infrastructure",
+    "description": "Massive government subsidies help utility companies modernize their infrastructure, increasing efficiency and investor confidence.",
+    "type": "REPEATING",
+    "iterations": "5",
+    "sectors": ["UTILITIES"],
+    "modifier": "0.09"
+  },
+  {
+    "id": "26",
+    "title": "Consumer Staples Demand Drops",
+    "description": "A rise in consumer disposable income leads to a shift toward luxury goods, reducing demand for staples.",
+    "type": "REPEATING",
+    "iterations": "3",
+    "sectors": ["CONSUMER_STAPLES"],
+    "modifier": "-0.03"
+  },
+  {
+    "id": "27",
+    "title": "Tech Firm Announces Cybersecurity Breach",
+    "description": "A leading tech company suffers a major cybersecurity breach, affecting consumer trust across the sector.",
+    "type": "REPEATING",
+    "iterations": "2",
+    "sectors": ["INFORMATION_TECHNOLOGY"],
+    "modifier": "-0.05"
+  },
+  {
+    "id": "28",
+    "title": "Interest Rate Cuts Boost Markets",
+    "description": "The Federal Reserve announces interest rate cuts, spurring growth across all sectors.",
+    "type": "REPEATING",
+    "iterations": "3",
+    "sectors": ["INFORMATION_TECHNOLOGY", "FINANCIALS", "REAL_ESTATE", "HEALTHCARE", "CONSUMER_STAPLES", "UTILITIES"],
+    "modifier": "0.04"
+  },
+  {
+    "id": "29",
+    "title": "Tech Startups Thrive Amid Innovation Boom",
+    "description": "A wave of innovation leads to explosive growth among tech startups, boosting the entire IT sector.",
+    "type": "REPEATING",
+    "iterations": "6",
+    "sectors": ["INFORMATION_TECHNOLOGY"],
+    "modifier": "0.07"
+  },
+  {
+    "id": "30",
+    "title": "Global Health Crisis Impacts Healthcare",
+    "description": "A global health crisis increases pressure on healthcare systems, leading to higher costs and reduced sector performance.",
+    "type": "REPEATING",
+    "iterations": "4",
+    "sectors": ["HEALTHCARE"],
+    "modifier": "-0.08"
+  },
+  {
+    "id": "31",
+    "title": "Consumer Goods Recall Hurts Sector",
+    "description": "A major recall in the consumer staples sector leads to reduced trust and sales.",
+    "type": "REPEATING",
+    "iterations": "3",
+    "sectors": ["CONSUMER_STAPLES"],
+    "modifier": "-0.06"
+  },
+  {
+    "id": "32",
+    "title": "Real Estate Tax Reform Spurs Demand",
+    "description": "New tax incentives encourage home ownership, boosting the real estate market.",
+    "type": "REPEATING",
+    "iterations": "4",
+    "sectors": ["REAL_ESTATE"],
+    "modifier": "0.08"
+  },
+  {
+    "id": "33",
+    "title": "Major Utility Company Faces Lawsuit",
+    "description": "A leading utility company faces a costly lawsuit over environmental violations, shaking investor confidence.",
+    "type": "REPEATING",
+    "iterations": "3",
+    "sectors": ["UTILITIES"],
+    "modifier": "-0.05"
+  },
+  {
+    "id": "34",
+    "title": "Breakthrough Renewable Energy Technology",
+    "description": "A breakthrough in renewable energy technology reduces costs and drives growth in the utilities sector.",
+    "type": "REPEATING",
+    "iterations": "5",
+    "sectors": ["UTILITIES"],
+    "modifier": "0.10"
+  },
+  {
+    "id": "35",
+    "title": "Healthcare Sector Benefits from Aging Population",
+    "description": "An aging population increases demand for healthcare services, boosting the sector.",
+    "type": "REPEATING",
+    "iterations": "6",
+    "sectors": ["HEALTHCARE"],
+    "modifier": "0.06"
+  },
+  {
+    "id": "36",
+    "title": "Tech Giants Face Antitrust Investigation",
+    "description": "Major tech companies are under scrutiny for monopolistic practices, creating uncertainty in the IT sector.",
+    "type": "REPEATING",
+    "iterations": "3",
+    "sectors": ["INFORMATION_TECHNOLOGY"],
+    "modifier": "-0.04"
+  },
+  {
+    "id": "37",
+    "title": "Global Financial Crisis Hits Markets",
+    "description": "A global financial crisis sends shockwaves through all sectors, as market liquidity dries up.",
+    "type": "REPEATING",
+    "iterations": "5",
+    "sectors": [],
+    "modifier": "-0.07"
+  },
+  {
+    "id": "38",
+    "title": "Tech Sector Boom Drives IPO Frenzy",
+    "description": "A booming tech sector leads to a wave of successful IPOs, boosting investor confidence.",
+    "type": "REPEATING",
+    "iterations": "4",
+    "sectors": ["INFORMATION_TECHNOLOGY"],
+    "modifier": "0.09"
+  },
+  {
+    "id": "39",
+    "title": "Healthcare Supply Chain Disruptions",
+    "description": "Global supply chain issues disrupt healthcare equipment manufacturing, impacting the sector.",
+    "type": "REPEATING",
+    "iterations": "3",
+    "sectors": ["HEALTHCARE"],
+    "modifier": "-0.05"
+  },
+  {
+    "id": "40",
+    "title": "Consumer Staples Thrive on New Product Innovations",
+    "description": "New product innovations drive sales growth in the consumer staples sector.",
+    "type": "REPEATING",
+    "iterations": "4",
+    "sectors": ["CONSUMER_STAPLES"],
+    "modifier": "0.05"
+  },
+  {
+    "id": "41",
+    "title": "Cyber Attack on Financial Institutions",
+    "description": "A large-scale cyber attack disrupts operations of major banks, reducing trust in the financial sector.",
+    "type": "REPEATING",
+    "iterations": "3",
+    "sectors": ["FINANCIALS"],
+    "modifier": "-0.08"
+  },
+  {
+    "id": "42",
+    "title": "Rising Energy Prices Boost Utility Profits",
+    "description": "Rising energy prices lead to higher revenues for utility companies, attracting investors.",
+    "type": "REPEATING",
+    "iterations": "5",
+    "sectors": ["UTILITIES"],
+    "modifier": "0.06"
+  },
+  {
+    "id": "43",
+    "title": "Real Estate Bubble concerns Grow",
+    "description": "Warnings of a potential real estate bubble cause investor caution in the sector.",
+    "type": "REPEATING",
+    "iterations": "3",
+    "sectors": ["REAL_ESTATE"],
+    "modifier": "-0.04"
+  },
+  {
+    "id": "44",
+    "title": "Federal Stimulus Boosts Healthcare Funding",
+    "description": "A government stimulus package includes significant funding for healthcare, benefiting the sector.",
+    "type": "REPEATING",
+    "iterations": "4",
+    "sectors": ["HEALTHCARE"],
+    "modifier": "0.07"
+  },
+  {
+    "id": "45",
+    "title": "Tech Sector Faces Chip Shortage",
+    "description": "A global chip shortage reduces production capabilities for tech companies, slowing growth in the IT sector.",
+    "type": "REPEATING",
+    "iterations": "3",
+    "sectors": ["INFORMATION_TECHNOLOGY"],
+    "modifier": "-0.06"
+  },
+  {
+    "id": "46",
+    "title": "Utilities Struggle with Climate Change Adaptation",
+    "description": "Rising climate adaptation costs weigh on the utilities sector.",
+    "type": "REPEATING",
+    "iterations": "4",
+    "sectors": ["UTILITIES"],
+    "modifier": "-0.05"
+  },
+  {
+    "id": "47",
+    "title": "Boom in Electric Vehicle Adoption",
+    "description": "Growing electric vehicle adoption boosts demand for related technologies, benefiting the IT sector.",
+    "type": "REPEATING",
+    "iterations": "5",
+    "sectors": ["INFORMATION_TECHNOLOGY"],
+    "modifier": "0.08"
+  },
+  {
+    "id": "48",
+    "title": "Medical Research Grants Surge",
+    "description": "Increased funding for medical research boosts the healthcare sector.",
+    "type": "REPEATING",
+    "iterations": "6",
+    "sectors": ["HEALTHCARE"],
+    "modifier": "0.09"
+  },
+  {
+    "id": "49",
+    "title": "New Mortgage Policies Increase Real Estate Demand",
+    "description": "New mortgage lending policies make it easier for first-time buyers, boosting real estate activity.",
+    "type": "REPEATING",
+    "iterations": "4",
+    "sectors": ["REAL_ESTATE"],
+    "modifier": "0.07"
+  },
+  {
+    "id": "50",
+    "title": "Consumer Staples Hurt by Commodity Price Spike",
+    "description": "Rising commodity prices increase costs for consumer staples companies, squeezing margins.",
+    "type": "REPEATING",
+    "iterations": "3",
+    "sectors": ["CONSUMER_STAPLES"],
+    "modifier": "-0.05"
+  },
+  {
+    "id": "55",
+    "title": "Major market crash due to IT systems failure",
+    "description": "Windows latest update causes a critical failure in IT systems worldwide",
+    "type": "REPEATING",
+    "iterations": "3",
+    "sectors": [],
+    "modifier": "-0.30"
+  }
+
+]
+
+

@@ -1,30 +1,39 @@
 package gu.dit213.group28;
 
+import gu.dit213.group28.model.Model;
+import gu.dit213.group28.view.View;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+/**
+ * The main class of the application. This class is responsible for starting the JavaFX application
+ * and initializing the controller.
+ */
 public class Main extends Application {
-  /**
-   * Instantiating a label and a scene to display the JavaFX version and Java version. Dummy code to
-   * test the JavaFX environment. Feel free to replace with or expand to the dummy graph of our
-   * weekly goal. If you do so however and want to push to gitHub, please notify others. Also feel
-   * free to remove this comment since it is just a dummy JavaDoc test.
-   */
+
+  /** Constructor for the Main class. */
+  public Main() {}
+
+  /** Initializes the JavaFX application. */
   @Override
   public void start(Stage stage) {
-    String javaVersion = System.getProperty("java.version");
-    String javafxVersion = System.getProperty("javafx.version");
-    Label l =
-        new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
-    Scene scene = new Scene(new StackPane(l), 640, 480);
-    stage.setScene(scene);
-    stage.show();
+    Model model = new Model();
+
+    new Controller(stage, model, new View(stage, model.getObservable()));
   }
 
+  /**
+   * Launches the JavaFX application.
+   *
+   * @param args The arguments passed to the application.
+   */
   public static void main(String[] args) {
     launch();
+  }
+
+  @Override
+  public void stop() throws Exception {
+    super.stop();
+    System.exit(0);
   }
 }

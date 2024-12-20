@@ -1,0 +1,31 @@
+[
+  {
+    "id": "1",
+    "title": "TEST REPEATING HEALTHCARE",
+    "description": "Test repeating event with 6 iterations, healthcare",
+    "type": "REPEATING",
+    "iterations": "6",
+    "sectors": ["HEALTHCARE"],
+    "modifier": "0.10"
+  },
+  {
+    "id": "2",
+    "title": "TEST ONCE",
+    "description": "Once, no sectors",
+    "type": "ONCE",
+    "iterations": "1",
+    "sectors": ["HEALTHCARE", "UTILITIES", "FINANCIALS"],
+    "modifier": "0.10"
+  },
+  {
+    "id": "3",
+    "title": "TEST ONCE NO SECTOR",
+    "description": "Once, no sectors",
+    "type": "ONCE",
+    "iterations": "1",
+    "sectors": [],
+    "modifier": "0.10"
+  }
+]
+
+
