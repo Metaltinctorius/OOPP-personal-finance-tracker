@@ -8,7 +8,12 @@ import gu.dit213.group28.model.interfaces.Ipathable;
 public class PreDefPath extends AbstractPath implements Ipath {
   private int trigger;
 
-  /** Path for regular predefined events. */
+  /**
+   * Path for regular predefined events.
+   *
+   * @param p The path to be executed.
+   * @param e The event to be executed
+   */
   public PreDefPath(Ipathable p, Ievent e) {
     super(p, e);
     trigger = 1;

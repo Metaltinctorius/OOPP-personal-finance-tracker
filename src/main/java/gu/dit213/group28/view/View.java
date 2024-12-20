@@ -17,7 +17,11 @@ public class View implements Iobserver {
   private LowerPanel low;
   private EventLogs eventLog;
 
-  /** The main view class, update various components after being sent a notice by its observer. */
+  /**
+   * The main view class, update various components after being sent a notice by its observer.
+   * @param stage The instance of stage.
+   * @param observable The instance of the observable entity.
+   */
   public View(Stage stage, Observable observable) {
     this.stage = stage;
     observable.addObserver(this);
@@ -28,22 +32,34 @@ public class View implements Iobserver {
     stage.show();
   }
 
-  /** Sets the eventLog component of the view. */
+  /**
+   * Sets the eventLog component of the view.
+   * @param eventLog the instance of the event log.
+   */
   public void setEventLog(EventLogs eventLog) {
     this.eventLog = eventLog;
   }
 
-  /** Sets the central graphs component of the view. */
+  /**
+   * Sets the central graphs component of the view.
+   * @param graphs the instance of the graph
+   */
   public void setGraphs(Graphs graphs) {
     this.graphs = graphs;
   }
 
-  /** Sets the InfoBox component of the view. */
+  /**
+   * ets the InfoBox component of the view.
+   * @param info the instance of InfoBox.
+   */
   public void setInfoBox(InfoBox info) {
     this.info = info;
   }
 
-  /** Sets the Lowerpanel component of the view. */
+  /**
+   * Sets the Lowerpanel component of the view.
+   * @param low the instance of LowerPanel.
+   */
   public void setLowerPanel(LowerPanel low) {
     this.low = low;
   }

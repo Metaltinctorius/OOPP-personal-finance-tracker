@@ -9,7 +9,10 @@ public class WrapModel implements Imodel {
   private final ReentrantLock lock = new ReentrantLock();
   private final Imodel model;
 
-  /** Wrapper class for Model that ensures thread safety. */
+  /**
+   * Wrapper class for Model that ensures thread safety
+   * @param model The model used by the gameCore.
+   */
   public WrapModel(Imodel model) {
     this.model = model;
   }

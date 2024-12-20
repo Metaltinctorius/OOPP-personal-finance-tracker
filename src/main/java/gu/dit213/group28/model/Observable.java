@@ -6,6 +6,10 @@ import java.util.List;
 
 /** Abstract class that allows the view to register itself as an observer. */
 public abstract class Observable {
+
+  /**
+   * List of observers that can be observed by the view.
+   */
   protected final List<Iobserver> observers;
 
   /** Abstract class that allows the view to register itself as an observer. */

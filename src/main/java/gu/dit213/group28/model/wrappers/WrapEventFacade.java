@@ -10,7 +10,10 @@ public class WrapEventFacade implements IeventFacade {
   private final ReentrantLock lock = new ReentrantLock();
   private final IeventFacade facade;
 
-  /** Wrapper class for EventFacade that ensures thread safety. */
+  /**
+   * Wrapper class for EventFacade that ensures thread safety.
+   * @param facade the event facade used by the game core.
+   */
   public WrapEventFacade(IeventFacade facade) {
     this.facade = facade;
   }

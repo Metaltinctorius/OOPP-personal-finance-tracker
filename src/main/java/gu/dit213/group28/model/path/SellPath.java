@@ -6,7 +6,13 @@ import gu.dit213.group28.model.interfaces.Ipathable;
 
 /** Path for regular sell events. */
 public class SellPath extends AbstractPath implements Ipath {
-  /** Path for regular sell events. */
+
+  /**
+   * Path for regular sell events.
+   *
+   * @param p The path to be executed.
+   * @param e The event to be executed
+   */
   public SellPath(Ipathable p, Ievent e) {
     super(p, e);
   }
