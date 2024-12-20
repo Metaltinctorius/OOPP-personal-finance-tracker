@@ -3,9 +3,10 @@ package gu.dit213.group28.model.market;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.Ievent;
 import gu.dit213.group28.model.interfaces.Imarket;
-
 import gu.dit213.group28.model.interfaces.ImarketEx;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Represents a financial market that maintains a list of assets and overall trend modifiers. It
@@ -144,7 +145,6 @@ public class Market implements Imarket, ImarketEx {
   }
 
   /** Decrements the iterations left on all trend modifiers across the market and its assets. */
-
   @Override
   public void decrementAllModifiers() {
     decrementMarketModifiers();

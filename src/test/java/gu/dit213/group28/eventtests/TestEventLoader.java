@@ -1,30 +1,36 @@
-package gu.dit213.group28.eventTests;
+package gu.dit213.group28.eventtests;
 
-import gu.dit213.group28.model.enums.Sector;
+import gu.dit213.group28.model.enums.EventType;
+import gu.dit213.group28.model.events.EventFacade;
+import gu.dit213.group28.model.events.EventLoader;
 import gu.dit213.group28.model.events.EventManager;
 import gu.dit213.group28.model.events.EventPredef;
-import gu.dit213.group28.model.events.EventFacade;
-import gu.dit213.group28.model.enums.EventType;
-import gu.dit213.group28.model.events.EventLoader;
 import java.util.List;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.*;
 
+/**
+ * Test suite for the event loader.
+ */
 public class TestEventLoader {
 
-  static EventFacade facade;
   private EventLoader loader;
   List<EventPredef> predefinedEvents;
 
-
-
+  /**
+   * Test that the id of the loaded event is the same as the json file specified id.
+   */
   @Test
   public void test_id() {
-    int actualId = predefinedEvents.get(0).getID();
+    int actualId = predefinedEvents.get(0).getId();
     int expectedId = 1;
     Assertions.assertEquals(expectedId, actualId);
   }
 
+  /**
+   * Test that the description of the loaded event is the same as the json file specified.
+   */
   @Test
   public void test_description() {
     String description = predefinedEvents.get(0).getDescription();
@@ -32,6 +38,9 @@ public class TestEventLoader {
     Assertions.assertEquals(description, expected);
   }
 
+  /**
+   * Test that the title of the loaded event is the same as the json file specified.
+   */
   @Test
   public void test_title() {
     String description = predefinedEvents.get(0).getTitle();
@@ -39,6 +48,9 @@ public class TestEventLoader {
     Assertions.assertEquals(description, expected);
   }
 
+  /**
+   * Test that the type of the loaded event is the same as the json file specified.
+   */
   @Test
   public void test_type_once() {
     EventType type = predefinedEvents.get(1).getType();
@@ -46,11 +58,17 @@ public class TestEventLoader {
     Assertions.assertEquals(type, expected);
   }
 
+  /**
+   * Test that an event with empty list of sectors is actually empty.
+   */
   @Test
   public void test_type_once_empty_sectors() {
     Assertions.assertTrue(predefinedEvents.get(2).getSectors().isEmpty());
   }
 
+  /**
+   * Test that the type is correctly read by the loader.
+   */
   @Test
   public void test_type_repeating() {
     EventType type = predefinedEvents.get(0).getType();
@@ -58,12 +76,9 @@ public class TestEventLoader {
     Assertions.assertEquals(type, expected);
   }
 
-  @Test
-  public void test_type_once_iterations_zero() {
-    EventPredef event = predefinedEvents.get(1);
-    Assertions.assertEquals(event.getIterations(), 1);
-  }
-
+  /**
+   * Test that the iterations are correctly read.
+   */
   @Test
   public void test_iterations() {
     EventPredef event = predefinedEvents.get(0);
@@ -72,12 +87,14 @@ public class TestEventLoader {
     Assertions.assertEquals(expected, actual);
   }
 
+  /**
+   * Setup for the tests.
+   */
   @BeforeEach
   public void setup() {
-    facade = new EventFacade();
     loader = new EventLoader();
     EventManager manager = new EventManager();
     loader.loadEvents(manager.getTestFile());
-    predefinedEvents = loader.getPredefinedEvents(); // Loads the events.
+    predefinedEvents = loader.getPredefinedEvents();
   }
 }

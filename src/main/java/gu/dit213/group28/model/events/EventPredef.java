@@ -8,6 +8,7 @@ import gu.dit213.group28.model.market.Asset;
 import gu.dit213.group28.model.market.TrendModifier;
 import java.util.List;
 
+/** This class represents predefined events that can be loaded from a json file. */
 public class EventPredef extends Event {
 
   private final List<Sector> sectors;
@@ -17,6 +18,17 @@ public class EventPredef extends Event {
   private final String description;
   private final double modifier;
 
+  /**
+   * Constructor for EventPredef.
+   *
+   * @param id The id of the event.
+   * @param title The title of the event.
+   * @param description The description of the event.
+   * @param type The type of the event.
+   * @param iterations The number of iterations the event will last.
+   * @param sectorCategories The sectors the event will affect.
+   * @param modifier The modifier of the event.
+   */
   public EventPredef(
       int id,
       String title,
@@ -34,22 +46,47 @@ public class EventPredef extends Event {
     this.sectors = sectorCategories;
   }
 
+  /**
+   * Returns the description of the event.
+   *
+   * @return Description of the event
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * Returns the title of the event.
+   *
+   * @return Title of the event
+   */
   public String getTitle() {
     return title;
   }
 
+  /**
+   * Returns the type of the event.
+   *
+   * @return Type of the event
+   */
   public EventType getType() {
     return type;
   }
 
+  /**
+   * Returns the number of iterations the event will last.
+   *
+   * @return Number of iterations
+   */
   public int getIterations() {
     return iterations;
   }
 
+  /**
+   * Returns the modifier of the event.
+   *
+   * @return Modifier of the event
+   */
   public double getModifier() {
     return modifier;
   }
@@ -57,14 +94,14 @@ public class EventPredef extends Event {
   /**
    * Returns the list of sectors for the event.
    *
-   * @return List <Sector>
+   * @return List of sectors
    */
   public List<Sector> getSectors() {
     return sectors;
   }
 
   /**
-   * Method that executes the event. This adds the events modifier to the market.
+   * Executes event on given ImarketEx. This adds the events modifier to the market.
    *
    * @param m ImarketEx to be executed upon
    */
@@ -85,6 +122,11 @@ public class EventPredef extends Event {
     }
   }
 
+  /**
+   * Executes event on given IuserEx.
+   *
+   * @param u IuserEx to be executed upon
+   */
   @Override
   public void execute(IuserEx u) {}
 }

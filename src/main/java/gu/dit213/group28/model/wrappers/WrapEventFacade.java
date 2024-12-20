@@ -3,16 +3,18 @@ package gu.dit213.group28.model.wrappers;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.Ievent;
 import gu.dit213.group28.model.interfaces.IeventFacade;
-
 import java.util.concurrent.locks.ReentrantLock;
 
 /** Wrapper class for EventFacade that ensures thread safety. */
-public class wEventFacade implements IeventFacade {
+public class WrapEventFacade implements IeventFacade {
   private final ReentrantLock lock = new ReentrantLock();
   private final IeventFacade facade;
 
-  /** Wrapper class for EventFacade that ensures thread safety. */
-  public wEventFacade(IeventFacade facade) {
+  /**
+   * Wrapper class for EventFacade that ensures thread safety.
+   * @param facade the event facade used by the game core.
+   */
+  public WrapEventFacade(IeventFacade facade) {
     this.facade = facade;
   }
 

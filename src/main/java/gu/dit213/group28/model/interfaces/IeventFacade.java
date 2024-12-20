@@ -8,11 +8,12 @@ public interface IeventFacade {
    * Creates a basic tick event.
    *
    * @param tick current game tick.
+   * @return basic tick event.
    */
   Ievent getTickEvent(int tick);
 
   /**
-   * Creates a basic buy event
+   * Creates a basic buy event.
    *
    * @param sector The sector of the assets.
    * @param quantity The quantity of assets bought
@@ -21,24 +22,25 @@ public interface IeventFacade {
   Ievent getBuyEvent(Sector sector, int quantity);
 
   /**
-   * Creates a basic sell event
+   * Creates a basic sell event.
    *
    * @param sector The sector of the assets.
-   * @param quantity The quantity of assets sold
-   * @return Basic sell event
+   * @param quantity The quantity of assets sold.
+   * @return Basic sell event.
    */
   Ievent getSellEvent(Sector sector, int quantity);
 
   /**
-   * Creates an event based on a set predefined events
+   * Creates an event based on a set predefined events.
    *
-   * @return Predefined event
+   * @return Predefined event.
    */
   Ievent getPredefinedEvent();
 
-
   /**
    * Checks if a random event should be created. Each call increases the probability of the next.
+   *
+   * @return true if a random event should be created.
    */
   boolean isRandomEventReady();
 }

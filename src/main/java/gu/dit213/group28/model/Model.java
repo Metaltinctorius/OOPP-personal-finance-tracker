@@ -1,11 +1,11 @@
 package gu.dit213.group28.model;
 
 import gu.dit213.group28.model.enums.Sector;
+import gu.dit213.group28.model.interfaces.Icontrollable;
 import gu.dit213.group28.model.interfaces.Icore;
 import gu.dit213.group28.model.interfaces.Ievent;
 import gu.dit213.group28.model.interfaces.IeventExtractor;
 import gu.dit213.group28.model.interfaces.Imodel;
-import gu.dit213.group28.model.interfaces.Icontrollable;
 
 /** Class that receives and delivers input. */
 public class Model implements Icontrollable, Imodel {
@@ -18,7 +18,7 @@ public class Model implements Icontrollable, Imodel {
     gameCore = new GameCore(this);
   }
 
-  /** Initializes the Icontrollable */
+  /** Initializes the Icontrollable. */
   public void init() {
     gameCore.init();
   }
@@ -50,11 +50,11 @@ public class Model implements Icontrollable, Imodel {
   @Override
   public void buyAsset(Sector sector, String quantity) {
     try {
-      int quantity_ = Integer.parseInt(quantity);
-      if (quantity_ <= 0) {
+      int qty = Integer.parseInt(quantity);
+      if (qty <= 0) {
         return;
       }
-      gameCore.makePurchase(sector, quantity_);
+      gameCore.makePurchase(sector, qty);
     } catch (NumberFormatException ignored) {
     }
   }
@@ -68,16 +68,19 @@ public class Model implements Icontrollable, Imodel {
   @Override
   public void sellAsset(Sector sector, String quantity) {
     try {
-      int quantity_ = Integer.parseInt(quantity);
-      if (quantity_ <= 0) {
+      int qty = Integer.parseInt(quantity);
+      if (qty <= 0) {
         return;
       }
-      gameCore.makeSell(sector, quantity_);
+      gameCore.makeSell(sector, qty);
     } catch (NumberFormatException ignored) {
     }
   }
 
-  /** Gets the Observable that this model holds. */
+  /**
+   * Gets the Observable that this model holds.
+   * @return the observable entity.
+   */
   public Observable getObservable() {
     return eventExtractor.getObservable();
   }
@@ -93,7 +96,7 @@ public class Model implements Icontrollable, Imodel {
   }
 
   /**
-   * Informs view about game pause
+   * Informs view about game pause.
    *
    * @param pause true if paused, false if resumed
    */

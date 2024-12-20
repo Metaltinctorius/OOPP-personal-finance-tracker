@@ -1,6 +1,6 @@
 package gu.dit213.group28.model.interfaces;
 
-/** Interface for a model */
+/** Interface for a model. */
 public interface Imodel {
   /**
    * Extracts an event and updates the view.
@@ -10,9 +10,9 @@ public interface Imodel {
   void extractEvent(Ievent e);
 
   /**
-   * Informs view about game pause
+   * Informs view about game pause.
    *
-   * @param pause true if paused, false if resumed
+   * @param pause true if paused, false if resumed.
    */
   void updatePause(boolean pause);
 }

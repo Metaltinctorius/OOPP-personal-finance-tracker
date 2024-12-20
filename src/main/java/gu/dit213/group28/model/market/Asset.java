@@ -1,6 +1,8 @@
 package gu.dit213.group28.model.market;
 
 import gu.dit213.group28.model.enums.Sector;
+import gu.dit213.group28.model.user.PriceRecord;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

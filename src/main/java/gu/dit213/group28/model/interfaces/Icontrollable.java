@@ -1,14 +1,13 @@
 package gu.dit213.group28.model.interfaces;
 
 import gu.dit213.group28.model.enums.Sector;
-import java.util.List;
 
 /**
  * This interface defines which methods the controller can reach. These methods should be defined in
  * the model and called in the controller.
  */
 public interface Icontrollable {
-  /** Initializes the Icontrollable */
+  /** Initializes the Icontrollable. */
   void init();
 
   /** Sets game speed to fast. Exact speed depends on the timer used. */

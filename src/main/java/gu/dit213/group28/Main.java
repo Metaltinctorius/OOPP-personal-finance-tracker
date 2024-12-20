@@ -19,7 +19,11 @@ public class Main extends Application {
     new Controller(stage, model, new View(stage, model.getObservable()));
   }
 
-  /** Launches the JavaFX application. */
+  /**
+   * Launches the JavaFX application.
+   *
+   * @param args The arguments passed to the application.
+   */
   public static void main(String[] args) {
     launch();
   }

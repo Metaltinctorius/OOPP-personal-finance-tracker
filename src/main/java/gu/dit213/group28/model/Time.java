@@ -25,7 +25,7 @@ public class Time implements Itimer {
     queue = new SynchronousQueue<>();
   }
 
-  /** Initializes the timer */
+  /** Initializes the timer. */
   public void initTime() {
     timer.scheduleAtFixedRate(
         () -> {
@@ -52,7 +52,7 @@ public class Time implements Itimer {
    * Sets the speed of the timer. The actual definition of the different speeds are defined by the
    * timer.
    *
-   * @param s Speed enum
+   * @param s Speed enum.
    */
   public void setThreshold(Speed s) {
     lock.lock();
@@ -75,23 +75,23 @@ public class Time implements Itimer {
   }
 
   /**
-   * Blocks the current thread until the next game tick occurs-
+   * Blocks the current thread until the next game tick occurs.
    *
-   * @return Always true
-   * @throws InterruptedException
+   * @return Always true.
+   * @throws InterruptedException if the thread is interrupted.
    */
   public boolean next() throws InterruptedException {
     return queue.take();
   }
 
-  /** Starts the timer */
+  /** Starts the timer. */
   public void start() {
     lock.lock();
     running = true;
     lock.unlock();
   }
 
-  /** Pauses the timer */
+  /** Pauses the timer. */
   public void pause() {
     lock.lock();
     running = false;
@@ -113,7 +113,7 @@ public class Time implements Itimer {
    * Retrieves the current timer tick. Note that this is not the same as a game tick. A game tick
    * occurs after a certain number of timer ticks, as defined in the timer itself.
    *
-   * @return current timer tick
+   * @return current timer tick.
    */
   public int getCurrentTick() {
     return tick;

@@ -3,6 +3,7 @@ package gu.dit213.group28.model.interfaces;
 import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.enums.Speed;
 
+/** Interface for the core of the game. */
 public interface Icore {
   /** Initializes the GameCore, starting the timer. */
   void init();
