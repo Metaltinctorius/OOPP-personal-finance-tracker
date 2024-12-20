@@ -98,12 +98,21 @@ public class EventManager {
     return eventLog;
   }
 
-  /** Returns a random event picked from the predefined events. Exposed to the facade. */
+  /**
+   * Returns a random event picked from the predefined events. Exposed to the facade.
+   *
+   * @return return a predefined random event.
+   */
   public EventPredef getRandomEvent() {
     return returnRandomEvent();
   }
 
-  /** Returns an event from identification. Exposed to the facade. */
+  /**
+   * Returns an event from identification. Exposed to the facade.
+   *
+   * @param id The id of the event to search for in the predefinedEvents list.
+   * @return returns an event with the id if found.
+   */
   public EventPredef getEventFromId(int id) {
     return returnEventFromId(id);
   }

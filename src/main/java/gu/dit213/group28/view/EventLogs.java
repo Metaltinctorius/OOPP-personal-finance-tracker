@@ -47,7 +47,7 @@ public class EventLogs {
    *
    * @param eventTitle The title of the event.
    */
-  public void populateEventTextBox(String eventTitle) {
+  public void populateHistoryWithNewsEvent(String eventTitle) {
     Text eventTile = new Text(eventTitle);
     eventTile.setStyle("-fx-font-size: 14px; -fx-fill: blue; -fx-underline: false;");
     eventTile.setOnMouseEntered(
@@ -62,11 +62,11 @@ public class EventLogs {
   /**
    * Populates the right side panel with buy events.
    *
-   * @param sector
-   * @param quantity
-   * @param value
+   * @param sector The sector of the assets.
+   * @param quantity The quantity of assets bought.
+   * @param value The value of the assets.
    */
-  public void populateBuyTextBox(String sector, int quantity, double value) {
+  public void populateHistoryWithBuyEvent(String sector, int quantity, double value) {
     double sumValue = quantity * value;
     String formattedValue = String.format("%.2f", sumValue);
     Text buyTile =
@@ -86,11 +86,11 @@ public class EventLogs {
   /**
    * Populates the right side panel with sell events.
    *
-   * @param sector
-   * @param quantity
-   * @param value
+   * @param sector The sector of the assets.
+   * @param quantity The quantity of assets sold.
+   * @param value The value of the assets.
    */
-  public void populateSellTextBox(String sector, int quantity, double value) {
+  public void populateHistoryWithSellEvent(String sector, int quantity, double value) {
     double sumValue = quantity * value;
     String formattedValue = String.format("%.2f", sumValue);
     Text sellTile =

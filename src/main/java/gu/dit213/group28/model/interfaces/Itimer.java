@@ -29,7 +29,11 @@ public interface Itimer {
   /** Pauses the timer. */
   void pause();
 
-  /** Pauses the timer if currently active, resumes the timer if currently paused. */
+  /**
+   * Pauses the timer if currently active, resumes the timer if currently paused.
+   *
+   * @return true if the timer is running, false if it is paused
+   */
   boolean pauseAndResume();
 
   /**

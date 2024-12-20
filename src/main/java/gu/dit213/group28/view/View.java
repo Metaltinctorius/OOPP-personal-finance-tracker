@@ -113,7 +113,7 @@ public class View implements Iobserver {
   public void updateEventHistory(String eventTitle, String eventDescription) {
     Platform.runLater(
         () -> {
-          eventLog.populateEventTextBox(eventTitle);
+          eventLog.populateHistoryWithNewsEvent(eventTitle);
           eventLog
               .getEventLogText()
               .getChildren()
@@ -125,13 +125,15 @@ public class View implements Iobserver {
   /** Updates the history panel with buy events. */
   @Override
   public void updateBuyHistory(Sector sector, int quantity, double value) {
-    Platform.runLater(() -> eventLog.populateBuyTextBox(sector.toString(), quantity, value));
+    Platform.runLater(
+        () -> eventLog.populateHistoryWithBuyEvent(sector.toString(), quantity, value));
   }
 
   /** Updates the history panel with sell events. */
   @Override
   public void updateSellHistory(Sector sector, int quantity, double value) {
-    Platform.runLater(() -> eventLog.populateSellTextBox(sector.toString(), quantity, value));
+    Platform.runLater(
+        () -> eventLog.populateHistoryWithSellEvent(sector.toString(), quantity, value));
   }
 
   /** Updates the pause button in the lower panel. */
