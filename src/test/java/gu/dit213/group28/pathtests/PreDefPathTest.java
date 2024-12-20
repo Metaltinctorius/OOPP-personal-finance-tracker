@@ -14,7 +14,13 @@ import gu.dit213.group28.model.interfaces.Ipathable;
 import gu.dit213.group28.model.path.PreDefPath;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests for PreDefPath.
+ */
 public class PreDefPathTest {
+  /**
+   * Tests that a pending PreDefPath gives the right values.
+   */
   @Test
   public void pendingTest() {
     Imodel m = new Model();

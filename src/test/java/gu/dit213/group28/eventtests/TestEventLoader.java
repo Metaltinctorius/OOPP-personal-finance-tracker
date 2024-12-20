@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 public class TestEventLoader {
 
-  static EventFacade facade;
   private EventLoader loader;
   List<EventPredef> predefinedEvents;
 
@@ -72,7 +71,6 @@ public class TestEventLoader {
 
   @BeforeEach
   public void setup() {
-    facade = new EventFacade();
     loader = new EventLoader();
     EventManager manager = new EventManager();
     loader.loadEvents(manager.getTestFile());

@@ -21,7 +21,6 @@ public class TestEventPredef {
 
   @Test
   public void test_sectors_not_empty() {
-
     List<Asset> assets = market.getAssets();
     event.execute(market);
 
@@ -43,7 +42,7 @@ public class TestEventPredef {
     market = Market.getInstance();
   }
 
-  public EventPredef createEvent() {
+  private EventPredef createEvent() {
     List<Sector> sectors = new ArrayList<>();
     sectors.add(Sector.HEALTHCARE);
     return new EventPredef(99, "test event", "for testing", EventType.ONCE, 1, sectors, 0.2);

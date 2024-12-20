@@ -14,7 +14,7 @@ public class BuyPath extends AbstractPath implements Ipath {
   /**
    * Starts a path for the buy event held by this path.
    *
-   * @return true if path is finished and can be discarded, false otherwise
+   * @return true if path is finished and can be discarded, false otherwise.
    */
   @Override
   public boolean start() {

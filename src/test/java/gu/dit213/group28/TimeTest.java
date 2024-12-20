@@ -11,7 +11,11 @@ import org.junit.jupiter.api.*;
 
 @Ignore
 public class TimeTest {
-/*
+
+  /*
+   * These tests take a long time so we've commented them out
+   */
+  /*
   private Itimer time;
 
   @Ignore
