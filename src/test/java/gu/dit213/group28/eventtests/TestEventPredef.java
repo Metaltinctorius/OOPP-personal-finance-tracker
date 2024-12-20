@@ -13,12 +13,17 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/** Test suite for the predefined event class. */
 public class TestEventPredef {
 
   ImarketEx market;
   EventFacade facade;
   EventPredef event;
 
+  /**
+   * Test that the sectors receives the trend (market gets modified) when a predefined event is
+   * "triggered".
+   */
   @Test
   public void test_sectors_not_empty() {
 
@@ -36,16 +41,22 @@ public class TestEventPredef {
     Assertions.assertEquals(actual, expected);
   }
 
+  /**
+   * Test the creation of a predefined event.
+   *
+   * @return EventPredef
+   */
+  public EventPredef createEvent() {
+    List<Sector> sectors = new ArrayList<>();
+    sectors.add(Sector.HEALTHCARE);
+    return new EventPredef(99, "test event", "for testing", EventType.ONCE, 1, sectors, 0.2);
+  }
+
+  /** Setup for the tests. */
   @BeforeEach
   public void setup() {
     event = createEvent();
     facade = new EventFacade();
     market = Market.getInstance();
-  }
-
-  public EventPredef createEvent() {
-    List<Sector> sectors = new ArrayList<>();
-    sectors.add(Sector.HEALTHCARE);
-    return new EventPredef(99, "test event", "for testing", EventType.ONCE, 1, sectors, 0.2);
   }
 }

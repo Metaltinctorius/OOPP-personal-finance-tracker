@@ -6,7 +6,10 @@ import gu.dit213.group28.model.interfaces.IeventFacade;
 import java.util.List;
 import java.util.Random;
 
-/** This class works as a facade and API for the event manager. */
+/**
+ * This class works as a facade and API for the event manager, game Core uses the facade for any
+ * event related logic.
+ */
 public class EventFacade implements IeventFacade {
 
   private final EventManager eventManager;
@@ -21,10 +24,6 @@ public class EventFacade implements IeventFacade {
     this.eventManager = new EventManager();
     eventManager.loadEvents(eventManager.getEventFile());
     randomEventChance = -0.2;
-  }
-
-  public void loadTestEvents() {
-    eventManager.loadEvents(eventManager.getTestFile());
   }
 
   /**
