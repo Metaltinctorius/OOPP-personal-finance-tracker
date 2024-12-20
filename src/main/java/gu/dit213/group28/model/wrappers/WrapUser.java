@@ -9,7 +9,10 @@ public class WrapUser implements Iuser {
   private final ReentrantLock lock = new ReentrantLock();
   private final Iuser user;
 
-  /** Wrapper class for a user that ensures thread safety. */
+  /**
+   * Wrapper class for a user that ensures thread safety.
+   * @param user The portfolio of the playing user.
+   */
   public WrapUser(Iuser user) {
     this.user = user;
   }

@@ -4,7 +4,9 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 
-/** Class for creating a welcome dialog. */
+/**
+ * Class for creating a welcome dialog.
+ */
 public class WelcomeDialog {
 
   /** Creates a welcome dialog that is shown when the game is started. */

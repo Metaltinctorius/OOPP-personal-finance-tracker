@@ -77,7 +77,10 @@ public class Model implements Icontrollable, Imodel {
     }
   }
 
-  /** Gets the Observable that this model holds. */
+  /**
+   * Gets the Observable that this model holds.
+   * @return the observable entity.
+   */
   public Observable getObservable() {
     return eventExtractor.getObservable();
   }

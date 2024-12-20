@@ -9,7 +9,10 @@ public class WrapMarket implements Imarket {
   private final ReentrantLock lock = new ReentrantLock();
   private final Imarket market;
 
-  /** Wrapper class for Market that ensures thread safety. */
+  /**
+   * Wrapper class for Model that ensures thread safety
+   * @param market the market instance
+   */
   public WrapMarket(Imarket market) {
     this.market = market;
   }
