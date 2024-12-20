@@ -9,6 +9,9 @@ import java.util.concurrent.TimeUnit;
 import org.junit.Ignore;
 import org.junit.jupiter.api.*;
 
+/**
+ * Test suite for testing the timer in the game.
+ */
 @Ignore
 public class TimeTest {
 
