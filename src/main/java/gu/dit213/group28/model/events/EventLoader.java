@@ -10,9 +10,14 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+/**
+ * This class is responsible for loading the events from the json file. It reads the file and stores
+ * the events in a list. It also stores the ids of the predefined events in a separate list to be
+ * used by the idManager.
+ */
 public class EventLoader implements IeventLoader {
 
-  /** This is where the events from the json file are read and stored. */
+  /** List where the events from the json file are read and stored. */
   private final List<EventPredef> predefinedEvents;
 
   /**
@@ -21,6 +26,7 @@ public class EventLoader implements IeventLoader {
    */
   private final List<Integer> reservedIds;
 
+  /** Constructor for the EventLoader. */
   public EventLoader() {
     predefinedEvents = new ArrayList<>();
     reservedIds = new ArrayList<>();

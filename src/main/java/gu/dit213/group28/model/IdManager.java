@@ -10,6 +10,7 @@ public class IdManager {
 
   private int nextDynamicId;
 
+  /** Constructor for the IdManager. */
   public IdManager() {}
 
   /**
