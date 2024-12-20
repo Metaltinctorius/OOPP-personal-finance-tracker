@@ -39,10 +39,20 @@ public class EventSell extends Event {
     return sector;
   }
 
+  /**
+   * Getter for quantity.
+   *
+   * @return The quantity of the assets.
+   */
   public int getQuantity() {
     return quantity;
   }
 
+  /**
+   * Getter for value.
+   *
+   * @return The value of the assets.
+   */
   public double getValue() {
     return value;
   }

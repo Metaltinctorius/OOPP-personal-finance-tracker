@@ -6,18 +6,23 @@ import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.market.Asset;
 import gu.dit213.group28.model.market.Market;
 import gu.dit213.group28.model.market.TrendModifier;
+import gu.dit213.group28.model.records.MarketOutput;
 import gu.dit213.group28.model.user.Portfolio;
 import gu.dit213.group28.model.user.PortfolioEntry;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/** Tests for Portfolio. */
 public class PortfolioTest {
   private Market market;
   private Portfolio portfolio;
   private Asset asset;
 
+  /** Sets up a portfolio, asset and market. */
   @BeforeEach
   public void setUp() {
     portfolio = new Portfolio(10000);
@@ -26,6 +31,12 @@ public class PortfolioTest {
     market.addAsset(asset);
   }
 
+  /**
+   * Resets everything including market singleton.
+   *
+   * @throws NoSuchFieldException exception from setting market instance to null.
+   * @throws IllegalAccessException exception from setting market instance to null.
+   */
   @AfterEach
   public void tearDown() throws NoSuchFieldException, IllegalAccessException {
     Field instance = Market.class.getDeclaredField("instance");
@@ -35,80 +46,33 @@ public class PortfolioTest {
     portfolio = null;
   }
 
+  /** Tests adding an asset. */
   @Test
-  public void testBuyAsset() {
-    portfolio.addEntry(new PortfolioEntry(asset.getSector(), 5, asset.getPrice()));
-    Sector ownedSector = portfolio.getEntries().getFirst().getSector();
-
-    Asset ownedAsset = null;
-    for (Asset asset : market.getAssets()) {
-      if (asset.getSector().equals(ownedSector)) {
-        ownedAsset = asset;
-        break;
-      }
-    }
-    assertEquals(asset.getSector(), ownedAsset.getSector());
+  public void testAddAsset() {
+    portfolio.addRecord(asset.getSector(), 5);
+    int res = portfolio.getRecordQuantity(asset.getSector());
+    assertEquals(5, res);
   }
 
+  /**
+   * Tests adding assets twice (the first time assets are added creates the portfolio record, the
+   * second just updates it).
+   */
   @Test
-  public void testGetTrendAsset() {
-    asset.addTrendModifier(new TrendModifier(.1, 1));
-    assertEquals(.1, asset.getTrend());
+  public void testAddExistingAsset() {
+    portfolio.addRecord(asset.getSector(), 5);
+    portfolio.addRecord(asset.getSector(), 5);
+    int res = portfolio.getRecordQuantity(asset.getSector());
+    assertEquals(10, res);
   }
 
+  /** Tests get total value. */
   @Test
-  public void testUpdatePrice() {
-    asset.updatePrice();
-    double expectedPrice = 100 * 1.00565;
-    assertEquals(expectedPrice, asset.getPrice(), 2.514125);
-  }
-
-  @Test
-  public void testPriceModifier() {
-    asset.addTrendModifier(new TrendModifier(.1, 1));
-    asset.updatePrice();
-    double expectedPrice = 100 * (0.1 + 1.00565);
-    assertEquals(expectedPrice, asset.getPrice(), 2.764125);
-  }
-
-  @Test
-  public void testDecrementMods() {
-    asset.addTrendModifier(new TrendModifier(.1, 2));
-    asset.decrementAssetModifiers();
-    assertEquals(1, asset.getTrendModifiers().getFirst().getIterationsLeft());
-  }
-
-  @Test
-  public void testRemoveModifier() {
-    asset.addTrendModifier(new TrendModifier(.1, 1));
-    asset.decrementAssetModifiers();
-    assertEquals(0, asset.getTrendModifiers().size());
-  }
-
-  @Test
-  public void testMarketModifierDecrement() {
-    market.addTrendModifier(new TrendModifier(.1, 2));
-    market.decrementMarketModifiers();
-    assertEquals(1, market.getTrendModifiers().getFirst().getIterationsLeft());
-  }
-
-  @Test
-  public void testMarketModifierRemove() {
-    market.addTrendModifier(new TrendModifier(.1, 1));
-    market.decrementMarketModifiers();
-    assertEquals(0, market.getTrendModifiers().size());
-  }
-
-  @Test
-  void testDecrementAllMods() {
-    asset.addTrendModifier(new TrendModifier(.1, 2));
-    market.addTrendModifier(new TrendModifier(.1, 1));
-    market.decrementAllModifiers();
-    assertEquals(0, market.getTrendModifiers().size());
-    assertEquals(1, asset.getTrendModifiers().getFirst().getIterationsLeft());
-    market.decrementAllModifiers();
-    assertEquals(0, market.getTrendModifiers().size());
-    assertEquals(0, asset.getTrendModifiers().size());
-    assertEquals(1.00565, market.getTrend());
+  public void testGetTotalValue() {
+    portfolio.addRecord(asset.getSector(), 5);
+    List<MarketOutput> mo = new ArrayList<>();
+    mo.add(new MarketOutput(asset.getSector(), 10));
+    double res = portfolio.getTotalValue(mo);
+    assertEquals(10050, res);
   }
 }

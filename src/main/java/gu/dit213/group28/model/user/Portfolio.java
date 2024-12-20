@@ -152,22 +152,6 @@ public class Portfolio implements Iuser, IuserEx {
   }
 
   /**
-   * Creates a deep copy of the portfolio's state.
-   *
-   * @return A list of PortfolioRecord objects representing the portfolio's state.
-   */
-  public List<PortfolioRecord> getState() {
-    return records.stream()
-        .map(
-            (p) -> { // deep copies
-              PortfolioRecord newP = new PortfolioRecord(p.getSector());
-              newP.addQuantity(p.getQuantity());
-              return newP;
-            })
-        .toList();
-  }
-
-  /**
    * Accepts an event and applies it to the portfolio using the visitor pattern.
    *
    * @param e The event to execute on the portfolio.

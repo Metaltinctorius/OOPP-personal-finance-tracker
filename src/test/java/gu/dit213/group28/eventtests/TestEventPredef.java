@@ -26,7 +26,6 @@ public class TestEventPredef {
    */
   @Test
   public void test_sectors_not_empty() {
-
     List<Asset> assets = market.getAssets();
     event.execute(market);
 
