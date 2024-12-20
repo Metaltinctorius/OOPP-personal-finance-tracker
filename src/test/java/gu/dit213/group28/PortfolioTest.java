@@ -7,7 +7,7 @@ import gu.dit213.group28.model.market.Asset;
 import gu.dit213.group28.model.market.TrendModifier;
 import gu.dit213.group28.model.market.Market;
 import gu.dit213.group28.model.user.Portfolio;
-import gu.dit213.group28.model.user.PortfolioEntry;
+import gu.dit213.group28.model.user.PortfolioRecord;
 import java.lang.reflect.Field;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,8 +37,8 @@ public class PortfolioTest {
 
   @Test
   public void testBuyAsset() {
-    portfolio.addEntry(new PortfolioEntry(asset.getSector(), 5, asset.getPrice()));
-    Sector ownedSector = portfolio.getEntries().getFirst().getSector();
+    portfolio.addRecord(asset.getSector(), 5);
+    Sector ownedSector = portfolio.getRecords().getFirst().getSector();
 
     Asset ownedAsset = null;
     for (Asset asset : market.getAssets()) {
@@ -60,7 +60,7 @@ public class PortfolioTest {
   public void testUpdatePrice() {
     asset.updatePrice();
     double expectedPrice = 100 * 1.00565;
-    assertEquals(expectedPrice, asset.getPrice(), 2.514125);
+    assertEquals(expectedPrice, asset.getPrice(), expectedPrice * 0.025);
   }
 
   @Test
@@ -68,7 +68,7 @@ public class PortfolioTest {
     asset.addTrendModifier(new TrendModifier(.1, 1));
     asset.updatePrice();
     double expectedPrice = 100 * (0.1 + 1.00565);
-    assertEquals(expectedPrice, asset.getPrice(), 2.764125);
+    assertEquals(expectedPrice, asset.getPrice(), expectedPrice * 0.025);
   }
 
   @Test

@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import gu.dit213.group28.model.market.Asset;
 import gu.dit213.group28.model.market.Market;
 import gu.dit213.group28.model.user.Portfolio;
-import gu.dit213.group28.model.user.PortfolioEntry;
 import gu.dit213.group28.model.market.TrendModifier;
 import gu.dit213.group28.model.enums.Sector;
 

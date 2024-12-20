@@ -1,16 +1,14 @@
 package gu.dit213.group28.model.market;
 
-import gu.dit213.group28.model.user.PriceRecord;
 import gu.dit213.group28.model.enums.Sector;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.time.LocalDate;
 import java.util.Random;
 
 /**
- * Represents a financial asset in the market, characterized by its ticker, name, sector, price, and
- * trend. The class also maintains historical price records and allows for trend modifications.
+ * Represents a financial asset in the market, characterized by its ticker, name, sector, price, and trend.
+ * The class also maintains historical price records and allows for trend modifications.
  */
 public class Asset {
   /** The unique identifier for the asset. */
@@ -30,9 +28,6 @@ public class Asset {
 
   /** The current price of the asset. */
   private double price;
-
-  /** A list of historical price records for the asset. */
-  private final List<PriceRecord> historicalPrices;
 
   /** A random number generator for simulating random behavior. */
   private final Random rng;
@@ -54,7 +49,6 @@ public class Asset {
     this.sector = sector;
     this.trend = 0;
     this.price = price;
-    this.historicalPrices = new ArrayList<>();
     this.trendModifiers = new ArrayList<>();
     this.rng = new Random();
   }
@@ -127,15 +121,6 @@ public class Asset {
   }
 
   /**
-   * Retrieves the historical price records of the asset.
-   *
-   * @return A list of historical price records.
-   */
-  public List<PriceRecord> getHistoricalPrices() {
-    return historicalPrices;
-  }
-
-  /**
    * Retrieves the list of trend modifiers affecting the asset.
    *
    * @return A list of trend modifiers.
@@ -174,6 +159,5 @@ public class Asset {
     price *= 1 + (rng.nextDouble() - 0.5) / 20;
 
     indexValue = price;
-    historicalPrices.add(new PriceRecord(price, LocalDate.now()));
   }
 }

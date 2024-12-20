@@ -15,9 +15,6 @@ import java.util.List;
  */
 public class Portfolio implements Iuser, IuserEx {
 
-  /** A list of entries representing the portfolio's investments. */
-  private final List<PortfolioEntry> entries;
-
   /** A list of records tracking the portfolio's investments. */
   private final List<PortfolioRecord> records;
 
@@ -30,7 +27,6 @@ public class Portfolio implements Iuser, IuserEx {
    * @param startMoney The initial amount of money in the portfolio.
    */
   public Portfolio(int startMoney) {
-    entries = new ArrayList<>();
     records = new ArrayList<>();
     money = startMoney;
   }
@@ -51,33 +47,6 @@ public class Portfolio implements Iuser, IuserEx {
    */
   public void addCurrency(double amount) {
     money += amount;
-  }
-
-  /**
-   * Adds a new portfolio entry.
-   *
-   * @param entry The PortfolioEntry to add.
-   */
-  public void addEntry(PortfolioEntry entry) {
-    entries.add(entry);
-  }
-
-  /**
-   * Removes a specified portfolio entry.
-   *
-   * @param entry The PortfolioEntry to remove.
-   */
-  public void removeEntry(PortfolioEntry entry) {
-    entries.remove(entry);
-  }
-
-  /**
-   * Retrieves the list of portfolio entries.
-   *
-   * @return A list of PortfolioEntry objects.
-   */
-  public List<PortfolioEntry> getEntries() {
-    return entries;
   }
 
   /**
@@ -141,15 +110,6 @@ public class Portfolio implements Iuser, IuserEx {
       }
     }
     return res;
-  }
-
-  /**
-   * Calculates the total cost of all portfolio entries.
-   *
-   * @return The total cost of entries.
-   */
-  public double getTotalCost() {
-    return entries.stream().mapToDouble(PortfolioEntry::getTotalCost).sum();
   }
 
   /**

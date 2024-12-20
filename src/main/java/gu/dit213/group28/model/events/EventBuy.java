@@ -4,7 +4,6 @@ import gu.dit213.group28.model.enums.Sector;
 import gu.dit213.group28.model.interfaces.ImarketEx;
 import gu.dit213.group28.model.interfaces.IuserEx;
 import gu.dit213.group28.model.market.Asset;
-import gu.dit213.group28.model.user.PortfolioEntry;
 
 /** Basic event for buying assets. */
 public class EventBuy extends Event {
@@ -81,7 +80,6 @@ public class EventBuy extends Event {
     owned = u.getRecordQuantity(sector);
     if (u.getCurrency() >= value * quantity) {
       u.addCurrency(-value * quantity);
-      u.addEntry(new PortfolioEntry(sector, quantity, value));
       u.addRecord(sector, quantity);
       owned = u.getRecordQuantity(sector);
     } else {
