@@ -11,9 +11,16 @@ import java.util.List;
 
 /** Basic tick event. */
 public class EventTick extends Event {
+
+  /** List of market outputs. */
   public final List<MarketOutput> marketOutput;
+
+  /** Current game tick. */
   public final int tick;
+
+  /** List of user outputs. */
   public final List<UserOutput> userOutput;
+
   private double currency;
   private double indexValue;
   private double playerValue;
@@ -30,17 +37,29 @@ public class EventTick extends Event {
     userOutput = new ArrayList<>();
   }
 
-  /** Gets the current currency of the user. */
+  /**
+   * Gets the current currency of the user.
+   *
+   * @return currency
+   */
   public double getCurrency() {
     return currency;
   }
 
-  /** Gets the total value of all index fund assets. */
+  /**
+   * Gets the total value of all index fund assets.
+   *
+   * @return indexValue
+   */
   public double getIndexValue() {
     return indexValue;
   }
 
-  /** Gets the total value of all player assets and currency. */
+  /**
+   * Gets the total value of all player assets and currency.
+   *
+   * @return playerValue
+   */
   public double getPlayerValue() {
     return playerValue;
   }

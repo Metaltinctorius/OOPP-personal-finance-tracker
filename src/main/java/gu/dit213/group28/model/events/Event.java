@@ -25,6 +25,11 @@ public abstract class Event implements Ievent {
     return id;
   }
 
+  /**
+   * Setter for event ID.
+   *
+   * @param id event ID
+   */
   protected void setId(int id) {
     this.id = id;
   }

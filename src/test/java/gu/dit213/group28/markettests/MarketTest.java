@@ -13,14 +13,24 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/** Test suite for the market instance. */
 public class MarketTest {
   private Market market;
 
+  /** Setup for the tests. */
   @BeforeEach
   public void setUp() {
     market = Market.getInstance();
   }
 
+  /**
+   * Important to run between each test in order to reset the market instance, since it is a
+   * singleton.
+   *
+   * @throws NoSuchFieldException Exception for when the name would be wrong
+   * @throws IllegalAccessException Exception for when the instanced object is not accessible (when
+   *     setAccessible is set to null).
+   */
   @AfterEach
   public void tearDown() throws NoSuchFieldException, IllegalAccessException {
     Field instance = Market.class.getDeclaredField("instance");
@@ -28,24 +38,28 @@ public class MarketTest {
     instance.set(null, null);
   }
 
+  /** Test that the market only can exist as a singleton instance. */
   @Test
   public void singletonTest() {
     Market market2 = Market.getInstance();
     assertSame(market, market2);
   }
 
+  /** Test that the market can return the assets. */
   @Test
   public void getAssetsTest() {
     List<Asset> assets = market.getAssets();
     assertEquals(assets.size(), Sector.values().length - 1);
   }
 
+  /** Test that the market starts with the fixed index value. */
   @Test
   public void indexValueTest() {
     double index = market.getIndexValue();
     assertEquals(100000, index, 1);
   }
 
+  /** Test that the modifiers affects and changes the market trends. */
   @Test
   public void testTrendModifier() {
     market.addTrendModifier(new TrendModifier(.1, 1));
@@ -54,6 +68,7 @@ public class MarketTest {
     assertEquals(1.60565, market.getTrend(), 0.001);
   }
 
+  /** Test to return the modifiers currently in the market (remaining iterations). */
   @Test
   public void testGetTrendModifiers() {
     market.addTrendModifier(new TrendModifier(.1, 1));
@@ -65,6 +80,7 @@ public class MarketTest {
     assertEquals(0, market.getTrendModifiers().size());
   }
 
+  /** Test that the market can decrement all iterations of the modifiers. */
   @Test
   public void decrementAllTest() {
     market.addTrendModifier(new TrendModifier(.1, 1));
